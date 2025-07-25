@@ -1,3 +1,5 @@
-export default function AboutUs() {
-  return <div>page</div>;
+import AboutSection from "@/components/about-us/about-section";
+
+export default function AboutUsPage() {
+  return <AboutSection />;
 }
