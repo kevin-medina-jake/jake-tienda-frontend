@@ -19,6 +19,7 @@ export const Navbar = () => {
               className="w-full px-4 py-2 border border-gray-400 focus:border-blue-50 rounded-full"
               placeholder="Buscar..."
             />
+
             <Search className="absolute right-4" />
           </div>
           <ul className="flex gap-4">
