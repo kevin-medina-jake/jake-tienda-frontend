@@ -2,7 +2,7 @@ import { Car } from "lucide-react";
 
 export const TrustSection = () => {
   return (
-    <section className="flex items-center w-full flex-wrap justify-between min-h-40">
+    <section className="flex items-center max-w-7xl mx-auto w-full flex-wrap justify-between min-h-40">
       <div className="flex gap-4 items-center p-4 w-max">
         <section>
           <Car size={50} />

@@ -9,7 +9,7 @@ export const Navbar = () => {
   return (
     <>
       {/* Desktop Menu And Search Bar */}
-      <nav className="bg-white max-w-7xl w-full sm:flex z-50 gap-4 h-[100] justify-between fixed left-1/2 transform -translate-x-1/2 top-0 px-4 py-2 border-b border-gray-400 hidden">
+      <nav className="bg-white max-w-8xl w-full sm:flex z-50 gap-4 h-[100] justify-between fixed left-1/2 transform -translate-x-1/2 top-0 px-4 py-2 border-b border-gray-400 hidden">
         <section className="flex items-center">
           <Image src={Logo} alt="logo" width={100} height={50} />
         </section>

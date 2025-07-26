@@ -27,7 +27,7 @@ export const Presentation = () => {
         }}
         loop={true}
         modules={[Autoplay, Pagination, Navigation]}
-        className="h-[calc(100vh-300px)]"
+        className="h-[calc(100vh-250px)]"
       >
         <SwiperSlide>
           <img

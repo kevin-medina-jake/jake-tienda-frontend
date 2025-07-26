@@ -2,7 +2,7 @@ import Images from "@/assets/home/carrousel/image copy 2.png";
 
 export const Categories = () => {
   return (
-    <section className="flex flex-col gap-4 px-4">
+    <section className="flex flex-col gap-4 px-4 max-w-7xl mx-auto w-full">
       <div>
         <h2 className="text-2xl font-semibold text-center">Categories</h2>
       </div>

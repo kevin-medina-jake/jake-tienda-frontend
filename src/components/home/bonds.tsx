@@ -2,7 +2,7 @@ import Images from "@/assets/home/bonds/image.png";
 
 export const Bonds = () => {
   return (
-    <div className="grid grid-cols-4 grid-rows-4 gap-4">
+    <div className="grid grid-cols-4 grid-rows-4 gap-4 max-w-7xl mx-auto w-full">
       <div className="col-span-4 row-span-2">
         <div className="flex p-8 bg-gray-100 rounded-sm gap-4">
           <section className="max-w-2xl">
