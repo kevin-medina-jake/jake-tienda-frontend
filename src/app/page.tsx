@@ -1,3 +1,4 @@
+import { Bonds } from "@/components/home/bonds";
 import { Categories } from "@/components/home/categories";
 import { Presentation } from "@/components/home/presentation";
 import { TrustSection } from "@/components/home/trust-section";
@@ -8,6 +9,7 @@ export default function Home() {
       <Presentation />
       <TrustSection />
       <Categories />
+      <Bonds />
     </div>
   );
 }
