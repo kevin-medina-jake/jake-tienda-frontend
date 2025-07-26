@@ -5,7 +5,7 @@ import { TrustSection } from "@/components/home/trust-section";
 
 export default function Home() {
   return (
-    <div className="h-full">
+    <div className="pb-4">
       <Presentation />
       <TrustSection />
       <Categories />

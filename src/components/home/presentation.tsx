@@ -36,14 +36,34 @@ export const Presentation = () => {
             className="w-full h-full object-cover"
           />
         </SwiperSlide>
-        <SwiperSlide>Slide 2</SwiperSlide>
-        <SwiperSlide>Slide 3</SwiperSlide>
-        <SwiperSlide>Slide 4</SwiperSlide>
-        <SwiperSlide>Slide 5</SwiperSlide>
-        <SwiperSlide>Slide 6</SwiperSlide>
-        <SwiperSlide>Slide 7</SwiperSlide>
-        <SwiperSlide>Slide 8</SwiperSlide>
-        <SwiperSlide>Slide 9</SwiperSlide>
+        <SwiperSlide>
+          <img
+            src={Carrousel.src}
+            alt="Slide 1"
+            className="w-full h-full object-cover"
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img
+            src={Carrousel.src}
+            alt="Slide 1"
+            className="w-full h-full object-cover"
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img
+            src={Carrousel.src}
+            alt="Slide 1"
+            className="w-full h-full object-cover"
+          />
+        </SwiperSlide>
+        <SwiperSlide>
+          <img
+            src={Carrousel.src}
+            alt="Slide 1"
+            className="w-full h-full object-cover"
+          />
+        </SwiperSlide>
       </Swiper>
     </>
   );
