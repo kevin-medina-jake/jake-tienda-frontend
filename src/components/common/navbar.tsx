@@ -44,7 +44,7 @@ export const Navbar = () => {
       </nav>
 
       {/* Mobile Menu And Search Bar */}
-      <nav className="bg-white w-full flex flex-col z-50 gap-4 absolute left-1/2 transform -translate-x-1/2 top-0 p-2 py-2 border-b border-gray-400 sm:hidden">
+      <nav className="bg-white w-full flex flex-col z-50 gap-4 fixed left-1/2 transform -translate-x-1/2 top-0 p-2 py-2 border-b border-gray-400 sm:hidden">
         <section className="flex justify-between items-center">
           <button className="p-2">
             <Menu />
