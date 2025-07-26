@@ -7,8 +7,8 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 
-import "@/styles/home/presentation.css";
 import Carrousel from "@/assets/home/carrousel/image copy 2.png";
+import "@/styles/home/presentation.css";
 
 // import required modules
 import { Autoplay, Navigation, Pagination } from "swiper/modules";

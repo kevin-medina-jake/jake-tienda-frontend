@@ -14,7 +14,7 @@ export const Categories = () => {
         <CardCategory />
       </div>
 
-      <div className="grid place-content-center pb-4">
+      <div className="grid place-content-center">
         <button className="px-10 py-3 bg-blue-100 rounded-full font-medium">
           Ver Todos
         </button>
