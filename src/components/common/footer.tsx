@@ -30,8 +30,8 @@ export default function Footer() {
             className="object-contain"
           />
           <p className="text-center md:text-left text-gray-400 text-sm">
-            Tu tienda de tecnología y sonido en Popayán.  
-            Productos de calidad, asesoría profesional y crédito accesible.
+            Tu tienda de tecnología y sonido en Popayán. Productos de calidad,
+            asesoría profesional y crédito accesible.
           </p>
         </div>
 
@@ -91,7 +91,8 @@ export default function Footer() {
 
       {/* Línea inferior */}
       <div className="mt-10 border-t border-gray-700 pt-6 text-center text-gray-500 text-sm">
-        © {new Date().getFullYear()} Jake Tienda Electrónica. Todos los derechos reservados.
+        © {new Date().getFullYear()} Jake Tienda Electrónica. Todos los derechos
+        reservados.
       </div>
     </footer>
   );

@@ -31,7 +31,7 @@ export default function RootLayout({
       >
         <Navbar />
 
-        <main className="min-h-screen grid mt-[100px] max-w-7xl w-full mx-auto">
+        <main className="flex flex-col h-full mt-[100px] max-w-7xl w-full mx-auto">
           {children}
         </main>
 
