@@ -28,7 +28,9 @@ export const Navbar = () => {
             <li>
               <Link href="/">Inicio</Link>
             </li>
-            <li>Productos</li>
+            <li>
+              <Link href="/products">Productos</Link>
+            </li>
             <li>Marcas</li>
             <li>
               <Link href="/about-us">Sobre Nosotros</Link>
