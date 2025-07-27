@@ -13,7 +13,7 @@ import "@/styles/home/carrousel-products.css";
 // import required modules
 import { Pagination } from "swiper/modules";
 
-export const CarrouselProducts = () => {
+export const CarouselProducts = () => {
   return (
     <>
       <Swiper

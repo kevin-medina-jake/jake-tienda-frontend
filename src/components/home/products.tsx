@@ -1,5 +1,5 @@
 import Images from "@/assets/home/carrousel/image copy 2.png";
-import { CarrouselProducts } from "./carrousel-products";
+import { CarouselProducts } from "./carousel-products";
 
 export const Products = () => {
   return (
@@ -20,7 +20,7 @@ export const Products = () => {
         </section>
 
         <section className="sm:col-span-3 h-full w-full">
-          <CarrouselProducts />
+          <CarouselProducts />
         </section>
       </div>
     </section>

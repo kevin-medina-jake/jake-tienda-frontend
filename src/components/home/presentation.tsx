@@ -7,64 +7,34 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import "swiper/css/pagination";
 
-import Carrousel from "@/assets/home/carrousel/image copy 2.png";
 import "@/styles/home/presentation.css";
 
 // import required modules
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { ICarouselPresentation, IPresentation } from "@/types/home";
 
-export const Presentation = () => {
+export const Presentation = ({ presentations }: any) => {
+  const listPresentation: ICarouselPresentation[] = presentations;
+
   return (
-    <>
-      <Swiper
-        spaceBetween={30}
-        pagination={{
-          clickable: true,
-        }}
-        autoplay={{
-          delay: 2000,
-          disableOnInteraction: false,
-        }}
-        loop={true}
-        modules={[Autoplay, Pagination, Navigation]}
-        className="h-[calc(100vh-250px)]"
-      >
-        <SwiperSlide>
-          <img
-            src={Carrousel.src}
-            alt="Slide 1"
-            className="w-full h-full object-cover"
-          />
+    <Swiper
+      spaceBetween={0}
+      pagination={{
+        clickable: true,
+      }}
+      autoplay={{
+        delay: 2000,
+        disableOnInteraction: false,
+      }}
+      loop={true}
+      modules={[Autoplay, Pagination, Navigation]}
+      className="h-[calc(100vh-250px)]"
+    >
+      {listPresentation.map((presentation: ICarouselPresentation) => (
+        <SwiperSlide key={presentation.id}>
+          <img src={presentation.url} alt="Slide 1" />
         </SwiperSlide>
-        <SwiperSlide>
-          <img
-            src={Carrousel.src}
-            alt="Slide 1"
-            className="w-full h-full object-cover"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            src={Carrousel.src}
-            alt="Slide 1"
-            className="w-full h-full object-cover"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            src={Carrousel.src}
-            alt="Slide 1"
-            className="w-full h-full object-cover"
-          />
-        </SwiperSlide>
-        <SwiperSlide>
-          <img
-            src={Carrousel.src}
-            alt="Slide 1"
-            className="w-full h-full object-cover"
-          />
-        </SwiperSlide>
-      </Swiper>
-    </>
+      ))}
+    </Swiper>
   );
 };
