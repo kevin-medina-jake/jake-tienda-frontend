@@ -1,4 +1,4 @@
-import { ICarouselPresentation, IPresentation } from "@/types/home";
+import { ICarouselPresentation } from "@/types/home";
 
 export const parseCarouselPresentationImage = (
   presentations: any
