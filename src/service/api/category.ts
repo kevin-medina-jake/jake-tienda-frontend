@@ -1,5 +1,9 @@
 import { client } from "./strapi";
-import { parseCategoryDropDownMenu } from "@/lib/parse-category";
+import {
+  parseCategoryCart,
+  parseCategoryDropDownMenu,
+} from "@/lib/parse-category";
+import { ICategoryCart } from "@/types/category";
 import { IDropDownMenu } from "@/types/navbar";
 
 export const categoryDropdown = async (): Promise<IDropDownMenu[]> => {
@@ -9,6 +13,20 @@ export const categoryDropdown = async (): Promise<IDropDownMenu[]> => {
     });
 
     return parseCategoryDropDownMenu(response.data);
+  } catch (error) {
+    return [];
+  }
+};
+
+export const categoryCart = async (): Promise<ICategoryCart[]> => {
+  try {
+    const response = await client.collection("categories").find({
+      populate: ["image"],
+    });
+
+    const result = parseCategoryCart(response.data);
+
+    return result;
   } catch (error) {
     return [];
   }

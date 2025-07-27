@@ -1,6 +1,13 @@
-import Images from "@/assets/home/carrousel/image copy 2.png";
+import Link from "next/link";
 
-export const Categories = () => {
+import { categoryCart } from "@/service/api/category";
+import { ICategoryCart } from "@/types/category";
+
+export const Categories = async () => {
+  const categories = (await categoryCart()) as ICategoryCart[];
+
+  if (categories.length === 0) return null;
+
   return (
     <section className="flex flex-col gap-4 px-4 max-w-7xl mx-auto w-full">
       <div>
@@ -8,10 +15,9 @@ export const Categories = () => {
       </div>
 
       <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2  gap-4 py-4 ">
-        <CardCategory />
-        <CardCategory />
-        <CardCategory />
-        <CardCategory />
+        {categories.map((category: ICategoryCart) => (
+          <CardCategory key={category.id} category={category} />
+        ))}
       </div>
 
       <div className="grid place-content-center">
@@ -23,25 +29,28 @@ export const Categories = () => {
   );
 };
 
-const CardCategory = () => {
+const CardCategory = ({ category }: { category: ICategoryCart }) => {
   return (
     <article className="flex flex-col gap-4 bg-gray-100 rounded-sm overflow-hidden">
       <div>
         <img
-          src={Images.src}
+          src={category?.image}
           alt="Slide 1"
           className="w-full h-full object-cover"
         />
       </div>
 
       <div className="px-2">
-        <h3 className="text-xl font-semibold">Category</h3>
+        <h3 className="text-xl font-semibold">{category.name}</h3>
       </div>
 
       <div className="px-2 pb-4">
-        <button className="bg-blue-200 w-full h-10 font-medium rounded-full">
-          Ver Catalogo
-        </button>
+        <Link
+          href={"/products?category=" + category.slug}
+          className="bg-blue-200 flex items-center justify-center h-10 font-medium rounded-full"
+        >
+          <span>Ver Catalogo</span>
+        </Link>
       </div>
     </article>
   );
