@@ -16,7 +16,11 @@ export default function ProductsFilter({ isMobile, isOpen, onClose }: Props) {
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState(1000000);
 
-  const toggleSelection = (list: string[], item: string, setList: (v: string[]) => void) => {
+  const toggleSelection = (
+    list: string[],
+    item: string,
+    setList: (v: string[]) => void
+  ) => {
     if (list.includes(item)) {
       setList(list.filter((x) => x !== item));
     } else {
@@ -25,14 +29,17 @@ export default function ProductsFilter({ isMobile, isOpen, onClose }: Props) {
   };
 
   const content = (
-    <div className="p-4 space-y-6 bg-white h-full w-64 md:w-auto">
+    <div className="space-y-6 bg-white h-full w-64 md:w-auto">
       <h3 className="text-lg font-semibold">Filtros</h3>
 
       {/* Orden */}
       <div>
         <h4 className="font-medium">Orden</h4>
         {["Recientes", "Precio Ascendente", "Precio Descendente"].map((o) => (
-          <label key={o} className="flex items-center space-x-2 mt-2 cursor-pointer">
+          <label
+            key={o}
+            className="flex items-center space-x-2 mt-2 cursor-pointer"
+          >
             <input
               type="radio"
               name="order"
@@ -48,11 +55,16 @@ export default function ProductsFilter({ isMobile, isOpen, onClose }: Props) {
       <div>
         <h4 className="font-medium">Marca</h4>
         {["Reloop", "Numark"].map((brand) => (
-          <label key={brand} className="flex items-center space-x-2 mt-2 cursor-pointer">
+          <label
+            key={brand}
+            className="flex items-center space-x-2 mt-2 cursor-pointer"
+          >
             <input
               type="checkbox"
               checked={selectedBrands.includes(brand)}
-              onChange={() => toggleSelection(selectedBrands, brand, setSelectedBrands)}
+              onChange={() =>
+                toggleSelection(selectedBrands, brand, setSelectedBrands)
+              }
             />
             <span>{brand}</span>
           </label>
@@ -63,11 +75,16 @@ export default function ProductsFilter({ isMobile, isOpen, onClose }: Props) {
       <div>
         <h4 className="font-medium">Categoría</h4>
         {["Reloop", "Numark"].map((cat) => (
-          <label key={cat} className="flex items-center space-x-2 mt-2 cursor-pointer">
+          <label
+            key={cat}
+            className="flex items-center space-x-2 mt-2 cursor-pointer"
+          >
             <input
               type="checkbox"
               checked={selectedCategories.includes(cat)}
-              onChange={() => toggleSelection(selectedCategories, cat, setSelectedCategories)}
+              onChange={() =>
+                toggleSelection(selectedCategories, cat, setSelectedCategories)
+              }
             />
             <span>{cat}</span>
           </label>
@@ -86,7 +103,9 @@ export default function ProductsFilter({ isMobile, isOpen, onClose }: Props) {
           onChange={(e) => setPriceRange(Number(e.target.value))}
           className="w-full"
         />
-        <p className="text-sm mt-2">Hasta: ${priceRange.toLocaleString("es-CO")}</p>
+        <p className="text-sm mt-2">
+          Hasta: ${priceRange.toLocaleString("es-CO")}
+        </p>
       </div>
     </div>
   );
