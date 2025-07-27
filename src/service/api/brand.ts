@@ -3,11 +3,13 @@ import { parseBrandsDropDownMenu } from "@/lib/parse-brands";
 import { IDropDownMenu } from "@/types/navbar";
 
 export const brandDropdown = async (): Promise<IDropDownMenu[]> => {
-  const response = await client.collection("brands").find({
-    populate: ["products"],
-  });
+  try {
+    const response = await client.collection("brands").find({
+      populate: ["products"],
+    });
 
-  const result = parseBrandsDropDownMenu(response.data);
-
-  return result;
+    return parseBrandsDropDownMenu(response.data);
+  } catch (error) {
+    return [];
+  }
 };

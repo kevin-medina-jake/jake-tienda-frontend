@@ -10,9 +10,10 @@ import { IDropDownMenu } from "@/types/navbar";
 import { categoryDropdown } from "@/service/api/category";
 
 export const Navbar = async () => {
-  const brands = await brandDropdown();
-
-  const categories = await categoryDropdown();
+  const [brands, categories] = await Promise.allSettled([
+    brandDropdown(),
+    categoryDropdown(),
+  ]);
 
   return (
     <>
@@ -40,11 +41,15 @@ export const Navbar = async () => {
               <Link href="/products">Productos</Link>
             </li>
 
-            {/* Brands */}
-            <DropdownMenu drop={brands} url="/products?brand=" />
+            <DropdownMenu
+              drop={brands.status === "fulfilled" ? brands.value : []}
+              url="/products?brand="
+            />
 
-            {/* Categories */}
-            <DropdownMenu drop={categories} url="/products?category=" />
+            <DropdownMenu
+              drop={categories.status === "fulfilled" ? categories.value : []}
+              url="/products?category="
+            />
 
             <li>
               <Link href="/about-us">Sobre Nosotros</Link>
