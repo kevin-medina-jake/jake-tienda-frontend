@@ -15,15 +15,9 @@ export const Categories = async () => {
       </div>
 
       <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2  gap-4 py-4 ">
-        {categories.map((category: ICategoryCart) => (
+        {categories.slice(0, 4).map((category: ICategoryCart) => (
           <CardCategory key={category.id} category={category} />
         ))}
-      </div>
-
-      <div className="grid place-content-center">
-        <button className="px-10 py-3 bg-blue-100 rounded-full font-medium">
-          Ver Todos
-        </button>
       </div>
     </section>
   );
