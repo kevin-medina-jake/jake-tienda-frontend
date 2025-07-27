@@ -32,6 +32,7 @@ export const Navbar = () => {
               <Link href="/products">Productos</Link>
             </li>
             <li>Marcas</li>
+            <li>Categorías</li>
             <li>
               <Link href="/about-us">Sobre Nosotros</Link>
             </li>
