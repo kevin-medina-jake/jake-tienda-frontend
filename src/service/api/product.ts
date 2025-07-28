@@ -8,7 +8,7 @@ export const newProducts = async (): Promise<INewProducts[]> => {
     const response = await client.collection("products").find({
       sort: "createdAt:desc",
       status: "published",
-      populate: ["image"],
+      populate: ["images"],
     });
 
     return parseNewProducts(response.data);

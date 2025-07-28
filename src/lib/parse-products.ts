@@ -6,7 +6,7 @@ export const parseNewProducts = (products: any): INewProducts[] => {
       id: product.id,
       name: product.name,
       slug: product.slug,
-      //   image: product?.products[0]?.slug,
+      image: product.images[0].url,
     };
   });
 

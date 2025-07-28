@@ -1,7 +1,12 @@
 import Images from "@/assets/home/carrousel/image copy 2.png";
 import { CarouselProducts } from "./carousel-products";
 
-export const Products = () => {
+import { newProducts } from "@/service/api/product";
+import { INewProducts } from "@/types/product";
+
+export const Products = async () => {
+  const carouselNewProducts = (await newProducts()) as INewProducts[];
+
   return (
     <section className="relative max-w-7xl mx-auto w-full px-4">
       <div className="pb-4">
@@ -20,7 +25,7 @@ export const Products = () => {
         </section>
 
         <section className="sm:col-span-3 h-full w-full">
-          <CarouselProducts />
+          <CarouselProducts products={carouselNewProducts} />
         </section>
       </div>
     </section>
