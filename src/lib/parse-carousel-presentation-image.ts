@@ -7,8 +7,8 @@ export const parseCarouselPresentationImage = (
     return {
       id: presentation.id,
       name_image: presentation.name_image,
-      isImage: presentation.Image_or_video[0].mime === "image/png",
-      url: presentation.Image_or_video[0].url,
+      isImage: presentation.image_or_video?.mime === "image/png",
+      url: presentation.image_or_video?.url,
     };
   });
 

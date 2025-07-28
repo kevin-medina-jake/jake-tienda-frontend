@@ -31,7 +31,7 @@ export interface IPresentation {
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
-  Image_or_video?: {
+  image_or_video?: {
     data: IMedia[];
   };
 }

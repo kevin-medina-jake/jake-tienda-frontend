@@ -10,6 +10,7 @@ export const categoryDropdown = async (): Promise<IDropDownMenu[]> => {
   try {
     const response = await client.collection("categories").find({
       populate: ["products"],
+      status: "published",
     });
 
     return parseCategoryDropDownMenu(response.data);
