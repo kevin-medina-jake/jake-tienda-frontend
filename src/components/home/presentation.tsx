@@ -12,6 +12,7 @@ import "@/styles/home/presentation.css";
 // import required modules
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { ICarouselPresentation, IPresentation } from "@/types/home";
+import Link from "next/link";
 
 export const Presentation = ({ presentations }: any) => {
   const listPresentation: ICarouselPresentation[] = presentations;
@@ -32,7 +33,9 @@ export const Presentation = ({ presentations }: any) => {
     >
       {listPresentation.map((presentation: ICarouselPresentation) => (
         <SwiperSlide key={presentation.id}>
-          <img src={presentation.url} alt="Slide 1" />
+          <Link href={"/view-product/" + presentation.url}>
+            <img src={presentation.url} alt={presentation.name_image} />
+          </Link>
         </SwiperSlide>
       ))}
     </Swiper>

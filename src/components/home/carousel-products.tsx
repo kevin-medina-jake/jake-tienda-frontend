@@ -62,7 +62,7 @@ export const CarouselProducts = ({
                   </button>
 
                   <Link
-                    href={"/product/view-product/" + product.slug}
+                    href={"/view-product/" + product.slug}
                     className="border border-blue-200 flex items-center w-full justify-center h-10 font-medium rounded-full text-sm"
                   >
                     <span>Ver Producto</span>
