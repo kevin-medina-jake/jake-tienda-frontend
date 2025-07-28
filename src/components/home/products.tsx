@@ -2,10 +2,12 @@ import Images from "@/assets/home/carrousel/image copy 2.png";
 import { CarouselProducts } from "./carousel-products";
 
 import { newProducts } from "@/service/api/product";
-import { INewProducts } from "@/types/product";
+import { IBestProduct, INewProducts } from "@/types/product";
+import { bestProduct } from "@/service/api/best-product";
 
 export const Products = async () => {
   const carouselNewProducts = (await newProducts()) as INewProducts[];
+  const bestProductInfo = (await bestProduct()) as IBestProduct[];
 
   return (
     <section className="relative max-w-7xl mx-auto w-full px-4">

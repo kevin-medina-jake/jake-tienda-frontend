@@ -20,7 +20,6 @@ export const CarouselProducts = ({
 }: {
   products: INewProducts[];
 }) => {
-  console.log(products);
   return (
     <>
       <Swiper

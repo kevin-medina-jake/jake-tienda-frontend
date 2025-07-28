@@ -1,6 +1,6 @@
-import { parseNewProducts } from "@/lib/parse-products";
 import { client } from "./strapi";
 
+import { parseNewProducts } from "@/lib/parse-products";
 import { INewProducts } from "@/types/product";
 
 export const newProducts = async (): Promise<INewProducts[]> => {

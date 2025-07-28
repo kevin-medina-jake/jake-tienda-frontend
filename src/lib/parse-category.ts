@@ -21,6 +21,7 @@ export const parseCategoryCart = (categories: any): ICategoryCart[] => {
       name: category.name,
       slug: category.slug,
       image: category?.image?.url,
+      isImportant: category.isImportant,
     };
   }) as ICategoryCart[];
 

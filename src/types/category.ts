@@ -3,4 +3,5 @@ export interface ICategoryCart {
   name: string;
   slug: string;
   image?: string;
+  isImportant?: boolean;
 }

@@ -4,3 +4,10 @@ export interface INewProducts {
   slug: string;
   image: string;
 }
+
+export interface IBestProduct {
+  id: number;
+  name: string;
+  slug: string;
+  image: string;
+}
