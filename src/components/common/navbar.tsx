@@ -50,7 +50,9 @@ export const Navbar = async () => {
               drop={categories.status === "fulfilled" ? categories.value : []}
               url="/products?category="
             />
-
+            <li>
+              <Link href="/credit">Credito</Link>
+            </li>
             <li>
               <Link href="/about-us">Sobre Nosotros</Link>
             </li>
