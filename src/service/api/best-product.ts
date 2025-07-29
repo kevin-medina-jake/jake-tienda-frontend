@@ -1,14 +1,20 @@
 import { client } from "./strapi";
 import { IBestProduct } from "@/types/product";
+import { parseBestProduct } from "@/lib/parse-best-product";
 
-export const bestProduct = async (): Promise<IBestProduct[]> => {
+export const bestProduct = async (): Promise<IBestProduct> => {
   try {
     const responses = await client.single("best-product").find({
-      populate: ["image"],
+      populate: ["image", "product"],
     });
 
-    return [];
+    return parseBestProduct(responses.data);
   } catch (error) {
-    return [];
+    return {
+      id: 0,
+      name: "",
+      slug: "",
+      image: "",
+    };
   }
 };

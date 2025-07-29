@@ -1,13 +1,13 @@
-import Images from "@/assets/home/carrousel/image copy 2.png";
 import { CarouselProducts } from "./carousel-products";
 
 import { newProducts } from "@/service/api/product";
 import { IBestProduct, INewProducts } from "@/types/product";
 import { bestProduct } from "@/service/api/best-product";
+import Link from "next/link";
 
 export const Products = async () => {
   const carouselNewProducts = (await newProducts()) as INewProducts[];
-  const bestProductInfo = bestProduct();
+  const bestProductInfo = (await bestProduct()) as IBestProduct;
 
   return (
     <section className="relative max-w-7xl mx-auto w-full px-4">
@@ -18,11 +18,13 @@ export const Products = async () => {
       <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
         <section className="sm:col-span-1 rounded-sm overflow-hidden">
           <div className="w-full h-auto sm:h-full">
-            <img
-              src={Images.src}
-              alt="Slide 1"
-              className="w-full h-full object-cover"
-            />
+            <Link href={"/view-product/" + bestProductInfo.slug}>
+              <img
+                src={bestProductInfo.image}
+                alt={bestProductInfo.name}
+                className="w-full h-full object-cover"
+              />
+            </Link>
           </div>
         </section>
 

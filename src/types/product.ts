@@ -11,3 +11,11 @@ export interface IBestProduct {
   slug: string;
   image: string;
 }
+
+export interface IProductBond {
+  id: number;
+  title: string;
+  description: string;
+  slug: string;
+  image: string;
+}
