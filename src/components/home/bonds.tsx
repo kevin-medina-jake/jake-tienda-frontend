@@ -5,8 +5,6 @@ import { Music } from "lucide-react";
 export const Bonds = async () => {
   const productBondInfo = (await productBond()) as IProductBond;
 
-  console.log(productBondInfo);
-
   if (
     !productBondInfo.id ||
     !productBondInfo.title ||

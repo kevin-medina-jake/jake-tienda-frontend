@@ -34,7 +34,7 @@ export const categoryCart = async (): Promise<ICategoryCart[]> => {
   }
 };
 
-export const productCategory = async (slug: string) => {
+export const productCategory = async (slug: string, productId: number) => {
   try {
     const response = await client.collection("categories").find({
       filters: {
@@ -44,7 +44,9 @@ export const productCategory = async (slug: string) => {
       status: "published",
     });
 
-    const result = parseProductCategory(response.data[0].products);
+    const result = parseProductCategory(response.data[0].products).filter(
+      (product) => product.id !== productId
+    );
 
     return result;
   } catch (error) {

@@ -1,9 +1,8 @@
-import { CarouselProducts } from "./carousel-products";
-
+import Link from "next/link";
 import { newProducts } from "@/service/api/product";
 import { IBestProduct, INewProducts } from "@/types/product";
 import { bestProduct } from "@/service/api/best-product";
-import Link from "next/link";
+import { CarouselProducts } from "./carousel-products";
 
 export const Products = async () => {
   const carouselNewProducts = (await newProducts()) as INewProducts[];
