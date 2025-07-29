@@ -1,5 +1,9 @@
 import ProductDetail from "@/components/view-products/product-detail";
 
-export default async function ProductPage() {
-  return <ProductDetail />;
+export default async function ProductPage({
+  params: { slug },
+}: {
+  params: { slug: string };
+}) {
+  return <ProductDetail slug={slug} />;
 }

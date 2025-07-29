@@ -6,9 +6,10 @@ import { useState } from "react";
 interface Props {
   name: string;
   price: number;
+  stock: number;
 }
 
-export default function ProductInfo({ name, price }: Props) {
+export default function ProductInfo({ name, price, stock }: Props) {
   const [quantity, setQuantity] = useState(1);
   const increment = () => setQuantity(quantity + 1);
   const decrement = () => setQuantity(quantity > 1 ? quantity - 1 : 1);

@@ -1,26 +1,36 @@
-import Images from "@/assets/home/bonds/image.png";
+import { productBond } from "@/service/api/product-bond";
+import { IProductBond } from "@/types/product";
 import { Music } from "lucide-react";
 
-export const Bonds = () => {
+export const Bonds = async () => {
+  const productBondInfo = (await productBond()) as IProductBond;
+
+  if (
+    !productBondInfo.id ||
+    !productBondInfo.title ||
+    !productBondInfo.description ||
+    !productBondInfo.image
+  ) {
+    return <></>;
+  }
+
   return (
     <div className="grid gap-4 max-w-7xl mx-auto w-full px-4">
       <div className="col-span-1 sm:col-span-2 lg:col-span-4">
         <div className="flex md:flex-row flex-col md:p-8 p-4 bg-blue-100 rounded-sm gap-4">
           <section className="max-w-2xl">
             <img
-              src={Images.src}
-              alt="Slide 1"
+              src={productBondInfo.image}
+              alt={productBondInfo.title}
               className="w-full h-full object-cover"
             />
           </section>
 
           <section className="flex flex-col justify-center gap-4">
             <h2 className="text-2xl md:text-4xl font-semibold">
-              ¡Nuestros bonos son los mejores!
+              {productBondInfo.title}
             </h2>
-            <p className="text-gray-700">
-              Llévate estos bonos gratis al comprar tu controladora DJ
-            </p>
+            <p className="text-gray-700">{productBondInfo.description}</p>
             <div>
               <button className="bg-blue-300 w-full sm:w-max px-10 py-3 font-medium rounded-full">
                 Comprar Ahora
