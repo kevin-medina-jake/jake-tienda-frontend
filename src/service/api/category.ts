@@ -2,6 +2,7 @@ import { client } from "./strapi";
 import {
   parseCategoryCart,
   parseCategoryDropDownMenu,
+  parseProductCategory,
 } from "@/lib/parse-category";
 import { ICategoryCart } from "@/types/category";
 import { IDropDownMenu } from "@/types/navbar";
@@ -26,6 +27,24 @@ export const categoryCart = async (): Promise<ICategoryCart[]> => {
     });
 
     const result = parseCategoryCart(response.data);
+
+    return result;
+  } catch (error) {
+    return [];
+  }
+};
+
+export const productCategory = async (slug: string) => {
+  try {
+    const response = await client.collection("categories").find({
+      filters: {
+        slug: slug,
+      },
+      populate: ["products.images"],
+      status: "published",
+    });
+
+    const result = parseProductCategory(response.data[0].products);
 
     return result;
   } catch (error) {

@@ -1,4 +1,4 @@
-import { ICategoryCart } from "@/types/category";
+import { ICategoryCart, IProductCategory } from "@/types/category";
 import { IDropDownMenu } from "@/types/navbar";
 
 export const parseCategoryDropDownMenu = (categories: any): IDropDownMenu[] => {
@@ -24,6 +24,24 @@ export const parseCategoryCart = (categories: any): ICategoryCart[] => {
       isImportant: category.isImportant,
     };
   }) as ICategoryCart[];
+
+  return result;
+};
+
+export const parseProductCategory = (products: any): IProductCategory[] => {
+  if (!products) {
+    return [];
+  }
+
+  const result = products.map((product: any) => {
+    return {
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      slug: product.slug,
+      image: product?.images[0]?.url,
+    };
+  }) as IProductCategory[];
 
   return result;
 };

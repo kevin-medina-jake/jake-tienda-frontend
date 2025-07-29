@@ -1,6 +1,6 @@
 import { client } from "./strapi";
 
-import { parseNewProducts } from "@/lib/parse-products";
+import { parseNewProducts, parseViewProduct } from "@/lib/parse-products";
 import { INewProducts } from "@/types/product";
 
 export const newProducts = async (): Promise<INewProducts[]> => {
@@ -20,12 +20,16 @@ export const newProducts = async (): Promise<INewProducts[]> => {
 export const getViewProduct = async (slug: string) => {
   try {
     const response = await client.collection("products").find({
-      sort: "createdAt:desc",
+      filters: {
+        slug: slug,
+      },
+      populate: ["images", "category"],
       status: "published",
-      populate: ["images"],
     });
 
-    return parseNewProducts(response.data);
+    const result = parseViewProduct(response.data.flat()[0]);
+
+    return result;
   } catch (error) {
     return [];
   }

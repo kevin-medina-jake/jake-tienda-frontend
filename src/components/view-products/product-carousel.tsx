@@ -21,6 +21,7 @@ export default function ProductCarousel({ images }: Props) {
     <div className="flex flex-col items-center space-y-4">
       <Swiper
         modules={[Navigation, Thumbs, Autoplay]}
+        loop={true}
         spaceBetween={10}
         navigation
         thumbs={{ swiper: thumbsSwiper }}
@@ -44,13 +45,17 @@ export default function ProductCarousel({ images }: Props) {
       <Swiper
         modules={[Thumbs]}
         onSwiper={setThumbsSwiper}
+        loop={true}
         spaceBetween={10}
         slidesPerView="auto"
         watchSlidesProgress
         className="w-full max-w-xs"
       >
         {images.map((img, idx) => (
-          <SwiperSlide key={idx} className="!w-20 cursor-pointer flex justify-center">
+          <SwiperSlide
+            key={idx}
+            className="!w-20 cursor-pointer flex justify-center"
+          >
             <Image
               src={img}
               alt={`Thumb ${idx + 1}`}

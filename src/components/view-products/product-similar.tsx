@@ -1,8 +1,13 @@
 "use client";
 
+import { IProductCategory } from "@/types/category";
 import { motion } from "framer-motion";
 
-export default function ProductSimilar() {
+interface Props {
+  products: IProductCategory[];
+}
+
+export default function ProductSimilar({ products }: Props) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 50 }}
@@ -12,9 +17,9 @@ export default function ProductSimilar() {
     >
       <h2 className="text-2xl font-bold mb-6">Productos Similares</h2>
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {[1, 2, 3, 4].map((card) => (
+        {products.map((product) => (
           <div
-            key={card}
+            key={product.id}
             className="border rounded-lg p-6 text-center shadow-sm hover:shadow-md transition"
           >
             <h3 className="font-semibold">Encabezado o título</h3>
