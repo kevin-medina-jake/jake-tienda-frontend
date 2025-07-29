@@ -7,7 +7,7 @@ import { bestProduct } from "@/service/api/best-product";
 
 export const Products = async () => {
   const carouselNewProducts = (await newProducts()) as INewProducts[];
-  const bestProductInfo = (await bestProduct()) as IBestProduct[];
+  const bestProductInfo = bestProduct();
 
   return (
     <section className="relative max-w-7xl mx-auto w-full px-4">
