@@ -9,7 +9,7 @@ export default function ProductsPage() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10">
+    <div className="max-w-7xl mx-auto px-4 py-10 w-full">
       <div className="flex items-center justify-between mb-6">
         <h1 className="text-2xl font-bold">Buscar y Filtrar Productos</h1>
         {/* Botón de filtros (solo visible en móvil) */}
@@ -22,7 +22,7 @@ export default function ProductsPage() {
         </button>
       </div>
 
-      <div className="flex gap-6">
+      <div className="w-full flex gap-6">
         {/* Sidebar visible solo en desktop */}
         <div className="hidden lg:block w-64 flex-shrink-0">
           <ProductsFilter />

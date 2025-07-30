@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { CartProduct } from "../common/CartProduct";
+import { CartProduct } from "../common/cart-product";
 import { IProductCart } from "@/types/product";
 
 interface Props {

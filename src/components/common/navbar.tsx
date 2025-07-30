@@ -8,6 +8,7 @@ import Logo from "@/assets/logo/image.png";
 import { brandDropdown } from "@/service/api/brand";
 import { IDropDownMenu } from "@/types/navbar";
 import { categoryDropdown } from "@/service/api/category";
+import { SearchProducts } from "./search-products";
 
 export const Navbar = async () => {
   const [brands, categories] = await Promise.allSettled([
@@ -26,14 +27,7 @@ export const Navbar = async () => {
         </section>
 
         <section className="flex-1 xl:px-20 lg:px-10 md:px-5 grid gap-4">
-          <div className="relative flex items-center">
-            <input
-              type="text"
-              className="w-full px-4 py-2 border border-gray-400 focus:border-blue-50 rounded-full"
-              placeholder="Buscar..."
-            />
-            <Search className="absolute right-4" />
-          </div>
+          <SearchProducts />
 
           <ul className="flex gap-6 items-center">
             <li>

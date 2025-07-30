@@ -50,7 +50,7 @@ export const getFilterProducts = async ({
     const response = await client.collection("products").find({
       sort: "createdAt:desc",
       status: "published",
-      populate: ["images"],
+      populate: ["images", "categories", "brand"],
       pagination: {
         page,
         pageSize,
@@ -58,7 +58,6 @@ export const getFilterProducts = async ({
     });
 
     const result = parseProductCart(response.data);
-
     return result;
   } catch (error) {
     return [];

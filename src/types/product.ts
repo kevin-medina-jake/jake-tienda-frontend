@@ -38,3 +38,13 @@ export interface IProductCart {
   price: number;
   image: string;
 }
+
+export interface IProductFilter {
+  id: number;
+  name: string;
+  slug: string;
+  price: number;
+  image: string;
+  categories: string[];
+  brand: string;
+}

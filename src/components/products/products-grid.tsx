@@ -1,19 +1,14 @@
 "use client";
 
-import { motion } from "framer-motion";
-import Image from "next/image";
-import controladorImg from "@/assets/images/controlador.png";
 import { useStoreProducts } from "@/store/products";
-import { CartProduct } from "../common/CartProduct";
+import { CartProduct } from "../common/cart-product";
 
 export default function ProductsGrid() {
-  const { allProducts } = useStoreProducts();
-
-  const products = allProducts;
+  const { filteredProducts } = useStoreProducts();
 
   return (
     <div className="grid grid-cols-2 lg:grid-cols-3 gap-6 flex-1">
-      {products.map((product) => (
+      {filteredProducts.map((product) => (
         <CartProduct key={product.id} product={product} />
       ))}
     </div>

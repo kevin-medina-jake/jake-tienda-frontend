@@ -1,5 +1,6 @@
 "use client";
 
+import { useStoreProducts } from "@/store/products";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
 import { useState } from "react";
@@ -11,6 +12,20 @@ interface Props {
 }
 
 export default function ProductsFilter({ isMobile, isOpen, onClose }: Props) {
+  const { allProducts } = useStoreProducts();
+
+  const categories = [
+    ...new Set(allProducts.flatMap((product) => product.categories)),
+  ];
+
+  const brands = [
+    ...new Set(
+      allProducts
+        .map(({ brand }) => brand)
+        .filter((item): item is string => item !== undefined)
+    ),
+  ];
+
   const [selectedOrder, setSelectedOrder] = useState("Recientes");
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
@@ -54,7 +69,7 @@ export default function ProductsFilter({ isMobile, isOpen, onClose }: Props) {
       {/* Marcas */}
       <div>
         <h4 className="font-medium">Marca</h4>
-        {["Reloop", "Numark"].map((brand) => (
+        {brands.map((brand) => (
           <label
             key={brand}
             className="flex items-center space-x-2 mt-2 cursor-pointer"
@@ -74,7 +89,7 @@ export default function ProductsFilter({ isMobile, isOpen, onClose }: Props) {
       {/* Categorías */}
       <div>
         <h4 className="font-medium">Categoría</h4>
-        {["Reloop", "Numark"].map((cat) => (
+        {categories.map((cat) => (
           <label
             key={cat}
             className="flex items-center space-x-2 mt-2 cursor-pointer"

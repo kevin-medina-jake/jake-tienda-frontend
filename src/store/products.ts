@@ -1,17 +1,46 @@
 import { create } from "zustand";
-
-import { IProductCart } from "@/types/product";
+import { IProductFilter } from "@/types/product";
 
 interface IState {
-  allProducts: IProductCart[];
-  setAllProducts: (newAllProducts: IProductCart[]) => void;
+  allProducts: IProductFilter[];
+
+  loading: boolean;
+
+  filters: {
+    search: string;
+    categories: string[];
+    brands: string[];
+    price: number;
+  };
+  filteredProducts: IProductFilter[];
+
+  setLoading: (loading: boolean) => void;
+  setFilters: (filters: any) => void;
+
+  setAllProducts: (products: IProductFilter[]) => void;
+  setFilteredProducts: (products: IProductFilter[]) => void;
+
+  resetFilteredProducts: () => void;
   removeAllProducts: () => void;
-  updateAllProducts: (newAllProducts: IProductCart[]) => void;
 }
 
-export const useStoreProducts = create<IState>((set) => ({
+export const useStoreProducts = create<IState>((set, get) => ({
   allProducts: [],
-  setAllProducts: (newAllProducts) => set({ allProducts: newAllProducts }),
-  removeAllProducts: () => set({ allProducts: [] }),
-  updateAllProducts: (newAllProducts) => set({ allProducts: newAllProducts }),
+
+  loading: true,
+
+  filters: { search: "", categories: [], brands: [], price: 0 },
+  filteredProducts: [],
+
+  setLoading: (loading) => set({ loading }),
+  setFilters: (filters) => set({ filters }),
+
+  setAllProducts: (products) =>
+    set({ allProducts: products, filteredProducts: products }),
+
+  setFilteredProducts: (products) => set({ filteredProducts: products }),
+
+  resetFilteredProducts: () => set({ filteredProducts: get().allProducts }),
+
+  removeAllProducts: () => set({ allProducts: [], filteredProducts: [] }),
 }));
