@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { CircleDollarSign, ShoppingCart } from "lucide-react";
 import { useState } from "react";
 
 interface Props {
@@ -16,18 +17,17 @@ export default function ProductInfo({ name, price, stock }: Props) {
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 50 }}
+      initial={{ opacity: 0, x: 10 }}
       whileInView={{ opacity: 1, x: 0 }}
       viewport={{ once: true }}
-      transition={{ duration: 0.6, delay: 0.2 }}
-      className="flex flex-col space-y-6"
+      transition={{ duration: 0.2 }}
+      className="flex flex-col space-y-6 w-full"
     >
       <h1 className="text-3xl font-bold text-gray-900">{name}</h1>
       <p className="text-2xl text-gray-700 font-semibold">
         ${price?.toLocaleString("es-CO")}
       </p>
 
-      {/* Selector de cantidad */}
       <div className="flex items-center space-x-3">
         <span className="font-medium">Cantidad</span>
         <div className="flex items-center border rounded">
@@ -47,22 +47,7 @@ export default function ProductInfo({ name, price, stock }: Props) {
         </div>
       </div>
 
-      {/* Botones */}
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        className="bg-blue-500 hover:bg-blue-600 text-white py-3 rounded-lg"
-      >
-        Comprar Ahora
-      </motion.button>
-      <motion.button
-        whileHover={{ scale: 1.05 }}
-        className="bg-blue-200 hover:bg-blue-300 text-gray-900 py-3 rounded-lg"
-      >
-        Agregar al carrito
-      </motion.button>
-
-      {/* Opciones de crédito */}
-      <div>
+      {/* <div>
         <p className="font-medium mb-2">Comprar con crédito</p>
         <div className="flex flex-wrap gap-4">
           <span className="px-4 py-2 bg-purple-100 rounded-full font-medium cursor-pointer hover:bg-purple-200">
@@ -75,6 +60,17 @@ export default function ProductInfo({ name, price, stock }: Props) {
             Banco Bogotá
           </span>
         </div>
+      </div> */}
+
+      <div className="flex flex-col sm:flex-row gap-4 w-full">
+        <button className="bg-blue-500 flex items-center justify-center gap-2 hover:bg-blue-600 text-white p-3 rounded-sm w-full">
+          <CircleDollarSign size={20} />
+          Comprar Ahora
+        </button>
+        <button className="bg-blue-200 hover:bg-blue-300 flex items-center gap-2 justify-center text-gray-900 p-3 rounded-sm w-full">
+          <ShoppingCart size={20} />
+          Agregar al carrito
+        </button>
       </div>
     </motion.div>
   );
