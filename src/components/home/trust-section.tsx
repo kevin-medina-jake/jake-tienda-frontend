@@ -6,18 +6,20 @@ import Image from "next/image";
 // Importamos los logos desde assets
 import PioneerImg from "@/assets/logo/Pioneer.png";
 import betaImg from "@/assets/logo/beta3.png";
-import jblImg from "@/assets/logo/JBL.png";
+import ProDjImg from "@/assets/logo/ProDj.png";
+import ElectroVoiceImg from "@/assets/logo/ElectroVoice.jpg";
 import alphaThetaImg from "@/assets/logo/alphaTheta.png";
-import pioneerImg from "@/assets/logo/Pioneer.png";
-import behringerImg from "@/assets/logo/Behringer.jpg";
+import audioCenterImg from "@/assets/logo/audio-center.png";
+import MaxLinImg from "@/assets/logo/MaxLin.jpg";
 
-const brands = [
+const brands = [  
   { name: "Pioneer DJ", logo: PioneerImg, link: "/marcas/klark-teknik" },
   { name: "Beta 3", logo: betaImg, link: "/marcas/boya" },
-  { name: "JBL", logo: jblImg, link: "/marcas/prodj" },
+  { name: "ProDJ", logo: ProDjImg, link: "/marcas/adam-hall" },
+  { name: "JBL", logo: ElectroVoiceImg, link: "/marcas/prodj" },
   { name: "AlphaTheta", logo: alphaThetaImg, link: "/marcas/prodj-lighting" },
-  { name: "Pioneer DJ", logo: pioneerImg, link: "/marcas/pioneer" },
-  { name: "Behringer", logo: behringerImg, link: "/marcas/behringer" },
+  { name: "audio-center", logo: audioCenterImg, link: "/marcas/pioneer" },
+  { name: "Behringer", logo: MaxLinImg, link: "/marcas/behringer" },
 ];
 
 export default function TrustSection() {

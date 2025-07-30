@@ -11,7 +11,7 @@ export const Categories = async () => {
   return (
     <section className="flex flex-col gap-4 px-4 max-w-7xl mx-auto w-full">
       <div>
-        <h2 className="text-2xl font-semibold text-center">Categories</h2>
+        <h2 className="text-2xl font-semibold text-center">Categorias</h2>
       </div>
 
       <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2  gap-4 py-4 ">
