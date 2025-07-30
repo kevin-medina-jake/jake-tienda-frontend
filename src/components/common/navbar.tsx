@@ -20,7 +20,9 @@ export const Navbar = async () => {
       {/* Desktop */}
       <nav className="bg-white max-w-8xl w-full sm:flex z-50 gap-4 h-[100] justify-between fixed left-1/2 transform -translate-x-1/2 top-0 px-4 py-2 border-b border-gray-400 hidden">
         <section className="flex items-center">
-          <Image src={Logo} alt="logo" width={100} height={50} />
+          <Link href="/">
+            <Image src={Logo} alt="logo" width={100} height={50} />
+          </Link>
         </section>
 
         <section className="flex-1 xl:px-20 lg:px-10 md:px-5 grid gap-4">
