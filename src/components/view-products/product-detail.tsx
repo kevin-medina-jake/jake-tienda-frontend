@@ -20,7 +20,7 @@ export default async function ProductDetail({ slug }: { slug?: string }) {
 
   let categoryProducts: IProductCategory[] = [];
   if (product.category) {
-    //categoryProducts = await productCategory(product.category, product.id);
+    categoryProducts = await productCategory(product.category, product.id);
   }
 
   return (
