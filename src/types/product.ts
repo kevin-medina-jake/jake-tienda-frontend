@@ -28,5 +28,5 @@ export interface IViewProduct {
   description: string;
   stock: number;
   images: string[];
-  category?: string;
+  category?: string[];
 }

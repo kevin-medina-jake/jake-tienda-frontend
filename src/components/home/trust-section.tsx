@@ -25,10 +25,8 @@ export default function TrustSection() {
   const loopedBrands = [...brands, ...brands];
 
   return (
-    <section className="py-12 overflow-hidden">
-      <h2 className="text-center text-3xl font-bold text-gray-800 mb-8">
-        Marcas que Confían en Nosotros
-      </h2>
+    <section className="overflow-hidden">
+     
 
       {/* Contenedor animado con scroll infinito */}
       <div className="relative w-full overflow-hidden">

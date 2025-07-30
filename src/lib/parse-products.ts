@@ -15,13 +15,15 @@ export const parseNewProducts = (products: any): INewProducts[] => {
 };
 
 export const parseViewProduct = (product: any): IViewProduct => {
+  console.log("Parsing product:", product);
   return {
     id: product.id,
     name: product.name,
     price: product.price,
     stock: product.stock,
     description: product.description,
-    category: product?.category?.slug,
+    category: product?.category?.map((cat: any) => cat.slug),
     images: product.images.map((image: any) => image.url),
   };
+
 };
