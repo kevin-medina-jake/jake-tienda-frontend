@@ -33,8 +33,15 @@ export const Presentation = ({ presentations }: any) => {
     >
       {listPresentation.map((presentation: ICarouselPresentation) => (
         <SwiperSlide key={presentation.id}>
-          <Link href={"/view-product/" + presentation.url}>
-            <img src={presentation.url} alt={presentation.name_image} />
+          <Link
+            href={"/view-product/" + presentation.url}
+            className="w-full h-full"
+          >
+            <img
+              src={presentation.url}
+              alt={presentation.name_image}
+              className="w-full h-full object-cover"
+            />
           </Link>
         </SwiperSlide>
       ))}

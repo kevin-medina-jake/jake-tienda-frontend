@@ -12,7 +12,10 @@ export const CartProduct = ({ product }: { product: any }) => {
   };
 
   return (
-    <Link href={`/view-product/${product.slug}`} className="block">
+    <Link
+      href={`/view-product/${product.slug}`}
+      className="block overflow-hidden"
+    >
       <div
         key={product.id}
         className="bg-blue-50 rounded-sm overflow-hidden flex flex-col gap-2 border border-blue-100 hover:shadow"
@@ -25,7 +28,9 @@ export const CartProduct = ({ product }: { product: any }) => {
           />
         </section>
 
-        <h3 className="font-semibold text-xl px-2 text-left">{product.name}</h3>
+        <h3 className="font-semibold text-xl px-2 text-left w-full overflow-hidden line-clamp-1">
+          {product.name}
+        </h3>
 
         <section className="flex gap-4 justify-between items-center px-2 pb-2">
           <div className="text-left">

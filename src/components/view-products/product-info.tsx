@@ -24,7 +24,7 @@ export default function ProductInfo({ name, price, stock }: Props) {
     >
       <h1 className="text-3xl font-bold text-gray-900">{name}</h1>
       <p className="text-2xl text-gray-700 font-semibold">
-        ${price.toLocaleString("es-CO")}
+        ${price?.toLocaleString("es-CO")}
       </p>
 
       {/* Selector de cantidad */}

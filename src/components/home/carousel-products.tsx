@@ -9,7 +9,7 @@ import "swiper/css/pagination";
 import "@/styles/home/carrousel-products.css";
 
 // import required modules
-import { Pagination } from "swiper/modules";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { INewProducts } from "@/types/product";
 import { CartProduct } from "../common/CartProduct";
 
@@ -36,9 +36,13 @@ export const CarouselProducts = ({
             spaceBetween: 4,
           },
         }}
-        modules={[Pagination]}
+        autoplay={{
+          delay: 2000,
+          disableOnInteraction: false,
+        }}
+        modules={[Autoplay, Pagination, Navigation]}
         loop={true}
-        className="h-auto"
+        className="h-auto !pb-10"
       >
         {products.slice(0, 8).map((product) => (
           <SwiperSlide key={product.id}>

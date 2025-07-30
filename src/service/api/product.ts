@@ -23,7 +23,7 @@ export const getViewProduct = async (slug: string) => {
       filters: {
         slug: slug,
       },
-      populate: ["images", "category"],
+      populate: ["images", "categories"],
       status: "published",
     });
 
