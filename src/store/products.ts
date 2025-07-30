@@ -9,7 +9,7 @@ interface IState {
   updateAllProducts: (newAllProducts: IProductCart[]) => void;
 }
 
-const useStoreProducts = create<IState>((set) => ({
+export const useStoreProducts = create<IState>((set) => ({
   allProducts: [],
   setAllProducts: (newAllProducts) => set({ allProducts: newAllProducts }),
   removeAllProducts: () => set({ allProducts: [] }),

@@ -39,18 +39,27 @@ export const getViewProduct = async (slug: string) => {
   }
 };
 
-export const getAllProducts = async (): Promise<[]> => {
+export const getFilterProducts = async ({
+  page = 1,
+  pageSize = 12,
+}: {
+  page?: number;
+  pageSize?: number;
+}) => {
   try {
     const response = await client.collection("products").find({
       sort: "createdAt:desc",
       status: "published",
+      populate: ["images"],
+      pagination: {
+        page,
+        pageSize,
+      },
     });
-
-    console.log(response);
 
     const result = parseProductCart(response.data);
 
-    return [];
+    return result;
   } catch (error) {
     return [];
   }
