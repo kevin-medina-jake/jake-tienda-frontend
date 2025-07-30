@@ -1,7 +1,54 @@
 import { productBond } from "@/service/api/product-bond";
 import { IProductBond } from "@/types/product";
-import { Music } from "lucide-react";
+import { BookText, Clapperboard, Laptop, Music } from "lucide-react";
 
+const bonds  = [
+  {
+    id: "music-video-dj",
+    title: "Música + Video DJ (Pack Full Combo)",
+    list: [
+      "12 GB de música lista para mezclar (salsa, electrónica, reguetón, mezcla armónica).",
+      "Compatible con cualquier controladora DJ.",
+      "Perfecto para tus primeras fiestas y eventos.",
+    ],
+    Icon: Music,
+    styles: "row-start-2 ",
+  },
+  {
+    id: "audio-equipmentt",
+    title: "Videoclips Musicales HD (Pack Pro)",
+    list: [
+      "Más de 2.000 GB de videoclips para DJs profesionales.",
+      "Todos los géneros (urbana, crossover, electrónica).",
+      "Optimizado para pantallas y cabinas.",
+    ],
+    Icon: Clapperboard,
+    styles: "sm:row-start-2 row-start-3",
+  },
+   {
+    id: "audio-equipmenttttt",
+    title: "Programas Profesionales de Mezcla",
+    list: [
+      "Virtual DJ 8 Full.v",
+      "Serato DJ Full.",
+      "Traktor DJ 3 Full (Windows 10 y 11 – 64 bits).",
+    ],
+    Icon: Laptop,
+    styles: "lg:row-start-2 md:row-start-3 row-start-5",
+  },
+  {
+    id: "audio-equipmenttt",
+    title: "Cursos Online de DJ (100% Gratis)",
+    list: [
+      "Curso DJ Principiante.",
+      "Curso de Virtual DJ & Traktor.",
+      "Curso DJ Básico.",
+    ],
+    Icon: BookText,
+    styles: "lg:row-start-2 md:row-start-3 row-start-4",
+  },
+ 
+];
 export const Bonds = async () => {
   const productBondInfo = (await productBond()) as IProductBond;
 
@@ -39,46 +86,34 @@ export const Bonds = async () => {
           </section>
         </div>
       </div>
-      <div className="row-start-2">
-        <CardBond />
-      </div>
-      <div className="sm:row-start-2 row-start-3">
-        <CardBond />
-      </div>
-      <div className="lg:row-start-2 md:row-start-3 row-start-4">
-        <CardBond />
-      </div>
-      <div className="lg:row-start-2 md:row-start-3 row-start-5">
-        <CardBond />
-      </div>
+
+     {bonds.map((bond) => (
+        <div
+          key={bond.id}
+          className={bond.styles}
+        >
+          <CardBond bond={bond} />
+        </div>
+      ))}
     </div>
   );
 };
 
-const CardBond = () => {
+const CardBond = ({ bond }: { bond: typeof bonds[number] }) => {
+  const Icon = bond.Icon;
   return (
     <div className="flex flex-col justify-center gap-4 p-4 rounded-sm bg-blue-100">
-      <Music size={24} />
+      <Icon size={24} />
 
       <h2 className="text-xl font-semibold">
-        Música + Video DJ (Pack Full Combo)
+        {bond.title}
       </h2>
       <ul className="list-disc text-gray-700 pl-4">
-        <li>
-          <p className="text-gray-700">
-            Llévate estos bonos gratis al comprar tu controladora DJ
-          </p>
-        </li>
-        <li>
-          <p className="text-gray-700">
-            Llévate estos bonos gratis al comprar tu controladora DJ
-          </p>
-        </li>
-        <li>
-          <p className="text-gray-700">
-            Llévate estos bonos gratis al comprar tu controladora DJ
-          </p>
-        </li>
+        {bond.list.map((item, index) => (
+          <li key={index}>
+            <p className="text-gray-700">{item}</p>
+          </li>
+        ))}
       </ul>
     </div>
   );

@@ -5,9 +5,9 @@ import CreditBlock from "./credit-block";
 import { User, Smartphone, XCircle, Clock, MapPin } from "lucide-react";
 
 // Imágenes (reemplaza estas por las definitivas en assets/images)
-import bancoBogotaImg from "@/assets/logo/banco-bogota.png";
+import bancoBogotaImg from "@/assets/logo/banco-de-bogota.png";
 import addiImg from "@/assets/logo/addi.webp";
-import goraImg from "@/assets/logo/gora.jpg";
+import goraImg from "@/assets/logo/Gora.png";
 import brillaImg from "@/assets/logo/brilla.jpg";
 
 export default function CreditSection() {
