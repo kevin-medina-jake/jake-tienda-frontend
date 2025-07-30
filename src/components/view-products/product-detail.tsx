@@ -1,11 +1,10 @@
-import { IViewProduct } from "@/types/product";
+import { IProductCart, IViewProduct } from "@/types/product";
 import ProductInfo from "./product-info";
 import ProductSimilar from "./product-similar";
 import { getViewProduct } from "@/service/api/product";
 import ProductCarousel from "./product-carousel";
 import ProductDetails from "./product-details";
 import { productCategory } from "@/service/api/category";
-import { IProductCategory } from "@/types/category";
 
 export default async function ProductDetail({ slug }: { slug?: string }) {
   if (!slug) {
@@ -18,7 +17,7 @@ export default async function ProductDetail({ slug }: { slug?: string }) {
     return <div>Producto no encontrado.</div>;
   }
 
-  let categoryProducts: IProductCategory[] = [];
+  let categoryProducts: IProductCart[] = [];
   if (product.category) {
     categoryProducts = await productCategory(product.category, product.id);
   }

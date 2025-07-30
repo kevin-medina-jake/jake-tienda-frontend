@@ -30,3 +30,11 @@ export interface IViewProduct {
   images: string[];
   category?: string;
 }
+
+export interface IProductCart {
+  id: number;
+  name: string;
+  slug: string;
+  price: number;
+  image: string;
+}

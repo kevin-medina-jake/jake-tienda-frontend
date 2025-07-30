@@ -1,11 +1,11 @@
 "use client";
 
-import { IProductCategory } from "@/types/category";
 import { motion } from "framer-motion";
 import { CartProduct } from "../common/CartProduct";
+import { IProductCart } from "@/types/product";
 
 interface Props {
-  products: IProductCategory[];
+  products: IProductCart[];
 }
 
 export default function ProductSimilar({ products }: Props) {

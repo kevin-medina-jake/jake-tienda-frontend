@@ -1,4 +1,4 @@
-import { INewProducts, IViewProduct } from "@/types/product";
+import { INewProducts, IProductCart, IViewProduct } from "@/types/product";
 
 export const parseNewProducts = (products: any): INewProducts[] => {
   const result: INewProducts[] = products.map((product: any) => {
@@ -24,4 +24,22 @@ export const parseViewProduct = (product: any): IViewProduct => {
     category: product?.categories[0]?.slug,
     images: product.images.map((image: any) => image.url),
   };
+};
+
+export const parseProductCart = (products: any): IProductCart[] => {
+  if (!products) {
+    return [];
+  }
+
+  const result = products.map((product: any) => {
+    return {
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      slug: product.slug,
+      image: product?.images[0]?.url,
+    };
+  }) as IProductCart[];
+
+  return result;
 };

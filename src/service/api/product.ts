@@ -1,6 +1,10 @@
 import { client } from "./strapi";
 
-import { parseNewProducts, parseViewProduct } from "@/lib/parse-products";
+import {
+  parseNewProducts,
+  parseProductCart,
+  parseViewProduct,
+} from "@/lib/parse-products";
 import { INewProducts } from "@/types/product";
 
 export const newProducts = async (): Promise<INewProducts[]> => {
@@ -30,6 +34,23 @@ export const getViewProduct = async (slug: string) => {
     const result = parseViewProduct(response.data.flat()[0]);
 
     return result;
+  } catch (error) {
+    return [];
+  }
+};
+
+export const getAllProducts = async (): Promise<[]> => {
+  try {
+    const response = await client.collection("products").find({
+      sort: "createdAt:desc",
+      status: "published",
+    });
+
+    console.log(response);
+
+    const result = parseProductCart(response.data);
+
+    return [];
   } catch (error) {
     return [];
   }

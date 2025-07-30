@@ -2,9 +2,9 @@ import { productBond } from "@/service/api/product-bond";
 import { IProductBond } from "@/types/product";
 import { BookText, Clapperboard, Laptop, Music } from "lucide-react";
 
-const bonds  = [
+const bonds = [
   {
-    id: "music-video-dj",
+    id: "1",
     title: "Música + Video DJ (Pack Full Combo)",
     list: [
       "12 GB de música lista para mezclar (salsa, electrónica, reguetón, mezcla armónica).",
@@ -15,7 +15,7 @@ const bonds  = [
     styles: "row-start-2 ",
   },
   {
-    id: "audio-equipmentt",
+    id: "2",
     title: "Videoclips Musicales HD (Pack Pro)",
     list: [
       "Más de 2.000 GB de videoclips para DJs profesionales.",
@@ -25,8 +25,8 @@ const bonds  = [
     Icon: Clapperboard,
     styles: "sm:row-start-2 row-start-3",
   },
-   {
-    id: "audio-equipmenttttt",
+  {
+    id: "3",
     title: "Programas Profesionales de Mezcla",
     list: [
       "Virtual DJ 8 Full.v",
@@ -37,7 +37,7 @@ const bonds  = [
     styles: "lg:row-start-2 md:row-start-3 row-start-5",
   },
   {
-    id: "audio-equipmenttt",
+    id: "4",
     title: "Cursos Online de DJ (100% Gratis)",
     list: [
       "Curso DJ Principiante.",
@@ -47,7 +47,6 @@ const bonds  = [
     Icon: BookText,
     styles: "lg:row-start-2 md:row-start-3 row-start-4",
   },
- 
 ];
 export const Bonds = async () => {
   const productBondInfo = (await productBond()) as IProductBond;
@@ -87,11 +86,8 @@ export const Bonds = async () => {
         </div>
       </div>
 
-     {bonds.map((bond) => (
-        <div
-          key={bond.id}
-          className={bond.styles}
-        >
+      {bonds.map((bond) => (
+        <div key={bond.id} className={bond.styles}>
           <CardBond bond={bond} />
         </div>
       ))}
@@ -99,15 +95,13 @@ export const Bonds = async () => {
   );
 };
 
-const CardBond = ({ bond }: { bond: typeof bonds[number] }) => {
+const CardBond = ({ bond }: { bond: (typeof bonds)[number] }) => {
   const Icon = bond.Icon;
   return (
-    <div className="flex flex-col justify-center gap-4 p-4 rounded-sm bg-blue-100">
+    <div className="flex flex-col gap-4 p-4 rounded-sm bg-blue-100 h-full">
       <Icon size={24} />
 
-      <h2 className="text-xl font-semibold">
-        {bond.title}
-      </h2>
+      <h2 className="text-xl font-semibold">{bond.title}</h2>
       <ul className="list-disc text-gray-700 pl-4">
         {bond.list.map((item, index) => (
           <li key={index}>

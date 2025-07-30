@@ -2,8 +2,8 @@ import { client } from "./strapi";
 import {
   parseCategoryCart,
   parseCategoryDropDownMenu,
-  parseProductCategory,
 } from "@/lib/parse-category";
+import { parseProductCart } from "@/lib/parse-products";
 import { ICategoryCart } from "@/types/category";
 import { IDropDownMenu } from "@/types/navbar";
 
@@ -44,7 +44,7 @@ export const productCategory = async (slug: string, productId: number) => {
       status: "published",
     });
 
-    const result = parseProductCategory(response.data[0].products).filter(
+    const result = parseProductCart(response.data[0].products).filter(
       (product) => product.id !== productId
     );
 
