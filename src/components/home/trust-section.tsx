@@ -21,15 +21,11 @@ const brands = [
 ];
 
 export default function TrustSection() {
-  // Duplicamos la lista para el efecto infinito (loop continuo)
   const loopedBrands = [...brands, ...brands];
 
   return (
     <section className="overflow-hidden">
-     
-
-      {/* Contenedor animado con scroll infinito */}
-      <div className="relative w-full overflow-hidden">
+      <div className="relative w-full overflow-hidden py-2">
         <motion.div
           className="flex gap-16"
           animate={{ x: ["0%", "-50%"] }}
@@ -53,7 +49,7 @@ export default function TrustSection() {
                 width={160}
                 height={80}
                 className="object-contain"
-                priority={idx < brands.length} // Prioridad para los primeros
+                priority={idx < brands.length}
               />
             </a>
           ))}
