@@ -26,7 +26,7 @@ export default function CreditBlock({
       {/* Imagen */}
       <div className="relative w-full h-64 rounded-xl overflow-hidden shadow-lg">
         <Image
-          src={image}
+          src={image ?? "/not-found.png"}
           alt={title}
           fill
           className="object-cover"
@@ -48,7 +48,7 @@ export default function CreditBlock({
       </div>
 
       {/* Botón */}
-       <div className="flex justify-center mt-6">
+      <div className="flex justify-center mt-6">
         <a
           href={buttonLink}
           className="bg-green-600 text-white font-medium px-6 py-3 rounded-lg hover:bg-green-700 transition"

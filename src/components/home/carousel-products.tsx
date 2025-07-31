@@ -31,14 +31,14 @@ export const CarouselProducts = ({
             slidesPerView: 2,
             spaceBetween: 4,
           },
-          768: {
+          1008: {
             slidesPerView: 3,
             spaceBetween: 4,
           },
         }}
         modules={[Pagination]}
         loop={true}
-        className="h-auto !pb-10"
+        className="!pb-10"
       >
         {products.slice(0, 8).map((product) => (
           <SwiperSlide key={product.id}>

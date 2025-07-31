@@ -6,7 +6,7 @@ export const carrouselPresentation = async (): Promise<
   ICarouselPresentation[]
 > => {
   const response = (await client.collection("carousel-presentations").find({
-    populate: ["image_or_video"],
+    populate: ["image_or_video", "product"],
     status: "published",
   })) as IPresentationResponse;
 

@@ -41,4 +41,5 @@ export interface ICarouselPresentation {
   name_image: string;
   isImage: boolean;
   url: string;
+  slug: string;
 }

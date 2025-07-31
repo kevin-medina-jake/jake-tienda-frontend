@@ -27,6 +27,8 @@ export default async function ProductDetail({ slug }: { slug?: string }) {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
         <ProductCarousel images={product.images} />
         <ProductInfo
+          id={product.id}
+          image={product.images[0]}
           name={product.name}
           price={product.price}
           stock={product.stock}

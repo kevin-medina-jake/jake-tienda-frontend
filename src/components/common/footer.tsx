@@ -23,7 +23,7 @@ export default function Footer() {
         {/* Logo y descripción */}
         <div className="flex flex-col items-center md:items-start space-y-3">
           <Image
-            src={logoImg}
+            src={logoImg ?? "/not-found.png"}
             alt="Jake Tienda Electrónica"
             width={160}
             height={60}

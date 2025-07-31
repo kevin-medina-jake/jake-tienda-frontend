@@ -12,7 +12,7 @@ import alphaThetaImg from "@/assets/logo/alphaTheta.png";
 import audioCenterImg from "@/assets/logo/audio-center.png";
 import MaxLinImg from "@/assets/logo/MaxLin.jpg";
 
-const brands = [  
+const brands = [
   { name: "Pioneer DJ", logo: PioneerImg, link: "/marcas/klark-teknik" },
   { name: "Beta 3", logo: betaImg, link: "/marcas/boya" },
   { name: "ProDJ", logo: ProDjImg, link: "/marcas/adam-hall" },
@@ -46,7 +46,7 @@ export default function TrustSection() {
               className="flex-shrink-0 w-48 h-24 flex items-center justify-center hover:scale-105 transition-transform"
             >
               <Image
-                src={brand.logo}
+                src={brand.logo ?? "/not-found.png"}
                 alt={brand.name}
                 width={160}
                 height={80}
