@@ -70,7 +70,7 @@ export const MobileMenu = () => {
                   <Link
                     key={route.href}
                     href={route.href}
-                    className="text-blue-700 hover:underline"
+                    className="hover:underline"
                     onClick={() => setOpen(false)}
                   >
                     {route.name}
