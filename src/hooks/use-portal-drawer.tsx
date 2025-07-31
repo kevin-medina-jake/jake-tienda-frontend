@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 
-export function usePortalMenu(id: string = "portal-root") {
+export function usePortalDrawer(id: string = "portal-root") {
   const [mounted, setMounted] = useState(false);
   const elRef = useRef<HTMLElement | null>(null);
 

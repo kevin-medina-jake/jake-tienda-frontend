@@ -1,6 +1,6 @@
 "use client";
 
-import { usePortalMenu } from "@/hooks/use-portal-menu";
+import { usePortalDrawer } from "@/hooks/use-portal-drawer";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -14,7 +14,7 @@ const routes = [
 
 export const MobileMenu = () => {
   const [open, setOpen] = useState(false);
-  const Portal = usePortalMenu("mobile-menu");
+  const Portal = usePortalDrawer("mobile-menu");
   const asideRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -57,7 +57,7 @@ export const MobileMenu = () => {
           <div className="fixed inset-0 z-50 bg-black/50 sm:hidden">
             <aside
               ref={asideRef}
-              className="fixed left-0 top-0 h-full w-64 bg-blue-50 shadow-lg flex flex-col p-4 gap-4 animate-slide-in-left"
+              className="fixed left-0 top-0 h-full w-64 bg-blue-50 shadow-lg flex flex-col p-4 gap-4"
             >
               <div className="flex justify-end">
                 <button onClick={() => setOpen(false)}>

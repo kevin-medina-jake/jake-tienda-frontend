@@ -9,7 +9,8 @@ import { brandDropdown } from "@/service/api/brand";
 import { IDropDownMenu } from "@/types/navbar";
 import { categoryDropdown } from "@/service/api/category";
 import { SearchProducts } from "./search-products";
-import { MobileMenu } from "./movil-menu";
+import { MobileMenu } from "./movil-menu-drawer";
+import { ShoppingCartDrawer } from "./shopping-cart-drawer";
 
 export const Navbar = async () => {
   const [brands, categories] = await Promise.allSettled([
@@ -59,9 +60,7 @@ export const Navbar = async () => {
         </section>
 
         <section>
-          <button className="p-2">
-            <ShoppingCart />
-          </button>
+          <ShoppingCartDrawer />
         </section>
       </nav>
 
@@ -70,9 +69,7 @@ export const Navbar = async () => {
         <section className="flex justify-between items-center">
           <MobileMenu />
           <Image src={Logo} alt="logo" width={70} height={40} />
-          <button className="p-2">
-            <ShoppingCart />
-          </button>
+          <ShoppingCartDrawer />
         </section>
 
         <section className="relative px-2 flex items-center">
