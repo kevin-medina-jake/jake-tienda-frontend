@@ -73,12 +73,15 @@ export const Navbar = async () => {
       <nav className="bg-white w-full flex flex-col z-50 gap-4 fixed left-1/2 transform -translate-x-1/2 top-0 p-2 py-2 border-b border-gray-400 sm:hidden">
         <section className="flex justify-between items-center">
           <MobileMenu />
-          <Image
-            src={Logo ?? "/not-found.png"}
-            alt="logo"
-            width={70}
-            height={40}
-          />
+
+          <Link href="/">
+            <Image
+              src={Logo ?? "/not-found.png"}
+              alt="logo"
+              width={70}
+              height={40}
+            />
+          </Link>
           <ShoppingCartDrawer />
         </section>
 
