@@ -1,21 +1,29 @@
 "use client";
 
+import {
+  IShoppingCartProduct,
+  useStoreShoppingCart,
+} from "@/store/shopping-cart";
 import { motion } from "framer-motion";
 import { CircleDollarSign, ShoppingCart, MessageCircle } from "lucide-react"; // Puedes cambiar el ícono por 'Whatsapp' si tienes uno personalizado
 import { useState } from "react";
 
 interface Props {
+  id: number;
+  image: string;
   name: string;
   price: number;
   stock: number;
 }
 
-const getWhatsappUrl = (productName: string, method: string) => {
+const getWhatsAppUrl = (productName: string, method: string) => {
   const message = `Hola, estoy interesado en el producto ${productName} y quiero pagarlo con ${method}`;
   return `https://wa.me/573502397570?text=${encodeURIComponent(message)}`; // Reemplaza por tu número real
 };
 
-export default function ProductInfo({ name, price, stock }: Props) {
+export default function ProductInfo({ id, name, price, stock, image }: Props) {
+  const { addProduct } = useStoreShoppingCart();
+
   const [quantity, setQuantity] = useState(1);
   const [paymentMethod, setPaymentMethod] = useState("sin_credito");
 
@@ -29,6 +37,16 @@ export default function ProductInfo({ name, price, stock }: Props) {
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setPaymentMethod(e.target.value);
+  };
+
+  const handleAddToCart = () => {
+    addProduct({
+      id: id.toString(),
+      name,
+      price,
+      stock,
+      image,
+    });
   };
 
   return (
@@ -87,7 +105,7 @@ export default function ProductInfo({ name, price, stock }: Props) {
       <div className="flex flex-col sm:flex-row gap-4 w-full">
         {paymentMethod !== "sin_credito" ? (
           <a
-            href={getWhatsappUrl(name, paymentMethod)}
+            href={getWhatsAppUrl(name, paymentMethod)}
             target="_blank"
             rel="noopener noreferrer"
             className="bg-green-500 flex items-center justify-center gap-2 hover:bg-green-600 text-white p-3 rounded-sm w-full text-center"
@@ -101,7 +119,10 @@ export default function ProductInfo({ name, price, stock }: Props) {
             Comprar Ahora
           </button>
         )}
-        <button className="bg-blue-200 hover:bg-blue-300 flex items-center gap-2 justify-center text-gray-900 p-3 rounded-sm w-full">
+        <button
+          onClick={() => handleAddToCart()}
+          className="bg-blue-200 hover:bg-blue-300 flex items-center gap-2 justify-center text-gray-900 p-3 rounded-sm w-full"
+        >
           <ShoppingCart size={20} />
           Agregar al carrito
         </button>
