@@ -95,8 +95,12 @@ export const ProductsFilterMovilDrawer = () => {
 
   return (
     <>
-      <button onClick={() => setOpen(true)} className="p-2 sm:hidden">
+      <button
+        onClick={() => setOpen(true)}
+        className="p-2 sm:hidden mb-2 flex gap-2 items-center font-semibold"
+      >
         <Filter />
+        Filtros
       </button>
 
       {open && (
@@ -104,22 +108,22 @@ export const ProductsFilterMovilDrawer = () => {
           <div className="fixed inset-0 z-50 bg-black/50 sm:hidden">
             <aside
               ref={asideRef}
-              className="fixed left-0 top-0 h-full w-64 bg-blue-50 shadow-lg flex flex-col p-4 gap-6 animate-slide-in-left overflow-y-auto"
+              className="fixed left-0 top-0 h-full w-64 bg-blue-50 shadow-lg flex flex-col p-4 gap-6 overflow-y-auto touch-auto"
             >
               <div className="flex justify-between items-center">
-                <h3 className="text-lg font-semibold text-blue-700">Filtros</h3>
+                <h3 className="text-lg font-semibold ">Filtros</h3>
                 <button onClick={() => setOpen(false)}>
-                  <X className="text-blue-700" />
+                  <X className="" />
                 </button>
               </div>
 
               {/* Marca */}
               <div>
-                <h4 className="font-medium text-blue-800">Marca</h4>
+                <h4 className="font-medium ">Marca</h4>
                 {brands.map((brand) => (
                   <label
                     key={brand}
-                    className="flex items-center space-x-2 mt-2 cursor-pointer text-blue-900"
+                    className="flex items-center space-x-2 mt-2 cursor-pointer "
                   >
                     <input
                       type="checkbox"
@@ -135,11 +139,11 @@ export const ProductsFilterMovilDrawer = () => {
 
               {/* Categoría */}
               <div>
-                <h4 className="font-medium text-blue-800">Categoría</h4>
+                <h4 className="font-medium ">Categoría</h4>
                 {categories.map((cat) => (
                   <label
                     key={cat}
-                    className="flex items-center space-x-2 mt-2 cursor-pointer text-blue-900"
+                    className="flex items-center space-x-2 mt-2 cursor-pointer "
                   >
                     <input
                       type="checkbox"
@@ -155,7 +159,7 @@ export const ProductsFilterMovilDrawer = () => {
 
               {/* Precio */}
               <div>
-                <h4 className="font-medium text-blue-800">Precio</h4>
+                <h4 className="font-medium ">Precio</h4>
                 <input
                   type="range"
                   min={0}
@@ -164,9 +168,9 @@ export const ProductsFilterMovilDrawer = () => {
                   onChange={(e) =>
                     handlePrice({ price: Number(e.target.value) })
                   }
-                  className="w-full"
+                  className="w-full touch-auto"
                 />
-                <p className="text-sm mt-2 text-blue-700">
+                <p className="text-sm mt-2 ">
                   Hasta: ${price.toLocaleString("es-CO")}
                 </p>
               </div>

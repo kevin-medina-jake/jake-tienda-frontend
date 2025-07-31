@@ -5,9 +5,7 @@ import { ProductsFilterMovilDrawer } from "../common/products-filter-movil-drawe
 export default function ProductsPage() {
   return (
     <div className="max-w-7xl mx-auto px-4 py-10 w-full min-h-[calc(100vh-447px)]">
-      <div className="flex items-center justify-between mb-6">
-        <ProductsFilterMovilDrawer />
-      </div>
+      <ProductsFilterMovilDrawer />
 
       <div className="w-full flex gap-6">
         <div className="relative hidden sm:block w-64 flex-shrink-0">
