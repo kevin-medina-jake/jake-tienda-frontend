@@ -17,8 +17,6 @@ export const ShoppingCartDrawer = () => {
 
   const { products } = useStoreShoppingCart();
 
-  console.log("products", products);
-
   useEffect(() => {
     if (!open) return;
 

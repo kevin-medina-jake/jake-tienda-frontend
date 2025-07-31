@@ -31,7 +31,7 @@ export const CartProduct = ({ product }: { product: any }) => {
         key={product.id}
         className="bg-blue-50 rounded-sm overflow-hidden flex flex-col gap-2 border border-blue-100 hover:shadow"
       >
-        <section className="aspect-square">
+        <section className="aspect-square sm:h-[306px]">
           <Image
             src={product.image ?? "/not-found.png"}
             alt={product.name}
