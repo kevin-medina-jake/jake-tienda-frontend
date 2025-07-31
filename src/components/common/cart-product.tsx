@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { ShoppingCart } from "lucide-react";
+import Image from "next/image";
 
 export const CartProduct = ({ product }: { product: any }) => {
   const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -21,10 +22,12 @@ export const CartProduct = ({ product }: { product: any }) => {
         className="bg-blue-50 rounded-sm overflow-hidden flex flex-col gap-2 border border-blue-100 hover:shadow"
       >
         <section className="aspect-square">
-          <img
-            src={product.image}
+          <Image
+            src={product.image ?? "/not-found.png"}
             alt={product.name}
-            className="w-full h-full object-cover"
+            width={306}
+            height={306}
+            className="rounded object-cover"
           />
         </section>
 

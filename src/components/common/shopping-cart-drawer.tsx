@@ -53,7 +53,7 @@ export const ShoppingCartDrawer = () => {
               {/* Producto */}
               <div className="border border-blue-200 rounded-lg p-3 flex gap-3 items-center bg-white">
                 <Image
-                  src={ImageL}
+                  src={ImageL ?? "/not-found.png"}
                   alt="Producto"
                   width={50}
                   height={50}

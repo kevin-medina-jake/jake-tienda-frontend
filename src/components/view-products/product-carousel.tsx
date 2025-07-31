@@ -31,7 +31,7 @@ export default function ProductCarousel({ images }: Props) {
         {images.map((img, idx) => (
           <SwiperSlide key={idx}>
             <Image
-              src={img}
+              src={img ?? "/not-found.png"}
               alt={`Vista ${idx + 1}`}
               width={600}
               height={400}
@@ -57,7 +57,7 @@ export default function ProductCarousel({ images }: Props) {
             className="!w-20 cursor-pointer flex justify-center"
           >
             <Image
-              src={img}
+              src={img ?? "/not-found.png"}
               alt={`Thumb ${idx + 1}`}
               width={80}
               height={60}

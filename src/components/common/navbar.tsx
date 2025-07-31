@@ -24,7 +24,12 @@ export const Navbar = async () => {
       <nav className="bg-white max-w-8xl w-full sm:flex z-50 gap-4 h-[100] justify-between fixed left-1/2 transform -translate-x-1/2 top-0 px-4 py-2 border-b border-gray-400 hidden">
         <section className="flex items-center">
           <Link href="/">
-            <Image src={Logo} alt="logo" width={100} height={50} />
+            <Image
+              src={Logo ?? "/not-found.png"}
+              alt="logo"
+              width={100}
+              height={50}
+            />
           </Link>
         </section>
 
@@ -68,7 +73,12 @@ export const Navbar = async () => {
       <nav className="bg-white w-full flex flex-col z-50 gap-4 fixed left-1/2 transform -translate-x-1/2 top-0 p-2 py-2 border-b border-gray-400 sm:hidden">
         <section className="flex justify-between items-center">
           <MobileMenu />
-          <Image src={Logo} alt="logo" width={70} height={40} />
+          <Image
+            src={Logo ?? "/not-found.png"}
+            alt="logo"
+            width={70}
+            height={40}
+          />
           <ShoppingCartDrawer />
         </section>
 
