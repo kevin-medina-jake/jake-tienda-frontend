@@ -62,25 +62,27 @@ export default function ProductInfo({ id, name, price, stock, image }: Props) {
         ${price?.toLocaleString("es-CO")}
       </p>
 
-      <div className="flex items-center space-x-3">
-        <span className="font-medium">Cantidad</span>
-        <div className="flex items-center border rounded">
-          <button
-            onClick={decrement}
-            className="px-3 py-1 bg-gray-100 hover:bg-gray-200"
-          >
-            -
-          </button>
-          <span className="px-4">{quantity}</span>
-          <button
-            onClick={increment}
-            className="px-3 py-1 bg-gray-100 hover:bg-gray-200"
-            disabled={quantity >= stock}
-          >
-            +
-          </button>
+      {stock > 1 && (
+        <div className="flex items-center space-x-3">
+          <span className="font-medium">Cantidad</span>
+          <div className="flex items-center border rounded">
+            <button
+              onClick={decrement}
+              className="px-3 py-1 bg-gray-100 hover:bg-gray-200"
+            >
+              -
+            </button>
+            <span className="px-4">{quantity}</span>
+            <button
+              onClick={increment}
+              className="px-3 py-1 bg-gray-100 hover:bg-gray-200"
+              disabled={quantity >= stock}
+            >
+              +
+            </button>
+          </div>
         </div>
-      </div>
+      )}
 
       <label className="flex flex-col gap-1 text-sm font-medium">
         Método de pago

@@ -4,7 +4,6 @@ export const parseCarouselPresentationImage = (
   presentations: any
 ): ICarouselPresentation[] => {
   const result = presentations.map((presentation: any) => {
-    console.log(presentation);
     return {
       id: presentation.id,
       name_image: presentation.name_image,

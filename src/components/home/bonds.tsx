@@ -1,6 +1,7 @@
 import { productBond } from "@/service/api/product-bond";
 import { IProductBond } from "@/types/product";
 import { BookText, Clapperboard, Laptop, Music } from "lucide-react";
+import Link from "next/link";
 
 const bonds = [
   {
@@ -72,15 +73,18 @@ export const Bonds = async () => {
             />
           </section>
 
-          <section className="flex flex-col justify-center gap-4">
+          <section className="flex flex-col justify-center gap-3">
             <h2 className="text-2xl md:text-4xl font-semibold">
               {productBondInfo.title}
             </h2>
-            <p className="text-gray-700">{productBondInfo.description}</p>
+            <p className="text-gray-700 mb-3">{productBondInfo.description}</p>
             <div>
-              <button className="bg-blue-300 w-full sm:w-max px-10 py-3 font-medium rounded-full">
+              <Link
+                href={"/view-product/" + productBondInfo.slug}
+                className="bg-blue-500  text-white w-full sm:w-max px-12 py-3 font-medium rounded-sm"
+              >
                 Comprar Ahora
-              </button>
+              </Link>
             </div>
           </section>
         </div>
