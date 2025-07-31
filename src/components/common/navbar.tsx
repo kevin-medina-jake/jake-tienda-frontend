@@ -72,13 +72,8 @@ export const Navbar = async () => {
           <ShoppingCartDrawer />
         </section>
 
-        <section className="relative px-2 flex items-center">
-          <input
-            type="text"
-            className="w-full px-4 py-2 border border-gray-400 focus:border-blue-50 rounded-full"
-            placeholder="Buscar..."
-          />
-          <Search className="absolute right-5" />
+        <section className="px-2">
+          <SearchProducts />
         </section>
       </nav>
     </>
