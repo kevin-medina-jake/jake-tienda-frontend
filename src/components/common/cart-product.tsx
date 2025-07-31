@@ -56,7 +56,7 @@ export const CartProduct = ({
           {product.name}
         </h3>
 
-        <section className="flex gap-4 justify-between items-center px-2 pb-2">
+        <section className="flex gap-4 items-center px-2 pb-2">
           <div className="text-left">
             <p className="text-xs font-light">Precio</p>
             <p className="text-xl font-bold">
@@ -64,10 +64,10 @@ export const CartProduct = ({
             </p>
           </div>
 
-          <div className="group w-full flex flex-row-reverse">
+          <div className="group ml-auto">
             <button
               onClick={handleAddToCart}
-              className="border group-hover:text-white cursor-pointer border-blue-300 group-hover:border-blue-600 group-hover:bg-blue-600 transition-[width] duration-300 rounded-sm group-hover:w-full size-10 font-medium flex gap-2 items-center justify-center px-2 overflow-hidden"
+              className="border group-hover:text-white cursor-pointer border-blue-300 group-hover:border-blue-600 group-hover:bg-blue-600 transition-[width] duration-300 rounded-sm group-hover:w-30 w-10 h-10 font-medium flex gap-2 items-center justify-center px-2 overflow-hidden"
             >
               <ShoppingCart />
               <span className="sm:group-hover:inline hidden text-sm whitespace-nowrap">
