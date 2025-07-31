@@ -1,15 +1,25 @@
 "use client";
 
 import Link from "next/link";
-import { ShoppingCart } from "lucide-react";
 import Image from "next/image";
 
+import { useStoreShoppingCart } from "@/store/shopping-cart";
+import { ShoppingCart } from "lucide-react";
+
 export const CartProduct = ({ product }: { product: any }) => {
+  const { addProduct } = useStoreShoppingCart();
+
   const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     e.preventDefault();
 
-    console.log("Agregar al carrito:", product);
+    addProduct({
+      id: product.id,
+      name: product.name,
+      price: product.price,
+      stock: product.stock,
+      image: product.image,
+    });
   };
 
   return (

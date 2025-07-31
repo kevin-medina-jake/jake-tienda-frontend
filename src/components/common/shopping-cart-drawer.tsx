@@ -5,11 +5,19 @@ import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import ImageL from "@/assets/home/bonds/image.png";
 import { usePortalDrawer } from "@/hooks/use-portal-drawer";
+import {
+  IShoppingCartProduct,
+  useStoreShoppingCart,
+} from "@/store/shopping-cart";
 
 export const ShoppingCartDrawer = () => {
   const [open, setOpen] = useState(false);
   const Portal = usePortalDrawer("shopping-cart");
   const asideRef = useRef<HTMLDivElement>(null);
+
+  const { products } = useStoreShoppingCart();
+
+  console.log("products", products);
 
   useEffect(() => {
     if (!open) return;
@@ -51,33 +59,12 @@ export const ShoppingCartDrawer = () => {
               </div>
 
               {/* Producto */}
-              <div className="border border-blue-200 rounded-lg p-3 flex gap-3 items-center bg-white">
-                <Image
-                  src={ImageL ?? "/not-found.png"}
-                  alt="Producto"
-                  width={50}
-                  height={50}
-                  className="rounded object-cover"
-                />
-                <div className="flex flex-col flex-1">
-                  <span className="font-medium">Parlante</span>
-                  <span className="text-sm">$4.000</span>
-                  <div className="flex items-center justify-between gap-2 mt-2">
-                    <div className="flex gap-2">
-                      <button className="border border-blue-200 rounded px-2">
-                        −
-                      </button>
-                      <span>1</span>
-                      <button className="border border-blue-200 rounded px-2">
-                        +
-                      </button>
-                    </div>
-                    <button className="flex items-center">
-                      <Trash size={18} />
-                    </button>
-                  </div>
-                </div>
-              </div>
+
+              <ul className="space-y-2 overflow-y-auto">
+                {products.map((product) => (
+                  <CartProduct key={product.id} product={product} />
+                ))}
+              </ul>
 
               <div className="mt-auto space-y-3 border-t border-blue-200 pt-4">
                 <div className="flex justify-between text-base">
@@ -96,5 +83,60 @@ export const ShoppingCartDrawer = () => {
         </Portal>
       )}
     </>
+  );
+};
+
+const CartProduct = ({ product }: { product: IShoppingCartProduct }) => {
+  const { decreaseQuantity, increaseQuantity } = useStoreShoppingCart();
+
+  const handleDecreaseQuantity = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    decreaseQuantity(product.id);
+  };
+
+  const handleIncreaseQuantity = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
+
+    increaseQuantity(product.id);
+  };
+
+  return (
+    <li className="border border-blue-300 rounded-sm p-2 flex gap-4 items-center bg-white">
+      <Image
+        src={product.image ?? ImageL}
+        alt={product.name}
+        width={100}
+        height={100}
+        className="rounded-sm object-cover"
+      />
+
+      <div className="flex flex-col flex-1">
+        <span className="font-bold text-lg">{product.name}</span>
+        <span className="text-sm text-medium">${product.price}</span>
+        <div className="flex items-center justify-between gap-2 mt-2">
+          <div className="flex gap-3">
+            <button
+              className="border border-blue-200 rounded px-2"
+              onClick={handleDecreaseQuantity}
+            >
+              −
+            </button>
+            <span>{product.quantity}</span>
+            <button
+              className="border border-blue-200 rounded px-2"
+              onClick={handleIncreaseQuantity}
+            >
+              +
+            </button>
+          </div>
+          <button className="flex items-center">
+            <Trash size={18} />
+          </button>
+        </div>
+      </div>
+    </li>
   );
 };
