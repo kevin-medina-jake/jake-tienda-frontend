@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { Menu, Search, ShoppingCart } from "lucide-react";
+import { Menu, Search, ShoppingCart, X } from "lucide-react";
 
 import Logo from "@/assets/logo/image.png";
 
@@ -9,6 +9,7 @@ import { brandDropdown } from "@/service/api/brand";
 import { IDropDownMenu } from "@/types/navbar";
 import { categoryDropdown } from "@/service/api/category";
 import { SearchProducts } from "./search-products";
+import { MobileMenu } from "./movil-menu";
 
 export const Navbar = async () => {
   const [brands, categories] = await Promise.allSettled([
@@ -29,7 +30,7 @@ export const Navbar = async () => {
         <section className="flex-1 xl:px-20 lg:px-10 md:px-5 grid gap-4">
           <SearchProducts />
 
-          <ul className="flex gap-6 items-center">
+          <ul className="flex gap-6 items-center text-sm md:text-base">
             <li>
               <Link href="/">Inicio</Link>
             </li>
@@ -50,7 +51,9 @@ export const Navbar = async () => {
               <Link href="/credit">Credito</Link>
             </li>
             <li>
-              <Link href="/about-us">Sobre Nosotros</Link>
+              <Link href="/about-us" className="whitespace-nowrap">
+                Sobre Nosotros
+              </Link>
             </li>
           </ul>
         </section>
@@ -65,9 +68,7 @@ export const Navbar = async () => {
       {/* Mobile (sin sub-menú) */}
       <nav className="bg-white w-full flex flex-col z-50 gap-4 fixed left-1/2 transform -translate-x-1/2 top-0 p-2 py-2 border-b border-gray-400 sm:hidden">
         <section className="flex justify-between items-center">
-          <button className="p-2">
-            <Menu />
-          </button>
+          <MobileMenu />
           <Image src={Logo} alt="logo" width={70} height={40} />
           <button className="p-2">
             <ShoppingCart />
