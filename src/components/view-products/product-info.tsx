@@ -15,6 +15,21 @@ export default function ProductInfo({ name, price, stock }: Props) {
   const increment = () => setQuantity(quantity + 1);
   const decrement = () => setQuantity(quantity > 1 ? quantity - 1 : 1);
 
+  const [paymentMethod, setPaymentMethod] = useState("sin_credito");
+
+  // tarea: hacer que cambie el botón de comprar, si es diferente a sin crédito y
+  // que se muestre un botón de WhatsApp que redirija a WhatsApp con el mensaje de la
+  // de la selección del método de pago
+
+  // tarea: hacer que el estado quantity se pueda sumar hasta el que llega de stock en los parámetros
+
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    setPaymentMethod(value);
+
+    console.log("Método seleccionado:", value);
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, x: 10 }}
@@ -47,20 +62,23 @@ export default function ProductInfo({ name, price, stock }: Props) {
         </div>
       </div>
 
-      {/* <div>
-        <p className="font-medium mb-2">Comprar con crédito</p>
-        <div className="flex flex-wrap gap-4">
-          <span className="px-4 py-2 bg-purple-100 rounded-full font-medium cursor-pointer hover:bg-purple-200">
-            Addi
-          </span>
-          <span className="px-4 py-2 bg-green-100 rounded-full font-medium cursor-pointer hover:bg-green-200">
-            Gora
-          </span>
-          <span className="px-4 py-2 bg-red-100 rounded-full font-medium cursor-pointer hover:bg-red-200">
-            Banco Bogotá
-          </span>
-        </div>
-      </div> */}
+      <label className="flex flex-col gap-1 text-sm font-medium">
+        Método de pago
+        <select
+          name="paymentMethod"
+          className="border border-gray-300 rounded p-2"
+          onChange={handleChange}
+          value={paymentMethod}
+        >
+          <optgroup label="Pago sin crédito">
+            <option value="sin_credito">PayU</option>
+          </optgroup>
+          <optgroup label="Pago con crédito">
+            <option value="abby">Abby</option>
+            <option value="brilla">Brilla</option>
+          </optgroup>
+        </select>
+      </label>
 
       <div className="flex flex-col sm:flex-row gap-4 w-full">
         <button className="bg-blue-500 flex items-center justify-center gap-2 hover:bg-blue-600 text-white p-3 rounded-sm w-full">
