@@ -46,7 +46,7 @@ export const CartProduct = ({ product }: { product: any }) => {
               className="border group-hover:text-white cursor-pointer border-blue-300 group-hover:border-blue-600 group-hover:bg-blue-600 transition-[width] duration-300 rounded-sm group-hover:w-full size-10 font-medium flex gap-2 items-center justify-center px-2 overflow-hidden"
             >
               <ShoppingCart />
-              <span className="group-hover:inline hidden text-sm whitespace-nowrap">
+              <span className="sm:group-hover:inline hidden text-sm whitespace-nowrap">
                 Agregar al carrito
               </span>
             </button>

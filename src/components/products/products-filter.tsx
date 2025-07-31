@@ -1,9 +1,10 @@
 "use client";
 
+import { useFilterProducts } from "@/hooks/use-filter-products";
 import { useStoreProducts } from "@/store/products";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 interface Props {
   isMobile?: boolean;
@@ -13,6 +14,8 @@ interface Props {
 
 export default function ProductsFilter({ isMobile, isOpen, onClose }: Props) {
   const { allProducts } = useStoreProducts();
+  const { filters, handlePrice, handleCategories, handleBrands } =
+    useFilterProducts();
 
   const categories = [
     ...new Set(allProducts.flatMap((product) => product.categories)),
@@ -26,29 +29,48 @@ export default function ProductsFilter({ isMobile, isOpen, onClose }: Props) {
     ),
   ];
 
-  const [selectedOrder, setSelectedOrder] = useState("Recientes");
-  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [priceRange, setPriceRange] = useState(1000000);
+  const maxPrice = Math.max(...allProducts.map((product) => product.price));
 
-  const toggleSelection = (
-    list: string[],
-    item: string,
-    setList: (v: string[]) => void
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
+
+  const { categories: categoriesStore, brands: brandsStore, price } = filters;
+
+  const handleChangeCategories = (
+    event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    if (list.includes(item)) {
-      setList(list.filter((x) => x !== item));
-    } else {
-      setList([...list, item]);
-    }
+    const value = event.target.value;
+
+    setSelectedCategories((prev: string[]) =>
+      event.target.checked
+        ? [...prev, value]
+        : prev.filter((option) => option !== value)
+    );
   };
+
+  useEffect(
+    () => handleCategories({ categories: selectedCategories }),
+    [selectedCategories]
+  );
+
+  const handleChangeBrands = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value;
+
+    setSelectedBrands((prev: string[]) =>
+      event.target.checked
+        ? [...prev, value]
+        : prev.filter((option) => option !== value)
+    );
+  };
+
+  useEffect(() => handleBrands({ brands: selectedBrands }), [selectedBrands]);
 
   const content = (
     <div className="space-y-6 bg-white h-full w-64 md:w-auto">
       <h3 className="text-lg font-semibold">Filtros</h3>
 
       {/* Orden */}
-      <div>
+      {/* <div>
         <h4 className="font-medium">Orden</h4>
         {["Recientes", "Precio Ascendente", "Precio Descendente"].map((o) => (
           <label
@@ -64,7 +86,7 @@ export default function ProductsFilter({ isMobile, isOpen, onClose }: Props) {
             <span>{o}</span>
           </label>
         ))}
-      </div>
+      </div> */}
 
       {/* Marcas */}
       <div>
@@ -76,10 +98,10 @@ export default function ProductsFilter({ isMobile, isOpen, onClose }: Props) {
           >
             <input
               type="checkbox"
-              checked={selectedBrands.includes(brand)}
-              onChange={() =>
-                toggleSelection(selectedBrands, brand, setSelectedBrands)
-              }
+              id={brand}
+              value={brand}
+              checked={brandsStore.includes(brand)}
+              onChange={handleChangeBrands}
             />
             <span>{brand}</span>
           </label>
@@ -96,10 +118,10 @@ export default function ProductsFilter({ isMobile, isOpen, onClose }: Props) {
           >
             <input
               type="checkbox"
-              checked={selectedCategories.includes(cat)}
-              onChange={() =>
-                toggleSelection(selectedCategories, cat, setSelectedCategories)
-              }
+              id={cat}
+              value={cat}
+              checked={categoriesStore.includes(cat)}
+              onChange={handleChangeCategories}
             />
             <span>{cat}</span>
           </label>
@@ -112,15 +134,12 @@ export default function ProductsFilter({ isMobile, isOpen, onClose }: Props) {
         <input
           type="range"
           min={0}
-          max={4000000}
-          step={50000}
-          value={priceRange}
-          onChange={(e) => setPriceRange(Number(e.target.value))}
+          max={maxPrice}
+          value={price}
+          onChange={(e) => handlePrice({ price: Number(e.target.value) })}
           className="w-full"
         />
-        <p className="text-sm mt-2">
-          Hasta: ${priceRange.toLocaleString("es-CO")}
-        </p>
+        <p className="text-sm mt-2">Hasta: ${price.toLocaleString("es-CO")}</p>
       </div>
     </div>
   );
@@ -131,11 +150,11 @@ export default function ProductsFilter({ isMobile, isOpen, onClose }: Props) {
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          initial={{ x: "100%" }}
+          initial={{ x: "-100%" }}
           animate={{ x: 0 }}
-          exit={{ x: "100%" }}
+          exit={{ x: "-100%" }}
           transition={{ duration: 0.3 }}
-          className="fixed top-0 right-0 h-full w-72 bg-blue-50 z-50 shadow-lg"
+          className="fixed top-0 left-0 h-full w-72 bg-blue-50 z-50 shadow-lg"
         >
           <div className="flex justify-between items-center p-4 border-b">
             <h3 className="text-lg font-semibold">Filtros</h3>

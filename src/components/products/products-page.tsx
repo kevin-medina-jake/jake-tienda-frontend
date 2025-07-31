@@ -9,10 +9,8 @@ export default function ProductsPage() {
   const [mobileFiltersOpen, setMobileFiltersOpen] = useState(false);
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-10 w-full">
+    <div className="max-w-7xl mx-auto px-4 py-10 w-full min-h-screen">
       <div className="flex items-center justify-between mb-6">
-        <h1 className="text-2xl font-bold">Buscar y Filtrar Productos</h1>
-        {/* Botón de filtros (solo visible en móvil) */}
         <button
           onClick={() => setMobileFiltersOpen(true)}
           className="lg:hidden flex items-center space-x-2 text-gray-700"

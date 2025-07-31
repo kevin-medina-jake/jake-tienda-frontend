@@ -68,31 +68,22 @@ export const useFilterProducts = () => {
               product?.brand?.toLowerCase().includes(item)
           );
 
-      //   const matchesCategories =
-      //     filters.categories.length === 0 ||
-      //     filters.categories.some((value: string) =>
-      //       product.category.includes(value)
-      //     );
+      const matchesCategories =
+        filters.categories.length === 0 ||
+        (product.categories?.length > 0 &&
+          product.categories.some((cat: string) =>
+            filters.categories.includes(cat)
+          ));
 
-      //   const matchesBrands =
-      //     filters.brands.length === 0 ||
-      //     filters.brands.some((value: string) =>
-      //       product.brandProduct?.includes(value)
-      //     );
+      const matchesBrands =
+        filters.brands.length === 0 ||
+        filters.brands.some((value: string) => product.brand?.includes(value));
 
-      //   const productPrice = parsePriceNumber(
-      //     product?.price?.toString() || product?.descuento?.toString()
-      //   );
-      //   const matchesPrice = productPrice >= filters.price;
+      const matchesPrice = product.price >= filters.price;
 
-      //   return (
-      //     matchesSearch &&
-      //     matchesPrice &&
-      //     matchesCategories &&
-      //     matchesBrands &&
-      //   );
-
-      return matchesSearch;
+      return (
+        matchesSearch && matchesBrands && matchesCategories && matchesPrice
+      );
     });
 
     setFilteredProducts(newProducts);
