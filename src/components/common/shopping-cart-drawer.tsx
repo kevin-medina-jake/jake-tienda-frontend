@@ -15,7 +15,9 @@ export const ShoppingCartDrawer = () => {
   const Portal = usePortalDrawer("shopping-cart");
   const asideRef = useRef<HTMLDivElement>(null);
 
-  const { products } = useStoreShoppingCart();
+  const { products, getTotalPrice, getTotalProducts } = useStoreShoppingCart();
+
+  const hasItems = getTotalProducts() > 0;
 
   useEffect(() => {
     if (!open) return;
@@ -35,8 +37,13 @@ export const ShoppingCartDrawer = () => {
 
   return (
     <>
-      <button onClick={() => setOpen(true)} className="p-2">
+      <button onClick={() => setOpen(true)} className="py-2 px-3 relative">
         <ShoppingCart />
+        {hasItems && (
+          <span className="absolute -top-1 -right-1 px-1 bg-green-300 rounded-full text-xs">
+            {getTotalProducts()}
+          </span>
+        )}
       </button>
 
       {open && (
@@ -47,35 +54,56 @@ export const ShoppingCartDrawer = () => {
               className="fixed right-0 top-0 h-full max-w-lg w-full bg-blue-50 flex flex-col p-4 gap-4"
             >
               <div className="flex justify-between items-center mb-4">
-                <h2 className="font-semibold text-lg flex gap-2 items-center">
+                <h2 className="font-semibold text-lg flex gap-2 items-center text-black">
                   <ShoppingCart />
-                  Carrito de Compras <span className="font-medium">(1)</span>
+                  Carrito de Compras{" "}
+                  <span className="font-medium">({getTotalProducts()})</span>
                 </h2>
                 <button onClick={() => setOpen(false)}>
                   <X />
                 </button>
               </div>
 
-              {/* Producto */}
-
-              <ul className="space-y-2 overflow-y-auto">
-                {products.map((product) => (
-                  <CartProduct key={product.id} product={product} />
-                ))}
-              </ul>
-
-              <div className="mt-auto space-y-3 border-t border-blue-200 pt-4">
-                <div className="flex justify-between text-base">
-                  <span>Total:</span>
-                  <span className=" font-semibold">$4.000</span>
+              {products.length === 0 ? (
+                <div className="flex-1 flex flex-col justify-center items-center text-center gap-3 text-black">
+                  <ShoppingCart size={64} className="opacity-30" />
+                  <h3 className="text-lg font-semibold">
+                    Tu carrito está vacío
+                  </h3>
+                  <p className="text-sm text-gray-500">
+                    Agrega productos para comenzar a comprar.
+                  </p>
+                  <button
+                    onClick={() => setOpen(false)}
+                    className="mt-2 px-4 py-2 border border-blue-300 rounded hover:bg-blue-100 text-sm font-medium"
+                  >
+                    Seguir comprando
+                  </button>
                 </div>
-                <button className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded p-2 font-medium">
-                  Proceder al Pago
-                </button>
-                <button className="w-full border border-blue-300 hover:bg-blue-100 rounded p-2 text-sm ">
-                  Vaciar Carrito
-                </button>
-              </div>
+              ) : (
+                <>
+                  <ul className="space-y-2 overflow-y-auto">
+                    {products.map((product) => (
+                      <CartProduct key={product.id} product={product} />
+                    ))}
+                  </ul>
+
+                  <div className="mt-auto space-y-3 border-t border-blue-200 pt-4 text-black">
+                    <div className="flex justify-between text-base">
+                      <span>Total:</span>
+                      <span className="font-semibold">
+                        ${getTotalPrice().toLocaleString("es-CO")}
+                      </span>
+                    </div>
+                    <button className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded p-2 font-medium">
+                      Proceder al Pago
+                    </button>
+                    <button className="w-full border border-blue-300 hover:bg-blue-100 rounded p-2 text-sm">
+                      Vaciar Carrito
+                    </button>
+                  </div>
+                </>
+              )}
             </aside>
           </div>
         </Portal>
@@ -85,24 +113,29 @@ export const ShoppingCartDrawer = () => {
 };
 
 const CartProduct = ({ product }: { product: IShoppingCartProduct }) => {
-  const { decreaseQuantity, increaseQuantity } = useStoreShoppingCart();
+  const { decreaseQuantity, increaseQuantity, removeProduct } =
+    useStoreShoppingCart();
 
   const handleDecreaseQuantity = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     e.preventDefault();
-
     decreaseQuantity(product.id);
   };
 
   const handleIncreaseQuantity = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     e.preventDefault();
-
     increaseQuantity(product.id);
   };
 
+  const handleRemoveProduct = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.stopPropagation();
+    e.preventDefault();
+    removeProduct(product.id);
+  };
+
   return (
-    <li className="border border-blue-300 rounded-sm p-2 flex gap-4 items-center bg-white">
+    <li className="border border-blue-300 rounded-sm p-2 flex gap-4 items-center bg-white text-black">
       <Image
         src={product.image ?? ImageL}
         alt={product.name}
@@ -110,27 +143,31 @@ const CartProduct = ({ product }: { product: IShoppingCartProduct }) => {
         height={100}
         className="rounded-sm object-cover"
       />
-
-      <div className="flex flex-col flex-1">
+      <div className="flex flex-col flex-1 gap-1">
         <span className="font-bold text-lg">{product.name}</span>
-        <span className="text-sm text-medium">${product.price}</span>
+        <span className="text-sm text-medium">
+          ${product.price.toLocaleString("es-CO")}
+        </span>
         <div className="flex items-center justify-between gap-2 mt-2">
-          <div className="flex gap-3">
+          <div className="flex gap-3 items-center">
             <button
-              className="border border-blue-200 rounded px-2"
+              className="border border-blue-100 rounded size-8 hover:bg-blue-200 grid place-content-center cursor-pointer"
               onClick={handleDecreaseQuantity}
             >
-              −
+              <span>-</span>
             </button>
-            <span>{product.quantity}</span>
+            <span className="text-sm font-semibold">{product.quantity}</span>
             <button
-              className="border border-blue-200 rounded px-2"
+              className="border border-blue-100 rounded size-8 hover:bg-blue-200 grid place-content-center cursor-pointer"
               onClick={handleIncreaseQuantity}
             >
-              +
+              <span>+</span>
             </button>
           </div>
-          <button className="flex items-center">
+          <button
+            onClick={handleRemoveProduct}
+            className="flex items-center hover:text-red-500 cursor-pointer"
+          >
             <Trash size={18} />
           </button>
         </div>
