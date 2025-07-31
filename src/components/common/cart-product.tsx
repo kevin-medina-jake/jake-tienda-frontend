@@ -6,7 +6,13 @@ import Image from "next/image";
 import { useStoreShoppingCart } from "@/store/shopping-cart";
 import { ShoppingCart } from "lucide-react";
 
-export const CartProduct = ({ product }: { product: any }) => {
+export const CartProduct = ({
+  product,
+  isBig = false,
+}: {
+  product: any;
+  isBig?: boolean;
+}) => {
   const { addProduct } = useStoreShoppingCart();
 
   const handleAddToCart = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -22,6 +28,11 @@ export const CartProduct = ({ product }: { product: any }) => {
     });
   };
 
+  const style = isBig ? "" : "h-[306px]";
+
+  const height = isBig ? 610 : 306;
+  const width = isBig ? 610 : 306;
+
   return (
     <Link
       href={`/view-product/${product.slug}`}
@@ -31,12 +42,12 @@ export const CartProduct = ({ product }: { product: any }) => {
         key={product.id}
         className="bg-blue-50 rounded-sm overflow-hidden flex flex-col gap-2 border border-blue-100 hover:shadow"
       >
-        <section className="aspect-square sm:h-[306px]">
+        <section className={`aspect-square ${style}`}>
           <Image
             src={product.image ?? "/not-found.png"}
             alt={product.name}
-            width={306}
-            height={306}
+            width={width}
+            height={height}
             className="rounded object-cover"
           />
         </section>
