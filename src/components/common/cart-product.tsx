@@ -47,7 +47,7 @@ export const CartProduct = ({ product }: { product: any }) => {
             >
               <ShoppingCart />
               <span className="sm:group-hover:inline hidden text-sm whitespace-nowrap">
-                Agregar al carrito
+                Carrito
               </span>
             </button>
           </div>

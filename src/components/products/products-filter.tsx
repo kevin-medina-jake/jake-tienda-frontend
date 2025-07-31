@@ -1,18 +1,11 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useFilterProducts } from "@/hooks/use-filter-products";
 import { useStoreProducts } from "@/store/products";
-import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
-import { useEffect, useState } from "react";
+import { Filter } from "lucide-react";
 
-interface Props {
-  isMobile?: boolean;
-  isOpen?: boolean;
-  onClose?: () => void;
-}
-
-export default function ProductsFilter({ isMobile, isOpen, onClose }: Props) {
+export default function ProductsFilter() {
   const { allProducts } = useStoreProducts();
   const { filters, handlePrice, handleCategories, handleBrands } =
     useFilterProducts();
@@ -40,55 +33,37 @@ export default function ProductsFilter({ isMobile, isOpen, onClose }: Props) {
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
     const value = event.target.value;
-
-    setSelectedCategories((prev: string[]) =>
+    setSelectedCategories((prev) =>
       event.target.checked
         ? [...prev, value]
         : prev.filter((option) => option !== value)
     );
   };
 
-  useEffect(
-    () => handleCategories({ categories: selectedCategories }),
-    [selectedCategories]
-  );
+  useEffect(() => {
+    handleCategories({ categories: selectedCategories });
+  }, [selectedCategories]);
 
   const handleChangeBrands = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-
-    setSelectedBrands((prev: string[]) =>
+    setSelectedBrands((prev) =>
       event.target.checked
         ? [...prev, value]
         : prev.filter((option) => option !== value)
     );
   };
 
-  useEffect(() => handleBrands({ brands: selectedBrands }), [selectedBrands]);
+  useEffect(() => {
+    handleBrands({ brands: selectedBrands });
+  }, [selectedBrands]);
 
-  const content = (
-    <div className="space-y-6 bg-white h-full w-64 md:w-auto">
-      <h3 className="text-lg font-semibold">Filtros</h3>
+  return (
+    <div className="space-y-3 bg-blue-50 p-4 fixed rounded-sm">
+      <h3 className="text-lg font-semibold flex gap-2 items-center">
+        <Filter size={20} /> Filtros
+      </h3>
 
-      {/* Orden */}
-      {/* <div>
-        <h4 className="font-medium">Orden</h4>
-        {["Recientes", "Precio Ascendente", "Precio Descendente"].map((o) => (
-          <label
-            key={o}
-            className="flex items-center space-x-2 mt-2 cursor-pointer"
-          >
-            <input
-              type="radio"
-              name="order"
-              checked={selectedOrder === o}
-              onChange={() => setSelectedOrder(o)}
-            />
-            <span>{o}</span>
-          </label>
-        ))}
-      </div> */}
-
-      {/* Marcas */}
+      {/* Marca */}
       <div>
         <h4 className="font-medium">Marca</h4>
         {brands.map((brand) => (
@@ -108,7 +83,7 @@ export default function ProductsFilter({ isMobile, isOpen, onClose }: Props) {
         ))}
       </div>
 
-      {/* Categorías */}
+      {/* Categoría */}
       <div>
         <h4 className="font-medium">Categoría</h4>
         {categories.map((cat) => (
@@ -142,29 +117,5 @@ export default function ProductsFilter({ isMobile, isOpen, onClose }: Props) {
         <p className="text-sm mt-2">Hasta: ${price.toLocaleString("es-CO")}</p>
       </div>
     </div>
-  );
-
-  if (!isMobile) return content;
-
-  return (
-    <AnimatePresence>
-      {isOpen && (
-        <motion.div
-          initial={{ x: "-100%" }}
-          animate={{ x: 0 }}
-          exit={{ x: "-100%" }}
-          transition={{ duration: 0.3 }}
-          className="fixed top-0 left-0 h-full w-72 bg-blue-50 z-50 shadow-lg"
-        >
-          <div className="flex justify-between items-center p-4 border-b">
-            <h3 className="text-lg font-semibold">Filtros</h3>
-            <button onClick={onClose}>
-              <X size={24} />
-            </button>
-          </div>
-          {content}
-        </motion.div>
-      )}
-    </AnimatePresence>
   );
 }
