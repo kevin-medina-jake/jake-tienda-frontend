@@ -1,8 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
 
-import { Menu, Search, ShoppingCart, X } from "lucide-react";
-
 import Logo from "@/assets/logo/image.png";
 
 import { brandDropdown } from "@/service/api/brand";
@@ -11,12 +9,36 @@ import { categoryDropdown } from "@/service/api/category";
 import { SearchProducts } from "./search-products";
 import { MobileMenu } from "./movil-menu-drawer";
 import { ShoppingCartDrawer } from "./shopping-cart-drawer";
+import { ChevronDown } from "lucide-react";
+
+export interface IRoutes {
+  name: string;
+  href: string;
+  dropdown?: IDropDownMenu[];
+}
 
 export const Navbar = async () => {
   const [brands, categories] = await Promise.allSettled([
     brandDropdown(),
     categoryDropdown(),
   ]);
+
+  const routes: IRoutes[] = [
+    { name: "Inicio", href: "/" },
+    { name: "Productos", href: "/products" },
+    {
+      name: "Marcas",
+      href: "/products?brand=",
+      dropdown: brands.status === "fulfilled" ? brands.value : [],
+    },
+    {
+      name: "Categorías",
+      href: "/products?category=",
+      dropdown: brands.status === "fulfilled" ? brands.value : [],
+    },
+    { name: "Sobre Nosotros", href: "/about-us" },
+    { name: "Crédito", href: "/credit" },
+  ];
 
   return (
     <>
@@ -37,30 +59,24 @@ export const Navbar = async () => {
           <SearchProducts />
 
           <ul className="flex gap-6 items-center text-sm md:text-base">
-            <li>
-              <Link href="/">Inicio</Link>
-            </li>
-            <li>
-              <Link href="/products">Productos</Link>
-            </li>
+            {routes.map((route) => {
+              if (route.dropdown) {
+                return (
+                  <DropdownMenu
+                    name={route.name}
+                    drop={route.dropdown}
+                    url={route.href}
+                    key={route.name}
+                  />
+                );
+              }
 
-            <DropdownMenu
-              drop={brands.status === "fulfilled" ? brands.value : []}
-              url="/products?brand="
-            />
-
-            <DropdownMenu
-              drop={categories.status === "fulfilled" ? categories.value : []}
-              url="/products?category="
-            />
-            <li>
-              <Link href="/credit">Credito</Link>
-            </li>
-            <li>
-              <Link href="/about-us" className="whitespace-nowrap">
-                Sobre Nosotros
-              </Link>
-            </li>
+              return (
+                <li key={route.name}>
+                  <Link href={route.href}>{route.name}</Link>
+                </li>
+              );
+            })}
           </ul>
         </section>
 
@@ -72,7 +88,7 @@ export const Navbar = async () => {
       {/* Mobile (sin sub-menú) */}
       <nav className="bg-white w-full flex flex-col z-50 gap-4 fixed left-1/2 transform -translate-x-1/2 top-0 p-2 py-2 border-b border-gray-400 sm:hidden">
         <section className="flex justify-between items-center">
-          <MobileMenu />
+          <MobileMenu routes={routes.filter((r) => !r.dropdown)} />
 
           <Link href="/">
             <Image
@@ -94,16 +110,17 @@ export const Navbar = async () => {
 };
 
 interface DropdownMenuProps {
+  name: string;
   drop: IDropDownMenu[];
   url: string;
 }
 
-const DropdownMenu = ({ drop, url }: DropdownMenuProps) => (
+const DropdownMenu = ({ name, drop, url }: DropdownMenuProps) => (
   <li className="relative group">
-    <span className="cursor-default">
-      {url.includes("brand") ? "Marcas" : "Categorías"}
+    <span className="cursor-default flex items-center gap-1">
+      {name} <ChevronDown size={14} />
     </span>
-    <ul className="absolute top-full left-0 hidden group-hover:block bg-white shadow-md min-w-[120px] z-20">
+    <ul className="absolute top-full left-0 hidden group-hover:block bg-white shadow-md z-20">
       {drop.map((item) => (
         <li key={item.id}>
           <Link

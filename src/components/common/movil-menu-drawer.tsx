@@ -5,14 +5,7 @@ import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 
-const routes = [
-  { name: "Inicio", href: "/" },
-  { name: "Productos", href: "/products" },
-  { name: "Sobre Nosotros", href: "/about-us" },
-  { name: "Crédito", href: "/credit" },
-];
-
-export const MobileMenu = () => {
+export const MobileMenu = ({ routes }: { routes: any[] }) => {
   const [open, setOpen] = useState(false);
   const Portal = usePortalDrawer("mobile-menu");
   const asideRef = useRef<HTMLDivElement>(null);
