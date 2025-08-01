@@ -11,7 +11,7 @@ export const Categories = async () => {
   return (
     <section className="flex flex-col gap-4 px-4 max-w-7xl mx-auto w-full">
       <div>
-        <h2 className="text-2xl font-semibold text-center">Categorias</h2>
+        <h2 className="text-2xl font-semibold text-center">Categorías</h2>
       </div>
 
       <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2  gap-4 py-4 ">
@@ -28,7 +28,7 @@ export const Categories = async () => {
 
 const CardCategory = ({ category }: { category: ICategoryCart }) => {
   return (
-    <article className="flex flex-col gap-4 bg-gray-100 rounded-sm overflow-hidden">
+    <article className="flex flex-col gap-4 bg-blue-50 rounded-sm overflow-hidden">
       <div>
         <img
           src={category?.image}
@@ -43,8 +43,8 @@ const CardCategory = ({ category }: { category: ICategoryCart }) => {
 
       <div className="px-2 pb-4">
         <Link
-          href={"/products?category=" + category.slug}
-          className="bg-blue-200 flex items-center justify-center h-10 font-medium rounded-full"
+          href={"/products?category=" + category.name}
+          className="bg-blue-400 text-white flex items-center justify-center h-10 font-medium rounded-sm"
         >
           <span>Ver Catalogo</span>
         </Link>

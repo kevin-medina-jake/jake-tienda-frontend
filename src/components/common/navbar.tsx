@@ -56,7 +56,7 @@ export const Navbar = async () => {
         <section className="flex-1 xl:px-20 lg:px-10 md:px-5 grid gap-4">
           <SearchProducts />
 
-          <ul className="flex gap-6 items-center text-sm md:text-base">
+          <ul className="flex gap-6 items-center text-sm lg:text-base">
             {routes.map((route) => {
               if (route.dropdown) {
                 return (
@@ -71,7 +71,9 @@ export const Navbar = async () => {
 
               return (
                 <li key={route.name}>
-                  <Link href={route.href}>{route.name}</Link>
+                  <Link href={route.href} className="whitespace-nowrap">
+                    {route.name}
+                  </Link>
                 </li>
               );
             })}

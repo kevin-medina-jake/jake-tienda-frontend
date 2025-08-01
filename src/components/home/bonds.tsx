@@ -13,7 +13,7 @@ const bonds = [
       "Perfecto para tus primeras fiestas y eventos.",
     ],
     Icon: Music,
-    styles: "row-start-2 ",
+    styles: "",
   },
   {
     id: "2",
@@ -24,7 +24,7 @@ const bonds = [
       "Optimizado para pantallas y cabinas.",
     ],
     Icon: Clapperboard,
-    styles: "sm:row-start-2 row-start-3",
+    styles: "",
   },
   {
     id: "3",
@@ -35,7 +35,7 @@ const bonds = [
       "Traktor DJ 3 Full (Windows 10 y 11 – 64 bits).",
     ],
     Icon: Laptop,
-    styles: "lg:row-start-2 md:row-start-3 row-start-5",
+    styles: "",
   },
   {
     id: "4",
@@ -46,7 +46,7 @@ const bonds = [
       "Curso DJ Básico.",
     ],
     Icon: BookText,
-    styles: "lg:row-start-2 md:row-start-3 row-start-4",
+    styles: "",
   },
 ];
 export const Bonds = async () => {
@@ -64,7 +64,7 @@ export const Bonds = async () => {
   return (
     <div className="grid gap-4 max-w-7xl mx-auto w-full px-4">
       <div className="col-span-1 sm:col-span-2 lg:col-span-4">
-        <div className="flex md:flex-row flex-col md:p-8 p-4 bg-blue-100 rounded-sm gap-4">
+        <div className="flex md:flex-row flex-col md:p-8 p-4 bg-blue-50 rounded-sm gap-4">
           <section className="max-w-2xl">
             <img
               src={productBondInfo.image}
@@ -77,11 +77,11 @@ export const Bonds = async () => {
             <h2 className="text-2xl md:text-4xl font-semibold">
               {productBondInfo.title}
             </h2>
-            <p className="text-gray-700 mb-3">{productBondInfo.description}</p>
+            <p className="text-gray-700">{productBondInfo.description}</p>
             <div>
               <Link
                 href={"/view-product/" + productBondInfo.slug}
-                className="bg-blue-500  text-white w-full sm:w-max px-12 py-3 font-medium rounded-sm"
+                className="bg-blue-500  text-white w-full sm:w-max px-12 py-3 font-medium rounded-sm block"
               >
                 Comprar Ahora
               </Link>
@@ -102,7 +102,7 @@ export const Bonds = async () => {
 const CardBond = ({ bond }: { bond: (typeof bonds)[number] }) => {
   const Icon = bond.Icon;
   return (
-    <div className="flex flex-col gap-4 p-4 rounded-sm bg-blue-100 h-full">
+    <div className="flex flex-col gap-4 p-4 rounded-sm bg-blue-50 h-full">
       <Icon size={24} />
 
       <h2 className="text-xl font-semibold">{bond.title}</h2>

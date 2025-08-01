@@ -40,9 +40,9 @@ export default function TrustSection() {
           style={{ width: `${loopedBrands.length * 200}px` }}
         >
           {loopedBrands.map((brand, idx) => (
-            <a
+            <div
               key={idx}
-              href={brand.link}
+              // href={brand.link}
               className="flex-shrink-0 w-48 h-24 flex items-center justify-center hover:scale-105 transition-transform"
             >
               <Image
@@ -53,7 +53,7 @@ export default function TrustSection() {
                 className="object-contain"
                 priority={idx < brands.length}
               />
-            </a>
+            </div>
           ))}
         </motion.div>
       </div>
