@@ -68,10 +68,7 @@ export default function RootLayout({
 
       <body className={`${poppins.variable} font-poppins antialiased`}>
         <Navbar />
-
-        <main className="flex flex-col h-full mt-[100px] max-w-8xl w-full mx-auto">
-          {children}
-        </main>
+        <main className="relative max-w-8xl w-full mx-auto">{children}</main>
         <Footer />
       </body>
     </html>

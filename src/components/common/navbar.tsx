@@ -43,8 +43,10 @@ export const Navbar = async () => {
   return (
     <>
       {/* Desktop */}
-      <nav className="bg-white max-w-8xl w-full sm:flex z-50 gap-4 h-[100] justify-between fixed left-1/2 transform -translate-x-1/2 top-0 px-4 py-2 border-b border-gray-400 hidden">
-        <section className="flex items-center">
+    <nav className="fixed top-0 left-1/2 transform -translate-x-1/2 w-full max-w-8xl sm:flex z-50 
+    gap-4 px-4 py-2 h-[100px] transition-all duration-300 ease-in-out bg-transparent hover:bg-white/95 border-b
+     hover:border-gray-300 border-transparent hidden backdrop-blur-sm">
+    <section className="flex items-center">
           <Link href="/">
             <Image
               src={Logo ?? "/not-found.png"}
