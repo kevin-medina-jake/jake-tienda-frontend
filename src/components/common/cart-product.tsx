@@ -36,7 +36,7 @@ export const CartProduct = ({
   return (
     <Link
       href={`/view-product/${product.slug}`}
-      className="block overflow-hidden"
+      className="block overflow-hidden h-max"
     >
       <div
         key={product.id}
@@ -52,9 +52,26 @@ export const CartProduct = ({
           />
         </section>
 
-        <h3 className="font-semibold text-xl px-2 text-left w-full overflow-hidden line-clamp-1">
-          {product.name}
-        </h3>
+        <section className="px-2">
+          {isBig && (
+            <p className="text-xs font-light h-4">{product.brand ?? "Libre"}</p>
+          )}
+          <h3 className="font-semibold text-xl text-left w-full overflow-hidden line-clamp-1">
+            {product.name}
+          </h3>
+
+          <div className="flex gap-1 overflow-hidden">
+            {product.categories &&
+              product.categories.map((category: string) => (
+                <span
+                  key={category}
+                  className="text-xs font-light h-4 bg-blue-200 rounded-full px-1"
+                >
+                  {category}
+                </span>
+              ))}
+          </div>
+        </section>
 
         <section className="flex gap-4 items-center px-2 pb-2">
           <div className="text-left">

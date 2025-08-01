@@ -96,7 +96,7 @@ export const ProductsFilterMovilDrawer = () => {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="p-2 sm:hidden mb-2 flex gap-2 items-center font-semibold"
+        className="p-2 sm:hidden mb-2 flex gap-2 items-center font-semibold cursor-pointer"
       >
         <Filter />
         Filtros

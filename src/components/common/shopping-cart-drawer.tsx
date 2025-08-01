@@ -15,7 +15,8 @@ export const ShoppingCartDrawer = () => {
   const Portal = usePortalDrawer("shopping-cart");
   const asideRef = useRef<HTMLDivElement>(null);
 
-  const { products, getTotalPrice, getTotalProducts } = useStoreShoppingCart();
+  const { products, getTotalPrice, getTotalProducts, clearShoppingCart } =
+    useStoreShoppingCart();
 
   const hasItems = getTotalProducts() > 0;
 
@@ -104,7 +105,10 @@ export const ShoppingCartDrawer = () => {
                     <button className="w-full bg-blue-600 hover:bg-blue-700 text-white rounded p-2 font-medium">
                       Proceder al Pago
                     </button>
-                    <button className="w-full border border-blue-300 hover:bg-blue-100 rounded p-2 text-sm">
+                    <button
+                      onClick={clearShoppingCart}
+                      className="w-full border border-blue-300 hover:bg-blue-100 rounded p-2 text-sm"
+                    >
                       Vaciar Carrito
                     </button>
                   </div>

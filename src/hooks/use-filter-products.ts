@@ -91,8 +91,6 @@ export const useFilterProducts = () => {
 
   useEffect(() => {
     filterProducts();
-
-    console.log(filters);
   }, [filters]);
 
   return {

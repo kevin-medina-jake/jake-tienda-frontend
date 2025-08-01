@@ -6,7 +6,7 @@ import founderImg from "@/assets/images/github-sin.png";
 
 export default function AboutSection() {
   return (
-    <div className="flex flex-col space-y-16">
+    <div className="flex flex-col space-y-16 pt-10 sm:pt-0">
       {/* Banner principal */}
       <div className="relative w-full h-64 md:h-96 hidden md:block overflow-hidden">
         <Image
@@ -23,7 +23,16 @@ export default function AboutSection() {
           Tecnología y sonido profesional en Colombia
         </h1>
         <p className="text-lg text-gray-700 leading-relaxed">
-          En <strong>Jake Tienda Electrónica</strong>, somos apasionados por el sonido profesional y la tecnología. Desde nuestra sede en <strong>Popayán, Colombia</strong>, ayudamos a DJs, músicos, negocios e instituciones a encontrar el equipo perfecto: <strong>parlantes, controladoras DJ, subwoofers, consolas y más</strong>. Nuestro enfoque es brindar asesoría personalizada, productos de alta calidad y <strong>opciones de financiación</strong> para que nadie se quede sin sonar como quiere.
+          En <strong>Jake Tienda Electrónica</strong>, somos apasionados por el
+          sonido profesional y la tecnología. Desde nuestra sede en{" "}
+          <strong>Popayán, Colombia</strong>, ayudamos a DJs, músicos, negocios
+          e instituciones a encontrar el equipo perfecto:{" "}
+          <strong>
+            parlantes, controladoras DJ, subwoofers, consolas y más
+          </strong>
+          . Nuestro enfoque es brindar asesoría personalizada, productos de alta
+          calidad y <strong>opciones de financiación</strong> para que nadie se
+          quede sin sonar como quiere.
         </p>
       </div>
 
@@ -68,7 +77,13 @@ export default function AboutSection() {
             <h2 className="text-4xl font-bold text-gray-900">Kevin Medina</h2>
             <p className="mt-2 text-gray-500 text-lg">Fundador</p>
             <p className="mt-4 text-gray-600 leading-relaxed">
-              La historia de Jake Tienda Electrónica comenzó con una pasión por el sonido. siempre soñe con crear una tienda donde los músicos, DJs y amantes de la tecnología pudieran encontrar no solo productos, sino también confianza, asesoría y comunidad. Lo que empezó como un pequeño negocio en Popayán, hoy es un referente en el sur de Colombia. Esta tienda fue creada pensando en ti, en tu ritmo y en tu necesidad de sonar mejor.
+              La historia de Jake Tienda Electrónica comenzó con una pasión por
+              el sonido. siempre soñe con crear una tienda donde los músicos,
+              DJs y amantes de la tecnología pudieran encontrar no solo
+              productos, sino también confianza, asesoría y comunidad. Lo que
+              empezó como un pequeño negocio en Popayán, hoy es un referente en
+              el sur de Colombia. Esta tienda fue creada pensando en ti, en tu
+              ritmo y en tu necesidad de sonar mejor.
             </p>
           </div>
         </section>
@@ -98,13 +113,19 @@ export default function AboutSection() {
           <div className="bg-white shadow-md rounded-2xl p-8">
             <h3 className="text-2xl font-bold text-black mb-4">Misión</h3>
             <p className="text-gray-600">
-              Ofrecer <strong>tecnología de sonido profesional</strong> accesible para todos en Colombia, con equipos de alto rendimiento, asesoría honesta y múltiples métodos de pago, incluyendo <strong>crédito en línea</strong>.
+              Ofrecer <strong>tecnología de sonido profesional</strong>{" "}
+              accesible para todos en Colombia, con equipos de alto rendimiento,
+              asesoría honesta y múltiples métodos de pago, incluyendo{" "}
+              <strong>crédito en línea</strong>.
             </p>
           </div>
           <div className="bg-white shadow-md rounded-2xl p-8">
             <h3 className="text-2xl font-bold text-black mb-4">Visión</h3>
             <p className="text-gray-600">
-              Ser la <strong>tienda líder en tecnología de audio profesional</strong>, reconocida por la calidad de nuestros productos, servicio personalizado y cercanía con el cliente.
+              Ser la{" "}
+              <strong>tienda líder en tecnología de audio profesional</strong>,
+              reconocida por la calidad de nuestros productos, servicio
+              personalizado y cercanía con el cliente.
             </p>
           </div>
         </section>

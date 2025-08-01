@@ -41,7 +41,10 @@ export const MobileMenu = ({ routes }: { routes: any[] }) => {
 
   return (
     <>
-      <button onClick={() => setOpen(true)} className="p-2 sm:hidden">
+      <button
+        onClick={() => setOpen(true)}
+        className="p-2 sm:hidden cursor-pointer"
+      >
         <Menu />
       </button>
 
