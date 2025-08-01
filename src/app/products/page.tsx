@@ -6,6 +6,7 @@ import { useStoreProducts } from "@/store/products";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";
 
+
 export default function Products() {
   const { setAllProducts } = useStoreProducts();
   const searchParams = useSearchParams();
