@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   keywords: [
     "parlantes profesionales",
     "sonido DJ",
-     "financiación de audio",
+    "financiación de audio",
     "envío a Colombia",
     "parlantes a crédito",
     "controladoras DJ",
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     title: "Jake Tienda Electrónica | Tecnología y Sonido Profesional",
     description:
       "controladoras, Parlantes, Cabinas y más. Compra con crédito y recibe en toda Colombia.",
-   // url: "https://jaketiendaelectronica.com",
+    // url: "https://jaketiendaelectronica.com",
     siteName: "Jake Tienda Electrónica",
     images: [
       {
@@ -55,7 +55,7 @@ export const metadata: Metadata = {
     locale: "es_CO",
     type: "website",
   },
- // metadataBase: new URL("https://jaketiendaelectronica.com"),
+  // metadataBase: new URL("https://jaketiendaelectronica.com"),
 };
 
 export default function RootLayout({
@@ -64,7 +64,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-
     <html lang="es">
       <head>
         <link rel="icon" href="/favicon.png" />
@@ -74,7 +73,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Navbar />
-        <main className="flex flex-col h-full mt-[100px] max-w-8xl w-full mx-auto">
+        <main className="relative max-w-8xl w-full mx-auto">
           {children}
         </main>
         <Footer />
