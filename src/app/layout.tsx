@@ -1,17 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "@/styles/globals.css";
 import { Navbar } from "@/components/common/navbar";
 import Footer from "@/components/common/footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const poppins = Poppins({
+  weight: ["300", "400", "500", "600", "700"],
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  variable: "--font-poppins",
+  display: "swap",
 });
 
 export const metadata: Metadata = {
@@ -21,7 +18,7 @@ export const metadata: Metadata = {
   keywords: [
     "parlantes profesionales",
     "sonido DJ",
-     "financiación de audio",
+    "financiación de audio",
     "envío a Colombia",
     "parlantes a crédito",
     "controladoras DJ",
@@ -42,7 +39,7 @@ export const metadata: Metadata = {
     title: "Jake Tienda Electrónica | Tecnología y Sonido Profesional",
     description:
       "controladoras, Parlantes, Cabinas y más. Compra con crédito y recibe en toda Colombia.",
-   // url: "https://jaketiendaelectronica.com",
+    // url: "https://jaketiendaelectronica.com",
     siteName: "Jake Tienda Electrónica",
     images: [
       {
@@ -55,7 +52,7 @@ export const metadata: Metadata = {
     locale: "es_CO",
     type: "website",
   },
- // metadataBase: new URL("https://jaketiendaelectronica.com"),
+  // metadataBase: new URL("https://jaketiendaelectronica.com"),
 };
 
 export default function RootLayout({
@@ -64,16 +61,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-
     <html lang="es">
       <head>
-        <link rel="icon" href="/favicon.png" />
+        <link rel="icon" href="/favicon.svg" />
       </head>
 
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${poppins.variable} font-poppins antialiased`}>
         <Navbar />
+
         <main className="flex flex-col h-full mt-[100px] max-w-8xl w-full mx-auto">
           {children}
         </main>
