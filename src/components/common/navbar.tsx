@@ -1,8 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-
 import Logo from "@/assets/logo/image.png";
-
 import { brandDropdown } from "@/service/api/brand";
 import { IDropDownMenu } from "@/types/navbar";
 import { categoryDropdown } from "@/service/api/category";
@@ -34,7 +32,7 @@ export const Navbar = async () => {
     {
       name: "Categorías",
       href: "/products?category=",
-      dropdown: brands.status === "fulfilled" ? brands.value : [],
+      dropdown: categories.status === "fulfilled" ? categories.value : [],
     },
     { name: "Sobre Nosotros", href: "/about-us" },
     { name: "Crédito", href: "/credit" },
@@ -43,10 +41,8 @@ export const Navbar = async () => {
   return (
     <>
       {/* Desktop */}
-    <nav className="fixed top-0 left-1/2 transform -translate-x-1/2 w-full max-w-8xl sm:flex z-50 
-    gap-4 px-4 py-2 h-[100px] transition-all duration-300 ease-in-out bg-transparent hover:bg-white/95 border-b
-     hover:border-gray-300 border-transparent hidden backdrop-blur-sm">
-    <section className="flex items-center">
+      <nav className="fixed top-0 left-1/2 transform -translate-x-1/2 w-full max-w-8xl sm:flex z-50 gap-4 px-4 py-2 h-[100px] transition-all duration-300 ease-in-out bg-transparent hover:bg-white/95 border-b hover:border-gray-300 border-transparent hidden backdrop-blur-sm">
+        <section className="flex items-center">
           <Link href="/">
             <Image
               src={Logo ?? "/not-found.png"}

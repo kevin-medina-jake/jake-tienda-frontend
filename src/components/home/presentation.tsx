@@ -29,7 +29,7 @@ export const Presentation = ({ presentations }: any) => {
       }}
       loop={true}
       modules={[Autoplay, Pagination, Navigation]}
-      className="h-[calc(100vh-150px)]"
+      className="h-[calc(100vh-250px)]"
     >
       {listPresentation.map((presentation: ICarouselPresentation) => (
         <SwiperSlide key={presentation.id}>

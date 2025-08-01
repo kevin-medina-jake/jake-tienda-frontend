@@ -9,7 +9,8 @@ import { ICarouselPresentation } from "@/types/home";
 
 // 🧠 SEO para la página de inicio
 export const metadata: Metadata = {
-  title: "Jake Tienda Electrónica | Parlantes, Subwoofers y Tecnología en Colombia",
+  title:
+    "Jake Tienda Electrónica | Parlantes, Subwoofers y Tecnología en Colombia",
   description:
     "Compra parlantes, bajos, controladoras DJ, consolas y audio profesional con financiación y envío nacional. Tienda de sonido en Popayán.",
   keywords: [
@@ -25,7 +26,7 @@ export const metadata: Metadata = {
     title: "Jake Tienda Electrónica | Sonido Profesional en Colombia",
     description:
       "Explora nuestra tienda de parlantes, consolas, controladoras DJ y bajos. Créditos fáciles y envíos rápidos.",
-   // url: "https://tudominio.com", // cámbialo al desplegar
+    // url: "https://tudominio.com", // cámbialo al desplegar
     siteName: "Jake Tienda Electrónica",
     images: [
       {
@@ -44,7 +45,7 @@ export default async function Home() {
   const presentations: ICarouselPresentation[] = await carrouselPresentation();
 
   return (
-    <div className="flex flex-col gap-10 mb-10">
+    <div className="flex flex-col gap-8 mb-10">
       <Presentation presentations={presentations} />
       <TrustSection />
       <Categories />

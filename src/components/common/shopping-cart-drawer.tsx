@@ -37,7 +37,10 @@ export const ShoppingCartDrawer = () => {
 
   return (
     <>
-      <button onClick={() => setOpen(true)} className="py-2 px-3 relative">
+      <button
+        onClick={() => setOpen(true)}
+        className="py-2 px-3 relative cursor-pointer"
+      >
         <ShoppingCart />
         {hasItems && (
           <span className="absolute -top-1 -right-1 px-1 bg-green-300 rounded-full text-xs">
@@ -59,7 +62,10 @@ export const ShoppingCartDrawer = () => {
                   Carrito de Compras{" "}
                   <span className="font-medium">({getTotalProducts()})</span>
                 </h2>
-                <button onClick={() => setOpen(false)}>
+                <button
+                  onClick={() => setOpen(false)}
+                  className="cursor-pointer"
+                >
                   <X />
                 </button>
               </div>
@@ -75,7 +81,7 @@ export const ShoppingCartDrawer = () => {
                   </p>
                   <button
                     onClick={() => setOpen(false)}
-                    className="mt-2 px-4 py-2 border border-blue-300 rounded hover:bg-blue-100 text-sm font-medium"
+                    className="mt-2 px-4 py-2 border border-blue-300 rounded hover:bg-blue-100 text-sm font-medium cursor-pointer"
                   >
                     Seguir comprando
                   </button>
