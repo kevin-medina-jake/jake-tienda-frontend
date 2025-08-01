@@ -11,9 +11,8 @@ export const ProductsFilterMovilDrawer = () => {
   const Portal = usePortalDrawer("products-filter");
   const asideRef = useRef<HTMLDivElement>(null);
 
-  const { allProducts } = useStoreProducts();
-  const { filters, handlePrice, handleCategories, handleBrands } =
-    useFilterProducts();
+  const { allProducts, filters } = useStoreProducts();
+  const { handlePrice, handleCategories, handleBrands } = useFilterProducts();
 
   const categories = [
     ...new Set(allProducts.flatMap((product) => product.categories)),

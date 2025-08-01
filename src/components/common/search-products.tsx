@@ -1,12 +1,14 @@
 "use client";
 
 import { useFilterProducts } from "@/hooks/use-filter-products";
+import { useStoreProducts } from "@/store/products";
 import { Search } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useState } from "react";
 
 export const SearchProducts = () => {
-  const { filters, handleSearch } = useFilterProducts();
+  const { handleSearch } = useFilterProducts();
+  const { filters } = useStoreProducts();
   const { search } = filters;
 
   const pathname = usePathname();

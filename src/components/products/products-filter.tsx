@@ -6,9 +6,8 @@ import { useStoreProducts } from "@/store/products";
 import { Filter } from "lucide-react";
 
 export default function ProductsFilter() {
-  const { allProducts } = useStoreProducts();
-  const { filters, handlePrice, handleCategories, handleBrands } =
-    useFilterProducts();
+  const { allProducts, filters } = useStoreProducts();
+  const { handlePrice, handleCategories, handleBrands } = useFilterProducts();
 
   const categories = [
     ...new Set(allProducts.flatMap((product) => product.categories)),
