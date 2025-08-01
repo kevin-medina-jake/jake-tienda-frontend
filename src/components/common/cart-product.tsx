@@ -67,10 +67,10 @@ export const CartProduct = ({
           <div className="group ml-auto">
             <button
               onClick={handleAddToCart}
-              className="border group-hover:text-white cursor-pointer border-blue-300 group-hover:border-blue-600 group-hover:bg-blue-600 transition-[width] duration-300 rounded-sm group-hover:w-30 w-10 h-10 font-medium flex gap-2 items-center justify-center px-2 overflow-hidden"
+              className="border group-hover:text-white cursor-pointer border-blue-300 group-hover:border-blue-600 group-hover:bg-blue-600 transition-[width] duration-300 rounded-sm group-hover:w-22 w-10 h-10 font-medium flex gap-2 items-center justify-center px-2 overflow-hidden"
             >
               <ShoppingCart />
-              <span className="sm:group-hover:inline hidden text-sm whitespace-nowrap">
+              <span className="sm:group-hover:inline hidden text-xs whitespace-nowrap">
                 Carrito
               </span>
             </button>
