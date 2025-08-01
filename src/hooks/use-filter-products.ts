@@ -91,10 +91,11 @@ export const useFilterProducts = () => {
 
   useEffect(() => {
     filterProducts();
+
+    console.log(filters);
   }, [filters]);
 
   return {
-    filters,
     handleSearch,
     handleBrands,
     handleCategories,

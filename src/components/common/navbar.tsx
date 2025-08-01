@@ -122,7 +122,7 @@ const DropdownMenu = ({ name, drop, url }: DropdownMenuProps) => (
       {drop.map((item) => (
         <li key={item.id}>
           <Link
-            href={`${url}${item.slug}`}
+            href={`${url}${item.name}`}
             className="block px-3 py-2 hover:bg-gray-100"
           >
             {item.name}

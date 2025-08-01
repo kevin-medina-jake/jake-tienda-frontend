@@ -5,6 +5,7 @@ import { IDropDownMenu } from "@/types/navbar";
 export const brandDropdown = async (): Promise<IDropDownMenu[]> => {
   try {
     const response = await client.collection("brands").find({
+      sort: "name:asc",
       populate: ["products"],
       status: "published",
     });
