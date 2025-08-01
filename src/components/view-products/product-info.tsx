@@ -1,7 +1,6 @@
 "use client";
 
 import {
-  IShoppingCartProduct,
   useStoreShoppingCart,
 } from "@/store/shopping-cart";
 import { motion } from "framer-motion";
