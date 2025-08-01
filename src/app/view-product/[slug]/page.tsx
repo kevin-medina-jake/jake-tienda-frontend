@@ -4,11 +4,12 @@ import type { Metadata } from "next";
 import type { IViewProduct } from "@/types/product";
 
 // 🧠 SEO dinámico protegido y tipado correctamente
-export async function generateMetadata({
-  params,
-}: {
-  params: { slug: string };
-}): Promise<Metadata> {
+export async function generateMetadata(
+  props: {
+    params: Promise<{ slug: string }>;
+  }
+): Promise<Metadata> {
+  const params = await props.params;
   try {
     const product = await getViewProduct(params.slug) as IViewProduct | null;
 
