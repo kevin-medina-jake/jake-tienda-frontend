@@ -29,18 +29,18 @@ export const Presentation = ({ presentations }: any) => {
       }}
       loop={true}
       modules={[Autoplay, Pagination, Navigation]}
-      className="h-[calc(100vh-280px)] sm:h-[calc(100vh-250px)]"
+      className="h-screen sm:h-[calc(100vh-250px)]"
     >
       {listPresentation.map((presentation: ICarouselPresentation) => (
         <SwiperSlide key={presentation.id}>
           <Link
             href={"/view-product/" + presentation.slug}
-            className="w-full h-full"
+            className="h-full w-full"
           >
             <img
               src={presentation.url}
               alt={presentation.name_image}
-              className="w-full h-full object-cover"
+              className="h-full w-full object-cover"
             />
           </Link>
         </SwiperSlide>

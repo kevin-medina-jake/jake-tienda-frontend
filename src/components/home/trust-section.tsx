@@ -43,7 +43,7 @@ export default function TrustSection() {
             <div
               key={idx}
               // href={brand.link}
-              className="flex-shrink-0 w-48 h-24 flex items-center justify-center hover:scale-105 transition-transform"
+              className="flex h-24 w-48 flex-shrink-0 items-center justify-center transition-transform hover:scale-105"
             >
               <Image
                 src={brand.logo ?? "/not-found.png"}

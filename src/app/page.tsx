@@ -45,7 +45,7 @@ export default async function Home() {
   const presentations: ICarouselPresentation[] = await carrouselPresentation();
 
   return (
-    <div className="flex flex-col gap-8 mb-10">
+    <div className="mb-10 flex flex-col gap-8">
       <Presentation presentations={presentations} />
       <TrustSection />
       <Categories />
