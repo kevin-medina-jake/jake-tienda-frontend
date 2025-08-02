@@ -22,7 +22,7 @@ export const ProductsFilterMovilDrawer = () => {
     ...new Set(
       allProducts
         .map(({ brand }) => brand)
-        .filter((item): item is string => item !== undefined)
+        .filter((item): item is string => item !== undefined),
     ),
   ];
 
@@ -65,13 +65,13 @@ export const ProductsFilterMovilDrawer = () => {
   }, []);
 
   const handleChangeCategories = (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const value = event.target.value;
     setSelectedCategories((prev) =>
       event.target.checked
         ? [...prev, value]
-        : prev.filter((option) => option !== value)
+        : prev.filter((option) => option !== value),
     );
   };
 
@@ -84,7 +84,7 @@ export const ProductsFilterMovilDrawer = () => {
     setSelectedBrands((prev) =>
       event.target.checked
         ? [...prev, value]
-        : prev.filter((option) => option !== value)
+        : prev.filter((option) => option !== value),
     );
   };
 
@@ -96,7 +96,7 @@ export const ProductsFilterMovilDrawer = () => {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="p-2 sm:hidden mb-2 flex gap-2 items-center font-semibold cursor-pointer"
+        className="mb-2 flex cursor-pointer items-center gap-2 p-2 font-semibold sm:hidden"
       >
         <Filter />
         Filtros
@@ -107,10 +107,10 @@ export const ProductsFilterMovilDrawer = () => {
           <div className="fixed inset-0 z-50 bg-black/50 sm:hidden">
             <aside
               ref={asideRef}
-              className="fixed left-0 top-0 h-full w-64 bg-blue-50 shadow-lg flex flex-col p-4 gap-6 overflow-y-auto touch-auto"
+              className="fixed top-0 left-0 flex h-full w-64 touch-auto flex-col gap-6 overflow-y-auto bg-blue-50 p-4 shadow-lg"
             >
-              <div className="flex justify-between items-center">
-                <h3 className="text-lg font-semibold ">Filtros</h3>
+              <div className="flex items-center justify-between">
+                <h3 className="text-lg font-semibold">Filtros</h3>
                 <button onClick={() => setOpen(false)}>
                   <X className="" />
                 </button>
@@ -118,11 +118,11 @@ export const ProductsFilterMovilDrawer = () => {
 
               {/* Marca */}
               <div>
-                <h4 className="font-medium ">Marca</h4>
+                <h4 className="font-medium">Marca</h4>
                 {brands.map((brand) => (
                   <label
                     key={brand}
-                    className="flex items-center space-x-2 mt-2 cursor-pointer "
+                    className="mt-2 flex cursor-pointer items-center space-x-2"
                   >
                     <input
                       type="checkbox"
@@ -138,11 +138,11 @@ export const ProductsFilterMovilDrawer = () => {
 
               {/* Categoría */}
               <div>
-                <h4 className="font-medium ">Categoría</h4>
+                <h4 className="font-medium">Categoría</h4>
                 {categories.map((cat) => (
                   <label
                     key={cat}
-                    className="flex items-center space-x-2 mt-2 cursor-pointer "
+                    className="mt-2 flex cursor-pointer items-center space-x-2"
                   >
                     <input
                       type="checkbox"
@@ -158,7 +158,7 @@ export const ProductsFilterMovilDrawer = () => {
 
               {/* Precio */}
               <div>
-                <h4 className="font-medium ">Precio</h4>
+                <h4 className="font-medium">Precio</h4>
                 <input
                   type="range"
                   min={0}
@@ -169,7 +169,7 @@ export const ProductsFilterMovilDrawer = () => {
                   }
                   className="w-full touch-auto"
                 />
-                <p className="text-sm mt-2 ">
+                <p className="mt-2 text-sm">
                   Hasta: ${price.toLocaleString("es-CO")}
                 </p>
               </div>

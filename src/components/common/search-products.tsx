@@ -29,10 +29,10 @@ export const SearchProducts = () => {
   };
 
   return (
-    <div className="relative flex items-center w-full">
+    <div className="relative flex w-full items-center">
       <input
         type="text"
-        className="w-full px-4 py-2 border border-gray-400 focus:border-blue-50 rounded-full"
+        className="w-full rounded-full border border-gray-400 px-4 py-2 focus:border-blue-50"
         placeholder="Buscar..."
         value={search}
         onChange={handleChange}
