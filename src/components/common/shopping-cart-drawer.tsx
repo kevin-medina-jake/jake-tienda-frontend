@@ -3,7 +3,6 @@
 import { ShoppingCart, Trash, X } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import ImageL from "@/assets/home/bonds/image.png";
 import { usePortalDrawer } from "@/hooks/use-portal-drawer";
 import {
   ICartState,
@@ -144,7 +143,10 @@ const CartProduct = ({ product }: { product: IShoppingCartProduct }) => {
   const handleIncreaseQuantity = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     e.preventDefault();
-    increaseQuantity(product.id);
+
+    if (product.stock > 1 && product.quantity < product.stock) {
+      increaseQuantity(product.id);
+    }
   };
 
   const handleRemoveProduct = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -153,10 +155,15 @@ const CartProduct = ({ product }: { product: IShoppingCartProduct }) => {
     removeProduct(product.id);
   };
 
+  const isMoreOneProduct = product.stock > 1;
+  const isTotalProducts =
+    product.quantity === product.stock || product.quantity > product.stock;
+  const style = isTotalProducts ? "opacity-50" : "hover:bg-blue-200";
+
   return (
     <li className="flex items-center gap-4 rounded-sm border border-blue-300 bg-white p-2 text-black">
       <Image
-        src={product.image ?? ImageL}
+        src={product.image ?? "/not-found.png"}
         alt={product.name}
         width={100}
         height={100}
@@ -169,19 +176,33 @@ const CartProduct = ({ product }: { product: IShoppingCartProduct }) => {
         </span>
         <div className="mt-2 flex items-center justify-between gap-2">
           <div className="flex items-center gap-3">
-            <button
-              className="grid size-8 cursor-pointer place-content-center rounded border border-blue-100 hover:bg-blue-200"
-              onClick={handleDecreaseQuantity}
-            >
-              <span>-</span>
-            </button>
-            <span className="text-sm font-semibold">{product.quantity}</span>
-            <button
-              className="grid size-8 cursor-pointer place-content-center rounded border border-blue-100 hover:bg-blue-200"
-              onClick={handleIncreaseQuantity}
-            >
-              <span>+</span>
-            </button>
+            {isMoreOneProduct ? (
+              <>
+                <button
+                  className="grid size-8 cursor-pointer place-content-center rounded border border-blue-100 hover:bg-blue-200"
+                  onClick={handleDecreaseQuantity}
+                >
+                  <span>-</span>
+                </button>
+                <span className="text-sm font-semibold">
+                  {product.quantity}
+                </span>
+                <button
+                  className={`grid size-8 cursor-pointer place-content-center rounded border border-blue-100 ${style}`}
+                  onClick={handleIncreaseQuantity}
+                  disabled={isTotalProducts}
+                >
+                  <span>+</span>
+                </button>
+              </>
+            ) : (
+              <div className="flex items-center gap-2">
+                <span className="text-xs">Cantidad:</span>
+                <span className="text-sm font-semibold">
+                  {product.quantity}
+                </span>
+              </div>
+            )}
           </div>
           <button
             onClick={handleRemoveProduct}

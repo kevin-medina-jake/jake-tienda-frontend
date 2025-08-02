@@ -18,7 +18,7 @@ export default function Products() {
     const currentPage = page && !isNaN(Number(page)) ? Number(page) : 1;
 
     getFilterProducts({ page: currentPage }).then((products) =>
-      setAllProducts(products)
+      setAllProducts(products),
     );
   }, []);
 

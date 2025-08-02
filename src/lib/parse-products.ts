@@ -43,6 +43,7 @@ export const parseProductCart = (products: any): IProductFilter[] => {
       price: product.price,
       slug: product.slug,
       image: product?.images[0]?.url,
+      stock: product.stock,
       brand: product?.brand?.name,
       categories: product?.categories.map((category: any) => category.name),
     };

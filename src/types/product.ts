@@ -44,6 +44,7 @@ export interface IProductFilter {
   name: string;
   slug: string;
   price: number;
+  stock: number;
   image: string;
   categories: string[];
   brand: string;
