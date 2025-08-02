@@ -34,14 +34,14 @@ export const Navbar = async () => {
       href: "/products?category=",
       dropdown: categories.status === "fulfilled" ? categories.value : [],
     },
-    { name: "Sobre Nosotros", href: "/about-us" },
     { name: "Crédito", href: "/credit" },
+    { name: "Sobre Nosotros", href: "/about-us" },
   ];
 
   return (
     <>
       {/* Desktop */}
-      <nav className="fixed top-0 left-1/2 transform -translate-x-1/2 w-full max-w-8xl sm:flex z-50 gap-4 px-4 py-2 h-[100px] transition-all duration-300 ease-in-out bg-transparent hover:bg-white/95 border-b hover:border-gray-300 border-transparent hidden backdrop-blur-sm">
+      <nav className="max-w-8xl fixed top-0 left-1/2 z-50 hidden h-[100px] w-full -translate-x-1/2 transform gap-4 border-b border-transparent bg-transparent px-4 py-2 backdrop-blur-sm transition-all duration-300 ease-in-out hover:border-gray-300 hover:bg-white/95 sm:flex">
         <section className="flex items-center">
           <Link href="/">
             <Image
@@ -53,10 +53,10 @@ export const Navbar = async () => {
           </Link>
         </section>
 
-        <section className="flex-1 xl:px-20 lg:px-10 md:px-5 grid gap-4">
+        <section className="grid flex-1 gap-4 md:px-5 lg:px-10 xl:px-20">
           <SearchProducts />
 
-          <ul className="flex gap-6 items-center text-sm lg:text-base">
+          <ul className="flex items-center gap-6 text-sm lg:text-base">
             {routes.map((route) => {
               if (route.dropdown) {
                 return (
@@ -86,8 +86,8 @@ export const Navbar = async () => {
       </nav>
 
       {/* Mobile (sin sub-menú) */}
-      <nav className="bg-white w-full flex flex-col z-50 gap-4 fixed left-1/2 transform -translate-x-1/2 top-0 p-2 py-2 border-b border-gray-400 sm:hidden">
-        <section className="flex justify-between items-center">
+      <nav className="fixed top-0 left-1/2 z-50 flex w-full -translate-x-1/2 transform flex-col gap-4 border-b border-gray-400 bg-white p-2 py-2 sm:hidden">
+        <section className="flex items-center justify-between">
           <MobileMenu routes={routes.filter((r) => !r.dropdown)} />
 
           <Link href="/">
@@ -116,11 +116,11 @@ interface DropdownMenuProps {
 }
 
 const DropdownMenu = ({ name, drop, url }: DropdownMenuProps) => (
-  <li className="relative group">
-    <span className="cursor-default flex items-center gap-1">
+  <li className="group relative">
+    <span className="flex cursor-default items-center gap-1">
       {name} <ChevronDown size={14} />
     </span>
-    <ul className="absolute top-full left-0 hidden group-hover:block bg-white shadow-md z-20">
+    <ul className="absolute top-full left-0 z-20 hidden bg-white shadow-md group-hover:block">
       {drop.map((item) => (
         <li key={item.id}>
           <Link

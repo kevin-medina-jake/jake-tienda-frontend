@@ -53,7 +53,7 @@ export const CartProduct = ({
         key={product.id}
         className="flex flex-col gap-2 overflow-hidden rounded-sm border border-blue-100 bg-blue-50 hover:shadow"
       >
-        <section className={`aspect-square ${style}`}>
+        <section className={`aspect-square ${style} bg-white`}>
           <Image
             src={product.image ?? "/not-found.png"}
             alt={product.name}
