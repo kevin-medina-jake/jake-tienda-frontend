@@ -71,7 +71,7 @@ export const CartProduct = ({
             {product.name}
           </h3>
 
-          <div className="flex gap-1 overflow-hidden">
+          <div className="flex h-5 gap-1 overflow-x-auto">
             {product.categories &&
               product.categories.map((category: string) => (
                 <span
