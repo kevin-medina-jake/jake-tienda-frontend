@@ -80,15 +80,17 @@ export const Navbar = async () => {
           </ul>
         </section>
 
-        <section>
+        <section className="h-[44px] w-[48px]">
           <ShoppingCartDrawer />
         </section>
       </nav>
 
       {/* Mobile (sin sub-menú) */}
       <nav className="fixed top-0 left-1/2 z-50 flex w-full -translate-x-1/2 transform flex-col gap-4 border-b border-gray-400 bg-white p-2 py-2 sm:hidden">
-        <section className="flex items-center justify-between">
-          <MobileMenu routes={routes.filter((r) => !r.dropdown)} />
+        <section className="flex items-center justify-between bg-amber-500">
+          <div>
+            <MobileMenu routes={routes.filter((r) => !r.dropdown)} />
+          </div>
 
           <Link href="/">
             <Image
@@ -98,7 +100,10 @@ export const Navbar = async () => {
               height={40}
             />
           </Link>
-          <ShoppingCartDrawer />
+
+          <div className="h-[44px] w-[48px]">
+            <ShoppingCartDrawer />
+          </div>
         </section>
 
         <section className="px-2">
