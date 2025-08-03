@@ -39,8 +39,7 @@ export const brandWithImage = async () => {
       },
     });
 
-    parseBrandWithImage(response.data);
-    return response.data;
+    return parseBrandWithImage(response.data);
   } catch (error) {
     return [];
   }
