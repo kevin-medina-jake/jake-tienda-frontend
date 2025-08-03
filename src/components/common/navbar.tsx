@@ -87,7 +87,7 @@ export const Navbar = async () => {
 
       {/* Mobile (sin sub-menú) */}
       <nav className="fixed top-0 left-1/2 z-50 flex w-full -translate-x-1/2 transform flex-col gap-4 border-b border-gray-400 bg-white p-2 py-2 sm:hidden">
-        <section className="flex items-center justify-between bg-amber-500">
+        <section className="flex items-center justify-between">
           <div>
             <MobileMenu routes={routes.filter((r) => !r.dropdown)} />
           </div>
