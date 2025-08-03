@@ -19,7 +19,7 @@ export const bestProduct = async (): Promise<IBestProduct> => {
     return parseBestProduct(responses.data);
   } catch (error) {
     return {
-      id: 0,
+      id: 1,
       name: "",
       slug: "",
       image: "",

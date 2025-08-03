@@ -3,10 +3,13 @@ import { newProducts } from "@/service/api/product";
 import { IBestProduct, INewProducts } from "@/types/product";
 import { bestProduct } from "@/service/api/best-product";
 import { CarouselProducts } from "./carousel-products";
+import Image from "next/image";
 
 export const Products = async () => {
   const carouselNewProducts = (await newProducts()) as INewProducts[];
   const bestProductInfo = (await bestProduct()) as IBestProduct;
+
+  if (!bestProductInfo.image) return null;
 
   return (
     <section className="relative mx-auto w-full max-w-7xl px-4">
@@ -18,7 +21,7 @@ export const Products = async () => {
         <section className="overflow-hidden rounded-sm sm:col-span-1">
           <div className="h-auto w-full sm:h-full">
             <Link href={"/view-product/" + bestProductInfo.slug}>
-              <img
+              <Image
                 src={bestProductInfo.image}
                 alt={bestProductInfo.name}
                 className="h-full w-full object-cover"
