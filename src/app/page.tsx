@@ -8,6 +8,7 @@ import { carrouselPresentation } from "@/service/api/carousel-presentation";
 import { ICarouselPresentation } from "@/types/home";
 import { TrustSection } from "@/components/home/trust-section";
 import { brandWithImage } from "@/service/api/brand";
+import { IBrandWithImage } from "@/types/navbar";
 
 // 🧠 SEO para la página de inicio
 export const metadata: Metadata = {
@@ -45,7 +46,7 @@ export const metadata: Metadata = {
 
 export default async function Home() {
   const presentations: ICarouselPresentation[] = await carrouselPresentation();
-  const brands = await brandWithImage();
+  const brands: IBrandWithImage[] = await brandWithImage();
 
   return (
     <div className="mb-10 flex flex-col gap-8">

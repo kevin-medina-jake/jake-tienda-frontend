@@ -5,12 +5,13 @@ import Image from "next/image";
 
 import { useStoreShoppingCart } from "@/store/shopping-cart";
 import { BadgeCheck, ShoppingCart } from "lucide-react";
+import { IProductFilter } from "@/types/product";
 
 export const CartProduct = ({
   product,
   isBig = false,
 }: {
-  product: any;
+  product: IProductFilter;
   isBig?: boolean;
 }) => {
   const { products, addProduct } = useStoreShoppingCart();
@@ -20,7 +21,7 @@ export const CartProduct = ({
     e.preventDefault();
 
     addProduct({
-      id: product.id,
+      id: product.id.toString(),
       name: product.name,
       price: product.price,
       stock: product.stock,
@@ -41,7 +42,7 @@ export const CartProduct = ({
   const width = isBig ? 610 : 306;
 
   const isProductInShoppingCart = products.some(
-    (item) => item.id === product.id,
+    (item) => item.id === product.id.toString(),
   );
 
   return (

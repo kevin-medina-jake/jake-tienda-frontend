@@ -14,9 +14,11 @@ import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { ICarouselPresentation } from "@/types/home";
 import Link from "next/link";
 
-export const Presentation = ({ presentations }: any) => {
-  const listPresentation: ICarouselPresentation[] = presentations;
-
+export const Presentation = ({
+  presentations,
+}: {
+  presentations: ICarouselPresentation[];
+}) => {
   return (
     <Swiper
       spaceBetween={0}
@@ -31,7 +33,7 @@ export const Presentation = ({ presentations }: any) => {
       modules={[Autoplay, Pagination, Navigation]}
       className="h-screen sm:h-[calc(100vh-250px)]"
     >
-      {listPresentation.map((presentation: ICarouselPresentation) => (
+      {presentations.map((presentation: ICarouselPresentation) => (
         <SwiperSlide key={presentation.id}>
           <Link
             href={"/view-product/" + presentation.slug}

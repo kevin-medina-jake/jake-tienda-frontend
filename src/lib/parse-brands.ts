@@ -1,4 +1,4 @@
-import { IDropDownMenu } from "@/types/navbar";
+import { IBrandWithImage, IDropDownMenu } from "@/types/navbar";
 
 export const parseBrandsDropDownMenu = (brands: any) => {
   const result = brands.map((brand: any) => {
@@ -7,7 +7,7 @@ export const parseBrandsDropDownMenu = (brands: any) => {
       name: brand.name,
       slug: brand.slug,
       url_product: brand?.products[0]?.slug,
-    };
+    } as IDropDownMenu;
   });
 
   return result;
@@ -21,7 +21,7 @@ export const parseBrandWithImage = (brands: any) => {
       slug: brand.slug,
       logo: brand?.logo?.url,
     };
-  });
+  }) as IBrandWithImage[];
 
   return result;
 };

@@ -52,27 +52,27 @@ export const useFilterProducts = () => {
       const matchesSearch = filterLetters
         ? product?.name?.toLowerCase().includes(item) ||
           product?.categories
-            ?.map((category: any) => category)
+            ?.map((category: string) => category)
             .some((category: string) =>
-              category.toLowerCase().includes(item)
+              category.toLowerCase().includes(item),
             ) ||
           product?.brand?.toLowerCase().includes(item)
         : newValue.some(
             (word) =>
               product?.name?.toLowerCase().includes(word) ||
               product?.categories
-                ?.map((category: any) => category)
+                ?.map((category: string) => category)
                 .some((category: string) =>
-                  category.toLowerCase().includes(word)
+                  category.toLowerCase().includes(word),
                 ) ||
-              product?.brand?.toLowerCase().includes(item)
+              product?.brand?.toLowerCase().includes(item),
           );
 
       const matchesCategories =
         filters.categories.length === 0 ||
         (product.categories?.length > 0 &&
           product.categories.some((cat: string) =>
-            filters.categories.includes(cat)
+            filters.categories.includes(cat),
           ));
 
       const matchesBrands =

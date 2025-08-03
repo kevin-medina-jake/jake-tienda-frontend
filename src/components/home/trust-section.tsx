@@ -1,11 +1,12 @@
 "use client";
 
+import { IBrandWithImage } from "@/types/navbar";
 import { motion } from "framer-motion";
 
 import Image from "next/image";
 import Link from "next/link";
 
-export const TrustSection = ({ brands }: { brands: any }) => {
+export const TrustSection = ({ brands }: { brands: IBrandWithImage[] }) => {
   const loopedBrands = [...brands, ...brands, ...brands];
 
   return (

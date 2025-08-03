@@ -4,8 +4,9 @@ import { usePortalDrawer } from "@/hooks/use-portal-drawer";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { IRoutes } from "./navbar";
 
-export const MobileMenu = ({ routes }: { routes: any[] }) => {
+export const MobileMenu = ({ routes }: { routes: IRoutes[] }) => {
   const [open, setOpen] = useState(false);
   const Portal = usePortalDrawer("mobile-menu");
   const asideRef = useRef<HTMLDivElement>(null);
@@ -43,7 +44,7 @@ export const MobileMenu = ({ routes }: { routes: any[] }) => {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="p-2 sm:hidden cursor-pointer"
+        className="cursor-pointer p-2 sm:hidden"
       >
         <Menu />
       </button>
@@ -53,7 +54,7 @@ export const MobileMenu = ({ routes }: { routes: any[] }) => {
           <div className="fixed inset-0 z-50 bg-black/50 sm:hidden">
             <aside
               ref={asideRef}
-              className="fixed left-0 top-0 h-full w-64 bg-blue-50 shadow-lg flex flex-col p-4 gap-4"
+              className="fixed top-0 left-0 flex h-full w-64 flex-col gap-4 bg-blue-50 p-4 shadow-lg"
             >
               <div className="flex justify-end">
                 <button onClick={() => setOpen(false)}>

@@ -1,21 +1,23 @@
 import { create } from "zustand";
 import { IProductFilter } from "@/types/product";
 
+interface IFilters {
+  search: string;
+  categories: string[];
+  brands: string[];
+  price: number;
+}
+
 interface IState {
   allProducts: IProductFilter[];
 
   loading: boolean;
 
-  filters: {
-    search: string;
-    categories: string[];
-    brands: string[];
-    price: number;
-  };
+  filters: IFilters;
   filteredProducts: IProductFilter[];
 
   setLoading: (loading: boolean) => void;
-  setFilters: (filters: any) => void;
+  setFilters: (filters: IFilters) => void;
 
   setAllProducts: (products: IProductFilter[]) => void;
   setFilteredProducts: (products: IProductFilter[]) => void;

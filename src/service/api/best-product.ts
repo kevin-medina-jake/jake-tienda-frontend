@@ -16,6 +16,8 @@ export const bestProduct = async (): Promise<IBestProduct> => {
       },
     });
 
+    console.log(responses);
+
     return parseBestProduct(responses.data);
   } catch (error) {
     return {
