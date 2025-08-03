@@ -3,6 +3,7 @@ export interface INewProducts {
   name: string;
   slug: string;
   price: number;
+  stock: number;
   image: string;
 }
 

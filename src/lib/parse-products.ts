@@ -1,9 +1,4 @@
-import {
-  INewProducts,
-  IProductCart,
-  IProductFilter,
-  IViewProduct,
-} from "@/types/product";
+import { INewProducts, IProductFilter, IViewProduct } from "@/types/product";
 
 export const parseNewProducts = (products: any): INewProducts[] => {
   const result: INewProducts[] = products.map((product: any) => {
@@ -12,6 +7,7 @@ export const parseNewProducts = (products: any): INewProducts[] => {
       name: product.name,
       slug: product.slug,
       price: product.price,
+      stock: product.stock,
       image: product.images[0].url,
     };
   });

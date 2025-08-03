@@ -123,6 +123,7 @@ export const ShoppingCartDrawer = () => {
 };
 
 const CartProduct = ({ product }: { product: IShoppingCartProduct }) => {
+  console.log(product);
   const { decreaseQuantity, increaseQuantity, removeProduct } =
     useStoreShoppingCart();
 
