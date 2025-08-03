@@ -3,7 +3,6 @@
 import { ShoppingCart, Trash, X } from "lucide-react";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
-import { usePortalDrawer } from "@/hooks/use-portal-drawer";
 import {
   ICartState,
   IShoppingCartProduct,
@@ -13,26 +12,20 @@ import { useStore } from "@/hooks/useStore";
 
 export const ShoppingCartDrawer = () => {
   const [open, setOpen] = useState(false);
-  const Portal = usePortalDrawer("shopping-cart");
-  const asideRef = useRef<HTMLDivElement>(null);
+  const drawerRef = useRef<HTMLDivElement>(null);
 
   const cartStore = useStore<ICartState, ICartState>(
     useStoreShoppingCart,
-    (state) => state,
+    (state: any) => state,
   );
 
   useEffect(() => {
     if (!open) return;
-
-    const handleClickOutside = (event: MouseEvent) => {
-      if (
-        asideRef.current &&
-        !asideRef.current.contains(event.target as Node)
-      ) {
+    const handleClickOutside = (e: MouseEvent) => {
+      if (drawerRef.current && !drawerRef.current.contains(e.target as Node)) {
         setOpen(false);
       }
     };
-
     document.addEventListener("mousedown", handleClickOutside);
     return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [open]);
@@ -42,7 +35,8 @@ export const ShoppingCartDrawer = () => {
   const { products, getTotalPrice, getTotalProducts, clearShoppingCart } =
     cartStore;
 
-  const hasItems = getTotalProducts() > 0;
+  const totalProducts = getTotalProducts();
+  const hasItems = totalProducts > 0;
 
   return (
     <>
@@ -53,78 +47,76 @@ export const ShoppingCartDrawer = () => {
         <ShoppingCart />
         {hasItems && (
           <span className="absolute -top-1 -right-1 rounded-full bg-green-300 px-1 text-xs">
-            {getTotalProducts()}
+            {totalProducts}
           </span>
         )}
       </button>
 
       {open && (
-        <Portal>
-          <div className="fixed inset-0 z-50 bg-black/50">
-            <aside
-              ref={asideRef}
-              className="fixed top-0 right-0 flex h-full w-full max-w-lg flex-col gap-4 bg-blue-50 p-4"
-            >
-              <div className="mb-4 flex items-center justify-between">
-                <h2 className="flex items-center gap-2 text-lg font-semibold text-black">
-                  <ShoppingCart />
-                  Carrito de Compras{" "}
-                  <span className="font-medium">({getTotalProducts()})</span>
-                </h2>
+        <div className="fixed inset-0 z-50 flex h-screen justify-end">
+          <div
+            className="absolute inset-0 bg-black/50"
+            onClick={() => setOpen(false)}
+          />
+
+          <aside
+            ref={drawerRef}
+            className="relative flex h-full w-full max-w-lg flex-col bg-blue-50 p-4"
+          >
+            <div className="mb-4 flex items-center justify-between">
+              <h2 className="flex items-center gap-2 text-lg font-semibold text-black">
+                <ShoppingCart />
+                Carrito de Compras{" "}
+                <span className="font-medium">({totalProducts})</span>
+              </h2>
+              <button onClick={() => setOpen(false)} className="cursor-pointer">
+                <X />
+              </button>
+            </div>
+
+            {products.length === 0 ? (
+              <div className="flex flex-1 flex-col items-center justify-center gap-3 text-center text-black">
+                <ShoppingCart size={64} className="opacity-30" />
+                <h3 className="text-lg font-semibold">Tu carrito está vacío</h3>
+                <p className="text-sm text-gray-500">
+                  Agrega productos para comenzar a comprar.
+                </p>
                 <button
                   onClick={() => setOpen(false)}
-                  className="cursor-pointer"
+                  className="mt-2 cursor-pointer rounded border border-blue-300 px-4 py-2 text-sm font-medium hover:bg-blue-100"
                 >
-                  <X />
+                  Seguir comprando
                 </button>
               </div>
+            ) : (
+              <>
+                <ul className="flex-1 space-y-2 overflow-y-auto pb-2">
+                  {products.map((product) => (
+                    <CartProduct key={product.id} product={product} />
+                  ))}
+                </ul>
 
-              {products.length === 0 ? (
-                <div className="flex flex-1 flex-col items-center justify-center gap-3 text-center text-black">
-                  <ShoppingCart size={64} className="opacity-30" />
-                  <h3 className="text-lg font-semibold">
-                    Tu carrito está vacío
-                  </h3>
-                  <p className="text-sm text-gray-500">
-                    Agrega productos para comenzar a comprar.
-                  </p>
+                <div className="mt-auto space-y-3 border-t border-blue-200 text-black">
+                  <div className="flex justify-between text-base">
+                    <span>Total:</span>
+                    <span className="font-semibold">
+                      ${getTotalPrice().toLocaleString("es-CO")}
+                    </span>
+                  </div>
+                  <button className="w-full rounded bg-blue-600 p-2 font-medium text-white hover:bg-blue-700">
+                    Proceder al Pago
+                  </button>
                   <button
-                    onClick={() => setOpen(false)}
-                    className="mt-2 cursor-pointer rounded border border-blue-300 px-4 py-2 text-sm font-medium hover:bg-blue-100"
+                    onClick={clearShoppingCart}
+                    className="w-full rounded border border-blue-300 p-2 text-sm hover:bg-blue-100"
                   >
-                    Seguir comprando
+                    Vaciar Carrito
                   </button>
                 </div>
-              ) : (
-                <>
-                  <ul className="space-y-2 overflow-y-auto">
-                    {products.map((product) => (
-                      <CartProduct key={product.id} product={product} />
-                    ))}
-                  </ul>
-
-                  <div className="mt-auto space-y-3 border-t border-blue-200 pt-4 text-black">
-                    <div className="flex justify-between text-base">
-                      <span>Total:</span>
-                      <span className="font-semibold">
-                        ${getTotalPrice().toLocaleString("es-CO")}
-                      </span>
-                    </div>
-                    <button className="w-full rounded bg-blue-600 p-2 font-medium text-white hover:bg-blue-700">
-                      Proceder al Pago
-                    </button>
-                    <button
-                      onClick={clearShoppingCart}
-                      className="w-full rounded border border-blue-300 p-2 text-sm hover:bg-blue-100"
-                    >
-                      Vaciar Carrito
-                    </button>
-                  </div>
-                </>
-              )}
-            </aside>
-          </div>
-        </Portal>
+              </>
+            )}
+          </aside>
+        </div>
       )}
     </>
   );
@@ -134,30 +126,13 @@ const CartProduct = ({ product }: { product: IShoppingCartProduct }) => {
   const { decreaseQuantity, increaseQuantity, removeProduct } =
     useStoreShoppingCart();
 
-  const handleDecreaseQuantity = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    e.preventDefault();
-    decreaseQuantity(product.id);
+  const handleDecreaseQuantity = () => decreaseQuantity(product.id);
+  const handleIncreaseQuantity = () => {
+    if (product.quantity < product.stock) increaseQuantity(product.id);
   };
+  const handleRemoveProduct = () => removeProduct(product.id);
 
-  const handleIncreaseQuantity = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    e.preventDefault();
-
-    if (product.stock > 1 && product.quantity < product.stock) {
-      increaseQuantity(product.id);
-    }
-  };
-
-  const handleRemoveProduct = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    e.preventDefault();
-    removeProduct(product.id);
-  };
-
-  const isMoreOneProduct = product.stock > 1;
-  const isTotalProducts =
-    product.quantity === product.stock || product.quantity > product.stock;
+  const isTotalProducts = product.quantity >= product.stock;
   const style = isTotalProducts ? "opacity-50" : "hover:bg-blue-200";
 
   return (
@@ -176,13 +151,13 @@ const CartProduct = ({ product }: { product: IShoppingCartProduct }) => {
         </span>
         <div className="mt-2 flex items-center justify-between gap-2">
           <div className="flex items-center gap-3">
-            {isMoreOneProduct ? (
+            {product.stock > 1 ? (
               <>
                 <button
                   className="grid size-8 cursor-pointer place-content-center rounded border border-blue-100 hover:bg-blue-200"
                   onClick={handleDecreaseQuantity}
                 >
-                  <span>-</span>
+                  -
                 </button>
                 <span className="text-sm font-semibold">
                   {product.quantity}
@@ -192,7 +167,7 @@ const CartProduct = ({ product }: { product: IShoppingCartProduct }) => {
                   onClick={handleIncreaseQuantity}
                   disabled={isTotalProducts}
                 >
-                  <span>+</span>
+                  +
                 </button>
               </>
             ) : (
