@@ -13,6 +13,11 @@ export const categoryDropdown = async (): Promise<IDropDownMenu[]> => {
       sort: "name:asc",
       populate: ["products"],
       status: "published",
+      filters: {
+        products: {
+          $notNull: true,
+        },
+      },
     });
 
     return parseCategoryDropDownMenu(response.data);
@@ -25,6 +30,11 @@ export const categoryCart = async (): Promise<ICategoryCart[]> => {
   try {
     const response = await client.collection("categories").find({
       populate: ["image"],
+      filters: {
+        image: {
+          $notNull: true,
+        },
+      },
     });
 
     const result = parseCategoryCart(response.data);
@@ -46,7 +56,7 @@ export const productCategory = async (slug: string, productId: number) => {
     });
 
     const result = parseProductCart(response.data[0].products).filter(
-      (product) => product.id !== productId
+      (product) => product.id !== productId,
     );
 
     return result;

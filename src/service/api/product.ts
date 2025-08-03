@@ -13,6 +13,11 @@ export const newProducts = async (): Promise<INewProducts[]> => {
       sort: "createdAt:desc",
       status: "published",
       populate: ["images"],
+      filters: {
+        images: {
+          $notNull: true,
+        },
+      },
     });
 
     return parseNewProducts(response.data);
@@ -26,6 +31,9 @@ export const getViewProduct = async (slug: string) => {
     const response = await client.collection("products").find({
       filters: {
         slug: slug,
+        images: {
+          $notNull: true,
+        },
       },
       populate: ["images", "categories"],
       status: "published",
@@ -54,6 +62,14 @@ export const getFilterProducts = async ({
       pagination: {
         page,
         pageSize,
+      },
+      filters: {
+        images: {
+          $notNull: true,
+        },
+        stock: {
+          $gt: 0,
+        },
       },
     });
 

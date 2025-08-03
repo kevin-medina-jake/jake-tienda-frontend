@@ -22,7 +22,7 @@ const brands = [
   { name: "Behringer", logo: MaxLinImg, link: "/marcas/behringer" },
 ];
 
-export default function TrustSection() {
+export const TrustSection = () => {
   const loopedBrands = [...brands, ...brands];
 
   return (
@@ -59,4 +59,4 @@ export default function TrustSection() {
       </div>
     </section>
   );
-}
+};

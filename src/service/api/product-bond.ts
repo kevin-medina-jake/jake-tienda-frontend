@@ -6,6 +6,14 @@ export const productBond = async (): Promise<IProductBond> => {
   try {
     const responses = await client.single("product-bond").find({
       populate: ["image", "product"],
+      filters: {
+        product: {
+          $notNull: true,
+        },
+        image: {
+          $notNull: true,
+        },
+      },
     });
 
     return parseProductBond(responses.data);
