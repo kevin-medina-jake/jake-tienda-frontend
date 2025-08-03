@@ -4,13 +4,11 @@ import { ProductsFilterMovilDrawer } from "../common/products-filter-movil-drawe
 
 export default function ProductsPage() {
   return (
-    <div className="max-w-7xl mx-auto px-4 py-3 sm:py-10 w-full">
+    <div className="mx-auto w-full max-w-7xl px-4 py-3 sm:py-10">
       <ProductsFilterMovilDrawer />
 
-      <div className="w-full flex gap-6">
-        <div className="relative hidden sm:block w-64 flex-shrink-0 min-h-[50vh]">
-          <ProductsFilter />
-        </div>
+      <div className="relative flex min-h-[50vh] w-full gap-6">
+        <ProductsFilter />
 
         <ProductsGrid />
       </div>

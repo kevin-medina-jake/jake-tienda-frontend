@@ -17,7 +17,7 @@ export default function ProductsFilter() {
     ...new Set(
       allProducts
         .map(({ brand }) => brand)
-        .filter((item): item is string => item !== undefined)
+        .filter((item): item is string => item !== undefined),
     ),
   ];
 
@@ -29,13 +29,13 @@ export default function ProductsFilter() {
   const { categories: categoriesStore, brands: brandsStore, price } = filters;
 
   const handleChangeCategories = (
-    event: React.ChangeEvent<HTMLInputElement>
+    event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const value = event.target.value;
     setSelectedCategories((prev) =>
       event.target.checked
         ? [...prev, value]
-        : prev.filter((option) => option !== value)
+        : prev.filter((option) => option !== value),
     );
   };
 
@@ -48,7 +48,7 @@ export default function ProductsFilter() {
     setSelectedBrands((prev) =>
       event.target.checked
         ? [...prev, value]
-        : prev.filter((option) => option !== value)
+        : prev.filter((option) => option !== value),
     );
   };
 
@@ -57,8 +57,8 @@ export default function ProductsFilter() {
   }, [selectedBrands]);
 
   return (
-    <div className="space-y-3 bg-blue-50 p-4 fixed rounded-sm">
-      <h3 className="text-lg font-semibold flex gap-2 items-center">
+    <div className="sticky top-[100px] hidden h-full max-h-screen space-y-3 rounded-sm bg-blue-50 p-4 sm:block">
+      <h3 className="flex items-center gap-2 text-lg font-semibold">
         <Filter size={20} /> Filtros
       </h3>
 
@@ -68,7 +68,7 @@ export default function ProductsFilter() {
         {brands.map((brand) => (
           <label
             key={brand}
-            className="flex items-center space-x-2 mt-2 cursor-pointer"
+            className="mt-2 flex cursor-pointer items-center space-x-2"
           >
             <input
               type="checkbox"
@@ -88,7 +88,7 @@ export default function ProductsFilter() {
         {categories.map((cat) => (
           <label
             key={cat}
-            className="flex items-center space-x-2 mt-2 cursor-pointer"
+            className="mt-2 flex cursor-pointer items-center space-x-2"
           >
             <input
               type="checkbox"
@@ -113,7 +113,7 @@ export default function ProductsFilter() {
           onChange={(e) => handlePrice({ price: Number(e.target.value) })}
           className="w-full"
         />
-        <p className="text-sm mt-2">Hasta: ${price.toLocaleString("es-CO")}</p>
+        <p className="mt-2 text-sm">Hasta: ${price.toLocaleString("es-CO")}</p>
       </div>
     </div>
   );

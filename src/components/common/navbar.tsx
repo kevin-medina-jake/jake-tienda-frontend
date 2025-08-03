@@ -41,7 +41,7 @@ export const Navbar = async () => {
   return (
     <>
       {/* Desktop */}
-      <nav className="max-w-8xl fixed top-0 left-1/2 z-50 hidden h-[100px] w-full -translate-x-1/2 transform gap-4 border-b border-transparent bg-transparent px-4 py-2 backdrop-blur-sm transition-all duration-300 ease-in-out hover:border-gray-300 hover:bg-white/95 sm:flex">
+      <nav className="max-w-8xl fixed top-0 left-1/2 z-50 hidden h-[100px] w-full -translate-x-1/2 transform gap-4 border-b border-transparent bg-transparent px-4 pt-2 backdrop-blur-sm transition-all duration-300 ease-in-out hover:border-gray-300 hover:bg-white/95 sm:flex">
         <section className="flex items-center">
           <Link href="/">
             <Image
@@ -56,7 +56,7 @@ export const Navbar = async () => {
         <section className="grid flex-1 gap-4 md:px-5 lg:px-10 xl:px-20">
           <SearchProducts />
 
-          <ul className="flex items-center gap-6 text-sm lg:text-base">
+          <ul className="flex h-full text-sm lg:text-base">
             {routes.map((route) => {
               if (route.dropdown) {
                 return (
@@ -70,8 +70,8 @@ export const Navbar = async () => {
               }
 
               return (
-                <li key={route.name}>
-                  <Link href={route.href} className="whitespace-nowrap">
+                <li key={route.name} className="h-full pr-6">
+                  <Link href={route.href} className="h-full whitespace-nowrap">
                     {route.name}
                   </Link>
                 </li>
@@ -116,21 +116,27 @@ interface DropdownMenuProps {
 }
 
 const DropdownMenu = ({ name, drop, url }: DropdownMenuProps) => (
-  <li className="group relative">
-    <span className="flex cursor-default items-center gap-1">
+  <li className="group">
+    <span className="flex cursor-default items-center gap-1 pr-6 group-hover:text-blue-800">
       {name} <ChevronDown size={14} />
     </span>
-    <ul className="absolute top-full left-0 z-20 hidden bg-white shadow-md group-hover:block">
-      {drop.map((item) => (
-        <li key={item.id}>
-          <Link
-            href={`${url}${item.name}`}
-            className="block px-3 py-2 hover:bg-gray-100"
-          >
-            {item.name}
-          </Link>
-        </li>
-      ))}
-    </ul>
+    <div className="absolute top-full right-0 left-0 z-20 hidden w-full border-t border-b border-gray-300 bg-white pb-8 shadow-2xl group-hover:block">
+      <h2 className="border-b border-gray-300 px-10 py-8 text-2xl font-medium md:px-20 lg:px-40">
+        {name}
+      </h2>
+
+      <ul className="grid grid-cols-6 gap-4 px-10 py-4 md:px-20 lg:px-40">
+        {drop.map((item) => (
+          <li key={item.id}>
+            <Link
+              href={`${url}${item.name}`}
+              className="block w-max p-2 px-5 hover:bg-gray-100"
+            >
+              {item.name}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
   </li>
 );
