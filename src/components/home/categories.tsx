@@ -9,12 +9,12 @@ export const Categories = async () => {
   if (categories.length === 0) return null;
 
   return (
-    <section className="flex flex-col gap-4 px-4 max-w-7xl mx-auto w-full">
+    <section className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-4">
       <div>
-        <h2 className="text-2xl font-semibold text-center">Categorías</h2>
+        <h2 className="py-10 text-center text-3xl font-bold">Categorías</h2>
       </div>
 
-      <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-2  gap-4 py-4 ">
+      <div className="grid grid-cols-2 gap-4 py-4 md:grid-cols-3 lg:grid-cols-5">
         {categories
           .filter((category) => category.isImportant)
           .slice(0, 8)
@@ -28,27 +28,21 @@ export const Categories = async () => {
 
 const CardCategory = ({ category }: { category: ICategoryCart }) => {
   return (
-    <article className="flex flex-col gap-4 bg-blue-50 rounded-sm overflow-hidden">
-      <div>
-        <img
-          src={category?.image}
-          alt="Slide 1"
-          className="w-full h-full object-cover"
-        />
-      </div>
+    <Link
+      href={"/products?category=" + category.name}
+      className="aspect-square overflow-hidden border border-gray-100 p-2 transition-all duration-100 ease-in-out hover:border-blue-300 hover:shadow-xs"
+    >
+      <article className="flex flex-col gap-4 overflow-hidden rounded-sm">
+        <div>
+          <img
+            src={category?.image}
+            alt="Slide 1"
+            className="h-full w-full object-cover"
+          />
+        </div>
 
-      <div className="px-2">
-        <h3 className="text-xl font-semibold">{category.name}</h3>
-      </div>
-
-      <div className="px-2 pb-4">
-        <Link
-          href={"/products?category=" + category.name}
-          className="bg-blue-400 text-white flex items-center justify-center h-10 font-medium rounded-sm"
-        >
-          <span>Ver Catalogo</span>
-        </Link>
-      </div>
-    </article>
+        <h3 className="text-center text-xl font-semibold">{category.name}</h3>
+      </article>
+    </Link>
   );
 };

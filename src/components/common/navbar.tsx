@@ -120,7 +120,7 @@ const DropdownMenu = ({ name, drop, url }: DropdownMenuProps) => (
     <span className="flex cursor-default items-center gap-1 pr-6 group-hover:text-blue-800">
       {name} <ChevronDown size={14} />
     </span>
-    <div className="absolute top-full right-0 left-0 z-20 hidden w-full border-t border-b border-gray-300 bg-white pb-8 shadow-2xl group-hover:block">
+    <div className="absolute top-full right-0 left-0 z-20 hidden w-full border-t border-b border-gray-300 bg-blue-50 pb-8 shadow-2xl group-hover:block">
       <h2 className="border-b border-gray-300 px-10 py-8 text-2xl font-medium md:px-20 lg:px-40">
         {name}
       </h2>
@@ -130,7 +130,7 @@ const DropdownMenu = ({ name, drop, url }: DropdownMenuProps) => (
           <li key={item.id}>
             <Link
               href={`${url}${item.name}`}
-              className="block w-max p-2 px-5 hover:bg-gray-100"
+              className="block w-max p-2 px-5 hover:bg-blue-200"
             >
               {item.name}
             </Link>

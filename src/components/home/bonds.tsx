@@ -62,26 +62,26 @@ export const Bonds = async () => {
   }
 
   return (
-    <div className="grid gap-4 max-w-7xl mx-auto w-full px-4">
+    <div className="mx-auto grid w-full max-w-7xl gap-4 px-4">
       <div className="col-span-1 sm:col-span-2 lg:col-span-4">
-        <div className="flex md:flex-row flex-col md:p-8 p-4 bg-blue-50 rounded-sm gap-4">
+        <div className="flex flex-col gap-4 rounded-sm bg-blue-50 p-4 md:flex-row md:p-8">
           <section className="max-w-2xl">
             <img
               src={productBondInfo.image}
               alt={productBondInfo.title}
-              className="w-full h-full object-cover"
+              className="h-full w-full object-cover"
             />
           </section>
 
           <section className="flex flex-col justify-center gap-3">
-            <h2 className="text-2xl md:text-4xl font-semibold">
+            <h2 className="text-2xl font-semibold md:text-4xl">
               {productBondInfo.title}
             </h2>
             <p className="text-gray-700">{productBondInfo.description}</p>
             <div>
               <Link
                 href={"/view-product/" + productBondInfo.slug}
-                className="bg-blue-500  text-white w-full sm:w-max px-12 py-3 font-medium rounded-sm block"
+                className="block w-full rounded-sm bg-blue-500 px-12 py-3 font-medium text-white hover:bg-blue-600 sm:w-max"
               >
                 Comprar Ahora
               </Link>
@@ -102,11 +102,11 @@ export const Bonds = async () => {
 const CardBond = ({ bond }: { bond: (typeof bonds)[number] }) => {
   const Icon = bond.Icon;
   return (
-    <div className="flex flex-col gap-4 p-4 rounded-sm bg-blue-50 h-full">
+    <div className="flex h-full flex-col gap-4 rounded-sm bg-blue-50 p-4">
       <Icon size={24} />
 
       <h2 className="text-xl font-semibold">{bond.title}</h2>
-      <ul className="list-disc text-gray-700 pl-4">
+      <ul className="list-disc pl-4 text-gray-700">
         {bond.list.map((item, index) => (
           <li key={index}>
             <p className="text-gray-700">{item}</p>

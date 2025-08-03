@@ -9,25 +9,25 @@ export const Products = async () => {
   const bestProductInfo = (await bestProduct()) as IBestProduct;
 
   return (
-    <section className="relative max-w-7xl mx-auto w-full px-4">
-      <div className="pb-4">
-        <h2 className="text-2xl font-bold">¡Productos Nuevos!</h2>
+    <section className="relative mx-auto w-full max-w-7xl px-4">
+      <div className="pb-10">
+        <h2 className="text-center text-3xl font-bold">¡Productos Nuevos!</h2>
       </div>
 
-      <div className="grid grid-cols-1 sm:grid-cols-4 gap-4">
-        <section className="sm:col-span-1 rounded-sm overflow-hidden">
-          <div className="w-full h-auto sm:h-full">
+      <div className="grid grid-cols-1 gap-4 sm:grid-cols-4">
+        <section className="overflow-hidden rounded-sm sm:col-span-1">
+          <div className="h-auto w-full sm:h-full">
             <Link href={"/view-product/" + bestProductInfo.slug}>
               <img
                 src={bestProductInfo.image}
                 alt={bestProductInfo.name}
-                className="w-full h-full object-cover"
+                className="h-full w-full object-cover"
               />
             </Link>
           </div>
         </section>
 
-        <section className="sm:col-span-3 h-full w-full">
+        <section className="h-full w-full sm:col-span-3">
           <CarouselProducts products={carouselNewProducts} />
         </section>
       </div>
