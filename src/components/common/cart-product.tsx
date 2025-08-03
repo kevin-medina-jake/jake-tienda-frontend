@@ -76,7 +76,7 @@ export const CartProduct = ({
               product.categories.map((category: string) => (
                 <span
                   key={category}
-                  className="h-4 rounded-full bg-blue-200 px-1 text-xs font-light"
+                  className="h-4 rounded-full bg-blue-200 px-1 text-xs font-light whitespace-nowrap"
                 >
                   {category}
                 </span>
