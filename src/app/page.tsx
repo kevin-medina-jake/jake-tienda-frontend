@@ -9,8 +9,8 @@ import { ICarouselPresentation } from "@/types/home";
 import { TrustSection } from "@/components/home/trust-section";
 import { brandWithImage } from "@/service/api/brand";
 import { IBrandWithImage } from "@/types/navbar";
+import { Suspense } from "react";
 
-// 🧠 SEO para la página de inicio
 export const metadata: Metadata = {
   title:
     "Jake Tienda Electrónica | Parlantes, Subwoofers y Tecnología en Colombia",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   },
 };
 
-export default async function Home() {
+async function Container() {
   const presentations: ICarouselPresentation[] = await carrouselPresentation();
   const brands: IBrandWithImage[] = await brandWithImage();
 
@@ -52,9 +52,19 @@ export default async function Home() {
     <div className="mb-10 flex flex-col gap-8">
       <Presentation presentations={presentations} />
       <TrustSection brands={brands} />
-      <Categories />
-      <Products />
-      <Bonds />
+      <Suspense fallback={<div className="p-4">Loading categories…</div>}>
+        <Categories />
+      </Suspense>
+      <Suspense fallback={<div className="p-4">Loading categories…</div>}>
+        <Products />
+      </Suspense>
+      <Suspense fallback={<div className="p-4">Loading categories…</div>}>
+        <Bonds />
+      </Suspense>
     </div>
   );
+}
+
+export default async function Home() {
+  return <Container />;
 }
