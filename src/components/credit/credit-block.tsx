@@ -3,6 +3,7 @@
 import Image, { StaticImageData } from "next/image";
 import CreditCard from "./credit-card";
 import { ReactElement } from "react";
+import Link from "next/link";
 
 interface Props {
   title: string;
@@ -48,13 +49,17 @@ export default function CreditBlock({
       </div>
 
       {/* Botón */}
-      <div className="flex justify-center mt-6">
-        <a
-          href={buttonLink}
-          className="bg-green-600 text-white font-medium px-6 py-3 rounded-lg hover:bg-green-700 transition"
-        >
+      <div className="mt-4 flex justify-center">
+     <Link
+        href={buttonLink}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="mt-4 inline-block"
+      >
+        <button className="rounded bg-green-600 px-4 py-2 font-semibold text-white hover:bg-green-700">
           {buttonText}
-        </a>
+        </button>
+      </Link>
       </div>
     </section>
   );
