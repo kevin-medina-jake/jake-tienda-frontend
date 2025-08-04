@@ -10,7 +10,7 @@ import { useEffect } from "react";
 
 export const SearchProducts = () => {
   const { handleSearch } = useFilterProducts();
-  const { filters, filteredProducts } = useStoreProducts();
+  const { filters, filteredProducts, setProducts } = useStoreProducts();
   const { search } = filters;
 
   const pathname = usePathname();
@@ -27,6 +27,7 @@ export const SearchProducts = () => {
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       router.push("/products");
+      setProducts(filteredProducts);
     }
   };
 
@@ -50,41 +51,39 @@ export const SearchProducts = () => {
         <Search className="absolute right-4" />
       </div>
 
-      {filteredProducts.length > 0 &&
-        wasEmpty !== true &&
-        pathname !== "/products" && (
-          <ul className="absolute top-[100%] flex max-h-96 w-full flex-col gap-2 overflow-y-auto rounded-sm bg-blue-50 p-2">
-            {filteredProducts.map((product) => (
-              <li
-                key={product.id}
-                className={
-                  pathname.includes(product.slug)
-                    ? "bg-green-200"
-                    : "hover:bg-blue-100"
-                }
+      {filteredProducts.length > 0 && wasEmpty !== true && (
+        <ul className="absolute top-[100%] flex max-h-96 w-full flex-col gap-2 overflow-y-auto rounded-sm bg-blue-50 p-2">
+          {filteredProducts.map((product) => (
+            <li
+              key={product.id}
+              className={
+                pathname.includes(product.slug)
+                  ? "bg-green-200"
+                  : "hover:bg-blue-100"
+              }
+            >
+              <Link
+                href={`/view-product/${product.slug}`}
+                className="flex items-center gap-2 rounded-xs border border-gray-300 p-2"
               >
-                <Link
-                  href={`/view-product/${product.slug}`}
-                  className="flex items-center gap-2 rounded-xs border border-gray-300 p-2"
-                >
-                  <div>
-                    <Image
-                      src={product.image || "/not-found.png"}
-                      alt="logo"
-                      width={50}
-                      height={50}
-                    />
-                  </div>
+                <div>
+                  <Image
+                    src={product.image || "/not-found.png"}
+                    alt="logo"
+                    width={50}
+                    height={50}
+                  />
+                </div>
 
-                  <p>
-                    {product.categories.map((category) => category)} -
-                    {product.brand} - {product.name}
-                  </p>
-                </Link>
-              </li>
-            ))}
-          </ul>
-        )}
+                <p>
+                  {product.categories.map((category) => category)} -
+                  {product.brand} - {product.name}
+                </p>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      )}
     </section>
   );
 };
