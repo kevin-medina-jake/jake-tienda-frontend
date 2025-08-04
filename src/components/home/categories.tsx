@@ -6,8 +6,11 @@ import { ICategoryCart } from "@/types/category";
 export const Categories = async () => {
   const categories = (await categoryCart()) as ICategoryCart[];
 
-  if (categories.length === 0) return null;
+  // if (categories.length < 1) return null;
 
+  console.log("**************************************");
+  console.log(categories);
+  console.log("**************************************");
   return (
     <section className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-4">
       <div>
@@ -30,10 +33,10 @@ const CardCategory = ({ category }: { category: ICategoryCart }) => {
   return (
     <Link
       href={"/products?category=" + category.name}
-      className="aspect-square overflow-hidden border border-gray-100 p-2 transition-all duration-100 ease-in-out hover:border-blue-300 hover:shadow-xs"
+      className="overflow-hidden border border-gray-100 p-2 transition-all duration-100 ease-in-out hover:border-blue-300 hover:shadow-xs"
     >
       <article className="flex flex-col gap-4 overflow-hidden rounded-sm">
-        <div>
+        <div className="aspect-square">
           <img
             src={category?.image}
             alt="Slide 1"
@@ -41,7 +44,7 @@ const CardCategory = ({ category }: { category: ICategoryCart }) => {
           />
         </div>
 
-        <h3 className="text-center text-xl font-semibold">{category.name}</h3>
+        <h3 className="text-center text-lg font-semibold">{category.name}</h3>
       </article>
     </Link>
   );

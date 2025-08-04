@@ -37,9 +37,7 @@ export const categoryCart = async (): Promise<ICategoryCart[]> => {
       },
     });
 
-    const result = parseCategoryCart(response.data);
-
-    return result;
+    return parseCategoryCart(response.data);
   } catch (error) {
     return [];
   }
