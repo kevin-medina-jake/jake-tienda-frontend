@@ -6,7 +6,8 @@ import { useStoreProducts } from "@/store/products";
 import { Filter } from "lucide-react";
 
 export default function ProductsFilter() {
-  const { allProducts, filters } = useStoreProducts();
+  const { allProducts, filters, filteredProducts, setProducts } =
+    useStoreProducts();
   const { handlePrice, handleCategories, handleBrands } = useFilterProducts();
 
   const categories = [

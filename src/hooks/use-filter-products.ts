@@ -3,17 +3,8 @@ import { useStoreProducts } from "@/store/products";
 import { IProductFilter } from "@/types/product";
 
 export const useFilterProducts = () => {
-  const { allProducts, setFilteredProducts, filters, setFilters } =
+  const { allProducts, products, filters, setFilters, setProducts } =
     useStoreProducts();
-
-  const handleSearch = ({ search }: { search: string }) => {
-    const newFilter = {
-      ...filters,
-      search,
-    };
-
-    setFilters(newFilter);
-  };
 
   const handleCategories = ({ categories }: { categories: string[] }) => {
     const newFilter = {
@@ -37,6 +28,51 @@ export const useFilterProducts = () => {
     const newFilter = {
       ...filters,
       price,
+    };
+
+    setFilters(newFilter);
+  };
+
+  const filterProducts = () => {
+    const newProducts = allProducts.filter((product: IProductFilter) => {
+      const matchesCategories =
+        filters.categories.length === 0 ||
+        (product.categories?.length > 0 &&
+          product.categories.some((cat: string) =>
+            filters.categories.includes(cat),
+          ));
+
+      const matchesBrands =
+        filters.brands.length === 0 ||
+        filters.brands.some((value: string) => product.brand?.includes(value));
+
+      const matchesPrice = product.price >= filters.price;
+
+      return matchesCategories && matchesBrands && matchesPrice;
+    });
+
+    setProducts(newProducts);
+  };
+
+  useEffect(() => {
+    filterProducts();
+  }, [filters]);
+
+  return {
+    handleBrands,
+    handleCategories,
+    handlePrice,
+  };
+};
+
+export const useFilterProductsSearch = () => {
+  const { allProducts, setFilteredProducts, filters, setFilters } =
+    useStoreProducts();
+
+  const handleSearch = ({ search }: { search: string }) => {
+    const newFilter = {
+      ...filters,
+      search,
     };
 
     setFilters(newFilter);
@@ -68,22 +104,7 @@ export const useFilterProducts = () => {
               product?.brand?.toLowerCase().includes(item),
           );
 
-      const matchesCategories =
-        filters.categories.length === 0 ||
-        (product.categories?.length > 0 &&
-          product.categories.some((cat: string) =>
-            filters.categories.includes(cat),
-          ));
-
-      const matchesBrands =
-        filters.brands.length === 0 ||
-        filters.brands.some((value: string) => product.brand?.includes(value));
-
-      const matchesPrice = product.price >= filters.price;
-
-      return (
-        matchesSearch && matchesBrands && matchesCategories && matchesPrice
-      );
+      return matchesSearch;
     });
 
     setFilteredProducts(newProducts);
@@ -95,8 +116,5 @@ export const useFilterProducts = () => {
 
   return {
     handleSearch,
-    handleBrands,
-    handleCategories,
-    handlePrice,
   };
 };
