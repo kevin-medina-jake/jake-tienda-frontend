@@ -53,15 +53,19 @@ export const SearchProducts = () => {
       {filteredProducts.length > 0 &&
         wasEmpty !== true &&
         pathname !== "/products" && (
-          <ul className="absolute top-[100%] flex max-h-96 w-full flex-col gap-2 overflow-y-auto rounded-sm bg-blue-50">
+          <ul className="absolute top-[100%] flex max-h-96 w-full flex-col gap-2 overflow-y-auto rounded-sm bg-blue-50 p-2">
             {filteredProducts.map((product) => (
               <li
                 key={product.id}
-                className={pathname.includes(product.slug) ? "hidden" : "p-2"}
+                className={
+                  pathname.includes(product.slug)
+                    ? "cursor-ca bg-green-200"
+                    : "hover:bg-blue-100"
+                }
               >
                 <Link
                   href={`/view-product/${product.slug}`}
-                  className="flex items-center gap-2 rounded-xs border border-gray-300 p-2 hover:bg-blue-100"
+                  className="flex items-center gap-2 rounded-xs border border-gray-300 p-2"
                 >
                   <div>
                     <Image
