@@ -35,6 +35,10 @@ export const useFilterProducts = () => {
 
   const filterProducts = () => {
     const newProducts = allProducts.filter((product: IProductFilter) => {
+      const productsFiltered = products.filter((pro: IProductFilter) => {
+        return pro.id === product.id;
+      });
+
       const matchesCategories =
         filters.categories.length === 0 ||
         (product.categories?.length > 0 &&
@@ -48,7 +52,9 @@ export const useFilterProducts = () => {
 
       const matchesPrice = product.price >= filters.price;
 
-      return matchesCategories && matchesBrands && matchesPrice;
+      return (
+        productsFiltered && matchesCategories && matchesBrands && matchesPrice
+      );
     });
 
     setProducts(newProducts);

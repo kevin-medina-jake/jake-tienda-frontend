@@ -7,7 +7,7 @@ import { Search } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 export const SearchProducts = () => {
   const { handleSearch } = useFilterProductsSearch();
@@ -36,8 +36,8 @@ export const SearchProducts = () => {
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
-      router.push("/products");
       setProducts(filteredProducts);
+      router.push("/products");
     }
   };
 
