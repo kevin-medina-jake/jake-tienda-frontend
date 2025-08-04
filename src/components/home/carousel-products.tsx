@@ -10,7 +10,7 @@ import "@/styles/home/carrousel-products.css";
 
 // import required modules
 import { Pagination } from "swiper/modules";
-import { INewProducts, IProductFilter } from "@/types/product";
+import { IProductFilter } from "@/types/product";
 import { CartProduct } from "../common/cart-product";
 
 export const CarouselProducts = ({
