@@ -52,19 +52,17 @@ async function Container() {
     <div className="mb-10 flex flex-col gap-8">
       <Presentation presentations={presentations} />
       <TrustSection brands={brands} />
-      <Suspense fallback={<div className="p-4">Loading categories…</div>}>
-        <Categories />
-      </Suspense>
-      <Suspense fallback={<div className="p-4">Loading categories…</div>}>
-        <Products />
-      </Suspense>
-      <Suspense fallback={<div className="p-4">Loading categories…</div>}>
-        <Bonds />
-      </Suspense>
+      <Categories />
+      <Products />
+      <Bonds />
     </div>
   );
 }
 
 export default async function Home() {
-  return <Container />;
+  return (
+    <Suspense fallback={<div className="p-4">Loading</div>}>
+      <Container />;
+    </Suspense>
+  );
 }
