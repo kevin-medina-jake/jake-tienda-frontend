@@ -114,7 +114,7 @@ export default function CreditSection() {
       {/* Grid principal */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-12">
         {/* Columna izquierda (sticky sin animación, más separada) */}
-        <div className="lg:col-span-1">
+        <div className="hidden lg:block lg:col-span-1">
           <div className="sticky top-40 ml-8">
             <h2 className="text-3xl font-bold text-cyan-600">{activeTitle}</h2>
           </div>
