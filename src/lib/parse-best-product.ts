@@ -1,6 +1,6 @@
-import { IBestProduct } from "@/types/product";
+import { Data, IBestProduct } from "@/types/product";
 
-export const parseBestProduct = (bestProduct: any): IBestProduct => {
+export const parseBestProduct = (bestProduct: Data): IBestProduct => {
   return {
     id: bestProduct.id,
     name: bestProduct.name,
