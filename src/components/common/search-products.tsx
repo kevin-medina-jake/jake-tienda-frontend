@@ -59,7 +59,7 @@ export const SearchProducts = () => {
                 key={product.id}
                 className={
                   pathname.includes(product.slug)
-                    ? "cursor-ca bg-green-200"
+                    ? "bg-green-200"
                     : "hover:bg-blue-100"
                 }
               >
