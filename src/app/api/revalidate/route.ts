@@ -8,15 +8,33 @@ export async function POST(req: NextRequest) {
   }
 
   const body = await req.json();
-  const model = body?.model; // ej. "best-product"
-  const slug = body?.entry?.slug; // ej. "t-shirt"
+  const model = body?.model;
+  const slug = body?.entry?.slug;
 
   try {
-    if (slug) {
-      revalidatePath(`/products/${slug}`);
+    switch (model) {
+      case "product":
+        if (slug) revalidatePath(`/view-product/${slug}`);
+        revalidatePath("/products");
+        revalidatePath("/");
+        break;
+
+      case "category":
+        revalidatePath("/products");
+        revalidatePath("/");
+        break;
+
+      case "product-bond":
+        revalidatePath("/");
+        break;
+
+      case "best-product":
+        revalidatePath("/");
+        break;
+
+      default:
     }
-    revalidatePath("/products");
-    revalidatePath("/");
+
     return NextResponse.json({ revalidated: true });
   } catch (err) {
     console.error(err);

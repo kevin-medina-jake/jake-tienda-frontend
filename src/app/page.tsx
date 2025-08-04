@@ -9,8 +9,8 @@ import { ICarouselPresentation } from "@/types/home";
 import { TrustSection } from "@/components/home/trust-section";
 import { brandWithImage } from "@/service/api/brand";
 import { IBrandWithImage } from "@/types/navbar";
-import { Suspense } from "react";
 
+// 🧠 SEO para la página de inicio
 export const metadata: Metadata = {
   title:
     "Jake Tienda Electrónica | Parlantes, Subwoofers y Tecnología en Colombia",
@@ -44,7 +44,7 @@ export const metadata: Metadata = {
   },
 };
 
-async function Container() {
+export default async function Home() {
   const presentations: ICarouselPresentation[] = await carrouselPresentation();
   const brands: IBrandWithImage[] = await brandWithImage();
 
@@ -56,13 +56,5 @@ async function Container() {
       <Products />
       <Bonds />
     </div>
-  );
-}
-
-export default async function Home() {
-  return (
-    <Suspense fallback={<div className="p-4">Loading</div>}>
-      <Container />;
-    </Suspense>
   );
 }
