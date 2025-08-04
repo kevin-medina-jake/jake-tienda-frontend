@@ -135,8 +135,6 @@ const CartProduct = ({ product }: { product: IShoppingCartProduct }) => {
   const isTotalProducts = product.quantity >= product.stock;
   const style = isTotalProducts ? "opacity-50" : "hover:bg-blue-200";
 
-  console.log(product);
-
   return (
     <li className="flex items-center gap-4 rounded-sm border border-blue-300 bg-white p-2 text-black">
       <Image

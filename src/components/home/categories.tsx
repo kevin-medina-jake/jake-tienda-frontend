@@ -8,9 +8,6 @@ export const Categories = async () => {
 
   // if (categories.length < 1) return null;
 
-  console.log("**************************************");
-  console.log(categories);
-  console.log("**************************************");
   return (
     <section className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-4">
       <div>
