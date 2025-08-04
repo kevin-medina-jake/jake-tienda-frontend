@@ -1,3 +1,5 @@
+export const revalidate = 30;
+
 import type { Metadata } from "next";
 
 import { Bonds } from "@/components/home/bonds";

@@ -1,5 +1,7 @@
 "use client";
 
+export const revalidate = 30;
+
 import { Suspense } from "react";
 import ProductsPage from "@/components/products/products-page";
 import { useFilterProducts } from "@/hooks/use-filter-products";
