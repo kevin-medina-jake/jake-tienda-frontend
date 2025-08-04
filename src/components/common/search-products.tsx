@@ -1,17 +1,29 @@
 "use client";
 
 import { useFilterProducts } from "@/hooks/use-filter-products";
+import { getFilterProducts } from "@/service/api/product";
 import { useStoreProducts } from "@/store/products";
 import { Search } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-import { useEffect } from "react";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export const SearchProducts = () => {
+  const [isFocused, setIsFocused] = useState<boolean>(false);
+
   const { handleSearch } = useFilterProducts();
-  const { filters, filteredProducts, setProducts } = useStoreProducts();
+  const { filters, filteredProducts, setProducts, setAllProducts } =
+    useStoreProducts();
   const { search } = filters;
+
+  const searchParams = useSearchParams();
+
+  useEffect(() => {
+    const page = searchParams.get("page");
+    const currentPage = page && !isNaN(Number(page)) ? Number(page) : 1;
+    getFilterProducts({ page: currentPage }).then(setAllProducts);
+  }, []);
 
   const pathname = usePathname();
   const router = useRouter();
@@ -31,11 +43,16 @@ export const SearchProducts = () => {
     }
   };
 
+  const handleFocus = () => setIsFocused(true);
+  const handleNoFocus = () => setIsFocused(false);
+
   useEffect(() => {
     if (pathname === "/products") return;
 
     handleSearch({ search: "" });
   }, [pathname]);
+
+  const isView = filteredProducts.length > 0 && wasEmpty !== true && isFocused;
 
   return (
     <section className="relative">
@@ -47,12 +64,14 @@ export const SearchProducts = () => {
           value={search}
           onChange={handleChange}
           onKeyDown={handleKeyDown}
+          onFocus={handleFocus}
+          onBlur={handleNoFocus}
         />
         <Search className="absolute right-4" />
       </div>
 
-      {filteredProducts.length > 0 && wasEmpty !== true && (
-        <ul className="absolute top-[100%] flex max-h-96 w-full flex-col gap-2 overflow-y-auto rounded-sm bg-blue-50 p-2">
+      {isView && (
+        <ul className="absolute top-[210%] flex max-h-96 w-full flex-col gap-2 overflow-y-auto rounded-sm bg-blue-50 p-2 sm:top-[100%]">
           {filteredProducts.map((product) => (
             <li
               key={product.id}
