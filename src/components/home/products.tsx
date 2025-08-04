@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { newProducts } from "@/service/api/product";
-import { IBestProduct, INewProducts } from "@/types/product";
+import { IBestProduct, INewProducts, IProductFilter } from "@/types/product";
 import { bestProduct } from "@/service/api/best-product";
 import { CarouselProducts } from "./carousel-products";
 import Image from "next/image";
 
 export const Products = async () => {
-  const carouselNewProducts = (await newProducts()) as INewProducts[];
+  const carouselNewProducts = (await newProducts()) as IProductFilter[];
   const bestProductInfo = (await bestProduct()) as IBestProduct;
 
   if (!bestProductInfo.image) return null;
@@ -24,6 +24,8 @@ export const Products = async () => {
               <Image
                 src={bestProductInfo.image}
                 alt={bestProductInfo.name}
+                width={400}
+                height={400}
                 className="h-full w-full object-cover"
               />
             </Link>
