@@ -5,7 +5,6 @@ import { BookText, Clapperboard, Laptop, Music } from "lucide-react";
 
 import { productBond } from "@/service/api/product-bond";
 import { IProductBond } from "@/types/product";
-import { PaymentButton } from "@/components/common/payment-button";
 
 const bonds = [
   {
@@ -91,8 +90,6 @@ export const Bonds = async () => {
               >
                 Comprar Ahora
               </Link>
-
-              <PaymentButton />
             </div>
           </section>
         </div>

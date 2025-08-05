@@ -12,7 +12,6 @@ import { TrustSection } from "@/components/home/trust-section";
 import { brandWithImage } from "@/service/api/brand";
 import { IBrandWithImage } from "@/types/navbar";
 
-// 🧠 SEO para la página de inicio
 export const metadata: Metadata = {
   title:
     "Jake Tienda Electrónica | Parlantes, Subwoofers y Tecnología en Colombia",
