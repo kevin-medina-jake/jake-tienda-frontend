@@ -1,4 +1,3 @@
-// src/stores/shopping-cart.ts
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 

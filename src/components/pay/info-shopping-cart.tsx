@@ -1,9 +1,10 @@
 "use client";
 
+import Link from "next/link";
+
 import { useStore } from "@/hooks/useStore";
 import { ShoppingCartProduct } from "../common/shopping-cart-product";
 import { ICartState, useStoreShoppingCart } from "@/store/shopping-cart";
-import Link from "next/link";
 
 export const InfoShoppingCart = () => {
   const cartStore = useStore<ICartState, ICartState>(
@@ -13,7 +14,7 @@ export const InfoShoppingCart = () => {
 
   if (!cartStore) return null;
 
-  const { products, getTotalPrice, getTotalProducts } = cartStore;
+  const { products, getTotalPrice } = cartStore;
 
   return (
     <div className="bg-blue-50 p-4">
