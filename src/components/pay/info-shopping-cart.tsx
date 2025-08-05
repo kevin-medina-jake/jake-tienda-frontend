@@ -17,7 +17,7 @@ export const InfoShoppingCart = () => {
   const { products, getTotalPrice } = cartStore;
 
   return (
-    <div className="bg-blue-50 p-4">
+    <div className="h-fit bg-blue-50 p-4">
       <div className="flex flex-col gap-4 rounded-xs border border-gray-300 bg-white">
         <section className="border-b border-gray-300 p-4">
           <h2 className="text-xl font-medium">Resumen del pedido</h2>
