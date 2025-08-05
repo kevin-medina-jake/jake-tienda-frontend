@@ -1,4 +1,4 @@
-import { parseCarouselPresentationImage } from "@/lib/parse-carousel-presentation-image";
+import { parseCarouselPresentationImage } from "@/lib/parse/parse-carousel-presentation-image";
 import { client } from "./strapi";
 import { ICarouselPresentation, IPresentationResponse } from "@/types/home";
 

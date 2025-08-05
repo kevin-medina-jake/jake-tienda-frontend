@@ -1,17 +1,17 @@
+export const revalidate = 30;
+
 import ProductDetail from "@/components/view-products/product-detail";
 import { getViewProduct } from "@/service/api/product";
 import type { Metadata } from "next";
 import type { IViewProduct } from "@/types/product";
 
 // 🧠 SEO dinámico protegido y tipado correctamente
-export async function generateMetadata(
-  props: {
-    params: Promise<{ slug: string }>;
-  }
-): Promise<Metadata> {
+export async function generateMetadata(props: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
   const params = await props.params;
   try {
-    const product = await getViewProduct(params.slug) as IViewProduct | null;
+    const product = (await getViewProduct(params.slug)) as IViewProduct | null;
 
     if (!product) {
       return {
@@ -30,7 +30,7 @@ export async function generateMetadata(
       openGraph: {
         title: `${product.name} | Jake Tienda Electrónica`,
         description: `Explora el ${product.name} con crédito o pago inmediato. Ideal para DJs, negocios y eventos.`,
-        url: `https://jaketiendaelectronica.com/view-product/${params.slug}`, // actualiza en producción
+           url: `https://jaketiendaelectronica.com/view-product/${params.slug}`, // actualiza en producción
         siteName: "Jake Tienda Electrónica",
         images: [
           {
@@ -44,7 +44,7 @@ export async function generateMetadata(
         type: "website", // corregido: no se permite "product"
       },
     };
-  } catch  {
+  } catch {
     return {
       title: "Producto | Jake Tienda Electrónica",
       description: "Consulta nuestros productos de sonido profesional.",

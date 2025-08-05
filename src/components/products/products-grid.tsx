@@ -4,11 +4,11 @@ import { useStoreProducts } from "@/store/products";
 import { CartProduct } from "../common/cart-product";
 
 export default function ProductsGrid() {
-  const { filteredProducts } = useStoreProducts();
+  const { products } = useStoreProducts();
 
   return (
     <div className="grid flex-1 gap-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {filteredProducts.map((product) => (
+      {products.map((product) => (
         <CartProduct key={product.id} product={product} isBig />
       ))}
     </div>

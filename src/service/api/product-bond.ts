@@ -1,6 +1,6 @@
 import { IProductBond } from "@/types/product";
 import { client } from "./strapi";
-import { parseProductBond } from "@/lib/parse-product-bond";
+import { parseProductBond } from "@/lib/parse/parse-product-bond";
 
 export const productBond = async (): Promise<IProductBond> => {
   try {

@@ -6,22 +6,24 @@ import { useStoreProducts } from "@/store/products";
 import { Filter } from "lucide-react";
 
 export default function ProductsFilter() {
-  const { allProducts, filters } = useStoreProducts();
+  const { filters, filteredProducts, setProducts } = useStoreProducts();
   const { handlePrice, handleCategories, handleBrands } = useFilterProducts();
 
   const categories = [
-    ...new Set(allProducts.flatMap((product) => product.categories)),
+    ...new Set(filteredProducts.flatMap((product) => product.categories)),
   ];
 
   const brands = [
     ...new Set(
-      allProducts
+      filteredProducts
         .map(({ brand }) => brand)
         .filter((item): item is string => item !== undefined),
     ),
   ];
 
-  const maxPrice = Math.max(...allProducts.map((product) => product.price));
+  const maxPrice = Math.max(
+    ...filteredProducts.map((product) => product.price),
+  );
 
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);

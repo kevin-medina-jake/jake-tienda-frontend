@@ -1,8 +1,10 @@
+import Link from "next/link";
+import Image from "next/image";
+
+import { BookText, Clapperboard, Laptop, Music } from "lucide-react";
+
 import { productBond } from "@/service/api/product-bond";
 import { IProductBond } from "@/types/product";
-import { BookText, Clapperboard, Laptop, Music } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
 
 const bonds = [
   {

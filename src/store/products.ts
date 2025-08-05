@@ -15,6 +15,7 @@ interface IState {
 
   filters: IFilters;
   filteredProducts: IProductFilter[];
+  products: IProductFilter[];
 
   setLoading: (loading: boolean) => void;
   setFilters: (filters: IFilters) => void;
@@ -24,10 +25,13 @@ interface IState {
 
   resetFilteredProducts: () => void;
   removeAllProducts: () => void;
+
+  setProducts: (products: IProductFilter[]) => void;
 }
 
 export const useStoreProducts = create<IState>((set, get) => ({
   allProducts: [],
+  products: [],
 
   loading: true,
 
@@ -38,11 +42,13 @@ export const useStoreProducts = create<IState>((set, get) => ({
   setFilters: (filters) => set({ filters }),
 
   setAllProducts: (products) =>
-    set({ allProducts: products, filteredProducts: products }),
+    set({ allProducts: products, filteredProducts: products, products }),
 
   setFilteredProducts: (products) => set({ filteredProducts: products }),
 
   resetFilteredProducts: () => set({ filteredProducts: get().allProducts }),
 
   removeAllProducts: () => set({ allProducts: [], filteredProducts: [] }),
+
+  setProducts: (products) => set({ products }),
 }));
