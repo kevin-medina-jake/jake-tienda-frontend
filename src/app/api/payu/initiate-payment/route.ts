@@ -1,5 +1,4 @@
 import { NextResponse } from "next/server";
-import crypto from "crypto";
 import { calculateMD5 } from "@/lib/payu/signature";
 
 interface RequestBody {
@@ -40,7 +39,9 @@ export async function POST(request: Request) {
       );
     }
 
-    const referenceCode = `JAKE_ORD_${Date.now()}`;
+    const referenceCode = `JAKE_ORD_${Date.now()}_${Math.floor(
+      Math.random() * 100,
+    )}`;
     const currency = "COP";
 
     const signature = calculateMD5(
@@ -65,13 +66,12 @@ export async function POST(request: Request) {
       buyerEmail: buyerInfo.buyerEmail,
       buyerFullName: buyerInfo.buyerFullName,
       telephone: buyerInfo.telephone,
-      responseUrl: `${baseUrl}/pay/response`, // Página a la que vuelve el usuario
+      responseUrl: `${baseUrl}/pay/result`, // Página a la que vuelve el usuario
       confirmationUrl: `${baseUrl}/api/payu/confirm`, // Webhook para confirmar el pago
     };
 
     return NextResponse.json(payuData);
   } catch (error: any) {
-    console.error("Error al iniciar el pago de PayU:", error);
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
 }
