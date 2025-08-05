@@ -39,11 +39,11 @@ export const metadata: Metadata = {
     title: "Jake Tienda Electrónica | Tecnología y Sonido Profesional",
     description:
       "controladoras, Parlantes, Cabinas y más. Compra con crédito y recibe en toda Colombia.",
-    // url: "https://jaketiendaelectronica.com",
+       url: "https://jaketiendaelectronica.com",
     siteName: "Jake Tienda Electrónica",
     images: [
       {
-        url: "/logo.svg", // Asegúrate de tener esta imagen en public/
+        url: "/favicon.svg", // Asegúrate de tener esta imagen en public/
         width: 1200,
         height: 630,
         alt: "Jake Tienda Electrónica",
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     locale: "es_CO",
     type: "website",
   },
-  // metadataBase: new URL("https://jaketiendaelectronica.com"),
+   metadataBase: new URL("https://jaketiendaelectronica.com"),
 };
 
 export default function RootLayout({

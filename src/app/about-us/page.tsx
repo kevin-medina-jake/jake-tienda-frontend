@@ -18,11 +18,11 @@ export const metadata = {
     title: "Sobre Jake Tienda Electrónica",
     description:
       "Especialistas en tecnología de sonido profesional. Te contamos nuestra historia, visión y cómo ayudamos a nuestros clientes en Colombia.",
-   // url: "https://tudominio.com/about-us", // ⚠️ Reemplaza por tu dominio real
+       url: "https://jaketiendaelectronica.com/about-us", // ⚠️ Reemplaza por tu dominio real
     siteName: "Jake Tienda Electrónica",
     images: [
       {
-        url: "/logo.svg", // Asegúrate de tener este archivo en /public
+        url: "/favicon.svg", // Asegúrate de tener este archivo en /public
         width: 1200,
         height: 630,
         alt: "Jake Tienda Electrónica",
