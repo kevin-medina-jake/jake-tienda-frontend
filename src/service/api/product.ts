@@ -4,7 +4,7 @@ import {
   parseNewProducts,
   parseProductCart,
   parseViewProduct,
-} from "@/lib/parse-products";
+} from "@/lib/parse/parse-products";
 import { INewProducts } from "@/types/product";
 
 export const newProducts = async (): Promise<INewProducts[]> => {

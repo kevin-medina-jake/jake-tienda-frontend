@@ -1,6 +1,6 @@
 import { client } from "./strapi";
 import { IBestProduct } from "@/types/product";
-import { parseBestProduct } from "@/lib/parse-best-product";
+import { parseBestProduct } from "@/lib/parse/parse-best-product";
 
 export const bestProduct = async (): Promise<IBestProduct> => {
   try {

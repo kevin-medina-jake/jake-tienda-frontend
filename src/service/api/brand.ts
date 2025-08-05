@@ -2,7 +2,7 @@ import { client } from "./strapi";
 import {
   parseBrandsDropDownMenu,
   parseBrandWithImage,
-} from "@/lib/parse-brands";
+} from "@/lib/parse/parse-brands";
 import { IDropDownMenu } from "@/types/navbar";
 
 export const brandDropdown = async (): Promise<IDropDownMenu[]> => {

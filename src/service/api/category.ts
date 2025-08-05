@@ -2,8 +2,8 @@ import { client } from "./strapi";
 import {
   parseCategoryCart,
   parseCategoryDropDownMenu,
-} from "@/lib/parse-category";
-import { parseProductCart } from "@/lib/parse-products";
+} from "@/lib/parse/parse-category";
+import { parseProductCart } from "@/lib/parse/parse-products";
 import { ICategoryCart } from "@/types/category";
 import { IDropDownMenu } from "@/types/navbar";
 
