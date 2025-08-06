@@ -30,7 +30,7 @@ export async function generateMetadata(props: {
       openGraph: {
         title: `${product.name} | Jake Tienda Electrónica`,
         description: `Explora el ${product.name} con crédito o pago inmediato. Ideal para DJs, negocios y eventos.`,
-        //   url: `https://tudominio.com/view-product/${params.slug}`, // actualiza en producción
+           url: `https://jaketiendaelectronica.com/view-product/${params.slug}`, // actualiza en producción
         siteName: "Jake Tienda Electrónica",
         images: [
           {

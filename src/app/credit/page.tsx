@@ -18,11 +18,11 @@ export const metadata = {
     title: "Financia tu sonido en Jake Tienda Electrónica",
     description:
       "Compra sonido profesional con opciones de crédito accesibles. Trabajamos con Banco de Bogotá, Addi, Brilla y más. Entregas en toda Colombia.",
-   // url: "https://tudominio.com/credit", // ❗ Cambia esto por tu dominio real
+    url: "https://jaketiendaelectronica.com/credit", // ❗ Cambia esto por tu dominio real
     siteName: "Jake Tienda Electrónica",
     images: [
       {
-        url: "/logo.svg", 
+        url: "/favicon.svg", 
         width: 1200,
         height: 630,
         alt: "Jake Tienda Electrónica",

@@ -30,11 +30,11 @@ export const metadata: Metadata = {
     title: "Jake Tienda Electrónica | Sonido Profesional en Colombia",
     description:
       "Explora nuestra tienda de parlantes, consolas, controladoras DJ y bajos. Créditos fáciles y envíos rápidos.",
-    // url: "https://tudominio.com", // cámbialo al desplegar
+      url: "https://jaketiendaelectronica.com", 
     siteName: "Jake Tienda Electrónica",
     images: [
       {
-        url: "/logo.svg",
+        url: "/favicon.svg",
         width: 1200,
         height: 630,
         alt: "Jake Tienda Electrónica",
