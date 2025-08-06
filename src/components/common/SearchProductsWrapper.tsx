@@ -5,7 +5,7 @@ import { SearchProducts } from "./search-products";
 
 export const SearchProductsWrapper = () => {
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<div className="h-[42px] w-full"></div>}>
       <SearchProducts />
     </Suspense>
   );
