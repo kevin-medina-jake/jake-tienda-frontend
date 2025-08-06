@@ -7,23 +7,31 @@ export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
   const query = searchParams.get("q") || "";
 
-  if (!query) {
-    return NextResponse.json([]);
-  }
-
   try {
-    const response = await client.collection("products").find({
-      filters: {
-        $or: [
-          { name: { $containsi: query } },
-          { brand: { name: { $containsi: query } } },
-          { categories: { name: { $containsi: query } } },
-        ],
-      },
-      populate: ["brand", "categories", "images"],
-    });
+    let response;
+    if (!query) {
+      response = await client.collection("products").find({
+        populate: ["brand", "categories", "images"],
+        status: "published",
+        sort: "createdAt:desc",
+      });
+    } else {
+      response = await client.collection("products").find({
+        filters: {
+          $or: [
+            { name: { $containsi: query } },
+            { brand: { name: { $containsi: query } } },
+            { categories: { name: { $containsi: query } } },
+          ],
+        },
+        populate: ["brand", "categories", "images"],
+        status: "published",
+        sort: "createdAt:desc",
+      });
+    }
 
     const result = parseProductCart(response.data);
+
     return NextResponse.json(result);
   } catch (error) {
     return new NextResponse("Server Error", { status: 500 });

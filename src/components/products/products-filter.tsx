@@ -7,23 +7,22 @@ import { Filter } from "lucide-react";
 import { Skeleton } from "./products-grid";
 
 export default function ProductsFilter() {
-  const { filters, productsFilter, setProductsFilter, loadingStore } =
-    useStoreProducts();
+  const { filters, allProducts, loadingStore } = useStoreProducts();
   const { handlePrice, handleCategories, handleBrands } = useFilterProducts();
 
   const categories = [
-    ...new Set(productsFilter.flatMap((product) => product.categories)),
+    ...new Set(allProducts.flatMap((product) => product.categories)),
   ];
 
   const brands = [
     ...new Set(
-      productsFilter
+      allProducts
         .map(({ brand }) => brand)
         .filter((item): item is string => item !== undefined),
     ),
   ];
 
-  const maxPrice = Math.max(...productsFilter.map((product) => product.price));
+  const maxPrice = Math.max(...allProducts.map((product) => product.price));
 
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);

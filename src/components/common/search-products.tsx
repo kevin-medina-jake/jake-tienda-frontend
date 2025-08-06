@@ -13,16 +13,19 @@ import { useDebounce } from "use-debounce";
 export const SearchProducts = () => {
   const [loading, setLoading] = useState(false);
   const { handleSearch } = useFilterProductsSearch();
-  const { filters, productsSearch, setProductsSearch, setAllProducts } =
-    useStoreProducts();
+  const {
+    filters,
+    productsSearch,
+    setProductsSearch,
+    setAllProducts,
+    setLoading: setLoadingStore,
+  } = useStoreProducts();
 
   const { search } = filters;
   const [debouncedSearch] = useDebounce(search, 500);
 
   const pathname = usePathname();
   const router = useRouter();
-
-  const wasEmpty: boolean = search === "";
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -31,14 +34,22 @@ export const SearchProducts = () => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && pathname !== "/products") {
-      setAllProducts(productsSearch);
-      router.push("/products");
-    }
+    if (e.key === "Enter") {
+      if (debouncedSearch == "") {
+        allProducts();
+      }
 
-    if (e.key === "Enter" && pathname === "/products") {
-      fetchResults();
-      setAllProducts(productsSearch);
+      (e.target as HTMLInputElement).blur();
+
+      if (pathname !== "/products") {
+        setAllProducts(productsSearch);
+        router.push("/products");
+      }
+
+      if (pathname === "/products") {
+        fetchResults();
+        setAllProducts(productsSearch);
+      }
     }
   };
 
@@ -48,11 +59,30 @@ export const SearchProducts = () => {
     handleSearch({ search: "" });
   }, [pathname]);
 
-  const isView =
-    productsSearch.length > 0 && wasEmpty !== true && loading === false;
+  const isView = loading === false;
+
+  const allProducts = async () => {
+    setLoading(true);
+    setLoadingStore(true);
+
+    try {
+      const res = await fetch(
+        `/api/strapi/search?q=${encodeURIComponent(search)}`,
+      );
+
+      const data = await res.json();
+      setAllProducts(data);
+    } catch (err) {
+      setAllProducts([]);
+      setProductsSearch([]);
+    } finally {
+      setLoading(false);
+      setLoadingStore(false);
+    }
+  };
 
   const fetchResults = async () => {
-    if (debouncedSearch.length < 2) {
+    if (debouncedSearch.length < 1) {
       setProductsSearch([]);
       return;
     }
@@ -94,7 +124,7 @@ export const SearchProducts = () => {
         </div>
 
         {isView && (
-          <ul className="absolute top-[121%] hidden max-h-96 w-full flex-col gap-2 overflow-y-auto rounded-sm bg-blue-50 p-2 group-focus-within:flex sm:top-[100%]">
+          <ul className="absolute top-[121%] hidden max-h-96 w-full flex-col gap-2 overflow-y-auto rounded-sm bg-blue-500 p-2 group-focus-within:flex sm:top-[100%]">
             {productsSearch.map((product) => (
               <li
                 key={product.id}
