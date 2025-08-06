@@ -169,7 +169,6 @@ export const FormPayProducts = () => {
       document.body.appendChild(form);
       form.submit();
     } catch (error: any) {
-      console.error("Error en el proceso de pago:", error);
       alert(`Error: ${error.message}`);
       setIsLoading(false);
     }
