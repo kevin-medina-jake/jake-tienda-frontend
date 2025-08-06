@@ -8,7 +8,7 @@ interface IFilters {
   price: number;
 }
 
-interface IState {
+export interface IState {
   allProducts: IProductFilter[];
 
   loadingStore: boolean;

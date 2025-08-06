@@ -4,18 +4,23 @@ import Image from "next/image";
 import Link from "next/link";
 import { RefreshCw, Search } from "lucide-react";
 import { useFilterProductsSearch } from "@/hooks/use-filter-products";
-import { useStoreProducts } from "@/store/products";
+import { IState, useStoreProducts } from "@/store/products";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
+import { useStore } from "@/hooks/useStore";
 
 export const SearchProducts = () => {
   const [loading, setLoading] = useState(false);
   const [searchAttempted, setSearchAttempted] = useState(false);
 
   const { handleSearch } = useFilterProductsSearch();
-  const { filters, productsSearch, setProductsSearch, setAllProducts } =
-    useStoreProducts();
+  const {
+    filters,
+    setProductsSearch,
+    setAllProducts,
+    setLoading: setLoadingStore,
+  } = useStoreProducts();
   const { search } = filters;
   const [debouncedSearch] = useDebounce(search, 300);
 
@@ -39,6 +44,14 @@ export const SearchProducts = () => {
         router.push(`/products?q=${encodeURIComponent(debouncedSearch)}`);
       } else {
       }
+
+      if (pathname === "/products" && search.length < 1) {
+        allProducts();
+      }
+
+      if (pathname === "/products" && search.length > 1) {
+        allProducts();
+      }
     }
   };
 
@@ -46,6 +59,30 @@ export const SearchProducts = () => {
     if (pathname === "/products") return;
     handleSearch({ search: "" });
   }, [pathname]);
+
+  const allProducts = async () => {
+    setLoading(true);
+
+    setLoadingStore(true);
+
+    try {
+      const res = await fetch(
+        `/api/strapi/search?q=${encodeURIComponent(search)}`,
+      );
+
+      const data = await res.json();
+
+      setAllProducts(data);
+    } catch (err) {
+      setAllProducts([]);
+
+      setProductsSearch([]);
+    } finally {
+      setLoading(false);
+
+      setLoadingStore(false);
+    }
+  };
 
   const searchProducts = async () => {
     if (debouncedSearch.trim().length < 2) {
@@ -76,6 +113,14 @@ export const SearchProducts = () => {
   }, [debouncedSearch]);
 
   const isView = search.trim().length > 1;
+  const cartStore = useStore<IState, IState>(
+    useStoreProducts,
+    (state: IState) => state,
+  );
+
+  if (!cartStore) return null;
+
+  const { productsSearch } = cartStore;
 
   return (
     <section className="relative">

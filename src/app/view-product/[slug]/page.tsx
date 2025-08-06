@@ -5,7 +5,6 @@ import { getViewProduct } from "@/service/api/product";
 import type { Metadata } from "next";
 import type { IViewProduct } from "@/types/product";
 
-// 🧠 SEO dinámico protegido y tipado correctamente
 export async function generateMetadata(props: {
   params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
@@ -30,7 +29,7 @@ export async function generateMetadata(props: {
       openGraph: {
         title: `${product.name} | Jake Tienda Electrónica`,
         description: `Explora el ${product.name} con crédito o pago inmediato. Ideal para DJs, negocios y eventos.`,
-           url: `https://jaketiendaelectronica.com/view-product/${params.slug}`, // actualiza en producción
+        url: `https://jaketiendaelectronica.com/view-product/${params.slug}`, // actualiza en producción
         siteName: "Jake Tienda Electrónica",
         images: [
           {
@@ -52,7 +51,6 @@ export async function generateMetadata(props: {
   }
 }
 
-// 🟢 Tu lógica de renderizado sin tocar
 export default async function ProductPage(props: {
   params: Promise<{ slug: string }>;
 }) {
