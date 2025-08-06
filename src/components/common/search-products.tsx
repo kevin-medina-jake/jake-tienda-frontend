@@ -1,27 +1,23 @@
 "use client";
 
-import { useFilterProductsSearch } from "@/hooks/use-filter-products";
-import { getFilterProducts } from "@/service/api/product";
-import { useStoreProducts } from "@/store/products";
-import { Search } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+
+import { RefreshCw, Search } from "lucide-react";
+import { useFilterProductsSearch } from "@/hooks/use-filter-products";
+import { useStoreProducts } from "@/store/products";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { useDebounce } from "use-debounce";
 
 export const SearchProducts = () => {
+  const [loading, setLoading] = useState(false);
   const { handleSearch } = useFilterProductsSearch();
-  const { filters, filteredProducts, setProducts, setAllProducts } =
+  const { filters, productsSearch, setProductsSearch, setAllProducts } =
     useStoreProducts();
+
   const { search } = filters;
-
-  const searchParams = useSearchParams();
-
-  useEffect(() => {
-    const page = searchParams.get("page");
-    const currentPage = page && !isNaN(Number(page)) ? Number(page) : 1;
-    getFilterProducts({ page: currentPage }).then(setAllProducts);
-  }, []);
+  const [debouncedSearch] = useDebounce(search, 500);
 
   const pathname = usePathname();
   const router = useRouter();
@@ -35,9 +31,14 @@ export const SearchProducts = () => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      setProducts(filteredProducts);
+    if (e.key === "Enter" && pathname !== "/products") {
+      setAllProducts(productsSearch);
       router.push("/products");
+    }
+
+    if (e.key === "Enter" && pathname === "/products") {
+      fetchResults();
+      setAllProducts(productsSearch);
     }
   };
 
@@ -47,7 +48,34 @@ export const SearchProducts = () => {
     handleSearch({ search: "" });
   }, [pathname]);
 
-  const isView = filteredProducts.length > 0 && wasEmpty !== true;
+  const isView =
+    productsSearch.length > 0 && wasEmpty !== true && loading === false;
+
+  const fetchResults = async () => {
+    if (debouncedSearch.length < 2) {
+      setProductsSearch([]);
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const res = await fetch(
+        `/api/strapi/search?q=${encodeURIComponent(debouncedSearch)}`,
+      );
+
+      const data = await res.json();
+      setProductsSearch(data);
+    } catch (err) {
+      setProductsSearch([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    fetchResults();
+  }, [debouncedSearch]);
 
   return (
     <section className="relative">
@@ -62,11 +90,12 @@ export const SearchProducts = () => {
             onKeyDown={handleKeyDown}
           />
           <Search className="absolute right-4" />
+          {loading && <RefreshCw className="absolute right-14 animate-spin" />}
         </div>
 
         {isView && (
           <ul className="absolute top-[121%] hidden max-h-96 w-full flex-col gap-2 overflow-y-auto rounded-sm bg-blue-50 p-2 group-focus-within:flex sm:top-[100%]">
-            {filteredProducts.map((product) => (
+            {productsSearch.map((product) => (
               <li
                 key={product.id}
                 className={
@@ -89,7 +118,7 @@ export const SearchProducts = () => {
                   </div>
 
                   <p>
-                    {product.categories.map((category) => category)} -
+                    {product.categories.map((category) => category + " _ ")}
                     {product.brand} - {product.name}
                   </p>
                 </Link>

@@ -39,7 +39,7 @@ export const metadata: Metadata = {
     title: "Jake Tienda Electrónica | Tecnología y Sonido Profesional",
     description:
       "controladoras, Parlantes, Cabinas y más. Compra con crédito y recibe en toda Colombia.",
-       url: "https://jaketiendaelectronica.com",
+    url: "https://jaketiendaelectronica.com",
     siteName: "Jake Tienda Electrónica",
     images: [
       {
@@ -52,7 +52,7 @@ export const metadata: Metadata = {
     locale: "es_CO",
     type: "website",
   },
-   metadataBase: new URL("https://jaketiendaelectronica.com"),
+  metadataBase: new URL("https://jaketiendaelectronica.com"),
 };
 
 export default function RootLayout({
@@ -68,7 +68,7 @@ export default function RootLayout({
 
       <body className={`${poppins.variable} font-poppins antialiased`}>
         <Navbar />
-        <main className="relative max-w-8xl w-full mx-auto mt-[117px] sm:mt-[100px]">
+        <main className="max-w-8xl relative mx-auto mt-[117px] w-full sm:mt-[100px]">
           {children}
         </main>
         <Footer />

@@ -2,50 +2,40 @@
 
 import { useStoreProducts } from "@/store/products";
 import { CartProduct } from "../common/cart-product";
+import { Image } from "lucide-react";
 
 export default function ProductsGrid() {
-  const { products } = useStoreProducts();
+  const { productsFilter, loadingStore } = useStoreProducts();
 
   return (
     <div className="grid flex-1 gap-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-      {products.map((product) => (
-        <CartProduct key={product.id} product={product} isBig />
-      ))}
+      {loadingStore &&
+        Array(8)
+          .fill(0)
+          .map((_, i) => <Skeleton key={i} />)}
+      {loadingStore === false &&
+        productsFilter.map((product) => (
+          <CartProduct key={product.id} product={product} isBig />
+        ))}
     </div>
   );
 }
 
-// <motion.div
-//   key={product.id}
-//   initial={{ opacity: 0, y: 40 }}
-//   whileInView={{ opacity: 1, y: 0 }}
-//   viewport={{ once: true }}
-//   transition={{ duration: 0.3, delay: i * 0.05 }}
-//   className="border rounded-lg p-4 text-center shadow-sm hover:shadow-md transition flex flex-col"
-// >
-//   {/* Imagen del producto */}
-//   <div className="w-full h-40 flex items-center justify-center mb-4">
-//     <Image
-//       src={product.image}
-//       alt={product.name}
-//       width={160}
-//       height={160}
-//       className="object-contain"
-//     />
-//   </div>
-
-//   {/* Información */}
-//   <h3 className="font-semibold text-lg">{product.name}</h3>
-//   <p className="text-sm text-gray-500 mt-2">{product.description}</p>
-//   <p className="text-cyan-700 font-bold mt-2">${product.price}</p>
-
-//   {/* Botones - ahora adaptados para móvil */}
-//   <div className="flex flex-col sm:flex-row justify-center gap-3 mt-4">
-//     <button className="bg-cyan-700 text-white py-2 px-4 rounded hover:bg-cyan-800 w-full sm:w-auto">
-//       Comprar
-//     </button>
-//     <button className="border border-cyan-700 text-cyan-700 py-2 px-4 rounded hover:bg-cyan-50 w-full sm:w-auto">
-//       Agregar
-//     </button>
-//   </div>
-// </motion.div>
+export const Skeleton = ({
+  height = "h-90",
+  width = "w-full",
+  isImage = true,
+}: {
+  height?: string;
+  width?: string;
+  isImage?: boolean;
+}) => {
+  return (
+    <div
+      role="status"
+      className={`flex animate-pulse items-center justify-center rounded-sm bg-gray-200 text-gray-300 ${height} ${width}`}
+    >
+      {isImage && <Image />}
+    </div>
+  );
+};

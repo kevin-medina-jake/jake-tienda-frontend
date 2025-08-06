@@ -4,26 +4,26 @@ import { useEffect, useState } from "react";
 import { useFilterProducts } from "@/hooks/use-filter-products";
 import { useStoreProducts } from "@/store/products";
 import { Filter } from "lucide-react";
+import { Skeleton } from "./products-grid";
 
 export default function ProductsFilter() {
-  const { filters, filteredProducts, setProducts } = useStoreProducts();
+  const { filters, productsFilter, setProductsFilter, loadingStore } =
+    useStoreProducts();
   const { handlePrice, handleCategories, handleBrands } = useFilterProducts();
 
   const categories = [
-    ...new Set(filteredProducts.flatMap((product) => product.categories)),
+    ...new Set(productsFilter.flatMap((product) => product.categories)),
   ];
 
   const brands = [
     ...new Set(
-      filteredProducts
+      productsFilter
         .map(({ brand }) => brand)
         .filter((item): item is string => item !== undefined),
     ),
   ];
 
-  const maxPrice = Math.max(
-    ...filteredProducts.map((product) => product.price),
-  );
+  const maxPrice = Math.max(...productsFilter.map((product) => product.price));
 
   const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
@@ -57,6 +57,13 @@ export default function ProductsFilter() {
   useEffect(() => {
     handleBrands({ brands: selectedBrands });
   }, [selectedBrands]);
+
+  if (loadingStore)
+    return (
+      <div className="sticky top-[100px] hidden h-full max-h-screen w-64 sm:block">
+        <Skeleton isImage={false} height="h-[600px]" />
+      </div>
+    );
 
   return (
     <div className="sticky top-[100px] hidden h-full max-h-screen space-y-3 rounded-sm bg-blue-50 p-4 select-none sm:block">

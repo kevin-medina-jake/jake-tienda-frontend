@@ -1,10 +1,15 @@
 import { useEffect } from "react";
-import { useStoreProducts } from "@/store/products";
 import { IProductFilter } from "@/types/product";
+import { useStoreProducts } from "@/store/products";
 
 export const useFilterProducts = () => {
-  const { allProducts, products, filters, setFilters, setProducts } =
-    useStoreProducts();
+  const {
+    allProducts,
+    productsFilter,
+    filters,
+    setFilters,
+    setProductsFilter,
+  } = useStoreProducts();
 
   const handleCategories = ({ categories }: { categories: string[] }) => {
     const newFilter = {
@@ -35,7 +40,7 @@ export const useFilterProducts = () => {
 
   const filterProducts = () => {
     const newProducts = allProducts.filter((product: IProductFilter) => {
-      const productsFiltered = products.filter((pro: IProductFilter) => {
+      const productsFiltered = productsFilter.filter((pro: IProductFilter) => {
         return pro.id === product.id;
       });
 
@@ -57,7 +62,7 @@ export const useFilterProducts = () => {
       );
     });
 
-    setProducts(newProducts);
+    setProductsFilter(newProducts);
   };
 
   useEffect(() => {
@@ -72,7 +77,7 @@ export const useFilterProducts = () => {
 };
 
 export const useFilterProductsSearch = () => {
-  const { allProducts, setFilteredProducts, filters, setFilters } =
+  const { allProducts, setProductsSearch, filters, setFilters } =
     useStoreProducts();
 
   const handleSearch = ({ search }: { search: string }) => {
@@ -113,7 +118,7 @@ export const useFilterProductsSearch = () => {
       return matchesSearch;
     });
 
-    setFilteredProducts(newProducts);
+    setProductsSearch(newProducts);
   };
 
   useEffect(() => {
