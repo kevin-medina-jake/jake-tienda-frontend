@@ -59,7 +59,7 @@ export default function ProductsFilter() {
 
   if (loadingStore)
     return (
-      <div className="sticky top-[100px] hidden h-full max-h-screen w-64 sm:block">
+      <div className="sticky top-[100px] hidden h-full max-h-screen w-56 sm:block">
         <Skeleton isImage={false} height="h-[600px]" />
       </div>
     );

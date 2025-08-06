@@ -3,6 +3,7 @@
 import { useSearchParams } from "next/navigation";
 import { Suspense } from "react";
 import Link from "next/link";
+import { Circle, CircleCheckIcon } from "lucide-react";
 
 function ResponseContent() {
   const searchParams = useSearchParams();
@@ -48,30 +49,44 @@ function ResponseContent() {
   }
 
   return (
-    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50 p-6 text-center">
-      <div className="w-full max-w-lg rounded-xl bg-white p-10 shadow-lg">
-        <h1 className={`mb-4 text-4xl font-bold ${statusColor}`}>
-          {statusTitle}
-        </h1>
-        <p className="mb-2 text-lg text-gray-700">
-          Referencia de tu pedido:{" "}
-          <strong className="font-mono">{referenceCode}</strong>
-        </p>
-        {tx_value && (
-          <p className="mb-6 text-lg text-gray-700">
-            Monto:{" "}
-            <strong className="font-mono">
-              ${parseFloat(tx_value).toLocaleString("es-CO")}
-            </strong>
+    <div className="mx-auto flex min-h-[70vh] max-w-7xl flex-col gap-10 px-4">
+      <section className="flex items-center justify-evenly pt-12 text-lg">
+        <div className="flex items-center justify-center gap-2 text-gray-500">
+          <Circle size={24} />
+          <p>Finalizar Compra</p>
+        </div>
+
+        <div className="flex items-center justify-center gap-2 text-blue-500">
+          <CircleCheckIcon size={24} />
+          <p>Resultado de la compra</p>
+        </div>
+      </section>
+
+      <div className="flex h-[50vh] flex-col items-center justify-center p-6 text-center">
+        <div className="w-full max-w-lg rounded-xl bg-white p-10 shadow-lg">
+          <h1 className={`mb-4 text-4xl font-bold ${statusColor}`}>
+            {statusTitle}
+          </h1>
+          <p className="mb-2 text-lg text-gray-700">
+            Referencia de tu pedido:{" "}
+            <strong className="font-mono">{referenceCode}</strong>
           </p>
-        )}
-        <p className="mb-8 text-gray-600">{statusMessage}</p>
-        <Link
-          href="/"
-          className="inline-block rounded-lg bg-blue-800 px-8 py-3 font-bold text-white transition-colors hover:bg-blue-700"
-        >
-          Volver a la tienda
-        </Link>
+          {tx_value && (
+            <p className="mb-6 text-lg text-gray-700">
+              Monto:{" "}
+              <strong className="font-mono">
+                ${parseFloat(tx_value).toLocaleString("es-CO")}
+              </strong>
+            </p>
+          )}
+          <p className="mb-8 text-gray-600">{statusMessage}</p>
+          <Link
+            href="/"
+            className="inline-block rounded-lg bg-blue-800 px-8 py-3 font-bold text-white transition-colors hover:bg-blue-700"
+          >
+            Volver a la tienda
+          </Link>
+        </div>
       </div>
     </div>
   );

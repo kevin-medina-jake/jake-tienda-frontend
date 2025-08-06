@@ -14,9 +14,16 @@ export default function ProductsGrid() {
           .fill(0)
           .map((_, i) => <Skeleton key={i} />)}
       {loadingStore === false &&
+        productsFilter.length > 0 &&
         productsFilter.map((product) => (
           <CartProduct key={product.id} product={product} isBig />
         ))}
+
+      {loadingStore === false && productsFilter.length == 0 && (
+        <div>
+          <p>No hay productos disponibles</p>
+        </div>
+      )}
     </div>
   );
 }
