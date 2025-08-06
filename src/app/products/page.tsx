@@ -10,17 +10,13 @@ import { getFilterProducts } from "@/service/api/product";
 
 function ProductsContent() {
   // const { handleCategories, handleBrands } = useFilterProducts();
-  const {
-    setAllProducts,
-    setProductsSearch,
-    filters,
-    setLoading,
-    allProducts,
-  } = useStoreProducts();
+  const { setAllProducts, filters, setLoading, allProducts } =
+    useStoreProducts();
+
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    // if (filters.search.length > 0 && allProducts.length > 0) return;
+    if (filters.search.length > 0 && allProducts.length > 0) return;
 
     setLoading(true);
     const page = searchParams.get("page");
@@ -47,8 +43,8 @@ function ProductsContent() {
 
 export default function Products() {
   return (
-    // <Suspense fallback={true}>
-    <ProductsContent />
-    // </Suspense>
+    <Suspense fallback={<div></div>}>
+      <ProductsContent />
+    </Suspense>
   );
 }

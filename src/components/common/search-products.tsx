@@ -42,6 +42,7 @@ export const SearchProducts = () => {
       (e.target as HTMLInputElement).blur();
       if (pathname !== "/products") {
         router.push(`/products?q=${encodeURIComponent(debouncedSearch)}`);
+        allProducts();
       } else {
       }
 
