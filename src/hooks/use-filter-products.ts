@@ -76,56 +76,53 @@ export const useFilterProducts = () => {
   };
 };
 
-export const useFilterProductsSearch = () => {
-  const { allProducts, setProductsSearch, filters, setFilters } =
-    useStoreProducts();
+// export const useFilterProductsSearch = () => {
+//   const { allProducts, filters, setFilters } = useStoreProducts();
 
-  const handleSearch = ({ search }: { search: string }) => {
-    const newFilter = {
-      ...filters,
-      search,
-    };
+//   const handleSearch = ({ search }: { search: string }) => {
+//     const newFilter = {
+//       ...filters,
+//       search,
+//     };
 
-    setFilters(newFilter);
-  };
+//     setFilters(newFilter);
+//   };
 
-  const filterProducts = () => {
-    const newProducts = allProducts.filter((product: IProductFilter) => {
-      const item: string = filters.search.toLowerCase().trim();
-      const newValue = item.split(" ");
+//   const filterProducts = () => {
+//     const newProducts = allProducts.filter((product: IProductFilter) => {
+//       const item: string = filters.search.toLowerCase().trim();
+//       const newValue = item.split(" ");
 
-      const filterLetters = newValue.length > 3;
+//       const filterLetters = newValue.length > 3;
 
-      const matchesSearch = filterLetters
-        ? product?.name?.toLowerCase().includes(item) ||
-          product?.categories
-            ?.map((category: string) => category)
-            .some((category: string) =>
-              category.toLowerCase().includes(item),
-            ) ||
-          product?.brand?.toLowerCase().includes(item)
-        : newValue.some(
-            (word) =>
-              product?.name?.toLowerCase().includes(word) ||
-              product?.categories
-                ?.map((category: string) => category)
-                .some((category: string) =>
-                  category.toLowerCase().includes(word),
-                ) ||
-              product?.brand?.toLowerCase().includes(item),
-          );
+//       const matchesSearch = filterLetters
+//         ? product?.name?.toLowerCase().includes(item) ||
+//           product?.categories
+//             ?.map((category: string) => category)
+//             .some((category: string) =>
+//               category.toLowerCase().includes(item),
+//             ) ||
+//           product?.brand?.toLowerCase().includes(item)
+//         : newValue.some(
+//             (word) =>
+//               product?.name?.toLowerCase().includes(word) ||
+//               product?.categories
+//                 ?.map((category: string) => category)
+//                 .some((category: string) =>
+//                   category.toLowerCase().includes(word),
+//                 ) ||
+//               product?.brand?.toLowerCase().includes(item),
+//           );
 
-      return matchesSearch;
-    });
+//       return matchesSearch;
+//     });
+//   };
 
-    setProductsSearch(newProducts);
-  };
+//   useEffect(() => {
+//     filterProducts();
+//   }, [filters]);
 
-  useEffect(() => {
-    filterProducts();
-  }, [filters]);
-
-  return {
-    handleSearch,
-  };
-};
+//   return {
+//     handleSearch,
+//   };
+// };
