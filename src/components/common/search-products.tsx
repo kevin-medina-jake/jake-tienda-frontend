@@ -1,26 +1,28 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { RefreshCw, Search } from "lucide-react";
-import { useFilterProductsSearch } from "@/hooks/use-filter-products";
-import { IState, useStoreProducts } from "@/store/products";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+
+import { RefreshCw, Search } from "lucide-react";
 import { useDebounce } from "use-debounce";
-import { useStore } from "@/hooks/useStore";
+
+import { useFilterProductsSearch } from "@/hooks/use-filter-products";
+import { useStoreProducts } from "@/store/products";
+import { IProductFilter } from "@/types/product";
 
 export const SearchProducts = () => {
   const [loading, setLoading] = useState(false);
   const [searchAttempted, setSearchAttempted] = useState(false);
+  const [productsSearch, setProductsSearch] = useState<IProductFilter[]>([]);
 
-  const { handleSearch } = useFilterProductsSearch();
   const {
     filters,
-    setProductsSearch,
     setAllProducts,
     setLoading: setLoadingStore,
   } = useStoreProducts();
+  const { handleSearch } = useFilterProductsSearch();
   const { search } = filters;
   const [debouncedSearch] = useDebounce(search, 300);
 
@@ -114,14 +116,6 @@ export const SearchProducts = () => {
   }, [debouncedSearch]);
 
   const isView = search.trim().length > 1;
-  const cartStore = useStore<IState, IState>(
-    useStoreProducts,
-    (state: IState) => state,
-  );
-
-  if (!cartStore) return null;
-
-  const { productsSearch } = cartStore;
 
   return (
     <section className="relative">
