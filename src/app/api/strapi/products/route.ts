@@ -5,25 +5,22 @@ import { parseProductCart } from "@/lib/parse/parse-products";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const query = searchParams.get("q") || "";
+  const brand = searchParams.get("brand") || "";
+  const category = searchParams.get("category") || "";
 
   try {
     let filters = {};
 
-    if (query) {
-      const searchWords = query.toLowerCase().split(" ").filter(Boolean);
+    if (brand) {
+      filters = {
+        brand: { name: { $containsi: brand } },
+      };
+    }
 
-      if (searchWords.length > 0) {
-        filters = {
-          $and: searchWords.map((word) => ({
-            $or: [
-              { name: { $containsi: word } },
-              { brand: { name: { $containsi: word } } },
-              { categories: { name: { $containsi: word } } },
-            ],
-          })),
-        };
-      }
+    if (category) {
+      filters = {
+        categories: { name: { $containsi: category } },
+      };
     }
 
     const response = await client.collection("products").find({

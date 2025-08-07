@@ -9,14 +9,60 @@ import { useStoreProducts } from "@/store/products";
 import { getFilterProducts } from "@/service/api/product";
 
 function ProductsContent() {
-  // const { handleCategories, handleBrands } = useFilterProducts();
   const { setAllProducts, filters, setLoading, allProducts } =
     useStoreProducts();
+  const { handleCategories, handleBrands } = useFilterProducts();
 
   const searchParams = useSearchParams();
 
+  const getProductsBySearchParams = async ({
+    name,
+    search,
+  }: {
+    name: string;
+    search: string;
+  }) => {
+    setLoading(true);
+
+    try {
+      const res = await fetch(
+        `/api/strapi/products?${name}=${encodeURIComponent(search)}`,
+      );
+
+      const data = await res.json();
+
+      setAllProducts(data);
+    } catch (err) {
+      setAllProducts([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
   useEffect(() => {
-    if (filters.search.length > 0 && allProducts.length > 0) return;
+    const category = searchParams.get("category");
+    if (!category) return;
+
+    handleCategories({ categories: category.split(",") });
+    getProductsBySearchParams({ name: "category", search: category });
+  }, [searchParams]);
+
+  useEffect(() => {
+    const brand = searchParams.get("brand");
+    if (!brand) return;
+
+    handleBrands({ brands: brand.split(",") });
+    getProductsBySearchParams({ name: "brand", search: brand });
+  }, [searchParams]);
+
+  useEffect(() => {
+    if (
+      filters.search.length > 0 ||
+      filters.brands.length > 0 ||
+      filters.categories.length > 0 ||
+      allProducts.length > 0
+    )
+      return;
 
     setLoading(true);
     const page = searchParams.get("page");
@@ -27,16 +73,6 @@ function ProductsContent() {
       setAllProducts(productsFilter);
     });
   }, []);
-
-  // useEffect(() => {
-  //   const category = searchParams.get("category");
-  //   if (category) handleCategories({ categories: category.split(",") });
-  // }, [searchParams]);
-
-  // useEffect(() => {
-  //   const brand = searchParams.get("brand");
-  //   if (brand) handleBrands({ brands: brand.split(",") });
-  // }, [searchParams]);
 
   return <ProductsPage />;
 }

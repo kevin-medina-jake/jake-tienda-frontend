@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
+
 import ViewProducts from "@/components/products/view-products";
 
 export const metadata: Metadata = {
-  title: "Productos | Jake Tienda Electrónica - Controladoras, Parlantes, Cabinas, Consolas y más",
+  title:
+    "Productos | Jake Tienda Electrónica - Controladoras, Parlantes, Cabinas, Consolas y más",
   description:
     "Explora nuestro catálogo de parlantes, subwoofers, controladoras DJ y consolas. Compra tecnología de audio profesional con financiación y envío en Colombia.",
   keywords: [
@@ -22,7 +24,7 @@ export const metadata: Metadata = {
     siteName: "Jake Tienda Electrónica",
     images: [
       {
-        url: "/favicon.svg", 
+        url: "/favicon.svg",
         width: 1200,
         height: 630,
         alt: "Jake Tienda Electrónica",

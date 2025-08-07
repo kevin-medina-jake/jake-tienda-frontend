@@ -80,6 +80,7 @@ export default function RootLayout({
 
       <body className={`${poppins.variable} font-poppins antialiased`}>
         <Navbar />
+
         <main className="max-w-8xl relative mx-auto mt-[117px] w-full sm:mt-[100px]">
           {children}
         </main>

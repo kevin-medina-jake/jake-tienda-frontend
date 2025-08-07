@@ -100,6 +100,7 @@ export const useSearchProducts = () => {
       );
 
       const data = await res.json();
+
       setProductsSearch(data);
     } catch (err) {
       setProductsSearch([]);
