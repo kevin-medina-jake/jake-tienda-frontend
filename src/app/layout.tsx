@@ -43,7 +43,7 @@ export const metadata: Metadata = {
     siteName: "Jake Tienda Electrónica",
     images: [
       {
-        url: "/favicon.svg", // Asegúrate de tener esta imagen en public/
+        url: "/favicon.svg",
         width: 1200,
         height: 630,
         alt: "Jake Tienda Electrónica",

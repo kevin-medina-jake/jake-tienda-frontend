@@ -16,12 +16,11 @@ export const SearchProducts = () => {
     productsSearch,
     pathname,
     searchAttempted,
-    selectedProductIndex, // Se usa el nuevo estado
+    selectedProductIndex,
   } = useSearchProducts();
 
   const listRef = useRef<HTMLUListElement>(null);
 
-  // useEffect para hacer scroll al elemento seleccionado
   useEffect(() => {
     if (selectedProductIndex !== -1 && listRef.current) {
       const selectedItem = listRef.current.children[
@@ -39,7 +38,7 @@ export const SearchProducts = () => {
 
     let itemClass = "";
     if (isSelected) {
-      itemClass = "bg-blue-200"; // Color para el elemento seleccionado con flechas
+      itemClass = "bg-blue-200";
     } else if (isActive) {
       itemClass = "bg-green-200";
     } else {

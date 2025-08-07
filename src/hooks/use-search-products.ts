@@ -8,7 +8,6 @@ export const useSearchProducts = () => {
   const [loading, setLoading] = useState(false);
   const [searchAttempted, setSearchAttempted] = useState(false);
   const [productsSearch, setProductsSearch] = useState<IProductFilter[]>([]);
-  // Nuevo estado para el índice del producto seleccionado
   const [selectedProductIndex, setSelectedProductIndex] = useState(-1);
 
   const {
@@ -49,12 +48,12 @@ export const useSearchProducts = () => {
 
     if (totalProducts > 0) {
       if (e.key === "ArrowDown") {
-        e.preventDefault(); // Evita que el cursor se mueva en el input
+        e.preventDefault();
         setSelectedProductIndex((prevIndex) =>
           prevIndex < totalProducts - 1 ? prevIndex + 1 : prevIndex,
         );
       } else if (e.key === "ArrowUp") {
-        e.preventDefault(); // Evita que el cursor se mueva en el input
+        e.preventDefault();
         setSelectedProductIndex((prevIndex) =>
           prevIndex > 0 ? prevIndex - 1 : 0,
         );
@@ -66,7 +65,6 @@ export const useSearchProducts = () => {
             router.push(`/view-product/${selectedProduct.slug}`);
           }
         } else {
-          // Lógica actual de Enter si no hay nada seleccionado
           (e.target as HTMLInputElement).blur();
           if (pathname !== "/products") {
             router.push(`/products?q=${encodeURIComponent(debouncedSearch)}`);
@@ -77,7 +75,6 @@ export const useSearchProducts = () => {
         }
       }
     } else if (e.key === "Enter") {
-      // Lógica de Enter cuando no hay productos en la lista
       (e.target as HTMLInputElement).blur();
       if (pathname !== "/products") {
         router.push(`/products?q=${encodeURIComponent(debouncedSearch)}`);
@@ -94,7 +91,6 @@ export const useSearchProducts = () => {
   }, [pathname]);
 
   useEffect(() => {
-    // Cuando los resultados de búsqueda cambian, reiniciamos el índice
     setSelectedProductIndex(-1);
   }, [debouncedSearch]);
 
@@ -155,6 +151,6 @@ export const useSearchProducts = () => {
     productsSearch,
     pathname,
     searchAttempted,
-    selectedProductIndex, // Se retorna el nuevo estado
+    selectedProductIndex,
   };
 };
