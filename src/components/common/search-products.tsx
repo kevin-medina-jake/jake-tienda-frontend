@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { RefreshCw, Search } from "lucide-react";
 import { useSearchProducts } from "@/hooks/use-search-products";
+import { useEffect, useRef } from "react";
 
 export const SearchProducts = () => {
   const {
@@ -15,11 +16,35 @@ export const SearchProducts = () => {
     productsSearch,
     pathname,
     searchAttempted,
+    selectedProductIndex, // Se usa el nuevo estado
   } = useSearchProducts();
 
-  const renderProductItem = (product: any) => {
+  const listRef = useRef<HTMLUListElement>(null);
+
+  // useEffect para hacer scroll al elemento seleccionado
+  useEffect(() => {
+    if (selectedProductIndex !== -1 && listRef.current) {
+      const selectedItem = listRef.current.children[
+        selectedProductIndex
+      ] as HTMLElement;
+      if (selectedItem) {
+        selectedItem.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      }
+    }
+  }, [selectedProductIndex]);
+
+  const renderProductItem = (product: any, index: number) => {
+    const isSelected = index === selectedProductIndex;
     const isActive = pathname.includes(product.slug);
-    const itemClass = isActive ? "bg-green-200" : "hover:bg-blue-100";
+
+    let itemClass = "";
+    if (isSelected) {
+      itemClass = "bg-blue-200"; // Color para el elemento seleccionado con flechas
+    } else if (isActive) {
+      itemClass = "bg-green-200";
+    } else {
+      itemClass = "hover:bg-blue-100";
+    }
 
     const brand = product.brand || "Sin marca";
     const name = product.name || "Sin nombre";
@@ -52,11 +77,16 @@ export const SearchProducts = () => {
     if (!isView) return null;
 
     return (
-      <ul className="absolute top-[121%] z-10 hidden max-h-96 w-full flex-col gap-2 overflow-y-auto rounded-sm bg-white p-2 text-black shadow-lg group-focus-within:flex sm:top-[100%]">
+      <ul
+        ref={listRef} // Se añade la ref al ul
+        className="absolute top-[121%] z-10 hidden max-h-96 w-full flex-col gap-2 overflow-y-auto rounded-sm bg-white p-2 text-black shadow-lg group-focus-within:flex sm:top-[100%]"
+      >
         {loading ? (
           <div className="bg-blue-200 p-2 text-center">Buscando...</div>
         ) : productsSearch.length > 0 ? (
-          productsSearch.map(renderProductItem)
+          productsSearch.map((product, index) =>
+            renderProductItem(product, index),
+          )
         ) : searchAttempted ? (
           <div className="bg-blue-200 p-2 text-center">
             No se encontraron resultados
