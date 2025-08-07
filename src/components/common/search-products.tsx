@@ -1,9 +1,11 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
-import { RefreshCw, Search } from "lucide-react";
+import Image from "next/image";
+
 import { useSearchProducts } from "@/hooks/use-search-products";
+
+import { RefreshCw, Search } from "lucide-react";
 
 export const SearchProducts = () => {
   const {

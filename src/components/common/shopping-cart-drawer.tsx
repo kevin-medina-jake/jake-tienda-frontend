@@ -1,11 +1,14 @@
 "use client";
 
-import { ShoppingCart, Trash, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+
+import Link from "next/link";
+
 import { ICartState, useStoreShoppingCart } from "@/store/shopping-cart";
 import { useStore } from "@/hooks/useStore";
-import Link from "next/link";
 import { ShoppingCartProduct } from "./shopping-cart-product";
+
+import { ShoppingCart, X } from "lucide-react";
 
 export const ShoppingCartDrawer = () => {
   const [open, setOpen] = useState(false);

@@ -1,9 +1,10 @@
 import Link from "next/link";
+import Image from "next/image";
+
 import { newProducts } from "@/service/api/product";
-import { IBestProduct, INewProducts, IProductFilter } from "@/types/product";
+import { IBestProduct, IProductFilter } from "@/types/product";
 import { bestProduct } from "@/service/api/best-product";
 import { CarouselProducts } from "./carousel-products";
-import Image from "next/image";
 
 export const Products = async () => {
   const carouselNewProducts = (await newProducts()) as IProductFilter[];

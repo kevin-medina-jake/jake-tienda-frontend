@@ -25,13 +25,12 @@ export const metadata: Metadata = {
     "JBL a crédito",
     "tienda de tecnología audio",
     "Jake tienda electrónica",
-    
   ],
   openGraph: {
     title: "Jake Tienda Electrónica | Sonido Profesional en Colombia",
     description:
       "Explora nuestra tienda de parlantes, consolas, controladoras DJ y bajos. Créditos fáciles y envíos rápidos.",
-      url: "https://jaketiendaelectronica.com", 
+    url: "https://jaketiendaelectronica.com",
     siteName: "Jake Tienda Electrónica",
     images: [
       {

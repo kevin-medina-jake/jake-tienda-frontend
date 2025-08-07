@@ -16,8 +16,8 @@ export default function ProductSimilar({ products }: Props) {
       viewport={{ once: true }}
       transition={{ duration: 0.6, delay: 0.6 }}
     >
-      <h2 className="text-2xl font-bold mb-6">Productos Similares</h2>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <h2 className="mb-6 text-2xl font-bold">Productos Similares</h2>
+      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         {products.slice(0, 8).map((product) => (
           <CartProduct key={product.id} product={product} />
         ))}

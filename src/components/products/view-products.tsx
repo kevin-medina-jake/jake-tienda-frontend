@@ -1,10 +1,11 @@
 "use client";
 
-import { Suspense } from "react";
-import ProductsPage from "@/components/products/products-page";
-import { useFilterProducts } from "@/hooks/use-filter-products";
+import { Suspense, useEffect } from "react";
+
 import { useSearchParams } from "next/navigation";
-import { useEffect } from "react";
+
+import { ProductsPage } from "@/components/products/products-page";
+import { useFilterProducts } from "@/hooks/use-filter-products";
 import { useStoreProducts } from "@/store/products";
 import { getFilterProducts } from "@/service/api/product";
 

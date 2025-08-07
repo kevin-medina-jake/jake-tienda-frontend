@@ -1,8 +1,10 @@
 "use client";
 
 import Image from "next/image";
-import { MapPin, Phone, Mail, Facebook, Instagram } from "lucide-react";
+
 import logoImg from "@/assets/images/logo.png";
+
+import { MapPin, Phone, Mail, Facebook, Instagram } from "lucide-react";
 
 // Ícono personalizado de TikTok (SVG)
 const TikTokIcon = (props: React.SVGProps<SVGSVGElement>) => (
@@ -18,10 +20,10 @@ const TikTokIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 export default function Footer() {
   return (
-    <footer className="bg-gray-900 text-gray-300 py-12 px-6 lg:px-20 overflow-hidden">
-      <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-4 md:items-start">
+    <footer className="overflow-hidden bg-gray-900 px-6 py-12 text-gray-300 lg:px-20">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 md:grid-cols-4 md:items-start">
         {/* Logo y descripción */}
-        <div className="flex flex-col items-center md:items-start space-y-3">
+        <div className="flex flex-col items-center space-y-3 md:items-start">
           <Image
             src={logoImg ?? "/not-found.png"}
             alt="Jake Tienda Electrónica"
@@ -29,39 +31,39 @@ export default function Footer() {
             height={60}
             className="object-contain"
           />
-          <p className="text-center md:text-left text-gray-400 text-sm">
+          <p className="text-center text-sm text-gray-400 md:text-left">
             Tu tienda de tecnología y sonido en Popayán. Productos de calidad,
             asesoría profesional y crédito accesible.
           </p>
         </div>
 
         {/* Redes sociales */}
-        <div className="flex flex-col items-center md:items-start space-y-2">
+        <div className="flex flex-col items-center space-y-2 md:items-start">
           <h3 className="text-lg font-semibold text-white">Síguenos</h3>
           <div className="flex space-x-5">
             <a
               href="https://www.facebook.com/jaketiendaelectronicapop?mibextid=wwXIfr&rdid=k5Z36exGZj1uEGRO&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F16nZduLArp%2F%3Fmibextid%3DwwXIfr#"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 bg-gray-800 rounded-full hover:bg-blue-600 transition"
+              className="rounded-full bg-gray-800 p-2 transition hover:bg-blue-600"
             >
-              <Facebook className="w-5 h-5" />
+              <Facebook className="h-5 w-5" />
             </a>
             <a
               href="https://www.instagram.com/jaketiendaelectronica?igsh=MWZhdjR5ajBnd3Vu&utm_source=qr"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 bg-gray-800 rounded-full hover:bg-pink-500 transition"
+              className="rounded-full bg-gray-800 p-2 transition hover:bg-pink-500"
             >
-              <Instagram className="w-5 h-5" />
+              <Instagram className="h-5 w-5" />
             </a>
             <a
               href="https://www.tiktok.com/@jaketiendaelectronica?_t=ZS-8xixwJENN3q&_r=1"
               target="_blank"
               rel="noopener noreferrer"
-              className="p-2 bg-gray-800 rounded-full hover:bg-gray-400 transition"
+              className="rounded-full bg-gray-800 p-2 transition hover:bg-gray-400"
             >
-              <TikTokIcon className="w-5 h-5" />
+              <TikTokIcon className="h-5 w-5" />
             </a>
           </div>
         </div>
@@ -69,7 +71,7 @@ export default function Footer() {
         {/* Ubicación */}
         <div className="flex flex-col space-y-2 text-center md:text-left">
           <h3 className="text-lg font-semibold text-white">Ubicación</h3>
-          <div className="flex items-center justify-center md:justify-start space-x-2">
+          <div className="flex items-center justify-center space-x-2 md:justify-start">
             <MapPin size={18} />
             <span>Calle 6 #10-09, Centro de Popayán</span>
           </div>
@@ -78,11 +80,11 @@ export default function Footer() {
         {/* Contacto */}
         <div className="flex flex-col space-y-2 text-center md:text-left">
           <h3 className="text-lg font-semibold text-white">Contáctanos</h3>
-          <div className="flex items-center justify-center md:justify-start space-x-2">
+          <div className="flex items-center justify-center space-x-2 md:justify-start">
             <Phone size={18} />
             <span>+57 310 387 6150</span>
           </div>
-          <div className="flex items-center justify-center md:justify-start space-x-2">
+          <div className="flex items-center justify-center space-x-2 md:justify-start">
             <Mail size={18} />
             <span>jaketiendaelectronicapopayan@gmail.com</span>
           </div>
@@ -90,9 +92,9 @@ export default function Footer() {
       </div>
 
       {/* Línea inferior */}
-      <div className="mt-10 border-t border-gray-700 pt-6 text-center text-gray-500 text-sm">
-        © {new Date().getFullYear()} Jake Tienda Electrónica. Todos los derechos
-        reservados.
+      <div className="mt-10 border-t border-gray-700 pt-6 text-center text-sm text-gray-500">
+        © {new Date().getFullYear()} Jake Tienda Electrónica. Todos los
+        derechos reservados.
       </div>
     </footer>
   );

@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { Filter } from "lucide-react";
+
 import { useFilterProducts } from "@/hooks/use-filter-products";
 import { useStoreProducts } from "@/store/products";
-import { Filter } from "lucide-react";
 import { Skeleton } from "./products-grid";
 
-export default function ProductsFilter() {
+export const ProductsFilter = () => {
   const { filters, allProducts, loadingStore } = useStoreProducts();
   const { handlePrice, handleCategories, handleBrands } = useFilterProducts();
 
@@ -114,4 +114,4 @@ export default function ProductsFilter() {
       </div>
     </div>
   );
-}
+};

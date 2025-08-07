@@ -1,8 +1,8 @@
-import ProductsFilter from "./products-filter";
-import ProductsGrid from "./products-grid";
+import { ProductsFilter } from "./products-filter";
+import { ProductsGrid } from "./products-grid";
 import { ProductsFilterMovilDrawer } from "../common/products-filter-movil-drawer";
 
-export default function ProductsPage() {
+export const ProductsPage = () => {
   return (
     <div className="mx-auto w-full max-w-7xl px-4 py-3 sm:py-10">
       <ProductsFilterMovilDrawer />
@@ -14,4 +14,4 @@ export default function ProductsPage() {
       </div>
     </div>
   );
-}
+};

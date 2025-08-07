@@ -1,18 +1,15 @@
 "use client";
 
-// Import Swiper React components
-import { Swiper, SwiperSlide } from "swiper/react";
+import Link from "next/link";
 
-// Import Swiper styles
+import { ICarouselPresentation } from "@/types/home";
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, Navigation, Pagination } from "swiper/modules";
+
 import "swiper/css";
 import "swiper/css/pagination";
-
 import "@/styles/home/presentation.css";
-
-// import required modules
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
-import { ICarouselPresentation } from "@/types/home";
-import Link from "next/link";
 
 export const Presentation = ({
   presentations,

@@ -1,9 +1,11 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+
 import { useFilterProducts } from "@/hooks/use-filter-products";
 import { useStoreProducts } from "@/store/products";
 import { usePortalDrawer } from "@/hooks/use-portal-drawer";
+
 import { Filter, X } from "lucide-react";
 
 export const ProductsFilterMovilDrawer = () => {

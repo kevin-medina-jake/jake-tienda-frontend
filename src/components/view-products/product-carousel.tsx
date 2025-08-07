@@ -1,10 +1,13 @@
 "use client";
 
-import Image from "next/image";
 import { useState } from "react";
+
+import Image from "next/image";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Thumbs, Autoplay } from "swiper/modules";
 import type { Swiper as SwiperClass } from "swiper";
+
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/thumbs";
@@ -35,7 +38,7 @@ export default function ProductCarousel({ images }: Props) {
               alt={`Vista ${idx + 1}`}
               width={600}
               height={400}
-              className="object-contain mx-auto"
+              className="mx-auto object-contain"
             />
           </SwiperSlide>
         ))}
@@ -54,14 +57,14 @@ export default function ProductCarousel({ images }: Props) {
         {images.map((img, idx) => (
           <SwiperSlide
             key={idx}
-            className="!w-20 cursor-pointer flex justify-center"
+            className="flex !w-20 cursor-pointer justify-center"
           >
             <Image
               src={img ?? "/not-found.png"}
               alt={`Thumb ${idx + 1}`}
               width={80}
               height={60}
-              className="object-contain border border-gray-200 rounded hover:scale-105 transition"
+              className="rounded border border-gray-200 object-contain transition hover:scale-105"
             />
           </SwiperSlide>
         ))}

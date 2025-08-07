@@ -1,6 +1,7 @@
+import { Circle, CircleCheckIcon } from "lucide-react";
+
 import { FormPayProducts } from "@/components/pay/form-pay-products";
 import { InfoShoppingCart } from "@/components/pay/info-shopping-cart";
-import { Circle, CircleCheckIcon } from "lucide-react";
 
 export default function Page() {
   return (

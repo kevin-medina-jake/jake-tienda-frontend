@@ -1,15 +1,12 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper/modules";
 
-// Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
-
 import "@/styles/home/carrousel-products.css";
 
-// import required modules
-import { Pagination } from "swiper/modules";
 import { IProductFilter } from "@/types/product";
 import { CartProduct } from "../common/cart-product";
 

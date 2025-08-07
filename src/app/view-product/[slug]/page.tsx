@@ -1,9 +1,10 @@
+export const revalidate = 30;
+
 import type { Metadata } from "next";
-import ProductDetail from "@/components/view-products/product-detail";
-import { getViewProduct } from "@/service/api/product";
 import type { IViewProduct } from "@/types/product";
 
-export const revalidate = 30;
+import { getViewProduct } from "@/service/api/product";
+import { ProductDetail } from "@/components/view-products/product-detail";
 
 export async function generateMetadata(props: {
   params: Promise<{ slug: string }>;
@@ -23,11 +24,11 @@ export async function generateMetadata(props: {
       };
     }
 
-    // Extraer primer párrafo de la descripción (versión sin Markdown)
-    const plainTextDescription = product.description
-      ?.replace(/[#>*_\-\[\]()]/g, "") // eliminar markdown básico
-      .split("\n")
-      .find((line) => line.trim().length > 40) || "";
+    const plainTextDescription =
+      product.description
+        ?.replace(/[#>*_\-\[\]()]/g, "")
+        .split("\n")
+        .find((line) => line.trim().length > 40) || "";
 
     const title = `${product.name} | Jake Tienda Electrónica`;
     const description =

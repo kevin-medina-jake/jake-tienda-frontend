@@ -1,10 +1,13 @@
 "use client";
 
-import { usePortalDrawer } from "@/hooks/use-portal-drawer";
-import { Menu, X } from "lucide-react";
-import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+
+import Link from "next/link";
+
+import { usePortalDrawer } from "@/hooks/use-portal-drawer";
 import { IRoutes } from "./navbar";
+
+import { Menu, X } from "lucide-react";
 
 export const MobileMenu = ({ routes }: { routes: IRoutes[] }) => {
   const [open, setOpen] = useState(false);

@@ -1,14 +1,17 @@
 "use client";
 
-import { useStoreShoppingCart } from "@/store/shopping-cart";
+import { useState } from "react";
+
 import { motion } from "framer-motion";
+
+import { useStoreShoppingCart } from "@/store/shopping-cart";
+
 import {
   CircleDollarSign,
   ShoppingCart,
   MessageCircle,
   BadgeCheck,
-} from "lucide-react"; // Puedes cambiar el ícono por 'Whatsapp' si tienes uno personalizado
-import { useState } from "react";
+} from "lucide-react";
 
 interface Props {
   id: number;
@@ -20,7 +23,7 @@ interface Props {
 
 const getWhatsAppUrl = (productName: string, method: string) => {
   const message = `Hola, estoy interesado en el producto ${productName} y quiero pagarlo con ${method}`;
-  return `https://wa.me/573502397570?text=${encodeURIComponent(message)}`; // Reemplaza por tu número real
+  return `https://wa.me/573502397570?text=${encodeURIComponent(message)}`;
 };
 
 export default function ProductInfo({ id, name, price, stock, image }: Props) {
