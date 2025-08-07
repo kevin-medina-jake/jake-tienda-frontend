@@ -1,9 +1,9 @@
-export const revalidate = 30;
-
+import type { Metadata } from "next";
 import ProductDetail from "@/components/view-products/product-detail";
 import { getViewProduct } from "@/service/api/product";
-import type { Metadata } from "next";
 import type { IViewProduct } from "@/types/product";
+
+export const revalidate = 30;
 
 export async function generateMetadata(props: {
   params: Promise<{ slug: string }>;
@@ -23,24 +23,53 @@ export async function generateMetadata(props: {
       };
     }
 
+    // Extraer primer párrafo de la descripción (versión sin Markdown)
+    const plainTextDescription = product.description
+      ?.replace(/[#>*_\-\[\]()]/g, "") // eliminar markdown básico
+      .split("\n")
+      .find((line) => line.trim().length > 40) || "";
+
+    const title = `${product.name} | Jake Tienda Electrónica`;
+    const description =
+      plainTextDescription ||
+      `Compra ${product.name} con financiación y envío nacional.`;
+
+    const imageUrl = product.images?.[0]?.startsWith("http")
+      ? product.images[0]
+      : `https://jaketiendaelectronica.com${product.images?.[0]}`;
+
+    const fullUrl = `https://jaketiendaelectronica.com/view-product/${params.slug}`;
+
     return {
-      title: `${product.name} | Jake Tienda Electrónica`,
-      description: `Compra ${product.name} con financiación y envío en toda Colombia. Tecnología de sonido profesional.`,
+      title,
+      description,
+      keywords: [
+        product.name,
+        "tecnología de sonido",
+        "productos para DJ",
+        "audio profesional",
+        "tienda de sonido",
+      ],
       openGraph: {
-        title: `${product.name} | Jake Tienda Electrónica`,
-        description: `Explora el ${product.name} con crédito o pago inmediato. Ideal para DJs, negocios y eventos.`,
-        url: `https://jaketiendaelectronica.com/view-product/${params.slug}`, // actualiza en producción
+        title,
+        description,
+        url: fullUrl,
         siteName: "Jake Tienda Electrónica",
         images: [
           {
-            url: product.images?.[0] || "/logo.svg", // corregido si es string
+            url: imageUrl,
             width: 1200,
             height: 630,
             alt: product.name,
           },
         ],
         locale: "es_CO",
-        type: "website", // corregido: no se permite "product"
+        type: "website",
+      },
+      metadataBase: new URL("https://jaketiendaelectronica.com"),
+      robots: {
+        index: true,
+        follow: true,
       },
     };
   } catch {
