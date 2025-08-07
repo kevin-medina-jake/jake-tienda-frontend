@@ -9,7 +9,7 @@ import { IDropDownMenu } from "@/types/navbar";
 import { categoryDropdown } from "@/service/api/category";
 import { MobileMenu } from "./movil-menu-drawer";
 import { ShoppingCartDrawer } from "./shopping-cart-drawer";
-import { SearchProductsWrapper } from "./SearchProductsWrapper";
+import { SearchProductsWrapper } from "./search-products-wrapper";
 
 export interface IRoutes {
   name: string;
