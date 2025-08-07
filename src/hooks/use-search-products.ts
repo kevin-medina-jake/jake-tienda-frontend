@@ -43,16 +43,31 @@ export const useSearchProducts = () => {
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key !== "Enter") return;
+    handleCleanFiltersCategoryAndBrands();
 
     (e.target as HTMLInputElement).blur();
 
-    if (pathname !== "/products") {
-      router.push(`/products?q=${encodeURIComponent(debouncedSearch)}`);
+    const currentURL = new URL(window.location.href);
+    const searchParams = currentURL.searchParams;
+
+    if (searchParams.toString() && pathname !== "/products") {
+      router.push("/products");
       allProducts();
       return;
     }
 
+    if (pathname === "/products") {
+      router.replace("/products");
+      allProducts();
+      return;
+    }
+
+    router.push(`/products?q=${encodeURIComponent(debouncedSearch)}`);
     allProducts();
+  };
+
+  const handleCleanFiltersCategoryAndBrands = () => {
+    setFilters({ ...filters, categories: [], brands: [] });
   };
 
   useEffect(() => {
@@ -75,7 +90,6 @@ export const useSearchProducts = () => {
       setAllProducts(data);
     } catch (err) {
       setAllProducts([]);
-
       setProductsSearch([]);
     } finally {
       setLoading(false);
@@ -100,7 +114,6 @@ export const useSearchProducts = () => {
       );
 
       const data = await res.json();
-
       setProductsSearch(data);
     } catch (err) {
       setProductsSearch([]);
@@ -111,6 +124,7 @@ export const useSearchProducts = () => {
 
   useEffect(() => {
     searchProducts();
+    handleCleanFiltersCategoryAndBrands();
   }, [debouncedSearch]);
 
   const isView = search.trim().length > 1;

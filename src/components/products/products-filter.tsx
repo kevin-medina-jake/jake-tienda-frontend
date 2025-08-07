@@ -24,38 +24,27 @@ export default function ProductsFilter() {
 
   const maxPrice = Math.max(...allProducts.map((product) => product.price));
 
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
-  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
-
   const { categories: categoriesStore, brands: brandsStore, price } = filters;
 
   const handleChangeCategories = (
     event: React.ChangeEvent<HTMLInputElement>,
   ) => {
     const value = event.target.value;
-    setSelectedCategories((prev) =>
-      event.target.checked
-        ? [...prev, value]
-        : prev.filter((option) => option !== value),
-    );
+    const newCategories = event.target.checked
+      ? [...categoriesStore, value]
+      : categoriesStore.filter((category) => category !== value);
+    handleCategories({ categories: newCategories });
   };
-
-  useEffect(() => {
-    handleCategories({ categories: selectedCategories });
-  }, [selectedCategories]);
 
   const handleChangeBrands = (event: React.ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
-    setSelectedBrands((prev) =>
-      event.target.checked
-        ? [...prev, value]
-        : prev.filter((option) => option !== value),
-    );
-  };
 
-  useEffect(() => {
-    handleBrands({ brands: selectedBrands });
-  }, [selectedBrands]);
+    const newBrands = event.target.checked
+      ? [...brandsStore, value]
+      : brandsStore.filter((brand) => brand !== value);
+
+    handleBrands({ brands: newBrands });
+  };
 
   if (loadingStore)
     return (
