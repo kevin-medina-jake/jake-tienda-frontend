@@ -1,121 +1,101 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { usePathname, useRouter } from "next/navigation";
-
 import { RefreshCw, Search } from "lucide-react";
-import { useDebounce } from "use-debounce";
-
-import { useFilterProductsSearch } from "@/hooks/use-filter-products";
-import { useStoreProducts } from "@/store/products";
-import { IProductFilter } from "@/types/product";
+import { useSearchProducts } from "@/hooks/use-search-products";
+import { useEffect, useRef } from "react";
 
 export const SearchProducts = () => {
-  const [loading, setLoading] = useState(false);
-  const [searchAttempted, setSearchAttempted] = useState(false);
-  const [productsSearch, setProductsSearch] = useState<IProductFilter[]>([]);
-
   const {
-    filters,
-    setAllProducts,
-    setLoading: setLoadingStore,
-  } = useStoreProducts();
-  const { handleSearch } = useFilterProductsSearch();
-  const { search } = filters;
-  const [debouncedSearch] = useDebounce(search, 300);
+    search,
+    handleChange,
+    handleKeyDown,
+    loading,
+    isView,
+    productsSearch,
+    pathname,
+    searchAttempted,
+    selectedProductIndex,
+  } = useSearchProducts();
 
-  const pathname = usePathname();
-  const router = useRouter();
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    handleSearch({ search: value });
-
-    if (value.trim() === "") {
-      setProductsSearch([]);
-      setSearchAttempted(false);
-    }
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      (e.target as HTMLInputElement).blur();
-      if (pathname !== "/products") {
-        router.push(`/products?q=${encodeURIComponent(debouncedSearch)}`);
-        allProducts();
-      } else {
-      }
-
-      if (pathname === "/products" && search.length < 1) {
-        allProducts();
-      }
-
-      if (pathname === "/products" && search.length > 1) {
-        allProducts();
-      }
-    }
-  };
+  const listRef = useRef<HTMLUListElement>(null);
 
   useEffect(() => {
-    if (pathname === "/products") return;
-    handleSearch({ search: "" });
-  }, [pathname]);
-
-  const allProducts = async () => {
-    setLoading(true);
-
-    setLoadingStore(true);
-
-    try {
-      const res = await fetch(
-        `/api/strapi/search?q=${encodeURIComponent(search)}`,
-      );
-
-      const data = await res.json();
-
-      setAllProducts(data);
-    } catch (err) {
-      setAllProducts([]);
-
-      setProductsSearch([]);
-    } finally {
-      setLoading(false);
-
-      setLoadingStore(false);
+    if (selectedProductIndex !== -1 && listRef.current) {
+      const selectedItem = listRef.current.children[
+        selectedProductIndex
+      ] as HTMLElement;
+      if (selectedItem) {
+        selectedItem.scrollIntoView({ block: "nearest", behavior: "smooth" });
+      }
     }
+  }, [selectedProductIndex]);
+
+  const renderProductItem = (product: any, index: number) => {
+    const isSelected = index === selectedProductIndex;
+    const isActive = pathname.includes(product.slug);
+
+    let itemClass = "";
+    if (isSelected) {
+      itemClass = "bg-blue-200";
+    } else if (isActive) {
+      itemClass = "bg-green-200";
+    } else {
+      itemClass = "hover:bg-blue-100";
+    }
+
+    const brand = product.brand || "Sin marca";
+    const name = product.name || "Sin nombre";
+    const image = product.image || "/not-found.png";
+    const categories =
+      product.categories?.length > 0
+        ? product.categories.join(" · ")
+        : "Sin categoría";
+
+    return (
+      <li key={product.id} className={itemClass}>
+        <Link
+          href={`/view-product/${product.slug}`}
+          className="flex items-center gap-2 rounded-xs border border-gray-300 p-2"
+        >
+          <Image src={image} alt="logo" width={50} height={50} />
+
+          <div className="text-sm">
+            <p className="font-medium">{name}</p>
+            <p className="text-gray-500">
+              {categories} · {brand}
+            </p>
+          </div>
+        </Link>
+      </li>
+    );
   };
 
-  const searchProducts = async () => {
-    if (debouncedSearch.trim().length < 2) {
-      setProductsSearch([]);
-      setSearchAttempted(false);
-      return;
-    }
+  const renderDropdown = () => {
+    if (!isView) return null;
 
-    setLoading(true);
-    setSearchAttempted(true);
-
-    try {
-      const res = await fetch(
-        `/api/strapi/search?q=${encodeURIComponent(debouncedSearch)}`,
-      );
-
-      const data = await res.json();
-      setProductsSearch(data);
-    } catch (err) {
-      setProductsSearch([]);
-    } finally {
-      setLoading(false);
-    }
+    return (
+      <ul
+        ref={listRef} // Se añade la ref al ul
+        className="absolute top-[121%] z-10 hidden max-h-96 w-full flex-col gap-2 overflow-y-auto rounded-sm bg-white p-2 text-black shadow-lg group-focus-within:flex sm:top-[100%]"
+      >
+        {loading ? (
+          <div className="bg-blue-200 p-2 text-center">Buscando...</div>
+        ) : productsSearch.length > 0 ? (
+          productsSearch.map((product, index) =>
+            renderProductItem(product, index),
+          )
+        ) : searchAttempted ? (
+          <div className="bg-blue-200 p-2 text-center">
+            No se encontraron resultados
+          </div>
+        ) : (
+          <div className="bg-blue-200 p-2 text-center">Buscando...</div>
+        )}
+      </ul>
+    );
   };
-
-  useEffect(() => {
-    searchProducts();
-  }, [debouncedSearch]);
-
-  const isView = search.trim().length > 1;
 
   return (
     <section className="relative">
@@ -133,46 +113,7 @@ export const SearchProducts = () => {
           {loading && <RefreshCw className="absolute right-14 animate-spin" />}
         </div>
 
-        {isView && (
-          <ul className="absolute top-[121%] z-10 hidden max-h-96 w-full flex-col gap-2 overflow-y-auto rounded-sm bg-white p-2 shadow-lg group-focus-within:flex sm:top-[100%]">
-            {loading ? (
-              <div className="bg-blue-200 p-2 text-center">Buscando...</div>
-            ) : productsSearch.length > 0 ? (
-              productsSearch.map((product) => (
-                <li
-                  key={product.id}
-                  className={
-                    pathname.includes(product.slug)
-                      ? "bg-green-200"
-                      : "hover:bg-blue-100"
-                  }
-                >
-                  <Link
-                    href={`/view-product/${product.slug}`}
-                    className="flex items-center gap-2 rounded-xs border border-gray-300 p-2"
-                  >
-                    <div>
-                      <Image
-                        src={product.image || "/not-found.png"}
-                        alt="logo"
-                        width={50}
-                        height={50}
-                      />
-                    </div>
-                    <p>
-                      {product.categories.map((category) => category + " _ ")}
-                      {product.brand} - {product.name}
-                    </p>
-                  </Link>
-                </li>
-              ))
-            ) : searchAttempted && !loading ? (
-              <div className="bg-blue-200 p-2 text-center">
-                No se encontraron resultados
-              </div>
-            ) : null}
-          </ul>
-        )}
+        {renderDropdown()}
       </div>
     </section>
   );

@@ -14,14 +14,12 @@ export interface IState {
   loadingStore: boolean;
 
   filters: IFilters;
-  productsSearch: IProductFilter[];
   productsFilter: IProductFilter[];
 
   setLoading: (loading: boolean) => void;
   setFilters: (filters: IFilters) => void;
 
   setAllProducts: (productsFilter: IProductFilter[]) => void;
-  setProductsSearch: (productsFilter: IProductFilter[]) => void;
 
   setProductsFilter: (productsFilter: IProductFilter[]) => void;
 }
@@ -29,7 +27,6 @@ export interface IState {
 export const useStoreProducts = create<IState>((set, get) => ({
   allProducts: [],
   productsFilter: [],
-  productsSearch: [],
 
   filters: { search: "", categories: [], brands: [], price: 0 },
   loadingStore: true,
@@ -39,8 +36,5 @@ export const useStoreProducts = create<IState>((set, get) => ({
 
   setAllProducts: (products) =>
     set({ allProducts: products, productsFilter: products }),
-
-  setProductsSearch: (products) => set({ productsSearch: products }),
-
   setProductsFilter: (products) => set({ productsFilter: products }),
 }));
