@@ -10,12 +10,9 @@ export async function GET(request: Request) {
     let filters = {};
 
     if (query) {
-      // 1. Divide la cadena de búsqueda en palabras
       const searchWords = query.toLowerCase().split(" ").filter(Boolean);
 
-      // 2. Construye los filtros dinámicamente
       if (searchWords.length > 0) {
-        // Usa $and para que el producto deba coincidir con todas las palabras clave
         filters = {
           $and: searchWords.map((word) => ({
             $or: [
@@ -28,9 +25,8 @@ export async function GET(request: Request) {
       }
     }
 
-    // 3. Realiza la llamada a Strapi con los filtros construidos
     const response = await client.collection("products").find({
-      filters: filters, // Pasa el objeto de filtros dinámico
+      filters: filters,
       populate: ["brand", "categories", "images"],
       status: "published",
       sort: "createdAt:desc",
