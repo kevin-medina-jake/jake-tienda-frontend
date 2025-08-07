@@ -8,47 +8,39 @@ interface IFilters {
   price: number;
 }
 
-interface IState {
+export interface IState {
   allProducts: IProductFilter[];
 
-  loading: boolean;
+  loadingStore: boolean;
 
   filters: IFilters;
-  filteredProducts: IProductFilter[];
-  products: IProductFilter[];
+  productsSearch: IProductFilter[];
+  productsFilter: IProductFilter[];
 
   setLoading: (loading: boolean) => void;
   setFilters: (filters: IFilters) => void;
 
-  setAllProducts: (products: IProductFilter[]) => void;
-  setFilteredProducts: (products: IProductFilter[]) => void;
+  setAllProducts: (productsFilter: IProductFilter[]) => void;
+  setProductsSearch: (productsFilter: IProductFilter[]) => void;
 
-  resetFilteredProducts: () => void;
-  removeAllProducts: () => void;
-
-  setProducts: (products: IProductFilter[]) => void;
+  setProductsFilter: (productsFilter: IProductFilter[]) => void;
 }
 
 export const useStoreProducts = create<IState>((set, get) => ({
   allProducts: [],
-  products: [],
-
-  loading: true,
+  productsFilter: [],
+  productsSearch: [],
 
   filters: { search: "", categories: [], brands: [], price: 0 },
-  filteredProducts: [],
+  loadingStore: true,
 
-  setLoading: (loading) => set({ loading }),
+  setLoading: (loading) => set({ loadingStore: loading }),
   setFilters: (filters) => set({ filters }),
 
   setAllProducts: (products) =>
-    set({ allProducts: products, filteredProducts: products, products }),
+    set({ allProducts: products, productsFilter: products }),
 
-  setFilteredProducts: (products) => set({ filteredProducts: products }),
+  setProductsSearch: (products) => set({ productsSearch: products }),
 
-  resetFilteredProducts: () => set({ filteredProducts: get().allProducts }),
-
-  removeAllProducts: () => set({ allProducts: [], filteredProducts: [] }),
-
-  setProducts: (products) => set({ products }),
+  setProductsFilter: (products) => set({ productsFilter: products }),
 }));

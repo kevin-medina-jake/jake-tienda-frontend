@@ -1,9 +1,10 @@
 "use client";
 
+import Link from "next/link";
+
 import { useStore } from "@/hooks/useStore";
 import { ShoppingCartProduct } from "../common/shopping-cart-product";
 import { ICartState, useStoreShoppingCart } from "@/store/shopping-cart";
-import Link from "next/link";
 
 export const InfoShoppingCart = () => {
   const cartStore = useStore<ICartState, ICartState>(
@@ -13,10 +14,10 @@ export const InfoShoppingCart = () => {
 
   if (!cartStore) return null;
 
-  const { products, getTotalPrice, getTotalProducts } = cartStore;
+  const { products, getTotalPrice } = cartStore;
 
   return (
-    <div className="bg-blue-50 p-4">
+    <div className="h-fit bg-blue-50 p-4">
       <div className="flex flex-col gap-4 rounded-xs border border-gray-300 bg-white">
         <section className="border-b border-gray-300 p-4">
           <h2 className="text-xl font-medium">Resumen del pedido</h2>

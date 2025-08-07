@@ -1,13 +1,15 @@
-import Image from "next/image";
 import Link from "next/link";
+import Image from "next/image";
+
 import Logo from "@/assets/logo/image.png";
+import { ChevronDown } from "lucide-react";
+
 import { brandDropdown } from "@/service/api/brand";
 import { IDropDownMenu } from "@/types/navbar";
 import { categoryDropdown } from "@/service/api/category";
-import { SearchProducts } from "./search-products";
 import { MobileMenu } from "./movil-menu-drawer";
 import { ShoppingCartDrawer } from "./shopping-cart-drawer";
-import { ChevronDown } from "lucide-react";
+import { SearchProductsWrapper } from "./SearchProductsWrapper";
 
 export interface IRoutes {
   name: string;
@@ -54,7 +56,7 @@ export const Navbar = async () => {
         </section>
 
         <section className="grid flex-1 gap-4 md:px-5 lg:px-10 xl:px-20">
-          <SearchProducts />
+          <SearchProductsWrapper />
 
           <ul className="flex h-full text-sm lg:text-base">
             {routes.map((route) => {
@@ -107,7 +109,7 @@ export const Navbar = async () => {
         </section>
 
         <section className="px-2">
-          <SearchProducts />
+          <SearchProductsWrapper />
         </section>
       </nav>
     </>
@@ -135,7 +137,7 @@ const DropdownMenu = ({ name, drop, url }: DropdownMenuProps) => (
           <li key={item.id}>
             <Link
               href={`${url}${item.name}`}
-              className="block w-max p-2 px-5 hover:bg-blue-200"
+              className="block w-full p-2 px-5 whitespace-nowrap hover:bg-blue-200"
             >
               {item.name}
             </Link>
