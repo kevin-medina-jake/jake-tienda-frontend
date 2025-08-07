@@ -109,7 +109,7 @@ export default function ProductInfo({ id, name, price, stock, image }: Props) {
             <option value="sin_credito">PayU</option>
           </optgroup>
           <optgroup label="Pago con crédito">
-            <option value="abby">Abby</option>
+            <option value="addi">Addi</option>
             <option value="brilla">Brilla</option>
             <option value="gora">Gora</option>
             <option value="banco_bogota">Banco de Bogotá</option>
