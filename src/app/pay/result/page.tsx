@@ -50,21 +50,21 @@ function ResponseContent() {
 
   return (
     <div className="mx-auto flex min-h-[70vh] max-w-7xl flex-col gap-10 px-4">
-      <section className="flex items-center justify-evenly pt-12 text-lg">
-        <div className="flex items-center justify-center gap-2 text-gray-500">
+      <section className="flex flex-wrap items-center justify-evenly gap-2 pt-12 text-lg">
+        <div className="flex items-center justify-center gap-2 whitespace-nowrap text-gray-500">
           <Circle size={24} />
           <p>Finalizar Compra</p>
         </div>
 
-        <div className="flex items-center justify-center gap-2 text-blue-500">
+        <div className="flex items-center justify-center gap-2 whitespace-nowrap text-blue-500">
           <CircleCheckIcon size={24} />
           <p>Resultado de la compra</p>
         </div>
       </section>
 
-      <div className="flex h-[50vh] flex-col items-center justify-center p-6 text-center">
-        <div className="w-full max-w-lg rounded-xl bg-white p-10 shadow-lg">
-          <h1 className={`mb-4 text-4xl font-bold ${statusColor}`}>
+      <div className="flex h-[50vh] flex-col items-center justify-center text-center">
+        <div className="w-full max-w-xl rounded-xl bg-white">
+          <h1 className={`mb-4 text-2xl font-bold sm:text-4xl ${statusColor}`}>
             {statusTitle}
           </h1>
           <p className="mb-2 text-lg text-gray-700">
