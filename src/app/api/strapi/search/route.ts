@@ -34,7 +34,7 @@ export async function GET(request: Request) {
       sort: "createdAt:desc",
       pagination: {
         page: Number(page),
-        pageSize: 4,
+        pageSize: 8,
       },
     });
 

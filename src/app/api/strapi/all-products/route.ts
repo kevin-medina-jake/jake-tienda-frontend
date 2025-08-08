@@ -14,7 +14,7 @@ export async function GET(request: Request) {
       populate: ["images", "categories", "brand"],
       pagination: {
         page: Number(page),
-        pageSize: 4,
+        pageSize: 8,
       },
       filters: {
         images: {
