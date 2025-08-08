@@ -18,7 +18,7 @@ export const Products = () => {
     pageSize: number;
     page: number;
   }>();
-  const { search } = useGetSearchParams();
+  const { search, loadingSearch } = useGetSearchParams();
 
   const getProductsByPage = async ({ page }: { page: number }) => {
     setLoading(true);
@@ -59,16 +59,16 @@ export const Products = () => {
   };
 
   useEffect(() => {
-    if (search.trim().length > 0) {
-      getProductsByPageAndSearch({ search: search, page: currentPage });
-      console.log("search ****************", search);
-    }
+    if (loadingSearch) return;
 
-    if (search.trim().length < 0) {
+    if (search !== "") {
+      getProductsByPageAndSearch({ search: search, page: currentPage });
+      return;
+    } else if (search === "") {
       getProductsByPage({ page: currentPage });
-      console.log("page-------------------------", search);
+      return;
     }
-  }, [currentPage, search]);
+  }, [currentPage, search, loadingSearch]);
 
   return (
     <div className="mx-auto w-full max-w-7xl px-4 py-3 sm:py-10">
@@ -77,22 +77,11 @@ export const Products = () => {
       <div className="relative flex min-h-[50vh] w-full gap-6">
         <ProductsFilter />
 
-        <ProductsGrid />
-      </div>
-
-      <div className="flex gap-2">
-        {Array.from({ length: pagination?.pageCount ?? 1 }).map((_, i) => (
-          <button
-            key={i}
-            onClick={() => setPage(i + 1)}
-            className={
-              "flex h-10 w-10 cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-sm border border-blue-300 px-2 font-medium transition-[width] duration-300 group-hover:w-22 group-hover:border-blue-600 group-hover:bg-blue-600 group-hover:text-white " +
-              (i + 1 === currentPage ? "bg-blue-600" : "")
-            }
-          >
-            <span>{i + 1}</span>
-          </button>
-        ))}
+        <ProductsGrid
+          currentPage={currentPage}
+          setPage={setPage}
+          pagination={pagination}
+        />
       </div>
     </div>
   );

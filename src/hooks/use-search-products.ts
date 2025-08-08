@@ -1,8 +1,9 @@
 import { useStoreProducts } from "@/store/products";
 import { IProductFilter } from "@/types/product";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
+import { useGetSearchParams } from "./useGetSearchParams";
 
 export const useSearchProducts = () => {
   const [loading, setLoading] = useState(false);
@@ -15,6 +16,15 @@ export const useSearchProducts = () => {
     setLoading: setLoadingStore,
     setFilters,
   } = useStoreProducts();
+  const { search: searchParams } = useGetSearchParams();
+
+  useEffect(() => {
+    if (searchParams !== "") {
+      handleSearch({ search: searchParams });
+    } else {
+      handleSearch({ search: "" });
+    }
+  }, [searchParams]);
 
   const { search } = filters;
   const [debouncedSearch] = useDebounce(search, 300);
@@ -45,9 +55,15 @@ export const useSearchProducts = () => {
     if (e.key !== "Enter") return;
     handleCleanFiltersCategoryAndBrands();
 
-    (e.target as HTMLInputElement).blur();
+    if (search.trim().length < 1 && pathname === "/products") {
+      router.push(`/products?page=1`);
 
-    if (search.trim().length < 2) return;
+      return;
+    }
+
+    if (search.trim().length < 1) return;
+
+    (e.target as HTMLInputElement).blur();
 
     router.push(`/products?q=${encodeURIComponent(search)}`);
 
@@ -101,7 +117,7 @@ export const useSearchProducts = () => {
   };
 
   const searchProducts = async () => {
-    if (debouncedSearch.trim().length < 2) {
+    if (debouncedSearch.trim().length < 1) {
       setProductsSearch([]);
       setSearchAttempted(false);
       return;
@@ -112,7 +128,7 @@ export const useSearchProducts = () => {
 
     try {
       const res = await fetch(
-        `/api/strapi/search?q=${encodeURIComponent(debouncedSearch)}&page=1`,
+        `/api/strapi/search?q=${encodeURIComponent(search)}&page=1`,
       );
 
       const data = await res.json();
@@ -129,7 +145,7 @@ export const useSearchProducts = () => {
     handleCleanFiltersCategoryAndBrands();
   }, [debouncedSearch]);
 
-  const isView = search.trim().length > 1;
+  const isView = search.trim().length > 0;
 
   return {
     search,
