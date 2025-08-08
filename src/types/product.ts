@@ -20,8 +20,6 @@ export interface IProductBond {
   description: string;
   slug: string;
   image: string;
-  price: number;
-  stock: number;
 }
 
 export interface IViewProduct {

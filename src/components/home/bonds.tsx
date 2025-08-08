@@ -1,18 +1,10 @@
-"use client";
-
+import Link from "next/link";
 import Image from "next/image";
 
-import {
-  BadgeCheck,
-  BookText,
-  Clapperboard,
-  Laptop,
-  Music,
-  ShoppingCart,
-} from "lucide-react";
+import { BookText, Clapperboard, Laptop, Music } from "lucide-react";
 
+import { productBond } from "@/service/api/product-bond";
 import { IProductBond } from "@/types/product";
-import { useStoreShoppingCart } from "@/store/shopping-cart";
 
 const bonds = [
   {
@@ -60,44 +52,17 @@ const bonds = [
     styles: "",
   },
 ];
-export const Bonds = ({
-  productBondInfo,
-}: {
-  productBondInfo: IProductBond;
-}) => {
-  const { addProduct, products } = useStoreShoppingCart();
+export const Bonds = async () => {
+  const productBondInfo = (await productBond()) as IProductBond;
 
   if (
     !productBondInfo.id ||
     !productBondInfo.title ||
     !productBondInfo.description ||
-    !productBondInfo.image ||
-    !productBondInfo.price ||
-    !productBondInfo.stock
+    !productBondInfo.image
   ) {
     return <></>;
   }
-
-  const isProductInShoppingCart = products.some(
-    (item) => item.id === productBondInfo.id.toString(),
-  );
-
-  const handleAddToCart = () => {
-    addProduct({
-      id: productBondInfo.id.toString(),
-      name: productBondInfo.title,
-      price: productBondInfo.price,
-      stock: productBondInfo.stock,
-      image: productBondInfo.image,
-    });
-  };
-
-  const handleCheck = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    e.preventDefault();
-
-    alert("En el carrito");
-  };
 
   return (
     <div className="mx-auto grid w-full max-w-7xl gap-4 px-4">
@@ -119,23 +84,12 @@ export const Bonds = ({
             </h2>
             <p className="text-gray-700">{productBondInfo.description}</p>
             <div>
-              {isProductInShoppingCart ? (
-                <button
-                  onClick={handleCheck}
-                  className="flex w-max items-center justify-center gap-2 rounded-sm bg-green-200 p-3 px-6 text-gray-900"
-                >
-                  <BadgeCheck size={20} />
-                  Ya en el carrito
-                </button>
-              ) : (
-                <button
-                  onClick={() => handleAddToCart()}
-                  className="flex w-max items-center justify-center gap-2 rounded-sm bg-blue-200 p-3 px-6 text-gray-900 hover:bg-blue-300"
-                >
-                  <ShoppingCart size={20} />
-                  Agregar al carrito
-                </button>
-              )}
+              <Link
+                href={"/view-product/" + productBondInfo.slug}
+                className="block w-full rounded-sm bg-blue-500 px-12 py-3 font-medium text-white hover:bg-blue-600 sm:w-max"
+              >
+                Comprar Ahora
+              </Link>
             </div>
           </section>
         </div>

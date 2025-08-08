@@ -11,8 +11,6 @@ import { ICarouselPresentation } from "@/types/home";
 import { TrustSection } from "@/components/home/trust-section";
 import { brandWithImage } from "@/service/api/brand";
 import { IBrandWithImage } from "@/types/navbar";
-import { productBond } from "@/service/api/product-bond";
-import { IProductBond } from "@/types/product";
 
 export const metadata: Metadata = {
   title:
@@ -50,7 +48,6 @@ export const metadata: Metadata = {
 export default async function Home() {
   const presentations: ICarouselPresentation[] = await carrouselPresentation();
   const brands: IBrandWithImage[] = await brandWithImage();
-  const productBondInfo = (await productBond()) as IProductBond;
 
   return (
     <div className="mb-10 flex flex-col gap-8">
@@ -58,7 +55,7 @@ export default async function Home() {
       <TrustSection brands={brands} />
       <Categories />
       <Products />
-      <Bonds productBondInfo={productBondInfo} />
+      <Bonds />
     </div>
   );
 }
