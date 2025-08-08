@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import ProductsPage from "@/pages/productsPage";
+import { Products } from "@/components/products/products";
 
 export const metadata: Metadata = {
   title:
@@ -40,5 +40,5 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  return <ProductsPage />;
+  return <Products />;
 }
