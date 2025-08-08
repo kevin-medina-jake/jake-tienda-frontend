@@ -2,7 +2,7 @@ export const revalidate = 30;
 
 import type { Metadata } from "next";
 
-import { HomePage } from "@/pages/homePage";
+import HomePage from "@/pages/homePage";
 
 export const metadata: Metadata = {
   title:

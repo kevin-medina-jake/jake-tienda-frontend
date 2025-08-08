@@ -1,5 +1,5 @@
 import { Products } from "@/components/products/products";
 
-export const ProductsPage = () => {
+export default async function ProductsPage() {
   return <Products />;
-};
+}

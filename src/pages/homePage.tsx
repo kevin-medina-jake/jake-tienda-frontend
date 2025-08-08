@@ -8,7 +8,7 @@ import { carrouselPresentation } from "@/service/api/carousel-presentation";
 import { ICarouselPresentation } from "@/types/home";
 import { IBrandWithImage } from "@/types/navbar";
 
-export const HomePage = async () => {
+export default async function HomePage() {
   const presentations: ICarouselPresentation[] = await carrouselPresentation();
   const brands: IBrandWithImage[] = await brandWithImage();
 
@@ -21,4 +21,4 @@ export const HomePage = async () => {
       <Bonds />
     </div>
   );
-};
+}

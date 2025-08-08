@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { ProductsPage } from "@/pages/productsPage";
+import ProductsPage from "@/pages/productsPage";
 
 export const metadata: Metadata = {
   title:
@@ -39,6 +39,6 @@ export const metadata: Metadata = {
   },
 };
 
-export default function Page() {
+export default async function Page() {
   return <ProductsPage />;
 }
