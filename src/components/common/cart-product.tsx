@@ -48,13 +48,13 @@ export const CartProduct = ({
   return (
     <Link
       href={`/view-product/${product.slug}`}
-      className="block h-max overflow-hidden"
+      className="block w-full overflow-hidden pt-1"
     >
       <div
         key={product.id}
         className="flex flex-col gap-2 overflow-hidden rounded-sm border border-blue-100 bg-blue-50 hover:shadow"
       >
-        <section className={`aspect-square ${style} bg-white`}>
+        <section className={`aspect-square ${style} h-auto bg-white`}>
           <Image
             src={product.image ?? "/not-found.png"}
             alt={product.name}
