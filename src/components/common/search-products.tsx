@@ -20,7 +20,7 @@ export const SearchProducts = () => {
   } = useSearchProducts();
 
   const renderProductItem = (product: any) => {
-    const isActive = pathname.includes(product.slug);
+    const isActive = pathname?.includes(product.slug);
     const itemClass = isActive ? "bg-green-200" : "hover:bg-blue-100";
 
     const brand = product.brand || "Sin marca";
@@ -54,7 +54,7 @@ export const SearchProducts = () => {
     if (!isView) return null;
 
     return (
-      <ul className="absolute top-[121%] z-10 hidden max-h-96 w-full flex-col gap-2 overflow-y-auto rounded-sm bg-white p-2 text-black shadow-lg group-focus-within:flex sm:top-[100%]">
+      <ul className="absolute top-[121%] z-10 hidden max-h-90 w-full flex-col gap-2 overflow-y-auto rounded-sm bg-blue-50 p-2 text-black shadow-lg group-focus-within:flex sm:top-[100%]">
         {loading ? (
           <div className="bg-blue-200 p-2 text-center">Buscando...</div>
         ) : productsSearch.length > 0 ? (

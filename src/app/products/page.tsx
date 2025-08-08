@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import ViewProducts from "@/components/products/view-products";
+import { ProductsPage } from "@/pages/productsPage";
 
 export const metadata: Metadata = {
   title:
@@ -40,5 +40,5 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <ViewProducts />;
+  return <ProductsPage />;
 }

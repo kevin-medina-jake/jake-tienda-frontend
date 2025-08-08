@@ -6,7 +6,7 @@ import { ICategoryCart } from "@/types/category";
 export const Categories = async () => {
   const categories = (await categoryCart()) as ICategoryCart[];
 
-  // if (categories.length < 1) return null;
+  if (categories.length < 1) return null;
 
   return (
     <section className="mx-auto flex w-full max-w-7xl flex-col gap-4 px-4">

@@ -48,7 +48,7 @@ export const CartProduct = ({
   return (
     <Link
       href={`/view-product/${product.slug}`}
-      className="block w-full overflow-hidden pt-1"
+      className="block h-auto w-full overflow-hidden"
     >
       <div
         key={product.id}

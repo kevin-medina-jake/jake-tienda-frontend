@@ -47,23 +47,25 @@ export const useSearchProducts = () => {
 
     (e.target as HTMLInputElement).blur();
 
-    const currentURL = new URL(window.location.href);
-    const searchParams = currentURL.searchParams;
+    if (search.trim().length < 2) return;
 
-    if (searchParams.toString() && pathname !== "/products") {
-      router.push("/products");
-      allProducts();
-      return;
-    }
+    router.push(`/products?q=${encodeURIComponent(search)}`);
 
-    if (pathname === "/products") {
-      router.replace("/products");
-      allProducts();
-      return;
-    }
+    // const currentURL = new URL(window.location.href);
+    // const searchParams = currentURL.searchParams;
 
-    router.push(`/products?q=${encodeURIComponent(debouncedSearch)}`);
-    allProducts();
+    // if (searchParams.toString() && pathname !== "/products") {
+    //   router.push("/products");
+    //   allProducts();
+    //   return;
+    // }
+
+    // if (pathname === "/products") {
+    //   router.replace(`/products?q=${encodeURIComponent(search)}`);
+    //   return;
+    // }
+
+    // router.push(`/products?q=${encodeURIComponent(search)}`);
   };
 
   const handleCleanFiltersCategoryAndBrands = () => {
@@ -87,7 +89,7 @@ export const useSearchProducts = () => {
 
       const data = await res.json();
 
-      setAllProducts(data);
+      setAllProducts(data.products);
     } catch (err) {
       setAllProducts([]);
       setProductsSearch([]);
@@ -110,11 +112,11 @@ export const useSearchProducts = () => {
 
     try {
       const res = await fetch(
-        `/api/strapi/search?q=${encodeURIComponent(debouncedSearch)}`,
+        `/api/strapi/search?q=${encodeURIComponent(debouncedSearch)}&page=1`,
       );
 
       const data = await res.json();
-      setProductsSearch(data);
+      setProductsSearch(data.products);
     } catch (err) {
       setProductsSearch([]);
     } finally {
