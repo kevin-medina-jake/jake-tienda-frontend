@@ -1,9 +1,11 @@
+import { useEffect, useState } from "react";
+
+import { usePathname, useRouter } from "next/navigation";
+
 import { useStoreProducts } from "@/store/products";
 import { IProductFilter } from "@/types/product";
-import { usePathname, useRouter } from "next/navigation";
-import { use, useEffect, useState } from "react";
 import { useDebounce } from "use-debounce";
-import { useGetSearchParams } from "./useGetSearchParams";
+import { useGetParams } from "./useGetParams";
 
 export const useSearchProducts = () => {
   const [loading, setLoading] = useState(false);
@@ -16,7 +18,7 @@ export const useSearchProducts = () => {
     setLoading: setLoadingStore,
     setFilters,
   } = useStoreProducts();
-  const { search: searchParams } = useGetSearchParams();
+  const { params: searchParams } = useGetParams({ name: "q" });
 
   useEffect(() => {
     if (searchParams !== "") {

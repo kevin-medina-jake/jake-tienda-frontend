@@ -21,19 +21,18 @@ export const Navbar = async () => {
   const [categories, brands] = await Promise.allSettled([
     categoryDropdown(),
     brandDropdown(),
-    
   ]);
 
   const routes: IRoutes[] = [
     { name: "Inicio", href: "/" },
     { name: "Productos", href: "/products" },
     {
-      name: "Categorías", // ← primero categorías
+      name: "Categorías",
       href: "/products?category=",
       dropdown: categories.status === "fulfilled" ? categories.value : [],
     },
     {
-      name: "Marcas", // ← luego marcas
+      name: "Marcas",
       href: "/products?brand=",
       dropdown: brands.status === "fulfilled" ? brands.value : [],
     },
@@ -92,7 +91,6 @@ export const Navbar = async () => {
       <nav className="fixed top-0 left-1/2 z-50 flex w-full -translate-x-1/2 transform flex-col gap-4 border-b border-gray-400 bg-white p-2 py-2 sm:hidden">
         <section className="flex items-center justify-between">
           <div>
-            {/* Pasamos TODAS las rutas, con Categorías primero */}
             <MobileMenu routes={routes} />
           </div>
 
@@ -129,7 +127,7 @@ const DropdownMenu = ({ name, drop, url }: DropdownMenuProps) => (
     <span className="flex cursor-default items-center gap-1 pr-6 group-hover:text-blue-800">
       {name} <ChevronDown size={14} />
     </span>
-    <div className="animate-fade-up animate-once animate-duration-500 animate-ease-in-out absolute top-full right-0 left-0 z-20 hidden w-full border-t border-b border-gray-300 bg-blue-50 pb-8 shadow-2xl group-hover:block">
+    <div className="animate-fade-up animate-once animate-duration-300 animate-delay-100 animate-ease-out absolute top-full right-0 left-0 z-20 hidden w-full border-t border-b border-gray-300 bg-blue-50 pb-8 shadow-2xl group-hover:block">
       <h2 className="border-b border-gray-300 px-10 py-8 text-2xl font-medium md:px-20 lg:px-40">
         {name}
       </h2>
@@ -138,7 +136,7 @@ const DropdownMenu = ({ name, drop, url }: DropdownMenuProps) => (
         {drop.map((item) => (
           <li key={item.id}>
             <Link
-              href={`${url}${item.slug ?? item.name}`}
+              href={`${url}${item.name}`}
               className="block w-full px-5 py-2 hover:bg-blue-200"
             >
               {item.name}
