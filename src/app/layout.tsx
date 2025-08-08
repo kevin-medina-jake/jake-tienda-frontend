@@ -1,10 +1,8 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
-
+import "@/styles/globals.css";
 import { Navbar } from "@/components/common/navbar";
 import Footer from "@/components/common/footer";
-
-import "@/styles/globals.css";
 
 const poppins = Poppins({
   weight: ["300", "400", "500", "600", "700"],
@@ -128,11 +126,9 @@ export default function RootLayout({
 
       <body className={`${poppins.variable} font-poppins antialiased`}>
         <Navbar />
-
-        <main className="max-w-8xl relative mx-auto mt-[117px] min-h-[calc(100vh-117px)] w-full sm:mt-[100px] sm:min-h-[calc(100vh-100px))]">
+        <main className="max-w-8xl relative mx-auto mt-[117px] w-full sm:mt-[100px]">
           {children}
         </main>
-
         <Footer />
       </body>
     </html>
