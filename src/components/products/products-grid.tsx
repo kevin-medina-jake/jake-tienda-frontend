@@ -35,16 +35,21 @@ export const ProductsGrid = ({
           productsFilter.map((product) => (
             <CartProduct key={product.id} product={product} isBig />
           ))}
-
-        {loadingStore === false && productsFilter.length == 0 && (
-          <div>
-            <p>No hay productos disponibles</p>
-          </div>
-        )}
       </div>
+
+      {loadingStore === false && productsFilter.length == 0 && (
+        <div className="grid h-full w-full place-content-center">
+          <div>
+            <p className="text-xl">
+              No hay productos que coincidan con tus criterios
+            </p>
+          </div>
+        </div>
+      )}
 
       <div className="flex w-full gap-2">
         {loadingStore === false &&
+          productsFilter.length > 0 &&
           Array.from({ length: pagination?.pageCount ?? 1 }).map((_, i) => (
             <button
               key={i}
