@@ -127,17 +127,17 @@ const DropdownMenu = ({ name, drop, url }: DropdownMenuProps) => (
     <span className="flex cursor-default items-center gap-1 pr-6 group-hover:text-blue-800">
       {name} <ChevronDown size={14} />
     </span>
-    <div className="absolute top-full right-0 left-0 z-20 hidden w-full border-t border-b border-gray-300 bg-blue-50 pb-8 shadow-2xl group-hover:block">
+    <div className="animate-fade-up animate-once animate-duration-500 animate-ease-in-out absolute top-full right-0 left-0 z-20 hidden w-full border-t border-b border-gray-300 bg-blue-50 pb-8 shadow-2xl group-hover:block">
       <h2 className="border-b border-gray-300 px-10 py-8 text-2xl font-medium md:px-20 lg:px-40">
         {name}
       </h2>
 
-      <ul className="grid grid-cols-6 gap-4 px-10 py-4 md:px-20 lg:px-40">
+      <ul className="flex flex-wrap gap-4 px-10 py-4 md:px-20 lg:px-40">
         {drop.map((item) => (
           <li key={item.id}>
             <Link
               href={`${url}${item.name}`}
-              className="block w-full p-2 px-5 whitespace-nowrap hover:bg-blue-200"
+              className="block w-full px-5 py-2 hover:bg-blue-200"
             >
               {item.name}
             </Link>

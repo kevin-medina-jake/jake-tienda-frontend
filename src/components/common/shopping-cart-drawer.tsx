@@ -61,7 +61,7 @@ export const ShoppingCartDrawer = () => {
 
           <aside
             ref={drawerRef}
-            className="relative flex h-full w-full max-w-lg flex-col bg-blue-50 p-4"
+            className="animate-fade-left animate-once animate-duration-300 animate-ease-in-out relative flex h-full w-full max-w-lg flex-col bg-blue-50 p-4"
           >
             <div className="mb-4 flex items-center justify-between">
               <h2 className="flex items-center gap-2 text-lg font-semibold text-black">

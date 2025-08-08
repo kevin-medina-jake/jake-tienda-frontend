@@ -22,6 +22,7 @@
     "rehype-raw": "^7.0.0",
     "remark-gfm": "^4.0.1",
     "swiper": "^11.2.10",
+    "tailwindcss-animated": "^2.0.0",
     "use-debounce": "^10.0.5",
     "zustand": "^5.0.6"
   },

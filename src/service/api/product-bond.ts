@@ -24,6 +24,8 @@ export const productBond = async (): Promise<IProductBond> => {
       description: "",
       slug: "",
       image: "",
+      price: 0,
+      stock: 0,
     };
   }
 };

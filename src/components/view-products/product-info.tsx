@@ -2,16 +2,9 @@
 
 import { useState } from "react";
 
-import { motion } from "framer-motion";
-
 import { useStoreShoppingCart } from "@/store/shopping-cart";
 
-import {
-  CircleDollarSign,
-  ShoppingCart,
-  MessageCircle,
-  BadgeCheck,
-} from "lucide-react";
+import { ShoppingCart, MessageCircle, BadgeCheck } from "lucide-react";
 
 interface Props {
   id: number;
@@ -66,13 +59,7 @@ export default function ProductInfo({ id, name, price, stock, image }: Props) {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, x: 10 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.2 }}
-      className="flex w-full flex-col space-y-6"
-    >
+    <div className="flex w-full flex-col space-y-6">
       <h1 className="text-3xl font-bold text-gray-900">{name}</h1>
       <p className="text-2xl font-semibold text-gray-700">
         ${price?.toLocaleString("es-CO")}
@@ -131,12 +118,7 @@ export default function ProductInfo({ id, name, price, stock, image }: Props) {
             <MessageCircle size={20} />
             WhatsApp
           </a>
-        ) : (
-          <button className="flex w-full items-center justify-center gap-2 rounded-sm bg-blue-500 p-3 text-white hover:bg-blue-600">
-            <CircleDollarSign size={20} />
-            Comprar Ahora
-          </button>
-        )}
+        ) : null}
 
         {isProductInShoppingCart ? (
           <button
@@ -156,6 +138,6 @@ export default function ProductInfo({ id, name, price, stock, image }: Props) {
           </button>
         )}
       </div>
-    </motion.div>
+    </div>
   );
 }

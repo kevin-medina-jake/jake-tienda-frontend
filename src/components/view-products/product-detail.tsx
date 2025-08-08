@@ -23,7 +23,7 @@ export const ProductDetail = async ({ slug }: { slug: string }) => {
   }
 
   return (
-    <div className="mx-auto max-w-7xl space-y-16 px-6 py-10 lg:px-20">
+    <div className="animate-fade animate-once animate-duration-[600ms] animate-ease-in-out mx-auto max-w-7xl space-y-16 px-6 py-10 lg:px-20">
       <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-2">
         <ProductCarousel images={product.images} />
         <ProductInfo

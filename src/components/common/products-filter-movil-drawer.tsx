@@ -97,7 +97,7 @@ export const ProductsFilterMovilDrawer = () => {
           <div className="fixed inset-0 z-50 bg-black/50 sm:hidden">
             <aside
               ref={asideRef}
-              className="fixed top-0 left-0 flex h-full w-64 touch-auto flex-col gap-6 overflow-y-auto bg-blue-50 p-4 shadow-lg"
+              className="animate-fade-right animate-once animate-duration-300 animate-ease-in-out fixed top-0 left-0 flex h-full w-64 touch-auto flex-col gap-6 overflow-y-auto bg-blue-50 p-4 shadow-lg"
             >
               <div className="flex items-center justify-between">
                 <h3 className="text-lg font-semibold">Filtros</h3>
