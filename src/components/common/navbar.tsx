@@ -18,23 +18,24 @@ export interface IRoutes {
 }
 
 export const Navbar = async () => {
-  const [brands, categories] = await Promise.allSettled([
-    brandDropdown(),
+  const [categories, brands] = await Promise.allSettled([
     categoryDropdown(),
+    brandDropdown(),
+    
   ]);
 
   const routes: IRoutes[] = [
     { name: "Inicio", href: "/" },
     { name: "Productos", href: "/products" },
     {
-      name: "Marcas",
-      href: "/products?brand=",
-      dropdown: brands.status === "fulfilled" ? brands.value : [],
-    },
-    {
-      name: "Categorías",
+      name: "Categorías", // ← primero categorías
       href: "/products?category=",
       dropdown: categories.status === "fulfilled" ? categories.value : [],
+    },
+    {
+      name: "Marcas", // ← luego marcas
+      href: "/products?brand=",
+      dropdown: brands.status === "fulfilled" ? brands.value : [],
     },
     { name: "Crédito", href: "/credit" },
     { name: "Sobre Nosotros", href: "/about-us" },
@@ -87,11 +88,12 @@ export const Navbar = async () => {
         </section>
       </nav>
 
-      {/* Mobile (sin sub-menú) */}
+      {/* Mobile */}
       <nav className="fixed top-0 left-1/2 z-50 flex w-full -translate-x-1/2 transform flex-col gap-4 border-b border-gray-400 bg-white p-2 py-2 sm:hidden">
         <section className="flex items-center justify-between">
           <div>
-            <MobileMenu routes={routes.filter((r) => !r.dropdown)} />
+            {/* Pasamos TODAS las rutas, con Categorías primero */}
+            <MobileMenu routes={routes} />
           </div>
 
           <Link href="/">
@@ -136,7 +138,7 @@ const DropdownMenu = ({ name, drop, url }: DropdownMenuProps) => (
         {drop.map((item) => (
           <li key={item.id}>
             <Link
-              href={`${url}${item.name}`}
+              href={`${url}${item.slug ?? item.name}`}
               className="block w-full px-5 py-2 hover:bg-blue-200"
             >
               {item.name}
