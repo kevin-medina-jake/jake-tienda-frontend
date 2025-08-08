@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 
+import { Suspense } from "react";
+
 import { Products } from "@/components/products/products";
 
 export const metadata: Metadata = {
@@ -40,5 +42,9 @@ export const metadata: Metadata = {
 };
 
 export default async function Page() {
-  return <Products />;
+  return (
+    <Suspense fallback={<div>Cargando productos...</div>}>
+      <Products />
+    </Suspense>
+  );
 }
