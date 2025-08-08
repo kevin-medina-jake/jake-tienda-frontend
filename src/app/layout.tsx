@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import "@/styles/globals.css";
 import { Navbar } from "@/components/common/navbar";
@@ -11,8 +11,18 @@ const poppins = Poppins({
   display: "swap",
 });
 
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
+
 export const metadata: Metadata = {
-  title: "Jake Tienda Electrónica | Audio Profesional y Tecnología en Colombia",
+  metadataBase: new URL("https://jaketiendaelectronica.com"),
+  applicationName: "Jake Tienda Electrónica",
+  title: {
+    default: "Jake Tienda Electrónica | Audio Profesional y Tecnología en Colombia",
+    template: "%s | Jake Tienda Electrónica",
+  },
   description:
     "Compra parlantes, controladoras DJ, consolas, subwoofers y tecnología de sonido profesional. Financiación disponible y envío en Colombia.",
   keywords: [
@@ -31,19 +41,32 @@ export const metadata: Metadata = {
     "financiación de audio",
     "parlantes JBL",
   ],
+  referrer: "origin-when-cross-origin",
+  themeColor: "#0ea5e9",
   robots: {
     index: true,
     follow: true,
+    
+  },
+  alternates: {
+    canonical: "/",
+    languages: {
+      "es-CO": "/",
+    },
+  },
+  icons: {
+    icon: "/favicon.svg",
+    shortcut: "/favicon.svg",
   },
   openGraph: {
     title: "Jake Tienda Electrónica | Tecnología y Sonido Profesional",
     description:
-      "controladoras, Parlantes, Cabinas y más. Compra con crédito y recibe en toda Colombia.",
+      "Controladoras, Parlantes, Cabinas y más. Compra con crédito y recibe en toda Colombia.",
     url: "https://jaketiendaelectronica.com",
     siteName: "Jake Tienda Electrónica",
     images: [
       {
-        url: "/favicon.svg",
+        url: "/not-found.png",
         width: 1200,
         height: 630,
         alt: "Jake Tienda Electrónica",
@@ -52,7 +75,13 @@ export const metadata: Metadata = {
     locale: "es_CO",
     type: "website",
   },
-  metadataBase: new URL("https://jaketiendaelectronica.com"),
+  twitter: {
+    card: "summary_large_image",
+    title: "Jake Tienda Electrónica | Tecnología y Sonido Profesional",
+    description:
+      "Controladoras, Parlantes, Cabinas y más. Compra con crédito y recibe en toda Colombia.",
+    images: ["/not-found.png"],
+  },
 };
 
 export default function RootLayout({
@@ -73,6 +102,23 @@ export default function RootLayout({
               name: "Jake Tienda Electrónica",
               url: "https://jaketiendaelectronica.com",
               logo: "https://jaketiendaelectronica.com/favicon.svg",
+            }),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "WebSite",
+              name: "Jake Tienda Electrónica",
+              url: "https://jaketiendaelectronica.com/",
+              potentialAction: {
+                "@type": "SearchAction",
+                target:
+                  "https://jaketiendaelectronica.com/products?q={search_term_string}",
+                "query-input": "required name=search_term_string",
+              },
             }),
           }}
         />
