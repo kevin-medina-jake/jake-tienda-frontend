@@ -1,10 +1,11 @@
 "use client";
 
-import { useStoreProducts } from "@/store/products";
-import { CartProduct } from "../common/cart-product";
 import { Image } from "lucide-react";
 
-export default function ProductsGrid() {
+import { useStoreProducts } from "@/store/products";
+import { CartProduct } from "../common/cart-product";
+
+export const ProductsGrid = () => {
   const { productsFilter, loadingStore } = useStoreProducts();
 
   return (
@@ -26,7 +27,7 @@ export default function ProductsGrid() {
       )}
     </div>
   );
-}
+};
 
 export const Skeleton = ({
   height = "h-90",

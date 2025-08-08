@@ -1,9 +1,11 @@
+import Image from "next/image";
+
 import {
   IShoppingCartProduct,
   useStoreShoppingCart,
 } from "@/store/shopping-cart";
+
 import { Trash } from "lucide-react";
-import Image from "next/image";
 
 export const ShoppingCartProduct = ({
   product,

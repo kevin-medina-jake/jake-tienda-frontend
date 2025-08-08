@@ -1,7 +1,9 @@
 "use client";
 
 import { useState } from "react";
+
 import Image from "next/image";
+
 import {
   useStoreShoppingCart,
   IShoppingCartProduct,
@@ -155,8 +157,7 @@ export const FormPayProducts = () => {
 
       const form = document.createElement("form");
       form.method = "POST";
-      form.action =
-        "https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/";
+      form.action = "https://checkout.payulatam.com/ppp-web-gateway-payu/";
 
       Object.keys(payuData).forEach((key) => {
         const hiddenField = document.createElement("input");

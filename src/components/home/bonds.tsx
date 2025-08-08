@@ -78,8 +78,8 @@ export const Bonds = async () => {
             />
           </section>
 
-          <section className="flex flex-col justify-center gap-3 sm:text-left text-center">
-            <h2 className="text-2xl font-semibold md:text-4xl ">
+          <section className="flex flex-col justify-center gap-3 text-center sm:text-left">
+            <h2 className="text-2xl font-semibold md:text-4xl">
               {productBondInfo.title}
             </h2>
             <p className="text-gray-700">{productBondInfo.description}</p>

@@ -1,14 +1,10 @@
 "use client";
 
-import { useStoreShoppingCart } from "@/store/shopping-cart";
-import { motion } from "framer-motion";
-import {
-  CircleDollarSign,
-  ShoppingCart,
-  MessageCircle,
-  BadgeCheck,
-} from "lucide-react"; // Puedes cambiar el ícono por 'Whatsapp' si tienes uno personalizado
 import { useState } from "react";
+
+import { useStoreShoppingCart } from "@/store/shopping-cart";
+
+import { ShoppingCart, MessageCircle, BadgeCheck } from "lucide-react";
 
 interface Props {
   id: number;
@@ -20,7 +16,7 @@ interface Props {
 
 const getWhatsAppUrl = (productName: string, method: string) => {
   const message = `Hola, estoy interesado en el producto ${productName} y quiero pagarlo con ${method}`;
-  return `https://wa.me/573502397570?text=${encodeURIComponent(message)}`; // Reemplaza por tu número real
+  return `https://wa.me/573502397570?text=${encodeURIComponent(message)}`;
 };
 
 export default function ProductInfo({ id, name, price, stock, image }: Props) {
@@ -63,13 +59,7 @@ export default function ProductInfo({ id, name, price, stock, image }: Props) {
   };
 
   return (
-    <motion.div
-      initial={{ opacity: 0, x: 10 }}
-      whileInView={{ opacity: 1, x: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.2 }}
-      className="flex w-full flex-col space-y-6"
-    >
+    <div className="flex w-full flex-col space-y-6">
       <h1 className="text-3xl font-bold text-gray-900">{name}</h1>
       <p className="text-2xl font-semibold text-gray-700">
         ${price?.toLocaleString("es-CO")}
@@ -128,12 +118,7 @@ export default function ProductInfo({ id, name, price, stock, image }: Props) {
             <MessageCircle size={20} />
             WhatsApp
           </a>
-        ) : (
-          <button className="flex w-full items-center justify-center gap-2 rounded-sm bg-blue-500 p-3 text-white hover:bg-blue-600">
-            <CircleDollarSign size={20} />
-            Comprar Ahora
-          </button>
-        )}
+        ) : null}
 
         {isProductInShoppingCart ? (
           <button
@@ -153,6 +138,6 @@ export default function ProductInfo({ id, name, price, stock, image }: Props) {
           </button>
         )}
       </div>
-    </motion.div>
+    </div>
   );
 }

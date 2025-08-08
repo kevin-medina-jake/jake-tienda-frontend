@@ -7,5 +7,7 @@ export const parseProductBond = (productBond: any): IProductBond => {
     description: productBond.description,
     slug: productBond.product.slug,
     image: productBond.image.url,
+    price: productBond.product.price,
+    stock: productBond.product.stock,
   };
 };

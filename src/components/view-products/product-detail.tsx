@@ -6,7 +6,7 @@ import ProductCarousel from "./product-carousel";
 import ProductDetails from "./product-details";
 import { productCategory } from "@/service/api/category";
 
-export default async function ProductDetail({ slug }: { slug?: string }) {
+export const ProductDetail = async ({ slug }: { slug: string }) => {
   if (!slug) {
     return <div>Producto no encontrado.</div>;
   }
@@ -23,8 +23,8 @@ export default async function ProductDetail({ slug }: { slug?: string }) {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-6 lg:px-20 py-10 space-y-16">
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 items-start">
+    <div className="animate-fade animate-once animate-duration-[600ms] animate-ease-in-out mx-auto max-w-7xl space-y-16 px-6 py-10 lg:px-20">
+      <div className="grid grid-cols-1 items-start gap-10 lg:grid-cols-2">
         <ProductCarousel images={product.images} />
         <ProductInfo
           id={product.id}
@@ -44,4 +44,4 @@ export default async function ProductDetail({ slug }: { slug?: string }) {
       )}
     </div>
   );
-}
+};

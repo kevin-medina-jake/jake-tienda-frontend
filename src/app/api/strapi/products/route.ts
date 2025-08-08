@@ -5,26 +5,22 @@ import { parseProductCart } from "@/lib/parse/parse-products";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
-  const query = searchParams.get("q") || "";
-  const page = searchParams.get("page") || 1;
+  const brand = searchParams.get("brand") || "";
+  const category = searchParams.get("category") || "";
 
   try {
     let filters = {};
 
-    if (query) {
-      const searchWords = query.toLowerCase().split(" ").filter(Boolean);
+    if (brand) {
+      filters = {
+        brand: { name: { $containsi: brand } },
+      };
+    }
 
-      if (searchWords.length > 0) {
-        filters = {
-          $and: searchWords.map((word) => ({
-            $or: [
-              { name: { $containsi: word } },
-              { brand: { name: { $containsi: word } } },
-              { categories: { name: { $containsi: word } } },
-            ],
-          })),
-        };
-      }
+    if (category) {
+      filters = {
+        categories: { name: { $containsi: category } },
+      };
     }
 
     const response = await client.collection("products").find({
@@ -32,18 +28,11 @@ export async function GET(request: Request) {
       populate: ["brand", "categories", "images"],
       status: "published",
       sort: "createdAt:desc",
-      pagination: {
-        page: Number(page),
-        pageSize: 4,
-      },
     });
 
     const result = parseProductCart(response.data);
 
-    return NextResponse.json({
-      products: result,
-      meta: response.meta.pagination,
-    });
+    return NextResponse.json(result);
   } catch (error) {
     console.error("Error en la búsqueda de productos:", error);
     return new NextResponse("Server Error", { status: 500 });
