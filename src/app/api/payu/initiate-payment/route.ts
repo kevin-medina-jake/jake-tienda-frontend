@@ -1,7 +1,6 @@
 import { NextResponse } from "next/server";
 import { calculateMD5 } from "@/lib/payu/signature";
 import { client } from "@/service/api/strapi";
-import { parseProductCart } from "@/lib/parse/parse-products";
 
 interface RequestBody {
   products: {
