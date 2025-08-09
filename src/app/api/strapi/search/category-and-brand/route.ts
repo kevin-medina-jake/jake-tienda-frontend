@@ -14,17 +14,15 @@ export async function GET(request: Request) {
 
     if (brand) {
       filters = {
-        brand: { name: { $containsi: brand } },
+        brand: { name: { $eq: brand } },
       };
     }
 
     if (category) {
       filters = {
-        categories: { name: { $containsi: category } },
+        categories: { name: { $eq: category } },
       };
     }
-
-    console.log("category", category);
 
     const response = await client.collection("products").find({
       filters: filters,

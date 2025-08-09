@@ -28,12 +28,12 @@ export const Navbar = async () => {
     { name: "Productos", href: "/products" },
     {
       name: "Categorías",
-      href: "/products?category=",
+      href: "/categories?category=",
       dropdown: categories.status === "fulfilled" ? categories.value : [],
     },
     {
       name: "Marcas",
-      href: "/products?brand=",
+      href: "/brands?brand=",
       dropdown: brands.status === "fulfilled" ? brands.value : [],
     },
     { name: "Crédito", href: "/credit" },
@@ -127,7 +127,7 @@ const DropdownMenu = ({ name, drop, url }: DropdownMenuProps) => (
     <span className="flex cursor-default items-center gap-1 pr-6 group-hover:text-blue-800">
       {name} <ChevronDown size={14} />
     </span>
-    <div className="animate-fade-up animate-once animate-duration-300 animate-delay-100 animate-ease-out absolute top-full right-0 left-0 z-20 hidden w-full border-t border-b border-gray-300 bg-blue-50 pb-8 shadow-2xl group-hover:block">
+    <div className="animate-fade-up animate-once animate-duration-100 animate-ease-out absolute top-full right-0 left-0 z-20 hidden w-full border-t border-b border-gray-300 bg-blue-50 pb-8 shadow-2xl group-hover:block">
       <h2 className="border-b border-gray-300 px-10 py-8 text-2xl font-medium md:px-20 lg:px-40">
         {name}
       </h2>
