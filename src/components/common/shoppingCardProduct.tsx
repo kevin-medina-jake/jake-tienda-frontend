@@ -7,7 +7,7 @@ import {
 
 import { Trash } from "lucide-react";
 
-export const ShoppingCartProduct = ({
+export const ShoppingCardProduct = ({
   product,
 }: {
   product: IShoppingCartProduct;

@@ -3,7 +3,7 @@
 import Link from "next/link";
 
 import { useStore } from "@/hooks/useStore";
-import { ShoppingCartProduct } from "../common/shopping-cart-product";
+import { ShoppingCartProduct } from "../common/shoppingCardProduct";
 import { ICartState, useStoreShoppingCart } from "@/store/shopping-cart";
 
 export const InfoShoppingCart = () => {
