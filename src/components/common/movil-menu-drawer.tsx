@@ -87,7 +87,7 @@ export const MobileMenu = ({ routes }: { routes: MobileRoute[] }) => {
         />
         <aside
           ref={asideRef}
-          className={`fixed top-0 left-0 z-50 h-full w-72 bg-white p-4 shadow-lg transition-transform duration-300 sm:hidden ${
+          className={`animate-fade-right animate-duration-300 animate-ease-out fixed top-0 left-0 z-50 h-full w-72 bg-white p-4 shadow-lg transition-transform duration-300 sm:hidden ${
             open ? "translate-x-0" : "-translate-x-full"
           }`}
           role="dialog"
