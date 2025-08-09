@@ -3,8 +3,8 @@
 import Link from "next/link";
 
 import { useStore } from "@/hooks/useStore";
-import { ShoppingCartProduct } from "../common/shoppingCardProduct";
 import { ICartState, useStoreShoppingCart } from "@/store/shopping-cart";
+import { ShoppingCardProduct } from "../common/shoppingCardProduct";
 
 export const InfoShoppingCart = () => {
   const cartStore = useStore<ICartState, ICartState>(
@@ -33,7 +33,7 @@ export const InfoShoppingCart = () => {
             </Link>
           ) : (
             products.map((product) => (
-              <ShoppingCartProduct key={product.id} product={product} />
+              <ShoppingCardProduct key={product.id} product={product} />
             ))
           )}
         </section>
