@@ -4,8 +4,8 @@ import { useGetParams } from "@/hooks/useGetParams";
 import { usePagination } from "@/hooks/usePagination";
 import { useStoreProducts } from "@/store/products";
 import { useEffect, useState } from "react";
-import { Header } from "./header";
 import { ViewProducts } from "./viewProducts";
+import { Header } from "../categories/header";
 
 export const ProductBrands = () => {
   const { currentPage, setPage } = usePagination();
@@ -59,7 +59,7 @@ export const ProductBrands = () => {
 
   return (
     <div className="grid gap-4">
-      <Header title={brand} />
+      <Header title={brand} name="Marcas" />
 
       <div className="mx-auto grid w-full max-w-7xl gap-4 p-4 px-4 py-3">
         <ViewProducts

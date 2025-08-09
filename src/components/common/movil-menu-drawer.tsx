@@ -16,7 +16,6 @@ import {
   ChevronDown,
 } from "lucide-react";
 
-// Tipo local para evitar circularidad
 type MobileRoute = {
   name: string;
   href: string;
@@ -31,11 +30,13 @@ export const MobileMenu = ({ routes }: { routes: MobileRoute[] }) => {
   const Portal = usePortalDrawer("mobile-menu");
   const asideRef = useRef<HTMLDivElement>(null);
 
-  // Cerrar al hacer click fuera
   useEffect(() => {
     const onDown = (event: MouseEvent) => {
       if (!open) return;
-      if (asideRef.current && !asideRef.current.contains(event.target as Node)) {
+      if (
+        asideRef.current &&
+        !asideRef.current.contains(event.target as Node)
+      ) {
         setOpen(false);
       }
     };
@@ -43,7 +44,6 @@ export const MobileMenu = ({ routes }: { routes: MobileRoute[] }) => {
     return () => document.removeEventListener("mousedown", onDown);
   }, [open]);
 
-  // Cerrar en desktop breakpoint
   useEffect(() => {
     const mq = window.matchMedia("(min-width: 640px)");
     const onChange = () => mq.matches && setOpen(false);
@@ -77,18 +77,17 @@ export const MobileMenu = ({ routes }: { routes: MobileRoute[] }) => {
         <Menu />
       </button>
 
-      {/* SIEMPRE montado: evitamos remount que “reinicia” el drawer */}
       <Portal>
-        {/* Backdrop */}
         <div
-          className={`fixed inset-0 z-50 sm:hidden transition-opacity duration-300 ${
-            open ? "opacity-100 pointer-events-auto bg-black/50" : "opacity-0 pointer-events-none"
+          className={`fixed inset-0 z-50 transition-opacity duration-300 sm:hidden ${
+            open
+              ? "pointer-events-auto bg-black/50 opacity-100"
+              : "pointer-events-none opacity-0"
           }`}
         />
-        {/* Drawer */}
         <aside
           ref={asideRef}
-          className={`fixed left-0 top-0 z-50 h-full w-72 bg-white p-4 shadow-lg sm:hidden transition-transform duration-300 ${
+          className={`fixed top-0 left-0 z-50 h-full w-72 bg-white p-4 shadow-lg transition-transform duration-300 sm:hidden ${
             open ? "translate-x-0" : "-translate-x-full"
           }`}
           role="dialog"
@@ -103,7 +102,8 @@ export const MobileMenu = ({ routes }: { routes: MobileRoute[] }) => {
 
           <nav className="flex flex-col">
             {routes.map((route) => {
-              const hasChildren = Array.isArray(route.dropdown) && route.dropdown.length > 0;
+              const hasChildren =
+                Array.isArray(route.dropdown) && route.dropdown.length > 0;
 
               if (!hasChildren) {
                 return (
@@ -123,7 +123,6 @@ export const MobileMenu = ({ routes }: { routes: MobileRoute[] }) => {
 
               return (
                 <div key={route.name} className="flex flex-col">
-                  {/* Botón principal con chevron al lado (NO cierra el drawer) */}
                   <button
                     type="button"
                     className="flex w-full items-center justify-between rounded-md px-3 py-3 text-left text-sm hover:bg-blue-50"
@@ -136,7 +135,9 @@ export const MobileMenu = ({ routes }: { routes: MobileRoute[] }) => {
                     aria-controls={`section-${route.name}`}
                   >
                     <span className="flex items-center gap-3">
-                      <span className="text-blue-700">{iconFor(route.name)}</span>
+                      <span className="text-blue-700">
+                        {iconFor(route.name)}
+                      </span>
                       <span>{route.name}</span>
                     </span>
                     <ChevronDown
@@ -145,7 +146,6 @@ export const MobileMenu = ({ routes }: { routes: MobileRoute[] }) => {
                     />
                   </button>
 
-                  {/* Submenú inline */}
                   <div
                     id={`section-${route.name}`}
                     className={`overflow-hidden transition-[max-height] duration-300 ease-in-out ${
@@ -156,7 +156,7 @@ export const MobileMenu = ({ routes }: { routes: MobileRoute[] }) => {
                       {route.dropdown!.map((item) => (
                         <li key={item.id}>
                           <Link
-                            href={`${route.href}${item.slug ?? item.name}`}
+                            href={`${route.href}${item.name ?? item.name}`}
                             className="block rounded-md px-2 py-2 text-sm hover:bg-blue-50"
                             onClick={() => setOpen(false)}
                           >

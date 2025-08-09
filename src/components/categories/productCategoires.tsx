@@ -74,7 +74,7 @@ export const ProductCategoires = () => {
 
   return (
     <div className="grid gap-4">
-      <Header title={category} />
+      <Header title={category} name="Categorías" />
 
       <div className="mx-auto grid w-full max-w-7xl gap-4 p-4 px-4 py-3">
         <ViewProducts
