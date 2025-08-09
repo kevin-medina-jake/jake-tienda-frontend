@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
 import { Circle, CircleCheckIcon } from "lucide-react";
+import { LoaderSpinner } from "@/components/common/loaderSpinner";
 
 function ResponseContent() {
   const searchParams = useSearchParams();
@@ -96,13 +97,7 @@ function ResponseContent() {
 
 export default function PayResponsePage() {
   return (
-    <Suspense
-      fallback={
-        <div className="flex min-h-screen items-center justify-center">
-          Cargando resultado...
-        </div>
-      }
-    >
+    <Suspense fallback={<LoaderSpinner />}>
       <ResponseContent />
     </Suspense>
   );

@@ -20,7 +20,8 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://jaketiendaelectronica.com"),
   applicationName: "Jake Tienda Electrónica",
   title: {
-    default: "Jake Tienda Electrónica | Audio Profesional y Tecnología en Colombia",
+    default:
+      "Jake Tienda Electrónica | Audio Profesional y Tecnología en Colombia",
     template: "%s | Jake Tienda Electrónica",
   },
   description:
@@ -46,7 +47,6 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
-    
   },
   alternates: {
     canonical: "/",
@@ -126,7 +126,8 @@ export default function RootLayout({
 
       <body className={`${poppins.variable} font-poppins antialiased`}>
         <Navbar />
-        <main className="max-w-8xl relative mx-auto mt-[117px] w-full sm:mt-[100px]">
+
+        <main className="max-w-8xl relative mx-auto mt-[117px] h-full min-h-[calc(100vh-117px)] w-full sm:mt-[100px] sm:h-full sm:min-h-[calc(100vh-100px)]">
           {children}
         </main>
         <Footer />

@@ -3,6 +3,7 @@ import type { Metadata } from "next";
 import { Suspense } from "react";
 
 import { Products } from "@/components/products/products";
+import { LoaderSpinner } from "@/components/common/loaderSpinner";
 
 export const metadata: Metadata = {
   title:
@@ -43,7 +44,7 @@ export const metadata: Metadata = {
 
 export default async function Page() {
   return (
-    <Suspense fallback={<div>Cargando productos...</div>}>
+    <Suspense fallback={<LoaderSpinner />}>
       <Products />
     </Suspense>
   );
