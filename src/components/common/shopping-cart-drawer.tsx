@@ -39,7 +39,14 @@ export const ShoppingCartDrawer = () => {
         )}
       </button>
 
-      <Drawer open={open} onClose={() => setOpen(false)} ref={drawerRef}>
+      <Drawer
+        open={open}
+        onClose={() => setOpen(false)}
+        ref={drawerRef}
+        width="w-full max-w-lg"
+        animationDirection="animate-fade-left"
+        outDirection="justify-end"
+      >
         <div className="mb-4 flex items-center justify-between">
           <h2 className="flex items-center gap-2 text-lg font-semibold text-black">
             <ShoppingCart />
