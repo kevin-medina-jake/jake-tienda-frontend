@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 
 import { client } from "@/service/api/strapi";
 import { parseProductCart } from "@/lib/parse/parse-products";
+import { pageSize } from "@/config/infoConst";
 
 export async function GET(request: Request) {
   const { searchParams } = new URL(request.url);
@@ -31,7 +32,7 @@ export async function GET(request: Request) {
       sort: "createdAt:desc",
       pagination: {
         page: Number(page),
-        pageSize: 8,
+        pageSize: pageSize,
       },
     });
 

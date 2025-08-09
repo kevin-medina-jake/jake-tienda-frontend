@@ -20,7 +20,7 @@ const TikTokIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 export default function Footer() {
   return (
-    <footer className="overflow-hidden bg-gray-900 px-6 py-12 text-gray-300 lg:px-20">
+    <footer className="overflow-hidden bg-gradient-to-r from-blue-950 to-blue-900 px-6 py-12 text-white lg:px-20">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 md:grid-cols-4 md:items-start">
         {/* Logo y descripción */}
         <div className="flex flex-col items-center space-y-3 md:items-start">
@@ -31,7 +31,7 @@ export default function Footer() {
             height={60}
             className="object-contain"
           />
-          <p className="text-center text-sm text-gray-400 md:text-left">
+          <p className="text-center text-sm md:text-left">
             Tu tienda de tecnología y sonido en Popayán. Productos de calidad,
             asesoría profesional y crédito accesible.
           </p>
@@ -39,13 +39,13 @@ export default function Footer() {
 
         {/* Redes sociales */}
         <div className="flex flex-col items-center space-y-2 md:items-start">
-          <h3 className="text-lg font-semibold text-white">Síguenos</h3>
+          <h3 className="text-lg font-semibold">Síguenos</h3>
           <div className="flex space-x-5">
             <a
               href="https://www.facebook.com/jaketiendaelectronicapop?mibextid=wwXIfr&rdid=k5Z36exGZj1uEGRO&share_url=https%3A%2F%2Fwww.facebook.com%2Fshare%2F16nZduLArp%2F%3Fmibextid%3DwwXIfr#"
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full bg-gray-800 p-2 transition hover:bg-blue-600"
+              className="rounded-full bg-blue-800 p-2 transition hover:bg-blue-600"
             >
               <Facebook className="h-5 w-5" />
             </a>
@@ -53,7 +53,7 @@ export default function Footer() {
               href="https://www.instagram.com/jaketiendaelectronica?igsh=MWZhdjR5ajBnd3Vu&utm_source=qr"
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full bg-gray-800 p-2 transition hover:bg-pink-500"
+              className="rounded-full bg-blue-800 p-2 transition hover:bg-pink-500"
             >
               <Instagram className="h-5 w-5" />
             </a>
@@ -61,7 +61,7 @@ export default function Footer() {
               href="https://www.tiktok.com/@jaketiendaelectronica?_t=ZS-8xixwJENN3q&_r=1"
               target="_blank"
               rel="noopener noreferrer"
-              className="rounded-full bg-gray-800 p-2 transition hover:bg-gray-400"
+              className="rounded-full bg-blue-800 p-2 transition hover:bg-blue-400"
             >
               <TikTokIcon className="h-5 w-5" />
             </a>
@@ -84,7 +84,7 @@ export default function Footer() {
             <Phone size={18} />
             <span>+57 310 387 6150</span>
           </div>
-          <div className="flex items-center justify-center space-x-2 md:justify-start">
+          <div className="flex items-center justify-center space-x-2 text-xs md:justify-start">
             <Mail size={18} />
             <span>jaketiendaelectronicapopayan@gmail.com</span>
           </div>
@@ -92,7 +92,7 @@ export default function Footer() {
       </div>
 
       {/* Línea inferior */}
-      <div className="mt-10 border-t border-gray-700 pt-6 text-center text-sm text-gray-500">
+      <div className="mt-10 border-t border-blue-700 pt-6 text-center text-sm">
         © {new Date().getFullYear()} Jake Tienda Electrónica. Todos los
         derechos reservados.
       </div>

@@ -1,3 +1,4 @@
+import { pageSize } from "@/config/infoConst";
 import { client } from "./strapi";
 
 import {
@@ -47,13 +48,7 @@ export const getViewProduct = async (slug: string) => {
   }
 };
 
-export const getFilterProducts = async ({
-  page = 1,
-  pageSize = 12,
-}: {
-  page?: number;
-  pageSize?: number;
-}) => {
+export const getFilterProducts = async ({ page = 1 }: { page?: number }) => {
   try {
     const response = await client.collection("products").find({
       sort: "createdAt:desc",
@@ -61,7 +56,7 @@ export const getFilterProducts = async ({
       populate: ["images", "categories", "brand"],
       pagination: {
         page,
-        pageSize,
+        pageSize: pageSize,
       },
       filters: {
         images: {

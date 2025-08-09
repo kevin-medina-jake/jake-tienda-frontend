@@ -4,6 +4,7 @@ import { Image } from "lucide-react";
 
 import { useStoreProducts } from "@/store/products";
 import { CartProduct } from "../common/cart-product";
+import { Pagination } from "../common/pagination";
 
 export const ViewProducts = ({
   currentPage,
@@ -47,22 +48,13 @@ export const ViewProducts = ({
         </div>
       )}
 
-      <div className="flex w-full gap-2">
-        {loadingStore === false &&
-          productsFilter.length > 0 &&
-          Array.from({ length: pagination?.pageCount ?? 1 }).map((_, i) => (
-            <button
-              key={i}
-              onClick={() => setPage(i + 1)}
-              className={
-                "flex h-10 w-10 cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-sm border border-blue-300 px-2 font-medium transition-[width] duration-300 group-hover:w-22 group-hover:border-blue-600 group-hover:bg-blue-600 group-hover:text-white " +
-                (i + 1 === currentPage ? "bg-blue-600" : "")
-              }
-            >
-              <span>{i + 1}</span>
-            </button>
-          ))}
-      </div>
+      <Pagination
+        loadingStore={loadingStore}
+        productsFilter={productsFilter}
+        pagination={pagination}
+        setPage={setPage}
+        currentPage={currentPage}
+      />
     </div>
   );
 };

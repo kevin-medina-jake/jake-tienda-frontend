@@ -46,14 +46,14 @@ export const ProductsGrid = ({
           </div>
         </div>
       )}
-      <Pagination
-  loadingStore={loadingStore}
-  productsFilter={productsFilter}
-  pagination={pagination}
-  setPage={setPage}
-  currentPage={currentPage}
-/>
 
+      <Pagination
+        loadingStore={loadingStore}
+        productsFilter={productsFilter}
+        pagination={pagination}
+        setPage={setPage}
+        currentPage={currentPage}
+      />
     </div>
   );
 };

@@ -1,8 +1,14 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
+
+import { IProductFilter } from "@/types/product";
 
 const DOTS = "…";
 
-function usePaginationRange(totalPages, currentPage, siblingCount) {
+function usePaginationRange(
+  totalPages: number,
+  currentPage: number,
+  siblingCount: number,
+) {
   return useMemo(() => {
     const totalNumbers = siblingCount * 2 + 5;
     if (totalPages <= totalNumbers) {
@@ -15,19 +21,25 @@ function usePaginationRange(totalPages, currentPage, siblingCount) {
     const showRightDots = rightSibling < totalPages - 1;
 
     if (!showLeftDots && showRightDots) {
-      const leftRange = Array.from({ length: 3 + 2 * siblingCount }, (_, i) => i + 1);
+      const leftRange = Array.from(
+        { length: 3 + 2 * siblingCount },
+        (_, i) => i + 1,
+      );
       return [...leftRange, DOTS, totalPages];
     }
 
     if (showLeftDots && !showRightDots) {
       const start = totalPages - (3 + 2 * siblingCount) + 1;
-      const rightRange = Array.from({ length: 3 + 2 * siblingCount }, (_, i) => start + i);
+      const rightRange = Array.from(
+        { length: 3 + 2 * siblingCount },
+        (_, i) => start + i,
+      );
       return [1, DOTS, ...rightRange];
     }
 
     const middleRange = Array.from(
       { length: rightSibling - leftSibling + 1 },
-      (_, i) => leftSibling + i
+      (_, i) => leftSibling + i,
     );
     return [1, DOTS, ...middleRange, DOTS, totalPages];
   }, [totalPages, currentPage, siblingCount]);
@@ -41,12 +53,18 @@ const Icon = {
   ),
   Prev: () => (
     <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
-      <path fill="currentColor" d="M15.41 7.41L14 6l-6 6l6 6l1.41-1.41L10.83 12z" />
+      <path
+        fill="currentColor"
+        d="M15.41 7.41L14 6l-6 6l6 6l1.41-1.41L10.83 12z"
+      />
     </svg>
   ),
   Next: () => (
     <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true">
-      <path fill="currentColor" d="M8.59 16.59L10 18l6-6l-6-6l-1.41 1.41L13.17 12z" />
+      <path
+        fill="currentColor"
+        d="M8.59 16.59L10 18l6-6l-6-6l-1.41 1.41L13.17 12z"
+      />
     </svg>
   ),
   Last: () => (
@@ -62,7 +80,15 @@ export const Pagination = ({
   pagination,
   setPage,
   currentPage,
+}: {
+  loadingStore: boolean;
+  productsFilter: IProductFilter[];
+  pagination: any;
+  setPage: (page: number) => void;
+  currentPage: number;
 }) => {
+  if (loadingStore) return null;
+
   const totalPages = pagination?.pageCount ?? 1;
 
   // pageSize real (tu caso: 8)
@@ -73,18 +99,19 @@ export const Pagination = ({
     typeof pagination?.total === "number"
       ? pagination.total
       : pagination?.pageCount
-      ? pagination.pageCount * pageSize // última opción (puede ser inexacta si la API no da total real)
-      : productsFilter?.length ?? 0;
+        ? pagination.pageCount * pageSize // última opción (puede ser inexacta si la API no da total real)
+        : (productsFilter?.length ?? 0);
 
   // Rango mostrado: start–end
   const start = totalItems === 0 ? 0 : (currentPage - 1) * pageSize + 1;
-  const end = totalItems === 0
-    ? 0
-    : Math.min(start + (productsFilter?.length ?? 0) - 1, totalItems);
+  const end =
+    totalItems === 0
+      ? 0
+      : Math.min(start + (productsFilter?.length ?? 0) - 1, totalItems);
 
   const range = usePaginationRange(totalPages, currentPage, 1);
 
-  const go = (p) => {
+  const go = (p: number) => {
     if (p < 1 || p > totalPages || p === currentPage) return;
     setPage(p);
     try {
@@ -93,24 +120,20 @@ export const Pagination = ({
   };
 
   const base =
-    "inline-flex h-10 min-w-10 items-center justify-center rounded-full px-4 text-sm font-medium transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-500/50";
-  const subtle =
-    "border border-white/40 bg-white/60 text-slate-700 hover:bg-white backdrop-blur-md shadow-sm hover:shadow";
-  const muted =
-    "border border-white/20 bg-white/40 text-slate-400 cursor-not-allowed backdrop-blur-md";
+    "inline-flex h-10 min-w-10 items-center justify-center rounded-xs  px-4 text-sm font-medium transition-colors";
+  const subtle = "border text-slate-700 hover:bg-blue-300";
+  const muted = "border border-gray-200 cursor-not-allowed";
   const active =
-    "bg-gradient-to-r from-blue-600 to-blue-500 text-white shadow-md hover:shadow-lg";
+    "bg-gradient-to-r from-blue-900 to-blue-700 text-white font-semibold";
 
   return (
     <div className="mt-8 w-full">
       {/* Barra “Mostrando X–Y de Z” */}
       <div className="mb-3 flex items-center justify-between text-sm text-slate-600">
         <span>
-          Mostrando{" "}
-          <strong>
-            {start}–{end}
-          </strong>{" "}
-          de <strong>{totalItems}</strong>{" "}
+          Mostrando <strong>{start}</strong>
+          {" a "}
+          <strong>{end}</strong> de <strong>{totalItems}</strong>{" "}
           {totalItems === 1 ? "producto" : "productos"}
         </span>
         <span className="hidden sm:inline">
@@ -119,8 +142,12 @@ export const Pagination = ({
       </div>
 
       {/* Paginador */}
-      <nav role="navigation" aria-label="Paginación" className="flex w-full items-center justify-center">
-        <div className="w-full max-w-3xl rounded-2xl border border-white/30 bg-white/50 shadow-sm backdrop-blur supports-[backdrop-filter]:bg-white/40 p-2 sm:px-3 sm:py-2 flex items-center justify-between gap-2">
+      <nav
+        role="navigation"
+        aria-label="Paginación"
+        className="flex w-full items-center justify-center"
+      >
+        <div className="flex w-full max-w-3xl items-center justify-between gap-2 rounded-2xl p-2 sm:px-3 sm:py-2">
           {/* Móvil */}
           <div className="flex w-full items-center justify-between sm:hidden">
             <button
@@ -142,7 +169,7 @@ export const Pagination = ({
               <Icon.Prev />
             </button>
 
-            <span className="select-none text-sm text-slate-600">
+            <span className="text-sm text-slate-600 select-none">
               {currentPage} / {totalPages}
             </span>
 
@@ -204,7 +231,7 @@ export const Pagination = ({
               return (
                 <button
                   key={page}
-                  onClick={() => go(page)}
+                  onClick={() => go(Number(page))}
                   aria-label={`Ir a la página ${page}`}
                   aria-current={isActive ? "page" : undefined}
                   className={`${base} ${isActive ? active : subtle}`}
