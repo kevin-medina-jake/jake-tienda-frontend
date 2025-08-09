@@ -1,4 +1,5 @@
 import { ProductCategoires } from "@/components/categories/productCategoires";
+import { Suspense } from "react";
 
 // export const metadata: Metadata = {
 //   title:
@@ -38,5 +39,9 @@ import { ProductCategoires } from "@/components/categories/productCategoires";
 // };
 
 export default async function Page() {
-  return <ProductCategoires />;
+  return (
+    <Suspense fallback={<div></div>}>
+      <ProductCategoires />;
+    </Suspense>
+  );
 }
