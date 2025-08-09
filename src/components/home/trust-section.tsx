@@ -26,7 +26,7 @@ export const TrustSection = ({ brands }: { brands: IBrandWithImage[] }) => {
           {loopedBrands.map((brand, idx) => (
             <Link
               key={idx}
-              href={"/products?brand=" + brand.name}
+              href={"/brands?brand=" + brand.name}
               className="flex h-24 w-48 flex-shrink-0 items-center justify-center transition-transform hover:scale-105"
             >
               <Image

@@ -29,7 +29,7 @@ export const Categories = async () => {
 const CardCategory = ({ category }: { category: ICategoryCart }) => {
   return (
     <Link
-      href={"/products?category=" + category.name}
+      href={"/categories?category=" + category.name}
       className="overflow-hidden border border-gray-100 p-2 transition-all duration-100 ease-in-out hover:border-blue-300 hover:shadow-xs"
     >
       <article className="flex flex-col gap-4 overflow-hidden rounded-sm">
