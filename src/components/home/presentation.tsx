@@ -4,7 +4,13 @@ import Link from "next/link";
 import { ICarouselPresentation } from "@/types/home";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
-import { ShoppingBag, CreditCard, ShieldCheck, Truck, Percent } from "lucide-react";
+import {
+  ShoppingBag,
+  CreditCard,
+  ShieldCheck,
+  Truck,
+  Percent,
+} from "lucide-react";
 
 import "swiper/css";
 import "swiper/css/pagination";
@@ -16,13 +22,7 @@ export const Presentation = ({
   presentations: ICarouselPresentation[];
 }) => {
   return (
-    <section
-      className="
-        max-w-7xl mx-auto px-6 lg:px-10
-        mt-6
-        mb-16 md:mb-24 lg:mb-12  
-      "
-    >
+    <section className="mx-auto mt-6 mb-16 max-w-7xl px-6 md:mb-24 lg:mb-12 lg:px-10">
       <div className="grid items-center gap-8 lg:grid-cols-2">
         {/* Columna izquierda (texto) */}
         <div className="order-2 flex flex-col gap-10 lg:order-1">
@@ -30,14 +30,15 @@ export const Presentation = ({
             Tienda #1 en Electrónica
           </span>
 
-          <h1 className="text-4xl font-extrabold leading-tight text-gray-900 md:text-5xl">
+          <h1 className="text-4xl leading-tight font-extrabold text-gray-900 md:text-5xl">
             Jake Tienda Electrónica
           </h1>
 
-            <p className="max-w-xl text-base text-gray-600">
-            Audio profesional, controladoras DJ, subwoofers y tecnología.<br />
+          <p className="max-w-xl text-base text-gray-600">
+            Audio profesional, controladoras DJ, subwoofers y tecnología.
+            <br />
             Compra con financiación y envío a toda Colombia.
-            </p>
+          </p>
 
           {/* Botones con íconos */}
           <div className="flex flex-wrap gap-3">
@@ -75,13 +76,8 @@ export const Presentation = ({
         </div>
 
         {/* Columna derecha (carrusel) — OCULTO EN MÓVILES */}
-        <div className="order-1 lg:order-2 hidden md:block">
-          <div
-            className="
-              relative overflow-hidden rounded-2xl shadow-2xl ring-1 ring-black/10
-              md:h-[360px] lg:h-[480px] xl:h-[560px]
-            "
-          >
+        <div className="order-1 hidden md:block lg:order-2">
+          <div className="relative overflow-hidden rounded-2xl shadow-2xl ring-1 ring-black/10 md:h-[360px] lg:h-[480px] xl:h-[560px]">
             <Swiper
               spaceBetween={0}
               pagination={{ clickable: true }}
