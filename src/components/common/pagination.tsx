@@ -87,7 +87,7 @@ export const Pagination = ({
   setPage: (page: number) => void;
   currentPage: number;
 }) => {
-  if (loadingStore || pagination.pageCount < 1) return null;
+  if (loadingStore || pagination?.pageCount < 1) return null;
 
   const totalPages = pagination?.pageCount ?? 1;
 
