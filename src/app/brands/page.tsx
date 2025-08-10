@@ -42,7 +42,7 @@ import { Suspense } from "react";
 export default async function Page() {
   return (
     <Suspense fallback={<LoaderSpinner />}>
-      <ProductBrands />;
+      <ProductBrands />
     </Suspense>
   );
 }

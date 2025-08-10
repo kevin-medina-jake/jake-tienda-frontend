@@ -109,6 +109,8 @@ export const Pagination = ({
       ? 0
       : Math.min(start + (productsFilter?.length ?? 0) - 1, totalItems);
 
+  if (end == totalItems && currentPage == 1) return null;
+
   const range = usePaginationRange(totalPages, currentPage, 1);
 
   const go = (p: number) => {
