@@ -5,6 +5,7 @@ import { newProducts } from "@/service/api/product";
 import { IBestProduct, IProductFilter } from "@/types/product";
 import { bestProduct } from "@/service/api/best-product";
 import { CarouselProducts } from "./carousel-products";
+import { Suspense } from "react";
 
 export const Products = async () => {
   const carouselNewProducts = (await newProducts()) as IProductFilter[];
