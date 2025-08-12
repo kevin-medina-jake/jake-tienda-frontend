@@ -49,8 +49,6 @@ export default async function Home() {
   const presentations: ICarouselPresentation[] = await carrouselPresentation();
   const brands: IBrandWithImage[] = await brandWithImage();
 
-  // hola
-
   return (
     <div className="mb-10 flex flex-col gap-8">
       <Presentation presentations={presentations} />
