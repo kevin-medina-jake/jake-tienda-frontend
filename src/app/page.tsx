@@ -11,6 +11,7 @@ import { Presentation } from "@/components/home/presentation";
 import { Categories } from "@/components/home/categories";
 import { Products } from "@/components/home/products";
 import { Bonds } from "@/components/home/bonds";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title:
@@ -51,7 +52,14 @@ export default async function Home() {
 
   return (
     <div className="mb-10 flex flex-col gap-8">
-      <Presentation presentations={presentations} />
+      <Suspense
+        fallback={
+          <div className="h-full min-h-[calc(100vh-270px)] sm:min-h-[calc(100vh-250px))]"></div>
+        }
+      >
+        <Presentation presentations={presentations} />
+      </Suspense>
+
       <TrustSection brands={brands} />
       <Categories />
       <Products />
