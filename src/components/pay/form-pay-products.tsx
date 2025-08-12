@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-
 import Image from "next/image";
 
 import {
@@ -11,101 +10,255 @@ import {
 } from "@/store/shopping-cart";
 import { useStore } from "@/hooks/useStore";
 
+// ✅ Importa los datos desde src/data/colombia.ts
+import { DEPARTMENTS, getCitiesByDepartment } from "@/data/colombia";
+
+/* =========================
+   Tipos locales del archivo
+========================= */
 interface BuyerInfoFormProps {
   buyerInfo: IBuyerInfo;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+  onDepartmentChange: (dept: string) => void;
 }
-
-const BuyerInfoForm: React.FC<BuyerInfoFormProps> = ({
-  buyerInfo,
-  onChange,
-}) => (
-  <div className="grid grid-cols-1 gap-y-4">
-    <h2 className="text-xl font-medium">Información del Comprador</h2>
-    <input
-      type="email"
-      name="email"
-      placeholder="Correo electrónico"
-      value={buyerInfo.email}
-      onChange={onChange}
-      className="rounded-md border p-2"
-    />
-    <input
-      type="text"
-      name="firstName"
-      placeholder="Primer Nombre"
-      value={buyerInfo.firstName}
-      onChange={onChange}
-      className="rounded-md border p-2"
-    />
-    <input
-      type="text"
-      name="lastName"
-      placeholder="Primer Apellido"
-      value={buyerInfo.lastName}
-      onChange={onChange}
-      className="rounded-md border p-2"
-    />
-    <input
-      type="text"
-      name="address"
-      placeholder="Dirección"
-      value={buyerInfo.address}
-      onChange={onChange}
-      className="rounded-md border p-2"
-    />
-    <input
-      type="text"
-      name="city"
-      placeholder="Ciudad"
-      value={buyerInfo.city}
-      onChange={onChange}
-      className="rounded-md border p-2"
-    />
-    <input
-      type="text"
-      name="country"
-      placeholder="País"
-      value={buyerInfo.country}
-      onChange={onChange}
-      className="rounded-md border p-2"
-    />
-    <input
-      type="text"
-      name="department"
-      placeholder="Departamento"
-      value={buyerInfo.department}
-      onChange={onChange}
-      className="rounded-md border p-2"
-    />
-    <input
-      type="text"
-      name="document"
-      placeholder="Cedula o DNI"
-      value={buyerInfo.document}
-      onChange={onChange}
-      className="rounded-md border p-2"
-    />
-    <input
-      type="tel"
-      name="telephone"
-      placeholder="Teléfono"
-      value={buyerInfo.telephone}
-      onChange={onChange}
-      className="rounded-md border p-2"
-    />
-  </div>
-);
 
 interface OrderSummaryProps {
   products: IShoppingCartProduct[];
   totalPrice: number;
 }
 
-const OrderSummary: React.FC<OrderSummaryProps> = ({
-  products,
-  totalPrice,
-}) => (
+interface SubmitButtonProps {
+  onClick: () => void;
+  disabled: boolean;
+}
+
+export interface IBuyerInfo {
+  email: string;
+  firstName: string;
+  lastName: string;
+  city: string;
+  address: string;
+  country: string;
+  department: string;
+  telephone: string;
+  document: string;
+}
+
+/* =========================
+   UI helpers pequeños
+========================= */
+const Label = ({ htmlFor, children }: { htmlFor: string; children: React.ReactNode }) => (
+  <label htmlFor={htmlFor} className="text-sm font-medium text-gray-700">
+    {children}
+  </label>
+);
+
+const Input = (props: React.InputHTMLAttributes<HTMLInputElement>) => (
+  <input
+    {...props}
+    className={[
+      "w-full rounded-lg border border-gray-300 px-3 py-2 text-sm",
+      "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
+      props.className ?? ""
+    ].join(" ")}
+  />
+);
+
+const Select = (props: React.SelectHTMLAttributes<HTMLSelectElement>) => (
+  <select
+    {...props}
+    className={[
+      "w-full rounded-lg border border-gray-300 px-3 py-2 text-sm bg-white",
+      "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
+      props.className ?? ""
+    ].join(" ")}
+  />
+);
+
+/* =========================
+   BuyerInfoForm (actualizado)
+========================= */
+const BuyerInfoForm: React.FC<BuyerInfoFormProps> = ({
+  buyerInfo,
+  onChange,
+  onDepartmentChange,
+}) => {
+  const cities = buyerInfo.department ? getCitiesByDepartment(buyerInfo.department) : [];
+
+  return (
+    <div className="rounded-2xl border border-gray-200 bg-white/70 p-6 shadow-sm">
+      <h2 className="mb-4 text-xl font-semibold">Información del Comprador</h2>
+
+      <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+        {/* Correo */}
+        <div className="col-span-1">
+          <Label htmlFor="email">Correo electrónico</Label>
+          <Input
+            id="email"
+            type="email"
+            name="email"
+            value={buyerInfo.email}
+            onChange={onChange}
+            autoComplete="email"
+            placeholder="tucorreo@dominio.com"
+            required
+          />
+        </div>
+
+        {/* Documento */}
+        <div className="col-span-1">
+          <Label htmlFor="document">Cédula o DNI</Label>
+          <Input
+            id="document"
+            name="document"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            value={buyerInfo.document}
+            onChange={(e) => {
+              e.currentTarget.value = e.currentTarget.value.replace(/[^\d]/g, "");
+              onChange(e);
+            }}
+            placeholder="1030********"
+            required
+          />
+        </div>
+
+        {/* Nombres */}
+        <div className="col-span-1">
+          <Label htmlFor="firstName">Primer Nombre</Label>
+          <Input
+            id="firstName"
+            name="firstName"
+            value={buyerInfo.firstName}
+            onChange={onChange}
+            autoComplete="given-name"
+            required
+          />
+        </div>
+
+        <div className="col-span-1">
+          <Label htmlFor="lastName">Primer Apellido</Label>
+          <Input
+            id="lastName"
+            name="lastName"
+            value={buyerInfo.lastName}
+            onChange={onChange}
+            autoComplete="family-name"
+            required
+          />
+        </div>
+
+        {/* País (fijo) */}
+        <div className="col-span-1">
+          <Label htmlFor="country">País</Label>
+          <Select
+            id="country"
+            name="country"
+            value={buyerInfo.country || "Colombia"}
+            onChange={onChange}
+            disabled
+            aria-disabled="true"
+            title="Por ahora solo enviamos en Colombia"
+          >
+            <option value="Colombia">Colombia</option>
+          </Select>
+        </div>
+
+        {/* Departamento */}
+        <div className="col-span-1">
+          <Label htmlFor="department">Departamento</Label>
+          <Select
+            id="department"
+            name="department"
+            value={buyerInfo.department}
+            onChange={(e) => {
+              onDepartmentChange(e.target.value); // limpia city
+              onChange(e); // mantiene tu handler genérico
+            }}
+            required
+          >
+            <option value="" disabled>
+              Selecciona un departamento
+            </option>
+            {DEPARTMENTS.map((dpt) => (
+              <option key={dpt} value={dpt}>
+                {dpt}
+              </option>
+            ))}
+          </Select>
+        </div>
+
+        {/* Municipio / Ciudad */}
+        <div className="col-span-1">
+          <Label htmlFor="city">Municipio / Ciudad</Label>
+          <Select
+            id="city"
+            name="city"
+            value={buyerInfo.city}
+            onChange={onChange}
+            disabled={!buyerInfo.department || cities.length === 0}
+            required
+          >
+            {!buyerInfo.department ? (
+              <option value="">Selecciona primero un departamento</option>
+            ) : cities.length > 0 ? (
+              <>
+                <option value="" disabled>
+                  Selecciona un municipio
+                </option>
+                {cities.map((city) => (
+                  <option key={city} value={city}>
+                    {city}
+                  </option>
+                ))}
+              </>
+            ) : (
+              <option value="">Sin municipios para este departamento</option>
+            )}
+          </Select>
+        </div>
+
+        {/* Dirección */}
+        <div className="col-span-1 md:col-span-2">
+          <Label htmlFor="address">Dirección</Label>
+          <Input
+            id="address"
+            name="address"
+            value={buyerInfo.address}
+            onChange={onChange}
+            autoComplete="shipping address-line1"
+            placeholder="Ej: Calle 12 # 34 - 56, Apto 301"
+            required
+          />
+        </div>
+
+        {/* Teléfono */}
+        <div className="col-span-1 md:col-span-2">
+          <Label htmlFor="telephone">Teléfono</Label>
+          <Input
+            id="telephone"
+            name="telephone"
+            inputMode="tel"
+            pattern="[0-9]*"
+            value={buyerInfo.telephone}
+            onChange={(e) => {
+              e.currentTarget.value = e.currentTarget.value.replace(/[^\d]/g, "");
+              onChange(e);
+            }}
+            placeholder="3001234567"
+            autoComplete="tel"
+            required
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
+/* =========================
+   Resumen del pedido (igual)
+========================= */
+const OrderSummary: React.FC<OrderSummaryProps> = ({ products, totalPrice }) => (
   <div>
     <h2 className="pb-4 text-xl font-medium">Resumen del pedido</h2>
     <ul>
@@ -140,11 +293,9 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({
   </div>
 );
 
-interface SubmitButtonProps {
-  onClick: () => void;
-  disabled: boolean;
-}
-
+/* =========================
+   Botón de pago (igual)
+========================= */
 const SubmitButton: React.FC<SubmitButtonProps> = ({ onClick, disabled }) => (
   <button
     className="mt-6 w-full cursor-pointer rounded-lg bg-blue-800 py-4 text-xl font-semibold text-white transition-colors hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-gray-400"
@@ -155,18 +306,9 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ onClick, disabled }) => (
   </button>
 );
 
-export interface IBuyerInfo {
-  email: string;
-  firstName: string;
-  lastName: string;
-  city: string;
-  address: string;
-  country: string;
-  department: string;
-  telephone: string;
-  document: string;
-}
-
+/* =========================
+   Contenedor principal
+========================= */
 export const FormPayProducts = () => {
   const [buyerInfo, setBuyerInfo] = useState<IBuyerInfo>({
     email: "jmalvarez@unimayor.edu.co",
@@ -182,8 +324,16 @@ export const FormPayProducts = () => {
   const [isLoading, setIsLoading] = useState(false);
   const { products, getTotalPrice } = useStoreShoppingCart();
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  // Acepta <input> y <select>
+  const handleInputChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+  ) => {
     setBuyerInfo({ ...buyerInfo, [e.target.name]: e.target.value });
+  };
+
+  // Limpia 'city' cuando cambia el dpto
+  const handleDepartmentChange = (dept: string) => {
+    setBuyerInfo((prev) => ({ ...prev, department: dept, city: "" }));
   };
 
   const handlePaymentSubmit = async () => {
@@ -209,15 +359,14 @@ export const FormPayProducts = () => {
 
       const form = document.createElement("form");
       form.method = "POST";
-      // form.action = "https://checkout.payulatam.com/ppp-web-gateway-payu/";
-      form.action =
-        "https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/";
+      // form.action = "https://checkout.payulatam.com/ppp-web-gateway-payu/"; // Producción
+      form.action = "https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/"; // Sandbox
 
       Object.keys(payuData).forEach((key) => {
         const hiddenField = document.createElement("input");
         hiddenField.type = "hidden";
         hiddenField.name = key;
-        hiddenField.value = payuData[key];
+        hiddenField.value = (payuData as Record<string, string>)[key];
         form.appendChild(hiddenField);
       });
 
@@ -241,7 +390,11 @@ export const FormPayProducts = () => {
   return (
     <div className="w-full p-4">
       <div className="grid gap-8">
-        <BuyerInfoForm buyerInfo={buyerInfo} onChange={handleInputChange} />
+        <BuyerInfoForm
+          buyerInfo={buyerInfo}
+          onChange={handleInputChange}
+          onDepartmentChange={handleDepartmentChange}
+        />
         <OrderSummary products={productsCart} totalPrice={getTotalPrice()} />
         <SubmitButton onClick={handlePaymentSubmit} disabled={isLoading} />
       </div>
