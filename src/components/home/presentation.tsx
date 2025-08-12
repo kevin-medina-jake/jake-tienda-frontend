@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 
 import { ICarouselPresentation } from "@/types/home";
 
@@ -52,7 +53,7 @@ export const Presentation = ({
                 Explorar productos
               </Link>
               <Link
-                href="/credito"
+                href="/credit"
                 className="flex w-full items-center justify-center gap-2 rounded-xl border border-gray-300 px-4 py-2 text-gray-800 hover:bg-gray-50 sm:w-max"
               >
                 <CreditCard size={18} />
@@ -106,9 +107,11 @@ export const Presentation = ({
                     href={`/view-product/${p.slug}`}
                     className="block h-full w-full"
                   >
-                    <img
+                    <Image
                       src={p.url}
                       alt={p.name_image}
+                      width={1000}
+                      height={600}
                       className="h-full w-full object-cover"
                       loading="eager"
                     />
