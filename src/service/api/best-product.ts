@@ -1,4 +1,3 @@
-// service/api/best-product.ts
 import { client } from "./strapi";
 import { IBestProduct } from "@/types/product";
 import { parseBestProduct } from "@/lib/parse/parse-best-product";
@@ -8,8 +7,9 @@ export const bestProduct = async (): Promise<IBestProduct> => {
     const res = await client.single("best-product").find({
       populate: {
         image: true,
-        product: { populate: { brand: true } }, // << importantísimo
+        product: { populate: { brand: true } },
       },
+      status: "published",
     });
 
     return parseBestProduct(res.data);

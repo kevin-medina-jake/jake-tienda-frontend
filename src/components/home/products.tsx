@@ -1,5 +1,3 @@
-import Link from "next/link";
-import Image from "next/image";
 import BestProductPoster from "@/components/home/best-product-poster";
 import Fondo from "@/assets/images/fondo.png";
 
@@ -21,10 +19,10 @@ export const Products = async () => {
         <h2 className="text-center text-3xl font-bold">¡Productos Nuevos!</h2>
       </div>
 
-      <div className="grid grid-cols-1 gap-4 sm:grid-cols-4">
-       <section className="overflow-hidden sm:col-span-1">
- <BestProductPoster data={bestProductInfo} bg={Fondo} />
-</section>
+      <div className="grid w-full grid-cols-1 place-items-center gap-4 md:grid-cols-4">
+        <section className="w-full overflow-hidden sm:col-span-1">
+          <BestProductPoster data={bestProductInfo} bg={Fondo} />
+        </section>
 
         <section className="h-full w-full sm:col-span-3">
           <Suspense fallback={<div className="h-72"></div>}>

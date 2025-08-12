@@ -1,14 +1,12 @@
-// components/home/best-product-poster.tsx
 "use client";
 
 import Image, { type StaticImageData } from "next/image";
 import Link from "next/link";
 import type { IBestProduct } from "@/types/product";
 
-
 type Props = {
   data: IBestProduct;
-  bg?: string | StaticImageData;   // <- acepta string o import estático
+  bg?: string | StaticImageData; // <- acepta string o import estático
   cta?: string;
   className?: string;
 };
@@ -24,8 +22,7 @@ export default function BestProductPoster({
   const { brand, name, slug, image } = data;
 
   // Obtiene la URL correcta según el tipo de `bg`
-  const bgUrl =
-    typeof bg === "string" ? bg : bg?.src; // StaticImageData tiene `.src`
+  const bgUrl = typeof bg === "string" ? bg : bg?.src; // StaticImageData tiene `.src`
 
   return (
     <Link
@@ -34,12 +31,7 @@ export default function BestProductPoster({
       aria-label={`Ver ${brand ? `${brand} ` : ""}${name}`}
     >
       <article
-        className="
-          relative overflow-hidden rounded-2xl
-          ring-1 ring-black/10 shadow-xl
-          flex flex-col
-          min-h-[520px] sm:min-h-[540px] lg:min-h-[560px]
-        "
+        className="relative flex h-full min-h-[500px] w-full flex-col overflow-hidden rounded-2xl shadow-xl ring-1 ring-black/10"
         style={
           bgUrl
             ? {
@@ -54,27 +46,25 @@ export default function BestProductPoster({
 
         <header className="px-6 pt-6 sm:px-6 sm:pt-8">
           {brand ? (
-            <p className="text-sm font-semibold uppercase text-black/80 tracking-wide text-center">
+            <p className="text-center text-sm font-semibold tracking-wide text-black/80 uppercase italic">
               {brand}
             </p>
           ) : null}
-          <h3 className="mt-3 font-black leading-none text-black text-4xl sm:text-4xl lg:text-5xl tracking-tight text-center">
+          <h3 className="mt-3 text-center text-4xl leading-none font-black tracking-tight text-black sm:text-4xl lg:text-5xl">
             {name}
           </h3>
         </header>
 
-        <div className=" mx-auto mt-1 w-[92%] flex-3 aspect-[5/4] sm:aspect-[4/3] lg:aspect-[16/9]">
+        <div className="mt-1 aspect-[5/4] flex-3 sm:aspect-[4/3] lg:aspect-[16/9]">
           <Image
             src={image}
             alt={`${brand ? brand + " " : ""}${name}`}
             fill
             priority
-            sizes="(max-width: 640px) 92vw, (max-width: 1024px) 40vw, 25vw"
+            sizes="(max-width: 740px) 92vw, (max-width: 1024px) 40vw, 25vw"
             className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.35)] transition-transform duration-300 group-hover:scale-[1.02]"
           />
         </div>
-
-        
       </article>
     </Link>
   );
