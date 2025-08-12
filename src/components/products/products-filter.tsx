@@ -54,7 +54,7 @@ export const ProductsFilter = () => {
     );
 
   return (
-    <div className="sticky top-[100px] hidden h-full max-h-screen space-y-3 rounded-sm bg-blue-50 p-4 select-none sm:block">
+    <div className="sticky top-[100px] hidden h-full max-h-screen w-max space-y-3 rounded-sm bg-blue-50 p-4 pr-8 whitespace-nowrap select-none sm:block">
       <h3 className="flex items-center gap-2 text-lg font-semibold">
         <Filter size={20} /> Filtros
       </h3>

@@ -22,45 +22,45 @@ export const Products = () => {
     page: number;
   }>();
 
-  const getProductsByPage = async ({ page }: { page: number }) => {
-    setLoading(true);
-    try {
-      const res = await fetch(`/api/strapi/all-products?page=${page}`);
-      const data = await res.json();
-
-      setAllProducts(data.products);
-      setPagination(data.meta);
-    } catch (err) {
-      setAllProducts([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const getProductsByPageAndSearch = async ({
-    search,
-    page,
-  }: {
-    search: string;
-    page: number;
-  }) => {
-    setLoading(true);
-    try {
-      const res = await fetch(
-        `/api/strapi/search?q=${encodeURIComponent(search)}&page=${page}`,
-      );
-      const data = await res.json();
-
-      setAllProducts(data.products);
-      setPagination(data.meta);
-    } catch (err) {
-      setAllProducts([]);
-    } finally {
-      setLoading(false);
-    }
-  };
-
   useEffect(() => {
+    const getProductsByPage = async ({ page }: { page: number }) => {
+      setLoading(true);
+      try {
+        const res = await fetch(`/api/strapi/all-products?page=${page}`);
+        const data = await res.json();
+
+        setAllProducts(data.products);
+        setPagination(data.meta);
+      } catch (err) {
+        setAllProducts([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    const getProductsByPageAndSearch = async ({
+      search,
+      page,
+    }: {
+      search: string;
+      page: number;
+    }) => {
+      setLoading(true);
+      try {
+        const res = await fetch(
+          `/api/strapi/search?q=${encodeURIComponent(search)}&page=${page}`,
+        );
+        const data = await res.json();
+
+        setAllProducts(data.products);
+        setPagination(data.meta);
+      } catch (err) {
+        setAllProducts([]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
     if (loadingSearch) return;
 
     if (search !== "") {
@@ -70,7 +70,7 @@ export const Products = () => {
       getProductsByPage({ page: currentPage });
       return;
     }
-  }, [currentPage, search, loadingSearch]);
+  }, [currentPage, search, loadingSearch, setAllProducts, setLoading]);
 
   return (
     <div className="mx-auto w-full max-w-7xl px-4 py-3 sm:py-10">
