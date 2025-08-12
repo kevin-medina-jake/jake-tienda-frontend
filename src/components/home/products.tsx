@@ -5,6 +5,7 @@ import { newProducts } from "@/service/api/product";
 import { IBestProduct, IProductFilter } from "@/types/product";
 import { bestProduct } from "@/service/api/best-product";
 import { CarouselProducts } from "./carousel-products";
+import { Suspense } from "react";
 
 export const Products = async () => {
   const carouselNewProducts = (await newProducts()) as IProductFilter[];
@@ -34,7 +35,9 @@ export const Products = async () => {
         </section>
 
         <section className="h-full w-full sm:col-span-3">
-          <CarouselProducts products={carouselNewProducts} />
+          <Suspense fallback={<div>Loading...</div>}>
+            <CarouselProducts products={carouselNewProducts} />
+          </Suspense>
         </section>
       </div>
     </section>
