@@ -1,4 +1,3 @@
-// src/data/colombia.ts
 
 // Tipos del JSON de la fuente pública:
 // [
