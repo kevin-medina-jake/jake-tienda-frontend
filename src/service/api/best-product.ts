@@ -1,28 +1,19 @@
+// service/api/best-product.ts
 import { client } from "./strapi";
 import { IBestProduct } from "@/types/product";
 import { parseBestProduct } from "@/lib/parse/parse-best-product";
 
 export const bestProduct = async (): Promise<IBestProduct> => {
   try {
-    const responses = await client.single("best-product").find({
-      populate: ["image", "product"],
-      filters: {
-        image: {
-          $notNull: true,
-        },
-        product: {
-          $notNull: true,
-        },
+    const res = await client.single("best-product").find({
+      populate: {
+        image: true,
+        product: { populate: { brand: true } }, // << importantísimo
       },
     });
 
-    return parseBestProduct(responses.data);
-  } catch (error) {
-    return {
-      id: 1,
-      name: "",
-      slug: "",
-      image: "",
-    };
+    return parseBestProduct(res.data);
+  } catch {
+    return { id: 0, name: "", slug: "", image: "", brand: "" };
   }
 };

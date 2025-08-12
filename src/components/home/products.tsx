@@ -1,5 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
+import BestProductPoster from "@/components/home/best-product-poster";
+import Fondo from "@/assets/images/fondo.png";
 
 import { newProducts } from "@/service/api/product";
 import { IBestProduct, IProductFilter } from "@/types/product";
@@ -20,19 +22,9 @@ export const Products = async () => {
       </div>
 
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-4">
-        <section className="overflow-hidden rounded-sm sm:col-span-1">
-          <div className="h-auto w-full sm:h-full">
-            <Link href={"/view-product/" + bestProductInfo.slug}>
-              <Image
-                src={bestProductInfo.image}
-                alt={bestProductInfo.name}
-                width={400}
-                height={400}
-                className="h-full w-full object-cover"
-              />
-            </Link>
-          </div>
-        </section>
+       <section className="overflow-hidden sm:col-span-1">
+ <BestProductPoster data={bestProductInfo} bg={Fondo} />
+</section>
 
         <section className="h-full w-full sm:col-span-3">
           <Suspense fallback={<div className="h-72"></div>}>

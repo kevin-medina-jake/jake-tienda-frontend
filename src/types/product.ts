@@ -12,6 +12,7 @@ export interface IBestProduct {
   name: string;
   slug: string;
   image: string;
+  brand?: string;
 }
 
 export interface IProductBond {
