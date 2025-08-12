@@ -26,9 +26,9 @@ export const Presentation = ({
   presentations: ICarouselPresentation[];
 }) => {
   return (
-    <section className="mx-auto h-full min-h-[calc(100vh-270px)] w-full max-w-7xl place-content-center overflow-hidden px-4 pt-4 sm:min-h-[calc(100vh-250px))]">
+    <section className="mx-auto grid h-full min-h-[calc(100vh-270px)] w-full max-w-7xl place-content-center overflow-hidden px-4 pt-4 sm:min-h-[calc(100vh-250px))]">
       <div className="grid gap-8 lg:grid-cols-2">
-        <div className="order-2 flex flex-col gap-6 lg:order-1">
+        <div className="order-2 flex flex-col justify-center gap-6 lg:order-1">
           <span className="hidden w-fit rounded-full bg-blue-600/10 px-3 py-1 text-xs font-medium text-blue-700 lg:block">
             Tienda #1 en Electrónica
           </span>
