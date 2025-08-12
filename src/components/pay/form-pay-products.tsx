@@ -12,12 +12,7 @@ import {
 import { useStore } from "@/hooks/useStore";
 
 interface BuyerInfoFormProps {
-  buyerInfo: {
-    buyerEmail: string;
-    buyerFullName: string;
-    telephone: string;
-    description: string;
-  };
+  buyerInfo: IBuyerInfo;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
@@ -29,17 +24,65 @@ const BuyerInfoForm: React.FC<BuyerInfoFormProps> = ({
     <h2 className="text-xl font-medium">Información del Comprador</h2>
     <input
       type="email"
-      name="buyerEmail"
+      name="email"
       placeholder="Correo electrónico"
-      value={buyerInfo.buyerEmail}
+      value={buyerInfo.email}
       onChange={onChange}
       className="rounded-md border p-2"
     />
     <input
       type="text"
-      name="buyerFullName"
-      placeholder="Nombre completo"
-      value={buyerInfo.buyerFullName}
+      name="firstName"
+      placeholder="Primer Nombre"
+      value={buyerInfo.firstName}
+      onChange={onChange}
+      className="rounded-md border p-2"
+    />
+    <input
+      type="text"
+      name="lastName"
+      placeholder="Primer Apellido"
+      value={buyerInfo.lastName}
+      onChange={onChange}
+      className="rounded-md border p-2"
+    />
+    <input
+      type="text"
+      name="address"
+      placeholder="Dirección"
+      value={buyerInfo.address}
+      onChange={onChange}
+      className="rounded-md border p-2"
+    />
+    <input
+      type="text"
+      name="city"
+      placeholder="Ciudad"
+      value={buyerInfo.city}
+      onChange={onChange}
+      className="rounded-md border p-2"
+    />
+    <input
+      type="text"
+      name="country"
+      placeholder="País"
+      value={buyerInfo.country}
+      onChange={onChange}
+      className="rounded-md border p-2"
+    />
+    <input
+      type="text"
+      name="department"
+      placeholder="Departamento"
+      value={buyerInfo.department}
+      onChange={onChange}
+      className="rounded-md border p-2"
+    />
+    <input
+      type="text"
+      name="document"
+      placeholder="Cedula o DNI"
+      value={buyerInfo.document}
       onChange={onChange}
       className="rounded-md border p-2"
     />
@@ -48,14 +91,6 @@ const BuyerInfoForm: React.FC<BuyerInfoFormProps> = ({
       name="telephone"
       placeholder="Teléfono"
       value={buyerInfo.telephone}
-      onChange={onChange}
-      className="rounded-md border p-2"
-    />
-    <input
-      type="text"
-      name="description"
-      placeholder="Descripción de la compra (opcional)"
-      value={buyerInfo.description}
       onChange={onChange}
       className="rounded-md border p-2"
     />
@@ -120,12 +155,29 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ onClick, disabled }) => (
   </button>
 );
 
+export interface IBuyerInfo {
+  email: string;
+  firstName: string;
+  lastName: string;
+  city: string;
+  address: string;
+  country: string;
+  department: string;
+  telephone: string;
+  document: string;
+}
+
 export const FormPayProducts = () => {
-  const [buyerInfo, setBuyerInfo] = useState({
-    buyerEmail: "test@test.com",
-    buyerFullName: "Comprador de Prueba",
-    telephone: "3001234567",
-    description: "Compra de prueba desde Jake Tienda",
+  const [buyerInfo, setBuyerInfo] = useState<IBuyerInfo>({
+    email: "jmalvarez@unimayor.edu.co",
+    firstName: "Johan",
+    lastName: "Alvarez",
+    city: "Popayán",
+    address: "Bosques de la Sierra",
+    country: "Colombia",
+    department: "Cauca",
+    document: "123456789",
+    telephone: "123456789",
   });
   const [isLoading, setIsLoading] = useState(false);
   const { products, getTotalPrice } = useStoreShoppingCart();
@@ -157,7 +209,9 @@ export const FormPayProducts = () => {
 
       const form = document.createElement("form");
       form.method = "POST";
-      form.action = "https://checkout.payulatam.com/ppp-web-gateway-payu/";
+      // form.action = "https://checkout.payulatam.com/ppp-web-gateway-payu/";
+      form.action =
+        "https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/";
 
       Object.keys(payuData).forEach((key) => {
         const hiddenField = document.createElement("input");

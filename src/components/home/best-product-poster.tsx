@@ -31,7 +31,7 @@ export default function BestProductPoster({
       aria-label={`Ver ${brand ? `${brand} ` : ""}${name}`}
     >
       <article
-        className="relative flex h-full min-h-[500px] w-full flex-col overflow-hidden rounded-2xl shadow-xl ring-1 ring-black/10"
+        className="relative flex h-auto min-h-[500px] w-full flex-col overflow-hidden rounded-2xl shadow-xl ring-1 ring-black/10 sm:h-full"
         style={
           bgUrl
             ? {
