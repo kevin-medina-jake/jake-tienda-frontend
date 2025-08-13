@@ -1,19 +1,27 @@
 "use client";
 
-import { Suspense } from "react";
+import { Suspense, useEffect } from "react";
 
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 
 import { Circle, CircleCheckIcon } from "lucide-react";
 import { LoaderSpinner } from "@/components/common/loaderSpinner";
+import { useStoreShoppingCart } from "@/store/shopping-cart";
 
 function ResponseContent() {
   const searchParams = useSearchParams();
+  const { clearShoppingCart } = useStoreShoppingCart();
 
   const transactionState = searchParams.get("transactionState");
   const referenceCode = searchParams.get("referenceCode");
   const tx_value = searchParams.get("TX_VALUE");
+
+  useEffect(() => {
+    if (transactionState === "4") {
+      clearShoppingCart();
+    }
+  }, [transactionState, clearShoppingCart]);
 
   let statusTitle = "";
   let statusMessage = "";

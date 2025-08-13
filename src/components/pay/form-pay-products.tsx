@@ -384,7 +384,7 @@ export const FormPayProducts = () => {
 
   return (
     <div className="w-full p-4">
-      <div className="grid gap-8">
+      <div className="grid gap-8 pb-8">
         <BuyerInfoForm
           buyerInfo={buyerInfo}
           onChange={handleInputChange}
