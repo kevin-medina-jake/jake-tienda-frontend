@@ -1,5 +1,5 @@
 import BestProductPoster from "@/components/home/best-product-poster";
-import Fondo from "@/assets/images/fondo.png";
+import Fondo from "@/assets/images/fondo1.png";
 
 import { newProducts } from "@/service/api/product";
 import { IBestProduct, IProductFilter } from "@/types/product";
