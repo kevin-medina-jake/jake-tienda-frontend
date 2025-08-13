@@ -87,31 +87,27 @@ export const Pagination = ({
   setPage: (page: number) => void;
   currentPage: number;
 }) => {
-  if (loadingStore || pagination?.pageCount < 1) return null;
-
   const totalPages = pagination?.pageCount ?? 1;
 
-  // pageSize real (tu caso: 8)
-  const pageSize = pagination?.pageSize ?? 8;
+  const range = usePaginationRange(totalPages, currentPage, 1);
 
-  // total de productos (ideal: pagination.total de Strapi)
+  if (loadingStore || totalPages <= 1) {
+    return null;
+  }
+
+  const pageSize = pagination?.pageSize ?? 8;
   const totalItems =
     typeof pagination?.total === "number"
       ? pagination.total
       : pagination?.pageCount
-        ? pagination.pageCount * pageSize // última opción (puede ser inexacta si la API no da total real)
+        ? pagination.pageCount * pageSize
         : (productsFilter?.length ?? 0);
 
-  // Rango mostrado: start–end
   const start = totalItems === 0 ? 0 : (currentPage - 1) * pageSize + 1;
   const end =
     totalItems === 0
       ? 0
       : Math.min(start + (productsFilter?.length ?? 0) - 1, totalItems);
-
-  if (end == totalItems && currentPage == 1) return null;
-
-  const range = usePaginationRange(totalPages, currentPage, 1);
 
   const go = (p: number) => {
     if (p < 1 || p > totalPages || p === currentPage) return;
@@ -122,11 +118,11 @@ export const Pagination = ({
   };
 
   const base =
-    "inline-flex h-10 min-w-10 items-center justify-center rounded-xs  px-4 text-sm font-medium transition-colors";
+    "inline-flex h-10 min-w-10 items-center justify-center rounded-md px-4 text-sm font-medium transition-colors";
   const subtle = "border text-slate-700 hover:bg-blue-300";
-  const muted = "border border-gray-200 cursor-not-allowed";
+  const muted = "border border-gray-200 cursor-not-allowed text-slate-400";
   const active =
-    "bg-gradient-to-r from-blue-900 to-blue-700 text-white font-semibold";
+    "bg-gradient-to-r from-blue-900 to-blue-700 text-white font-semibold border-blue-800";
 
   return (
     <div className="mt-8 w-full">
@@ -228,12 +224,12 @@ export const Pagination = ({
                   </span>
                 );
               }
-              const page = item;
+              const page = item as number;
               const isActive = page === currentPage;
               return (
                 <button
                   key={page}
-                  onClick={() => go(Number(page))}
+                  onClick={() => go(page)}
                   aria-label={`Ir a la página ${page}`}
                   aria-current={isActive ? "page" : undefined}
                   className={`${base} ${isActive ? active : subtle}`}

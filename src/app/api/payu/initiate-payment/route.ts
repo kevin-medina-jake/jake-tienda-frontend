@@ -137,8 +137,6 @@ export async function POST(request: Request) {
       confirmationUrl: `${baseUrl}/api/payu/confirm`,
     };
 
-    console.log("PayU Data:", payuData);
-
     return NextResponse.json(payuData);
   } catch (error: any) {
     console.error("Error en la API de PayU:", error);
