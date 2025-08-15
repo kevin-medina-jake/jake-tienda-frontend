@@ -14,6 +14,7 @@ const poppins = Poppins({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  themeColor: "#ffffff",
 };
 
 export const metadata: Metadata = {
@@ -43,7 +44,6 @@ export const metadata: Metadata = {
     "parlantes JBL",
   ],
   referrer: "origin-when-cross-origin",
-  themeColor: "#0ea5e9",
   robots: {
     index: true,
     follow: true,
