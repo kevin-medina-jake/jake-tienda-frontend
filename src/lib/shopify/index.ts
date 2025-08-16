@@ -134,7 +134,7 @@ function reshapeImages(images: Connection<Image>, productTitle: string) {
 }
 function reshapeProduct(
   product: ShopifyProduct,
-  filterHiddenProducts: boolean = true
+  filterHiddenProducts: boolean = true,
 ) {
   if (
     !product ||
@@ -209,7 +209,7 @@ export async function getProducts({
 }
 
 function reshapeCollection(
-  collection: ShopifyCollection
+  collection: ShopifyCollection,
 ): Collection | undefined {
   if (!collection) return undefined;
 
@@ -256,7 +256,7 @@ export async function getCollections(): Promise<Collection[]> {
     },
     // Filter out the hidden products
     ...reshapeCollections(shopifyCollections).filter(
-      (collection) => !collection.handle.startsWith("hidden")
+      (collection) => !collection.handle.startsWith("hidden"),
     ),
   ];
 
@@ -288,7 +288,7 @@ export async function getCollectionProducts({
   }
 
   return reshapeProducts(
-    removeEdgesAndNodes(res.body.data.collection.products)
+    removeEdgesAndNodes(res.body.data.collection.products),
   );
 }
 
@@ -304,7 +304,7 @@ export async function getProduct(handle: string): Promise<Product | undefined> {
 }
 
 export async function getProductRecommendations(
-  productId: string
+  productId: string,
 ): Promise<Product[]> {
   const res = await shopifyFetch<ShopifyProductRecommendationsOperation>({
     query: getProductRecommendationsQuery,
@@ -341,7 +341,7 @@ export async function createCart(): Promise<Cart> {
 }
 
 export async function getCart(
-  cartId: string | undefined
+  cartId: string | undefined,
 ): Promise<Cart | undefined> {
   if (!cartId) return undefined;
 
@@ -361,7 +361,7 @@ export async function getCart(
 
 export async function removeFromCart(
   cartId: string,
-  lineIds: string[]
+  lineIds: string[],
 ): Promise<Cart> {
   const res = await shopifyFetch<ShopifyRemoveFromCartOperation>({
     query: removeFromCartMutation,
@@ -377,7 +377,7 @@ export async function removeFromCart(
 
 export async function updateCart(
   cartId: string,
-  lines: { id: string; merchandiseId: string; quantity: number }[]
+  lines: { id: string; merchandiseId: string; quantity: number }[],
 ): Promise<Cart> {
   const res = await shopifyFetch<ShopifyUpdateCartOperation>({
     query: editCartItemsMutation,
@@ -393,7 +393,7 @@ export async function updateCart(
 
 export async function addToCart(
   cartId: string,
-  lines: { merchandiseId: string; quantity: number }[]
+  lines: { merchandiseId: string; quantity: number }[],
 ): Promise<Cart> {
   const res = await shopifyFetch<ShopifyAddToCartOperation>({
     query: addToCartMutation,

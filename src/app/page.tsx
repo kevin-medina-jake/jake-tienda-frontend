@@ -52,17 +52,17 @@ export default async function Home() {
 
   return (
     <div className="mb-10 flex flex-col gap-8">
-      <Suspense
+      {/* <Suspense
         fallback={
           <div className="h-full min-h-[calc(100vh-270px)] sm:min-h-[calc(100vh-250px))]"></div>
         }
       >
         <Presentation presentations={presentations} />
-      </Suspense>
+      </Suspense> */}
 
-      <TrustSection brands={brands} />
-      <Categories />
-      <Products />
+      {/* <TrustSection brands={brands} /> */}
+      {/* <Categories /> */}
+      {/* <Products /> */}
       <Bonds />
     </div>
   );

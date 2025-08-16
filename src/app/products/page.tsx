@@ -1,7 +1,8 @@
-import type { Metadata, Viewport } from "next";
+import type { Metadata } from "next";
 
 import { defaultSort, sorting } from "@/lib/constants";
 import { getProducts } from "@/lib/shopify";
+import { ProductsGrid } from "@/components/products/products-grid";
 
 export const metadata: Metadata = {
   title:
@@ -50,7 +51,6 @@ export default async function SearchPage(props: {
   const products = await getProducts({ sortKey, reverse, query: searchValue });
   const resultsText = products.length > 1 ? "results" : "result";
 
-  console.log(products);
   return (
     <>
       {searchValue ? (
@@ -65,7 +65,15 @@ export default async function SearchPage(props: {
         // <Grid className="grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
         // <ProductGridItems products={products} />
         // </Grid>
-        <div></div>
+        <div className="relative flex min-h-[50vh] w-full gap-6">
+          {/* <ProductsFilter /> */}
+          <ProductsGrid
+            products={products}
+            // currentPage={currentPage}
+            // setPage={setPage}
+            // pagination={pagination}
+          />
+        </div>
       ) : null}
     </>
   );
