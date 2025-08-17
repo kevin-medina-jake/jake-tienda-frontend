@@ -39,7 +39,7 @@ export function ProductProvider({ children }: { children: React.ReactNode }) {
     (prevState: ProductState, update: ProductState) => ({
       ...prevState,
       ...update,
-    })
+    }),
   );
 
   const updateOption = (name: string, value: string) => {
@@ -60,7 +60,7 @@ export function ProductProvider({ children }: { children: React.ReactNode }) {
       updateOption,
       updateImage,
     }),
-    [state]
+    [state],
   );
 
   return (

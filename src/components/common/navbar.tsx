@@ -9,6 +9,7 @@ import { MobileMenu } from "./movil-menu-drawer";
 import { ShoppingCartDrawer } from "./shopping-cart-drawer";
 import { SearchProductsWrapper } from "./search-products-wrapper";
 import CartModal from "../cart/modal";
+import Search from "../layout/navbar/search";
 
 export interface IRoutes {
   name: string;
@@ -40,7 +41,8 @@ export const Navbar = async () => {
         </section>
 
         <section className="grid flex-1 gap-4 md:px-5 lg:px-10 xl:px-20">
-          <SearchProductsWrapper />
+          {/* <SearchProductsWrapper /> */}
+          <Search />
 
           <ul className="flex h-full text-sm lg:text-base">
             {routes.map((route) => {
@@ -83,7 +85,8 @@ export const Navbar = async () => {
         </section>
 
         <section className="px-2">
-          <SearchProductsWrapper />
+          {/* <SearchProductsWrapper /> */}
+          <Search />
         </section>
       </nav>
     </>

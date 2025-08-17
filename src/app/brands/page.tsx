@@ -28,7 +28,7 @@ export const metadata: Metadata = {
     title: "Marcas de Audio Profesional | Jake Tienda Electrónica",
     description:
       "Conoce las marcas que distribuimos: Pioneer DJ, Electro-Voice, Beta3 y otras. Compra con crédito y recibe en toda Colombia.",
-    url: "/brands", // se resuelve con metadataBase del layout
+    url: "/brands",
     siteName: "Jake Tienda Electrónica",
     images: [
       {
