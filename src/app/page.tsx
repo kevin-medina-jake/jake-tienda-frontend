@@ -47,9 +47,6 @@ export const metadata: Metadata = {
 };
 
 export default async function Home() {
-  const presentations: ICarouselPresentation[] = await carrouselPresentation();
-  const brands: IBrandWithImage[] = await brandWithImage();
-
   return (
     <div className="mb-10 flex flex-col gap-8">
       {/* <Suspense
@@ -63,7 +60,7 @@ export default async function Home() {
       {/* <TrustSection brands={brands} /> */}
       {/* <Categories /> */}
       {/* <Products /> */}
-      <Bonds />
+      {/* <Bonds /> */}
     </div>
   );
 }
