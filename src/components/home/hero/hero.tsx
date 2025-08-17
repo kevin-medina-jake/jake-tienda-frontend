@@ -1,3 +1,4 @@
+import { getHeroItems } from "@/lib/shopify";
 import {
   CreditCard,
   Percent,
@@ -6,12 +7,21 @@ import {
   Truck,
 } from "lucide-react";
 import Link from "next/link";
+import { CarouselHero } from "./carousel-hero";
+import { Suspense } from "react";
 
-export const Hero = () => {
+export const Hero = async () => {
+  const hero = await getHeroItems();
+
+  console.log(JSON.stringify(hero, null, 2));
   return (
     <section className="mx-auto grid h-full min-h-[calc(100vh-270px)] w-full max-w-7xl place-content-center overflow-hidden px-4 pt-4 sm:min-h-[calc(100vh-250px))]">
       <div className="grid gap-8 lg:grid-cols-2">
         <InfoHero />
+
+        <Suspense fallback={<div></div>}>
+          <CarouselHero hero={hero} />
+        </Suspense>
       </div>
     </section>
   );
@@ -37,7 +47,7 @@ function InfoHero() {
 
         <div className="flex flex-wrap gap-3 text-sm sm:text-base">
           <Link
-            href="/products"
+            href="/search"
             className="flex w-full items-center justify-center gap-2 rounded-xl bg-blue-600 px-4 py-2 text-white shadow-sm transition hover:bg-blue-700 sm:w-max"
           >
             <ShoppingBag size={18} />

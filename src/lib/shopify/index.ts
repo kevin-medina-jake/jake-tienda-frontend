@@ -52,6 +52,7 @@ import { headers } from "next/headers";
 import { revalidateTag } from "next/cache";
 import { getPageQuery, getPagesQuery } from "./queries/page";
 import { getPromoBannerQuery } from "./queries/bond";
+import { getHeroItemsQuery } from "./queries/hero";
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
   ? ensureStartWith(process.env.SHOPIFY_STORE_DOMAIN, "https://")
@@ -493,4 +494,27 @@ export async function getPromoBanner() {
     description: fields.description.value,
     product: fields.product_promo_banner.reference,
   };
+}
+
+export async function getHeroItems() {
+  const res = await shopifyFetch({
+    query: getHeroItemsQuery,
+  });
+
+  const edges = res.body.data.metaobjects.edges;
+
+  if (!edges?.length) return [];
+
+  return edges.map(({ node }) => {
+    const fields = node.fields.reduce((acc, field) => {
+      acc[field.key] = field.reference ?? field.value;
+      return acc;
+    }, {});
+
+    return {
+      id: node.id,
+      image: fields.image,
+      handle: fields.product_selected?.handle,
+    };
+  });
 }

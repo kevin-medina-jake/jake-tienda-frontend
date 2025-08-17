@@ -3,8 +3,6 @@ import Image from "next/image";
 
 import { BookText, Clapperboard, Laptop, Music } from "lucide-react";
 
-import { productBond } from "@/service/api/product-bond";
-import { IProductBond } from "@/types/product";
 import { getPromoBanner } from "@/lib/shopify";
 
 const bonds = [
@@ -54,19 +52,9 @@ const bonds = [
   },
 ];
 export const Bonds = async () => {
-  // const productBondInfo = (await productBond()) as IProductBond;
   const banner = await getPromoBanner();
 
-  console.log(banner);
-
-  // if (
-  //   !productBondInfo.id ||
-  //   !productBondInfo.title ||
-  //   !productBondInfo.description ||
-  //   !productBondInfo.image
-  // ) {
-  //   return <></>;
-  // }
+  if (!banner) return null;
 
   return (
     <div className="mx-auto grid w-full max-w-7xl gap-4 px-4">

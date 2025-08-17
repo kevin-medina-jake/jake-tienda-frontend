@@ -2,7 +2,7 @@ export const revalidate = 30;
 
 import type { Metadata } from "next";
 
-import { Hero } from "@/components/home/hero";
+import { Hero } from "@/components/home/hero/hero";
 import { Bonds } from "@/components/home/bonds";
 
 export const metadata: Metadata = {
