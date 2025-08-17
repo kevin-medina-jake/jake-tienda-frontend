@@ -25,7 +25,9 @@ export default function FilterList({
   return (
     <>
       <nav>
-        {title ? <h3 className="hidden text-xs md:block">{title}</h3> : null}
+        {title ? (
+          <h3 className="hidden text-sm font-medium md:block">{title}</h3>
+        ) : null}
         <ul className="hidden md:block">
           <FilterItemList list={list} />
         </ul>

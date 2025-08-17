@@ -94,6 +94,7 @@ export default function RootLayout({
 }>) {
   const cartId = cookies().get("cartId")?.value;
   const cart = getCart(cartId);
+
   return (
     <html lang="es">
       <head>

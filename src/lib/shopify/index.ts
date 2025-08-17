@@ -245,10 +245,10 @@ export async function getCollections(): Promise<Collection[]> {
   const collections = [
     {
       handle: "",
-      title: "All",
+      title: "Todos",
       description: "All products",
       seo: {
-        title: "All",
+        title: "Todos",
         description: "All products",
       },
       path: "/search",
