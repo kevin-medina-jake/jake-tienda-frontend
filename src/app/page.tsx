@@ -2,16 +2,8 @@ export const revalidate = 30;
 
 import type { Metadata } from "next";
 
-import { ICarouselPresentation } from "@/types/home";
-import { carrouselPresentation } from "@/service/api/carousel-presentation";
-import { brandWithImage } from "@/service/api/brand";
-import { IBrandWithImage } from "@/types/navbar";
-import { TrustSection } from "@/components/home/trust-section";
-import { Presentation } from "@/components/home/presentation";
-import { Categories } from "@/components/home/categories";
-import { Products } from "@/components/home/products";
+import { Hero } from "@/components/home/hero";
 import { Bonds } from "@/components/home/bonds";
-import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title:
@@ -49,18 +41,12 @@ export const metadata: Metadata = {
 export default async function Home() {
   return (
     <div className="mb-10 flex flex-col gap-8">
-      {/* <Suspense
-        fallback={
-          <div className="h-full min-h-[calc(100vh-270px)] sm:min-h-[calc(100vh-250px))]"></div>
-        }
-      >
-        <Presentation presentations={presentations} />
-      </Suspense> */}
+      <Hero />
 
       {/* <TrustSection brands={brands} /> */}
       {/* <Categories /> */}
       {/* <Products /> */}
-      {/* <Bonds /> */}
+      <Bonds />
     </div>
   );
 }

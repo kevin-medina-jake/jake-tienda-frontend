@@ -5,6 +5,7 @@ import { BookText, Clapperboard, Laptop, Music } from "lucide-react";
 
 import { productBond } from "@/service/api/product-bond";
 import { IProductBond } from "@/types/product";
+import { getPromoBanner } from "@/lib/shopify";
 
 const bonds = [
   {
@@ -53,16 +54,19 @@ const bonds = [
   },
 ];
 export const Bonds = async () => {
-  const productBondInfo = (await productBond()) as IProductBond;
+  // const productBondInfo = (await productBond()) as IProductBond;
+  const banner = await getPromoBanner();
 
-  if (
-    !productBondInfo.id ||
-    !productBondInfo.title ||
-    !productBondInfo.description ||
-    !productBondInfo.image
-  ) {
-    return <></>;
-  }
+  console.log(banner);
+
+  // if (
+  //   !productBondInfo.id ||
+  //   !productBondInfo.title ||
+  //   !productBondInfo.description ||
+  //   !productBondInfo.image
+  // ) {
+  //   return <></>;
+  // }
 
   return (
     <div className="mx-auto grid w-full max-w-7xl gap-4 px-4">
@@ -70,8 +74,8 @@ export const Bonds = async () => {
         <div className="flex flex-col gap-4 rounded-sm bg-blue-50 p-4 md:flex-row md:p-8">
           <section className="max-w-2xl">
             <Image
-              src={productBondInfo.image}
-              alt={productBondInfo.title}
+              src={banner?.product?.featuredImage?.url}
+              alt={banner?.title}
               width={400}
               height={400}
               className="h-full w-full object-cover"
@@ -80,12 +84,12 @@ export const Bonds = async () => {
 
           <section className="flex flex-col justify-center gap-3 text-center sm:text-left">
             <h2 className="text-2xl font-semibold md:text-4xl">
-              {productBondInfo.title}
+              {banner?.title}
             </h2>
-            <p className="text-gray-700">{productBondInfo.description}</p>
+            <p className="text-gray-700">{banner?.description}</p>
             <div>
               <Link
-                href={"/view-product/" + productBondInfo.slug}
+                href={"/product/" + banner?.product?.handle}
                 className="block w-full rounded-sm bg-blue-500 px-12 py-3 font-medium text-white hover:bg-blue-600 sm:w-max"
               >
                 Comprar Ahora

@@ -51,6 +51,7 @@ import {
 import { headers } from "next/headers";
 import { revalidateTag } from "next/cache";
 import { getPageQuery, getPagesQuery } from "./queries/page";
+import { getPromoBannerQuery } from "./queries/bond";
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
   ? ensureStartWith(process.env.SHOPIFY_STORE_DOMAIN, "https://")
@@ -465,4 +466,31 @@ export async function getPages(): Promise<Page[]> {
   });
 
   return removeEdgesAndNodes(res.body.data.pages);
+}
+
+// mi toque
+
+export async function getPromoBanner() {
+  const res = await shopifyFetch({
+    query: getPromoBannerQuery,
+  });
+
+  const metaobject = res.body.data.metaobjects.edges[0]?.node;
+
+  if (!metaobject) return null;
+
+  const fields = metaobject.fields.reduce((acc, field) => {
+    acc[field.key] = {
+      value: field.value,
+      reference: field.reference,
+    };
+    return acc;
+  }, {});
+
+  return {
+    id: metaobject.id,
+    title: fields.title.value,
+    description: fields.description.value,
+    product: fields.product_promo_banner.reference,
+  };
 }
