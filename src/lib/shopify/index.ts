@@ -53,6 +53,7 @@ import { revalidateTag } from "next/cache";
 import { getPageQuery, getPagesQuery } from "./queries/page";
 import { getPromoBannerQuery } from "./queries/bond";
 import { getHeroItemsQuery } from "./queries/hero";
+import { getBestProductPosterQuery } from "./queries/best-product";
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
   ? ensureStartWith(process.env.SHOPIFY_STORE_DOMAIN, "https://")
@@ -517,4 +518,35 @@ export async function getHeroItems() {
       handle: fields.product_selected?.handle,
     };
   });
+}
+
+export async function getBestProductPoster() {
+  const res = await shopifyFetch({
+    query: getBestProductPosterQuery,
+  });
+
+  const edges = res.body.data.metaobjects.edges;
+
+  if (!edges?.length) return null;
+
+  const node = edges[0].node;
+
+  const fields = node.fields.reduce((acc, field) => {
+    acc[field.key] = field.reference ?? field.value;
+    return acc;
+  }, {});
+
+  const product = fields.product;
+
+  return {
+    id: node.id,
+    product: product
+      ? {
+          handle: product.handle,
+          title: product.title,
+          tags: product.tags,
+          image: product.featuredImage,
+        }
+      : null,
+  };
 }

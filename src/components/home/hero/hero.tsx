@@ -13,7 +13,6 @@ import { Suspense } from "react";
 export const Hero = async () => {
   const hero = await getHeroItems();
 
-  console.log(JSON.stringify(hero, null, 2));
   return (
     <section className="mx-auto grid h-full min-h-[calc(100vh-270px)] w-full max-w-7xl place-content-center overflow-hidden px-4 pt-4 sm:min-h-[calc(100vh-250px))]">
       <div className="grid gap-8 lg:grid-cols-2">

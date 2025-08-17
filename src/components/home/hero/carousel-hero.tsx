@@ -11,7 +11,6 @@ import "swiper/css/pagination";
 import "@/styles/home/presentation.css";
 
 export const CarouselHero = ({ hero }: { hero: any[] }) => {
-  console.log(JSON.stringify(hero, null, 2));
   return (
     <div className="relative order-1 block overflow-hidden lg:order-2">
       <div className="grid gap-4 pb-4 sm:place-items-center lg:hidden">

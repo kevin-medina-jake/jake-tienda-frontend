@@ -1,4 +1,4 @@
-import BestProductPoster from "@/components/home/best-product-poster";
+import BestProductPoster from "@/components/home/new-products/best-product-poster";
 import Fondo from "@/assets/images/fondo.png";
 
 import { newProducts } from "@/service/api/product";
