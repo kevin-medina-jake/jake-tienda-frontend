@@ -8,6 +8,7 @@ import { IDropDownMenu } from "@/types/navbar";
 import { MobileMenu } from "./movil-menu-drawer";
 import { ShoppingCartDrawer } from "./shopping-cart-drawer";
 import { SearchProductsWrapper } from "./search-products-wrapper";
+import CartModal from "../cart/modal";
 
 export interface IRoutes {
   name: string;
@@ -54,8 +55,9 @@ export const Navbar = async () => {
           </ul>
         </section>
 
-        <section className="h-[44px] w-[48px]">
-          <ShoppingCartDrawer />
+        <section className="h-11 w-11">
+          <CartModal />
+          {/* <ShoppingCartDrawer /> */}
         </section>
       </nav>
 
