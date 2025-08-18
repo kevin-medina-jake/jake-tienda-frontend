@@ -5,24 +5,21 @@ import Logo from "@/assets/logo/image.png";
 import { ChevronDown } from "lucide-react";
 
 import { IDropDownMenu } from "@/types/navbar";
+
 import { MobileMenu } from "./movil-menu-drawer";
 import { ShoppingCartDrawer } from "./shopping-cart-drawer";
 import { SearchProductsWrapper } from "./search-products-wrapper";
 import CartModal from "../cart/modal";
 import Search from "../layout/navbar/search";
-
-export interface IRoutes {
-  name: string;
-  href: string;
-  dropdown?: IDropDownMenu[];
-}
+import { getMenu } from "@/lib/shopify";
 
 export const Navbar = async () => {
-  const routes: IRoutes[] = [
-    { name: "Inicio", href: "/" },
-    { name: "Productos", href: "/search" },
-    { name: "Crédito", href: "/credit" },
-    { name: "Sobre Nosotros", href: "/about-us" },
+  const menuResponse = await getMenu("main-menu");
+
+  const menu = [
+    ...menuResponse,
+    { title: "Crédito", path: "/credit" },
+    { title: "Sobre Nosotros", path: "/about-us" },
   ];
 
   return (
@@ -45,11 +42,21 @@ export const Navbar = async () => {
           <Search />
 
           <ul className="flex h-full text-sm lg:text-base">
-            {routes.map((route) => {
+            {menu.map((route) => {
+              if (route.children && route.children.length > 0) {
+                return (
+                  <DropdownMenu
+                    name={route.title}
+                    drop={route.children}
+                    key={route.title}
+                  />
+                );
+              }
+
               return (
-                <li key={route.name} className="h-full pr-6">
-                  <Link href={route.href} className="h-full whitespace-nowrap">
-                    {route.name}
+                <li key={route.title} className="h-full pr-6">
+                  <Link href={route.path} className="h-full whitespace-nowrap">
+                    {route.title}
                   </Link>
                 </li>
               );
@@ -57,9 +64,9 @@ export const Navbar = async () => {
           </ul>
         </section>
 
-        <section className="h-11 w-11">
-          <CartModal />
+        <section className="h-[44px] w-[48px]">
           {/* <ShoppingCartDrawer /> */}
+          <CartModal />
         </section>
       </nav>
 
@@ -67,7 +74,7 @@ export const Navbar = async () => {
       <nav className="fixed top-0 left-1/2 z-50 flex w-full -translate-x-1/2 transform flex-col gap-4 border-b border-gray-400 bg-white p-2 py-2 sm:hidden">
         <section className="flex items-center justify-between">
           <div>
-            <MobileMenu routes={routes} />
+            <MobileMenu routes={menu} />
           </div>
 
           <Link href="/">
@@ -85,10 +92,40 @@ export const Navbar = async () => {
         </section>
 
         <section className="px-2">
-          {/* <SearchProductsWrapper /> */}
-          <Search />
+          <SearchProductsWrapper />
         </section>
       </nav>
     </>
   );
 };
+
+interface DropdownMenuProps {
+  name: string;
+  drop: IDropDownMenu[];
+}
+
+const DropdownMenu = ({ name, drop }: DropdownMenuProps) => (
+  <li className="group">
+    <span className="flex cursor-default items-center gap-1 pr-6 group-hover:text-blue-800">
+      {name} <ChevronDown size={14} />
+    </span>
+    <div className="animate-fade-up animate-once animate-duration-100 animate-ease-out absolute top-full right-0 left-0 z-20 hidden w-full border-t border-b border-gray-300 bg-blue-50 pb-8 shadow-2xl group-hover:block">
+      <h2 className="border-b border-gray-300 px-10 py-8 text-2xl font-medium md:px-20 lg:px-40">
+        {name}
+      </h2>
+
+      <ul className="flex flex-wrap gap-4 px-10 py-4 md:px-20 lg:px-40">
+        {drop.map((item) => (
+          <li key={item.title}>
+            <Link
+              href={item.path + "?title=" + name + "&collection=" + item.title}
+              className="block w-full px-5 py-2 hover:bg-blue-200"
+            >
+              {item.title}
+            </Link>
+          </li>
+        ))}
+      </ul>
+    </div>
+  </li>
+);

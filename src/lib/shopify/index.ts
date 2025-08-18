@@ -155,6 +155,7 @@ function reshapeProduct(
     variants: removeEdgesAndNodes(variants),
   };
 }
+
 function reshapeProducts(products: ShopifyProduct[]) {
   const reshapedProducts = [];
 
@@ -170,24 +171,45 @@ function reshapeProducts(products: ShopifyProduct[]) {
 
   return reshapedProducts;
 }
+
 export async function getMenu(handle: string): Promise<Menu[]> {
   const res = await shopifyFetch<ShopifyMenuOperation>({
     query: getMenuQuery,
     tags: [TAGS.collections],
-    variables: {
-      handle,
-    },
+    variables: { handle },
   });
 
-  return (
-    res.body?.data?.menu?.items.map((item: { title: string; url: string }) => ({
+  function normalizeItem(item: {
+    title: string;
+    url: string;
+    items?: any[];
+  }): Menu {
+    return {
       title: item.title,
       path: item.url
         .replace(domain, "")
         .replace("/collections", "/search")
         .replace("/pages", ""),
-    })) || []
-  );
+      children: item.items?.map(normalizeSubItem) || [],
+    };
+  }
+
+  function normalizeSubItem(item: {
+    title: string;
+    url: string;
+    items?: any[];
+  }): Menu {
+    return {
+      title: item.title,
+      path: item.url
+        .replace(domain, "")
+        .replace("/collections", "/collection")
+        .replace("/pages", ""),
+      children: item.items?.map(normalizeItem) || [],
+    };
+  }
+
+  return res.body?.data?.menu?.items.map(normalizeItem) || [];
 }
 
 export async function getProducts({

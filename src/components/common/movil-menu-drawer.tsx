@@ -3,9 +3,8 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { Drawer } from "./drawer"; // Usa el componente de cajón
-import { IDropDownMenu } from "@/types/navbar";
 import {
-  Menu,
+  Menu as MenuIcon,
   X,
   Home,
   PackageSearch,
@@ -16,16 +15,11 @@ import {
   ChevronDown,
 } from "lucide-react";
 import { useDrawer } from "@/hooks/useDrawer";
-
-type MobileRoute = {
-  name: string;
-  href: string;
-  dropdown?: IDropDownMenu[];
-};
+import { Menu } from "@/lib/shopify/types";
 
 type ExpandState = Record<string, boolean>;
 
-export const MobileMenu = ({ routes }: { routes: MobileRoute[] }) => {
+export const MobileMenu = ({ routes }: { routes: Menu[] }) => {
   const { open, setOpen, drawerRef, toggleDrawer } = useDrawer();
 
   const [expand, setExpand] = useState<ExpandState>({});
@@ -44,7 +38,8 @@ export const MobileMenu = ({ routes }: { routes: MobileRoute[] }) => {
     const name = label.toLowerCase();
     if (name.includes("inicio")) return <Home size={18} />;
     if (name.includes("producto")) return <PackageSearch size={18} />;
-    if (name.includes("categor")) return <Grid2X2 size={18} />;
+    if (name.includes("categorías") || name.includes("categorias"))
+      return <Grid2X2 size={18} />;
     if (name.includes("marca")) return <BadgeCheck size={18} />;
     if (name.includes("crédito") || name.includes("credito"))
       return <CreditCard size={18} />;
@@ -60,7 +55,7 @@ export const MobileMenu = ({ routes }: { routes: MobileRoute[] }) => {
         className="cursor-pointer p-2 sm:hidden"
         aria-label="Abrir menú"
       >
-        <Menu />
+        <MenuIcon />
       </button>
 
       <Drawer open={open} onClose={() => setOpen(false)} ref={drawerRef}>
@@ -73,40 +68,42 @@ export const MobileMenu = ({ routes }: { routes: MobileRoute[] }) => {
         <nav className="flex flex-col">
           {routes.map((route) => {
             const hasChildren =
-              Array.isArray(route.dropdown) && route.dropdown.length > 0;
+              Array.isArray(route.children) && route.children.length > 0;
 
             if (!hasChildren) {
               return (
                 <Link
-                  key={route.href}
-                  href={route.href}
+                  key={route.path}
+                  href={route.path}
                   className="flex items-center gap-3 rounded-md px-3 py-3 text-sm hover:bg-blue-50"
                   onClick={() => setOpen(false)}
                 >
-                  <span className="text-blue-700">{iconFor(route.name)}</span>
-                  <span>{route.name}</span>
+                  <span className="text-blue-700">{iconFor(route.title)}</span>
+                  <span>{route.title}</span>
                 </Link>
               );
             }
 
-            const isOpen = !!expand[route.name];
+            const isOpen = !!expand[route.title];
 
             return (
-              <div key={route.name} className="flex flex-col">
+              <div key={route.title} className="flex flex-col">
                 <button
                   type="button"
                   className="flex w-full items-center justify-between rounded-md px-3 py-3 text-left text-sm hover:bg-blue-50"
                   onClick={(e) => {
                     e.preventDefault();
                     e.stopPropagation();
-                    toggle(route.name);
+                    toggle(route.title);
                   }}
                   aria-expanded={isOpen}
-                  aria-controls={`section-${route.name}`}
+                  aria-controls={`section-${route.title}`}
                 >
                   <span className="flex items-center gap-3">
-                    <span className="text-blue-700">{iconFor(route.name)}</span>
-                    <span>{route.name}</span>
+                    <span className="text-blue-700">
+                      {iconFor(route.title)}
+                    </span>
+                    <span>{route.title}</span>
                   </span>
                   <ChevronDown
                     size={18}
@@ -117,20 +114,26 @@ export const MobileMenu = ({ routes }: { routes: MobileRoute[] }) => {
                 </button>
 
                 <div
-                  id={`section-${route.name}`}
+                  id={`section-${route.title}`}
                   className={`overflow-hidden transition-[max-height] duration-300 ease-in-out ${
                     isOpen ? "max-h-96" : "max-h-0"
                   }`}
                 >
                   <ul className="ml-9 max-h-72 overflow-auto border-l border-blue-100 pl-3">
-                    {route.dropdown!.map((item) => (
-                      <li key={item.id}>
+                    {route.children!.map((item) => (
+                      <li key={item.title}>
                         <Link
-                          href={`${route.href}${item.name ?? item.name}`}
+                          href={
+                            item.path +
+                            "?title=" +
+                            route.title +
+                            "&collection=" +
+                            item.title
+                          }
                           className="block rounded-md px-2 py-2 text-sm hover:bg-blue-50"
                           onClick={() => setOpen(false)}
                         >
-                          {item.name}
+                          {item.title}
                         </Link>
                       </li>
                     ))}
