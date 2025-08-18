@@ -2,6 +2,7 @@
 import { createUrl } from "@/lib/utils";
 import { MagnifyingGlassIcon } from "@heroicons/react/24/outline";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 export default function Search() {
   const router = useRouter();
@@ -22,6 +23,12 @@ export default function Search() {
 
     router.push(createUrl("/search", newParams));
   }
+
+  useEffect(() => {
+    alert(
+      "PAGINA EN DESARROLLO, NO COMPARAR NADA, NO NOS HACEMOS RESPONSABLES",
+    );
+  }, []);
   return (
     <form
       onSubmit={onSubmit}
