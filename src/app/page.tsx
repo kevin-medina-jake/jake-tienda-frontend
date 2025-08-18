@@ -42,11 +42,11 @@ export const metadata: Metadata = {
 export default async function Home() {
   return (
     <div className="mb-10 flex flex-col gap-8">
-      <Hero />
+      {/* <Hero />
       <Brands />
       <Categories />
       <NewProducts />
-      <Bonds />
+      <Bonds /> */}
     </div>
   );
 }
