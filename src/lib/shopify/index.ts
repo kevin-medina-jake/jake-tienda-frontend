@@ -15,6 +15,7 @@ import {
 import { getCartQuery } from "./queries/cart";
 import {
   getCollectionProductsQuery,
+  getCollectionsByCategoryAndBrandQuery,
   getCollectionsQuery,
 } from "./queries/collection";
 import { getMenuQuery } from "./queries/menu";
@@ -55,6 +56,7 @@ import { getPageQuery, getPagesQuery } from "./queries/page";
 import { getPromoBannerQuery } from "./queries/bond";
 import { getHeroItemsQuery } from "./queries/hero";
 import { getBestProductPosterQuery } from "./queries/best-product";
+import { ICategoryCart } from "@/types/category";
 
 const domain = process.env.SHOPIFY_STORE_DOMAIN
   ? ensureStartWith(process.env.SHOPIFY_STORE_DOMAIN, "https://")
@@ -210,6 +212,61 @@ export async function getMenu(handle: string): Promise<Menu[]> {
   }
 
   return res.body?.data?.menu?.items.map(normalizeItem) || [];
+}
+
+interface ShopifyMenuItem {
+  id: string;
+  title: string;
+  url: string;
+  items?: ShopifyMenuItem[];
+  resource?: {
+    handle?: string;
+    image?: { url: string; altText?: string };
+  };
+}
+
+const normalizeChild = (item: ShopifyMenuItem): ICategoryCart => ({
+  id: item.id,
+  title: item.title,
+  path: item.url
+    .replace(domain, "")
+    .replace("/collections", "/collection")
+    .replace("/pages", ""),
+  image: item.resource?.image?.url || null,
+  altText: item.resource?.image?.altText || null,
+});
+
+function getMenuItems(
+  res: any,
+  menuTitle: "Categorías" | "Categorias" | "Marcas",
+): ICategoryCart[] {
+  const menu = (res.body?.data?.menu?.items as ShopifyMenuItem[]).find(
+    (item) => item.title === menuTitle,
+  );
+
+  if (!menu) return [];
+
+  return (
+    menu.items
+      ?.map(normalizeChild)
+      .filter((item) => !item.path.includes("/frontpage")) || []
+  );
+}
+
+export async function getCollectionCategoriesAndBrands(
+  handle: string,
+): Promise<{ categories: ICategoryCart[]; brands: ICategoryCart[] }> {
+  const res = await shopifyFetch<ShopifyMenuOperation>({
+    query: getCollectionsByCategoryAndBrandQuery,
+    tags: [TAGS.collections],
+    variables: { handle },
+  });
+
+  return {
+    categories:
+      getMenuItems(res, "Categorías") || getMenuItems(res, "Categorias"),
+    brands: getMenuItems(res, "Marcas"),
+  };
 }
 
 export async function getProducts({

@@ -5,6 +5,7 @@ import type { Metadata } from "next";
 import { Hero } from "@/components/home/hero/hero";
 import { Bonds } from "@/components/home/bonds";
 import { NewProducts } from "@/components/home/new-products/new-products";
+import { Categories } from "@/components/home/categories";
 
 export const metadata: Metadata = {
   title:
@@ -45,7 +46,7 @@ export default async function Home() {
       <Hero />
 
       {/* <TrustSection brands={brands} /> */}
-      {/* <Categories /> */}
+      <Categories />
       <NewProducts />
       <Bonds />
     </div>
