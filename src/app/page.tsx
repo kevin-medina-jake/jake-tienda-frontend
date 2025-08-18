@@ -1,5 +1,3 @@
-export const revalidate = 30;
-
 import type { Metadata } from "next";
 
 import { Hero } from "@/components/home/hero/hero";
@@ -45,7 +43,6 @@ export default async function Home() {
   return (
     <div className="mb-10 flex flex-col gap-8">
       <Hero />
-
       <Brands />
       <Categories />
       <NewProducts />
