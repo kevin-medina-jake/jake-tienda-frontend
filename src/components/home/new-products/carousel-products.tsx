@@ -12,7 +12,6 @@ import { GridTileImage } from "@/components/grid/tile";
 import Link from "next/link";
 
 export const CarouselProducts = ({ products }: { products: Product[] }) => {
-  console.log(products);
   return (
     <Swiper
       slidesPerView={1}
