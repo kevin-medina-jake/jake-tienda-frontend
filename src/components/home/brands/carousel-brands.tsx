@@ -1,12 +1,12 @@
 "use client";
 
-import { IBrandWithImage } from "@/types/navbar";
+import { ICategoryCart } from "@/types/category";
 import { motion } from "framer-motion";
 
 import Image from "next/image";
 import Link from "next/link";
 
-export const TrustSection = ({ brands }: { brands: IBrandWithImage[] }) => {
+export const CarouselBrands = ({ brands }: { brands: ICategoryCart[] }) => {
   const loopedBrands = [...brands, ...brands, ...brands];
 
   return (
@@ -26,12 +26,12 @@ export const TrustSection = ({ brands }: { brands: IBrandWithImage[] }) => {
           {loopedBrands.map((brand, idx) => (
             <Link
               key={idx}
-              href={"/brands?brand=" + brand.name}
+              href={brand.path + "?title=Marca" + "&collection=" + brand.title}
               className="flex h-24 w-48 flex-shrink-0 items-center justify-center transition-transform hover:scale-105"
             >
               <Image
-                src={brand.logo ?? "/not-found.png"}
-                alt={brand.name}
+                src={brand.image ?? "/not-found.png"}
+                alt={brand.title}
                 width={160}
                 height={80}
                 className="object-contain"
