@@ -25,9 +25,7 @@ export default function Search() {
   }
 
   useEffect(() => {
-    alert(
-      "PAGINA EN DESARROLLO, NO COMPARAR NADA, NO NOS HACEMOS RESPONSABLES",
-    );
+    alert("PAGINA EN DESARROLLO, NO COMPRAR NADA, NO NOS HACEMOS RESPONSABLES");
   }, []);
   return (
     <form
