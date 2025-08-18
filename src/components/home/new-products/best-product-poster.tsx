@@ -18,9 +18,7 @@ export default function BestProductPoster({
 }: Props) {
   if (!data?.product) return null;
 
-  console.log(JSON.stringify(data, null, 2));
-
-  const bgUrl = typeof bg === "string" ? bg : bg?.src; // StaticImageData tiene `.src`
+  const bgUrl = typeof bg === "string" ? bg : bg?.src;
 
   const brand = data.product.tags;
 

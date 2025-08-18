@@ -1,11 +1,12 @@
-import { getBestProductPoster } from "@/lib/shopify";
+import { getBestProductPoster, getNewProducts } from "@/lib/shopify";
 import BestProductPoster from "./best-product-poster";
 
 import Fondo from "@/assets/images/fondo.png";
+import { Suspense } from "react";
+import { CarouselProducts } from "./carousel-products";
 
 export const NewProducts = async () => {
-  //   const carouselNewProducts = (await newProducts()) as IProductFilter[];
-  //   const bestProductInfo = (await bestProduct()) as IBestProduct;
+  const carouselNewProducts = await getNewProducts();
   const bestProductInfo = await getBestProductPoster();
 
   if (!bestProductInfo?.product) return null;
@@ -22,9 +23,9 @@ export const NewProducts = async () => {
         </section>
 
         <section className="h-full w-full sm:col-span-3">
-          {/* <Suspense fallback={<div className="h-72"></div>}>
+          <Suspense fallback={<div className="h-72"></div>}>
             <CarouselProducts products={carouselNewProducts} />
-          </Suspense> */}
+          </Suspense>
         </section>
       </div>
     </section>

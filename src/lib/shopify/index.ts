@@ -19,6 +19,7 @@ import {
 } from "./queries/collection";
 import { getMenuQuery } from "./queries/menu";
 import {
+  getNewProductsQuery,
   getProductQuery,
   getProductRecommendationsQuery,
   getProductsQuery,
@@ -549,4 +550,12 @@ export async function getBestProductPoster() {
         }
       : null,
   };
+}
+
+export async function getNewProducts(): Promise<Product[]> {
+  const res = await shopifyFetch<ShopifyProductsOperation>({
+    query: getNewProductsQuery,
+  });
+
+  return reshapeProducts(removeEdgesAndNodes(res.body.data.products));
 }

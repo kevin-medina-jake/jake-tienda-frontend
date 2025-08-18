@@ -34,3 +34,16 @@ export const getProductRecommendationsQuery = /* GraphQL */ `
   }
   ${productFragment}
 `;
+
+export const getNewProductsQuery = /* GraphQL */ `
+  query getNewProducts($query: String) {
+    products(reverse: true, query: $query, first: 10) {
+      edges {
+        node {
+          ...product
+        }
+      }
+    }
+  }
+  ${productFragment}
+`;

@@ -7,14 +7,9 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "@/styles/home/carrousel-products.css";
 
-import { IProductFilter } from "@/types/product";
-import { CartProduct } from "../common/cart-product";
+import { Product } from "@/lib/shopify/types";
 
-export const CarouselProducts = ({
-  products,
-}: {
-  products: IProductFilter[];
-}) => {
+export const CarouselProducts = ({ products }: { products: Product[] }) => {
   return (
     <Swiper
       slidesPerView={1}
@@ -38,7 +33,7 @@ export const CarouselProducts = ({
     >
       {products.slice(0, 8).map((product) => (
         <SwiperSlide key={product.id}>
-          <CartProduct product={product} />
+          {/* <CartProduct product={product} /> */}
         </SwiperSlide>
       ))}
     </Swiper>
