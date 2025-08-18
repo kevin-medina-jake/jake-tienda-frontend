@@ -8,8 +8,11 @@ import "swiper/css/pagination";
 import "@/styles/home/carrousel-products.css";
 
 import { Product } from "@/lib/shopify/types";
+import { GridTileImage } from "@/components/grid/tile";
+import Link from "next/link";
 
 export const CarouselProducts = ({ products }: { products: Product[] }) => {
+  console.log(products);
   return (
     <Swiper
       slidesPerView={1}
@@ -29,11 +32,28 @@ export const CarouselProducts = ({ products }: { products: Product[] }) => {
       }}
       modules={[Pagination]}
       loop={true}
-      className="!pb-10"
+      className="h-full !pb-10"
     >
       {products.slice(0, 8).map((product) => (
         <SwiperSlide key={product.id}>
-          {/* <CartProduct product={product} /> */}
+          <Link
+            href={`/product/${product.handle}`}
+            prefetch={true}
+            aria-label={`Ver ${product.title}`}
+            className="h-full w-full"
+          >
+            <GridTileImage
+              alt={product.title}
+              label={{
+                title: product.title,
+                amount: product.priceRange.maxVariantPrice.amount,
+                currencyCode: product.priceRange.maxVariantPrice.currencyCode,
+              }}
+              src={product.featuredImage?.url}
+              fill
+              sizes="(min-width: 768px) 33vw, (min-width: 640px) 50vw, 100vw"
+            />
+          </Link>
         </SwiperSlide>
       ))}
     </Swiper>
