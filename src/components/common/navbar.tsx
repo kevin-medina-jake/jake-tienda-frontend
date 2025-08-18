@@ -87,12 +87,14 @@ export const Navbar = async () => {
           </Link>
 
           <div className="h-[44px] w-[48px]">
-            <ShoppingCartDrawer />
+            {/* <ShoppingCartDrawer /> */}
+            <CartModal />
           </div>
         </section>
 
         <section className="px-2">
-          <SearchProductsWrapper />
+          {/* <SearchProductsWrapper /> */}
+          <Search />
         </section>
       </nav>
     </>
