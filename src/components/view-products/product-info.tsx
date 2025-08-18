@@ -5,10 +5,11 @@ import { useState } from "react";
 import { useStoreShoppingCart } from "@/store/shopping-cart";
 
 import { ShoppingCart, MessageCircle, BadgeCheck } from "lucide-react";
+import { Image } from "@/lib/shopify/types";
 
 interface Props {
   id: number;
-  image: string;
+  image: Image;
   name: string;
   price: number;
   stock: number;

@@ -3,6 +3,9 @@ import { Poppins } from "next/font/google";
 import "@/styles/globals.css";
 import { Navbar } from "@/components/common/navbar";
 import Footer from "@/components/common/footer";
+import { CartProvider } from "@/components/cart/cart-context";
+import { cookies } from "next/headers";
+import { getCart } from "@/lib/shopify";
 
 const poppins = Poppins({
   weight: ["300", "400", "500", "600", "700"],
@@ -14,6 +17,7 @@ const poppins = Poppins({
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
+  themeColor: "#ffffff",
 };
 
 export const metadata: Metadata = {
@@ -43,7 +47,6 @@ export const metadata: Metadata = {
     "parlantes JBL",
   ],
   referrer: "origin-when-cross-origin",
-  themeColor: "#0ea5e9",
   robots: {
     index: true,
     follow: true,
@@ -89,6 +92,9 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const cartId = cookies().get("cartId")?.value;
+  const cart = getCart(cartId);
+
   return (
     <html lang="es">
       <head>
@@ -124,14 +130,16 @@ export default function RootLayout({
         />
       </head>
 
-      <body className={`${poppins.variable} font-poppins antialiased`}>
-        <Navbar />
+      <CartProvider cartPromise={cart}>
+        <body className={`${poppins.variable} font-poppins antialiased`}>
+          <Navbar />
 
-        <main className="max-w-8xl relative mx-auto mt-[117px] h-full min-h-[calc(100vh-117px)] w-full sm:mt-[100px] sm:h-full sm:min-h-[calc(100vh-100px)]">
-          {children}
-        </main>
-        <Footer />
-      </body>
+          <main className="max-w-8xl relative mx-auto mt-[117px] h-full min-h-[calc(100vh-117px)] w-full sm:mt-[100px] sm:h-full sm:min-h-[calc(100vh-100px)]">
+            {children}
+          </main>
+          <Footer />
+        </body>
+      </CartProvider>
     </html>
   );
 }

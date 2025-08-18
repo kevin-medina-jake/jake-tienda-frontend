@@ -2,16 +2,18 @@
 
 import { Image } from "lucide-react";
 
-import { useStoreProducts } from "@/store/products";
 import { CartProduct } from "../common/cart-product";
-import { Pagination } from "../common/pagination";
+import { Product } from "@/lib/shopify/types";
+
 export const ProductsGrid = ({
+  products,
   currentPage,
   pagination,
   setPage,
 }: {
-  currentPage: number;
-  pagination:
+  products: Product[];
+  currentPage?: number;
+  pagination?:
     | {
         pageCount: number;
         total: number;
@@ -19,25 +21,23 @@ export const ProductsGrid = ({
         page: number;
       }
     | undefined;
-  setPage: (page: number) => void;
+  setPage?: (page: number) => void;
 }) => {
-  const { productsFilter, loadingStore } = useStoreProducts();
+  // const { productsFilter, loadingStore } = useStoreProducts();
 
   return (
     <div className="grid w-full gap-4">
       <div className="grid w-full flex-1 gap-2 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {loadingStore &&
+        {/* {loadingStore &&
           Array(8)
             .fill(0)
-            .map((_, i) => <Skeleton key={i} />)}
-        {loadingStore === false &&
-          productsFilter.length > 0 &&
-          productsFilter.map((product) => (
-            <CartProduct key={product.id} product={product} isBig />
-          ))}
+            .map((_, i) => <Skeleton key={i} />)} */}
+        {products.map((product) => (
+          <CartProduct key={product.id} product={product} isBig />
+        ))}
       </div>
 
-      {loadingStore === false && productsFilter.length == 0 && (
+      {/* {loadingStore === false && productsFilter.length == 0 && (
         <div className="grid h-full w-full place-content-center">
           <div>
             <p className="text-xl">
@@ -45,34 +45,34 @@ export const ProductsGrid = ({
             </p>
           </div>
         </div>
-      )}
+      )} */}
 
-      <Pagination
+      {/* <Pagination
         loadingStore={loadingStore}
         productsFilter={productsFilter}
         pagination={pagination}
         setPage={setPage}
         currentPage={currentPage}
-      />
+      /> */}
     </div>
   );
 };
 
-export const Skeleton = ({
-  height = "h-90",
-  width = "w-full",
-  isImage = true,
-}: {
-  height?: string;
-  width?: string;
-  isImage?: boolean;
-}) => {
-  return (
-    <div
-      role="status"
-      className={`flex animate-pulse items-center justify-center rounded-sm bg-gray-200 text-gray-300 ${height} ${width}`}
-    >
-      {isImage && <Image />}
-    </div>
-  );
-};
+// export const Skeleton = ({
+//   height = "h-90",
+//   width = "w-full",
+//   isImage = true,
+// }: {
+//   height?: string;
+//   width?: string;
+//   isImage?: boolean;
+// }) => {
+//   return (
+//     <div
+//       role="status"
+//       className={`flex animate-pulse items-center justify-center rounded-sm bg-gray-200 text-gray-300 ${height} ${width}`}
+//     >
+//       {isImage && <Image />}
+//     </div>
+//   );
+// };
