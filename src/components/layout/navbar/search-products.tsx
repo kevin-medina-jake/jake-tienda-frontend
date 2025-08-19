@@ -22,21 +22,20 @@ export const SearchProducts = () => {
     searchAttempted,
   } = useSearchProducts();
 
+
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
+  e.preventDefault();
 
-    const val = e.target as HTMLFormElement;
-    const search = val.search as HTMLInputElement;
-    const newParams = new URLSearchParams(searchParams.toString());
+  const form = e.currentTarget; // ✅ siempre es el <form>
+  const q = ((new FormData(form).get("q") as string) || "").trim();
 
-    if (search.value) {
-      newParams.set("q", search.value);
-    } else {
-      newParams.delete("q");
-    }
+  const newParams = new URLSearchParams(searchParams.toString());
+  if (q) newParams.set("q", q);
+  else newParams.delete("q");
 
-    router.push(createUrl("/search", newParams));
-  }
+  router.push(createUrl("/search", newParams));
+}
+
 
   const renderProductItem = (product: any) => {
     const isActive = pathname?.includes(product.handle);
@@ -78,7 +77,7 @@ export const SearchProducts = () => {
     if (!isView) return null;
 
     return (
-      <ul className="absolute top-[121%] z-10 hidden max-h-90 w-full flex-col gap-2 overflow-y-auto rounded-sm bg-blue-50 p-2 text-black shadow-lg group-focus-within:flex sm:top-[100%]">
+      <ul className="absolute top-[121%] z-10 max-h-90 w-full flex flex-col gap-2 overflow-y-auto rounded-sm bg-blue-50 p-2 text-black shadow-lg sm:top-[100%]">
         {loading ? (
           <div className="bg-blue-200 p-2 text-center">Buscando...</div>
         ) : productsSearch.length > 0 ? (
@@ -99,15 +98,15 @@ export const SearchProducts = () => {
       <div className="group">
         <form onSubmit={onSubmit} className="relative flex w-full items-center">
           <input
-            key={searchParams?.get("q")}
-            type="text"
-            name="search"
-            placeholder="Search for products..."
-            autoComplete="off"
-            defaultValue={searchParams?.get("q") || ""}
-            onChange={handleChange}
-            className="w-full rounded-full border border-gray-400 px-4 py-2 focus:border-blue-50"
-          />
+  key={searchParams?.get("q")}
+  type="text"
+  name="q"                 // ✅ en vez de "search"
+  placeholder="Search for products..."
+  autoComplete="off"
+  defaultValue={searchParams?.get("q") || ""}
+  onChange={handleChange}
+  className="w-full rounded-full border border-gray-400 px-4 py-2 focus:border-blue-50"
+/>
           {loading ? (
             <RefreshCw className="absolute right-4 animate-spin" />
           ) : (
