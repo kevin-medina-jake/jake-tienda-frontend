@@ -7,6 +7,7 @@ import { useFormState } from "react-dom";
 import clsx from "clsx";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { addItem } from "./actions";
+import { ShoppingCart } from "lucide-react";
 
 function SubmitButton({
   availableForSale,
@@ -16,7 +17,7 @@ function SubmitButton({
   selectedVariantId: string | undefined;
 }) {
   const buttonClasses =
-    "relative flex w-full items-center justify-center rounded-full bg-blue-600 p-4 tracking-wide text-white";
+    "relative flex w-full items-center justify-center gap-2 rounded-sm bg-blue-200 p-3 text-gray-900 tracking-wide cursor-pointer";
   const disabledClasses = "cursor-not-allowed opacity-60 hover:opacity-60";
 
   if (!availableForSale) {
@@ -46,12 +47,10 @@ function SubmitButton({
     <button
       aria-label="Add to cart"
       className={clsx(buttonClasses, {
-        "hover:opacity-90": true,
+        "hover:bg-blue-300": true,
       })}
     >
-      <div className="absolute left-0 ml-4">
-        <PlusIcon className="h-5" />
-      </div>
+      <ShoppingCart size={20} />
       Añadir al carrito
     </button>
   );
@@ -75,6 +74,7 @@ export function AddToCart({ product }: { product: Product }) {
   )!;
   return (
     <form
+      className="w-full"
       action={async () => {
         addCartItem(finalVariant, product);
         await actionWithVariant();

@@ -2,36 +2,23 @@
 
 import { useState } from "react";
 
-import { useStoreShoppingCart } from "@/store/shopping-cart";
-
-import { ShoppingCart, MessageCircle, BadgeCheck } from "lucide-react";
-import { Image } from "@/lib/shopify/types";
-
-interface Props {
-  id: number;
-  image: Image;
-  name: string;
-  price: number;
-  stock: number;
-}
+import { ShoppingCart, MessageCircle } from "lucide-react";
+import { Image, Product } from "@/lib/shopify/types";
+import Price from "../price";
+import { AddToCart } from "../cart/add-to-cart";
+import VariantSelector from "./variant-selector";
 
 const getWhatsAppUrl = (productName: string, method: string) => {
   const message = `Hola, estoy interesado en el producto ${productName} y quiero pagarlo con ${method}`;
   return `https://wa.me/573502397570?text=${encodeURIComponent(message)}`;
 };
 
-export default function ProductInfo({ id, name, price, stock, image }: Props) {
-  const { addProduct, products } = useStoreShoppingCart();
-
-  const isProductInShoppingCart = products.some(
-    (item) => item.id === id.toString(),
-  );
-
+export const ProductInfo = ({ product }: { product: Product }) => {
   const [quantity, setQuantity] = useState(1);
   const [paymentMethod, setPaymentMethod] = useState("sin_credito");
 
   const increment = () => {
-    setQuantity((prev) => (prev < stock ? prev + 1 : prev));
+    // setQuantity((prev) => (prev < stock ? prev + 1 : prev));
   };
 
   const decrement = () => {
@@ -42,15 +29,7 @@ export default function ProductInfo({ id, name, price, stock, image }: Props) {
     setPaymentMethod(e.target.value);
   };
 
-  const handleAddToCart = () => {
-    addProduct({
-      id: id.toString(),
-      name,
-      price,
-      stock,
-      image,
-    });
-  };
+  const handleAddToCart = () => {};
 
   const handleCheck = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
@@ -61,12 +40,16 @@ export default function ProductInfo({ id, name, price, stock, image }: Props) {
 
   return (
     <div className="flex w-full flex-col space-y-6">
-      <h1 className="text-3xl font-bold text-gray-900">{name}</h1>
-      <p className="text-2xl font-semibold text-gray-700">
-        ${price?.toLocaleString("es-CO")}
-      </p>
+      <h1 className="text-3xl font-bold text-gray-900">{product.title}</h1>
+      <Price
+        className="text-2xl font-semibold text-gray-700"
+        amount={product.priceRange.maxVariantPrice.amount}
+        currencyCode={product.priceRange.maxVariantPrice.currencyCode}
+      />
 
-      {stock > 1 && (
+      <VariantSelector options={product.options} variants={product.variants} />
+
+      {/* {stock > 1 && (
         <div className="flex items-center space-x-3">
           <span className="font-medium">Cantidad</span>
           <div className="flex items-center rounded border">
@@ -86,7 +69,7 @@ export default function ProductInfo({ id, name, price, stock, image }: Props) {
             </button>
           </div>
         </div>
-      )}
+      )} */}
 
       <label className="flex flex-col gap-1 text-sm font-medium">
         Método de pago
@@ -111,7 +94,7 @@ export default function ProductInfo({ id, name, price, stock, image }: Props) {
       <div className="flex w-full flex-col gap-4 sm:flex-row">
         {paymentMethod !== "sin_credito" ? (
           <a
-            href={getWhatsAppUrl(name, paymentMethod)}
+            href={getWhatsAppUrl(product.title, paymentMethod)}
             target="_blank"
             rel="noopener noreferrer"
             className="flex w-full items-center justify-center gap-2 rounded-sm bg-green-500 p-3 text-center text-white hover:bg-green-600"
@@ -121,24 +104,8 @@ export default function ProductInfo({ id, name, price, stock, image }: Props) {
           </a>
         ) : null}
 
-        {isProductInShoppingCart ? (
-          <button
-            onClick={handleCheck}
-            className="flex w-full items-center justify-center gap-2 rounded-sm bg-green-200 p-3 text-gray-900"
-          >
-            <BadgeCheck size={20} />
-            Ya en el carrito
-          </button>
-        ) : (
-          <button
-            onClick={() => handleAddToCart()}
-            className="flex w-full items-center justify-center gap-2 rounded-sm bg-blue-200 p-3 text-gray-900 hover:bg-blue-300"
-          >
-            <ShoppingCart size={20} />
-            Agregar al carrito
-          </button>
-        )}
+        <AddToCart product={product} />
       </div>
     </div>
   );
-}
+};

@@ -192,7 +192,7 @@ export default function CartModal() {
                   </ul>
                   <div className="py-4 text-sm text-neutral-500">
                     <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pb-1">
-                      <p>Taxes</p>
+                      <p>Impuesto</p>
                       <Price
                         className="text-right text-base text-black"
                         amount={cart.cost.totalTaxAmount.amount}
@@ -200,8 +200,8 @@ export default function CartModal() {
                       />
                     </div>
                     <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pt-1 pb-1">
-                      <p>Shipping</p>
-                      <p className="text-right">Calculated at checkout</p>
+                      <p>Envió</p>
+                      <p className="text-right">Calculado precio final</p>
                     </div>
                     <div className="mb-3 flex items-center justify-between border-b border-neutral-200 pt-1 pb-1">
                       <p>Total</p>
@@ -234,7 +234,7 @@ function CheckoutButton() {
       type="submit"
       disabled={pending}
     >
-      {pending ? <LoadingDots className="bg-white" /> : "Proceed to Checkout"}
+      {pending ? <LoadingDots className="bg-white" /> : "Proceder al pago"}
     </button>
   );
 }

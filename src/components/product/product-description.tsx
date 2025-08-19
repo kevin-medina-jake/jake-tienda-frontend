@@ -1,29 +1,23 @@
-import { Product } from "@/lib/shopify/types";
-import Price from "../price";
-import VariantSelector from "./variant-selector";
-import Prose from "../prose";
-import { AddToCart } from "../cart/add-to-cart";
+"use client";
 
-export function ProductDescription({ product }: { product: Product }) {
+import Markdown from "react-markdown";
+import rehypeRaw from "rehype-raw";
+import remarkGfm from "remark-gfm";
+
+interface Props {
+  description: string;
+}
+
+export function ProductDescription({ description }: Props) {
   return (
-    <>
-      <div className="mb-6 flex flex-col border-b pb-6">
-        <h1 className="mb-2 text-5xl font-medium">{product.title}</h1>
-        <div className="mr-auto w-auto rounded-full bg-blue-600 p-2 text-sm text-white">
-          <Price
-            amount={product.priceRange.maxVariantPrice.amount}
-            currencyCode={product.priceRange.maxVariantPrice.currencyCode}
-          />
-        </div>
-      </div>
-      <VariantSelector options={product.options} variants={product.variants} />
-      {product.descriptionHtml ? (
-        <Prose
-          className="leading-light mb-6 text-sm"
-          html={product.descriptionHtml}
-        />
-      ) : null}
-      <AddToCart product={product} />
-    </>
+    <div className="mt-6 space-y-6">
+      <h2 className="mb-4 text-2xl font-bold">Descripción del producto</h2>
+
+      <article className="prose prose-sm max-w-none">
+        <Markdown rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}>
+          {description}
+        </Markdown>
+      </article>
+    </div>
   );
 }
