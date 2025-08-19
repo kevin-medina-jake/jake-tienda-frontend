@@ -22,7 +22,7 @@ function SubmitButton({
   if (!availableForSale) {
     return (
       <button disabled className={clsx(buttonClasses, disabledClasses)}>
-        Out of Stock
+        Agotado
       </button>
     );
   }
@@ -37,7 +37,7 @@ function SubmitButton({
         <div className="absolute left-0 ml-4">
           <PlusIcon className="h-5" />
         </div>
-        Add to Cart
+        Añadir al carrito
       </button>
     );
   }
@@ -52,7 +52,7 @@ function SubmitButton({
       <div className="absolute left-0 ml-4">
         <PlusIcon className="h-5" />
       </div>
-      Add To Cart
+      Añadir al carrito
     </button>
   );
 }

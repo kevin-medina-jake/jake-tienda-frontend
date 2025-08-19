@@ -7,11 +7,10 @@ import { ChevronDown } from "lucide-react";
 import { IDropDownMenu } from "@/types/navbar";
 
 import { MobileMenu } from "./movil-menu-drawer";
-import { ShoppingCartDrawer } from "./shopping-cart-drawer";
-import { SearchProductsWrapper } from "./search-products-wrapper";
 import CartModal from "../cart/modal";
-import Search from "../layout/navbar/search";
 import { getMenu } from "@/lib/shopify";
+import { Suspense } from "react";
+import { SearchProducts } from "../layout/navbar/search-products";
 
 export const Navbar = async () => {
   const menuResponse = await getMenu("main-menu");
@@ -38,8 +37,9 @@ export const Navbar = async () => {
         </section>
 
         <section className="grid flex-1 gap-4 md:px-5 lg:px-10 xl:px-20">
-          {/* <SearchProductsWrapper /> */}
-          <Search />
+          <Suspense fallback={<div className="h-[42px] w-full"></div>}>
+            <SearchProducts />
+          </Suspense>
 
           <ul className="flex h-full text-sm lg:text-base">
             {menu.map((route) => {
@@ -93,8 +93,7 @@ export const Navbar = async () => {
         </section>
 
         <section className="px-2">
-          {/* <SearchProductsWrapper /> */}
-          <Search />
+          <SearchProducts />
         </section>
       </nav>
     </>

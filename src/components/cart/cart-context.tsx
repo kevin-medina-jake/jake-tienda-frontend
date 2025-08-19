@@ -42,7 +42,7 @@ function calculateItemCost(quantity: number, price: string): string {
 
 function updateCartItem(
   item: CartItem,
-  updateType: UpdateType
+  updateType: UpdateType,
 ): CartItem | null {
   if (updateType === "delete") return null;
 
@@ -54,7 +54,7 @@ function updateCartItem(
   const singleItemAmount = Number(item.cost.totalAmount.amount) / item.quantity;
   const newTotalAmount = calculateItemCost(
     newQuantity,
-    singleItemAmount.toString()
+    singleItemAmount.toString(),
   );
 
   return {
@@ -71,12 +71,12 @@ function updateCartItem(
 }
 
 function updateCartTotals(
-  lines: CartItem[]
+  lines: CartItem[],
 ): Pick<Cart, "totalQuantity" | "cost"> {
   const totalQuantity = lines.reduce((sum, item) => sum + item.quantity, 0);
   const totalAmount = lines.reduce(
     (sum, item) => sum + Number(item.cost.totalAmount.amount),
-    0
+    0,
   );
 
   const currencyCode = lines[0]?.cost.totalAmount.currencyCode ?? "USD";
@@ -94,7 +94,7 @@ function updateCartTotals(
 function createOrUpdateCartItem(
   existingItem: CartItem | undefined,
   variant: ProductVariant,
-  product: Product
+  product: Product,
 ): CartItem {
   const quantity = existingItem ? existingItem.quantity + 1 : 1;
   const totalAmount = calculateItemCost(quantity, variant.price.amount);
@@ -132,7 +132,7 @@ function cartReducer(state: Cart | undefined, action: CartAction): Cart {
         .map((item) =>
           item.merchandise.id === merchandiseId
             ? updateCartItem(item, updateType)
-            : item
+            : item,
         )
         .filter(Boolean) as CartItem[];
 
@@ -157,17 +157,17 @@ function cartReducer(state: Cart | undefined, action: CartAction): Cart {
     case "ADD_ITEM": {
       const { variant, product } = action.payload;
       const existingItem = currentCart.lines.find(
-        (item) => item.merchandise.id === variant.id
+        (item) => item.merchandise.id === variant.id,
       );
       const updatedItem = createOrUpdateCartItem(
         existingItem,
         variant,
-        product
+        product,
       );
 
       const updatedLines = existingItem
         ? currentCart.lines.map((item) =>
-            item.merchandise.id === variant.id ? updatedItem : item
+            item.merchandise.id === variant.id ? updatedItem : item,
           )
         : [...currentCart.lines, updatedItem];
 
@@ -192,7 +192,7 @@ export function CartProvider({
   const initialCart = use(cartPromise);
   const [optimisticCart, updateOptimisticCart] = useOptimistic(
     initialCart,
-    cartReducer
+    cartReducer,
   );
 
   const updateCartItem = (merchandiseId: string, updateType: UpdateType) => {
@@ -212,7 +212,7 @@ export function CartProvider({
       updateCartItem,
       addCartItem,
     }),
-    [optimisticCart]
+    [optimisticCart],
   );
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
@@ -222,7 +222,7 @@ export function useCart() {
   const context = useContext(CartContext);
 
   if (context === undefined) {
-    throw new Error("useCart must be used within a CartProvider");
+    throw new Error("useCart debe ser usado dentro de un CartProvider");
   }
 
   return context;

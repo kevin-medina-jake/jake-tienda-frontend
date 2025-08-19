@@ -1,51 +1,33 @@
 import { useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
-import { usePathname, useRouter } from "next/navigation";
-
-import { useStoreProducts } from "@/store/products";
-import { IProductFilter } from "@/types/product";
 import { useDebounce } from "use-debounce";
+
 import { useGetParams } from "./useGetParams";
 
 export const useSearchProducts = () => {
   const [loading, setLoading] = useState(false);
   const [searchAttempted, setSearchAttempted] = useState(false);
-  const [productsSearch, setProductsSearch] = useState<IProductFilter[]>([]);
+  const [productsSearch, setProductsSearch] = useState([]);
+  const [search, setSearch] = useState<string>("");
 
-  const {
-    filters,
-    setAllProducts,
-    setLoading: setLoadingStore,
-    setFilters,
-  } = useStoreProducts();
   const { params: searchParams } = useGetParams({ name: "q" });
 
   useEffect(() => {
     if (searchParams !== "") {
-      handleSearch({ search: searchParams });
+      setSearch(searchParams);
     } else {
-      handleSearch({ search: "" });
+      setSearch("");
     }
   }, [searchParams]);
 
-  const { search } = filters;
   const [debouncedSearch] = useDebounce(search, 300);
 
-  const handleSearch = ({ search }: { search: string }) => {
-    const newFilter = {
-      ...filters,
-      search,
-    };
-
-    setFilters(newFilter);
-  };
-
   const pathname = usePathname();
-  const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
-    handleSearch({ search: value });
+    setSearch(value);
 
     if (value.trim() === "") {
       setProductsSearch([]);
@@ -53,70 +35,10 @@ export const useSearchProducts = () => {
     }
   };
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key !== "Enter") return;
-    handleCleanFiltersCategoryAndBrands();
-
-    if (search.trim().length < 1 && pathname === "/products") {
-      router.push(`/products?page=1`);
-
-      return;
-    }
-
-    if (search.trim().length < 1) return;
-
-    (e.target as HTMLInputElement).blur();
-
-    router.push(`/products?q=${encodeURIComponent(search)}`);
-
-    // const currentURL = new URL(window.location.href);
-    // const searchParams = currentURL.searchParams;
-
-    // if (searchParams.toString() && pathname !== "/products") {
-    //   router.push("/products");
-    //   allProducts();
-    //   return;
-    // }
-
-    // if (pathname === "/products") {
-    //   router.replace(`/products?q=${encodeURIComponent(search)}`);
-    //   return;
-    // }
-
-    // router.push(`/products?q=${encodeURIComponent(search)}`);
-  };
-
-  const handleCleanFiltersCategoryAndBrands = () => {
-    setFilters({ ...filters, categories: [], brands: [] });
-  };
-
   useEffect(() => {
     if (pathname === "/products") return;
-    handleSearch({ search: "" });
+    setSearch("");
   }, [pathname]);
-
-  const allProducts = async () => {
-    setLoading(true);
-
-    setLoadingStore(true);
-
-    try {
-      const res = await fetch(
-        `/api/strapi/search?q=${encodeURIComponent(search)}`,
-      );
-
-      const data = await res.json();
-
-      setAllProducts(data.products);
-    } catch (err) {
-      setAllProducts([]);
-      setProductsSearch([]);
-    } finally {
-      setLoading(false);
-
-      setLoadingStore(false);
-    }
-  };
 
   const searchProducts = async () => {
     if (debouncedSearch.trim().length < 1) {
@@ -130,11 +52,11 @@ export const useSearchProducts = () => {
 
     try {
       const res = await fetch(
-        `/api/strapi/search?q=${encodeURIComponent(search)}&page=1`,
+        `/api/shopify/search?q=${encodeURIComponent(search)}`,
       );
 
       const data = await res.json();
-      setProductsSearch(data.products);
+      setProductsSearch(data);
     } catch (err) {
       setProductsSearch([]);
     } finally {
@@ -144,15 +66,13 @@ export const useSearchProducts = () => {
 
   useEffect(() => {
     searchProducts();
-    handleCleanFiltersCategoryAndBrands();
+    console.log("pro", productsSearch);
   }, [debouncedSearch]);
 
   const isView = search.trim().length > 0;
 
   return {
-    search,
     handleChange,
-    handleKeyDown,
     loading,
     isView,
     productsSearch,

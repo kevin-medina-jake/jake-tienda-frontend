@@ -77,7 +77,7 @@ export default function CartModal() {
           >
             <Dialog.Panel className="fixed top-0 right-0 bottom-0 flex h-full w-full flex-col border-l border-neutral-200 bg-white/80 p-6 text-black backdrop-blur-xl md:w-[390px]">
               <div className="flex items-center justify-between">
-                <p className="text-lg font-semibold">My Cart</p>
+                <p className="text-lg font-semibold">Carrito</p>
                 <button aria-label="Close cart" onClick={closeCart}>
                   <CloseCart />
                 </button>
@@ -87,7 +87,7 @@ export default function CartModal() {
                 <div>
                   <ShoppingCartIcon className="h-16" />
                   <p className="mt-6 text-center text-2xl font-bold">
-                    Your Cart is Empty.
+                    Tu carrito está vacío.
                   </p>
                 </div>
               ) : (

@@ -638,3 +638,19 @@ export async function getNewProducts(): Promise<Product[]> {
 
   return reshapeProducts(removeEdgesAndNodes(res.body.data.products));
 }
+
+export async function searchProducts({
+  query,
+}: {
+  query?: string;
+}): Promise<Product[]> {
+  const res = await shopifyFetch<ShopifyProductsOperation>({
+    query: getProductsQuery,
+    tags: [TAGS.products],
+    variables: {
+      query,
+    },
+  });
+
+  return reshapeProducts(removeEdgesAndNodes(res.body.data.products));
+}
