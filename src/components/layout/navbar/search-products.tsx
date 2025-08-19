@@ -40,7 +40,7 @@ export const SearchProducts = () => {
 
   const renderProductItem = (product: any) => {
     const isActive = pathname?.includes(product.handle);
-    const itemClass = isActive ? "hidden" : "hover:bg-blue-100";
+    const itemClass = isActive ? "bg-green-300" : "hover:bg-blue-100";
 
     // const brand = product.brand || "Sin marca";
     // const name = product.name || "Sin nombre";
