@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
 import { useDebounce } from "use-debounce";
@@ -40,7 +40,35 @@ export const useSearchProducts = () => {
     setSearch("");
   }, [pathname]);
 
-  const searchProducts = async () => {
+  // useEffect(() => {
+  //   const searchProducts = async () => {
+  //     if (debouncedSearch.trim().length < 1) {
+  //       setProductsSearch([]);
+  //       setSearchAttempted(false);
+  //       return;
+  //     }
+
+  //     setLoading(true);
+  //     setSearchAttempted(true);
+
+  //     try {
+  //       const res = await fetch(
+  //         `/api/shopify/search?q=${encodeURIComponent(debouncedSearch)}`,
+  //       );
+
+  //       const data = await res.json();
+  //       setProductsSearch(data);
+  //     } catch (err) {
+  //       setProductsSearch([]);
+  //     } finally {
+  //       setLoading(false);
+  //     }
+  //   };
+
+  //   searchProducts();
+  // }, [debouncedSearch]);
+
+  const searchProducts = useCallback(async () => {
     if (debouncedSearch.trim().length < 1) {
       setProductsSearch([]);
       setSearchAttempted(false);
@@ -52,7 +80,7 @@ export const useSearchProducts = () => {
 
     try {
       const res = await fetch(
-        `/api/shopify/search?q=${encodeURIComponent(search)}`,
+        `/api/shopify/search?q=${encodeURIComponent(debouncedSearch)}`,
       );
 
       const data = await res.json();
@@ -62,12 +90,11 @@ export const useSearchProducts = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [debouncedSearch]);
 
   useEffect(() => {
     searchProducts();
-    console.log("pro", productsSearch);
-  }, [debouncedSearch]);
+  }, [debouncedSearch, searchProducts]);
 
   const isView = search.trim().length > 0;
 
