@@ -1,7 +1,6 @@
 "use client";
 
 import { Dialog, Transition } from "@headlessui/react";
-import { ShoppingCartIcon } from "@heroicons/react/24/outline";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { useCart } from "./cart-context";
 import { createUrl } from "@/lib/utils";
@@ -16,6 +15,7 @@ import { EditItemQuantityButton } from "./edit-item-quantity-button";
 import { useFormStatus } from "react-dom";
 import LoadingDots from "../loading-dots";
 import { createCartAndSetCookie, redirectToCheckout } from "./actions";
+import { ShoppingCart } from "lucide-react";
 
 type MerchandiseSearchParams = {
   [key: string]: string;
@@ -40,10 +40,6 @@ export default function CartModal() {
       cart?.totalQuantity !== quantityRef.current &&
       cart?.totalQuantity > 0
     ) {
-      // if (!isOpen) {
-      //   setIsOpen(true);
-      // }
-
       quantityRef.current = cart?.totalQuantity;
     }
   }, [isOpen, cart?.totalQuantity, quantityRef]);
@@ -84,11 +80,20 @@ export default function CartModal() {
               </div>
 
               {!cart || cart.lines.length === 0 ? (
-                <div>
-                  <ShoppingCartIcon className="h-16" />
-                  <p className="mt-6 text-center text-2xl font-bold">
-                    Tu carrito está vacío.
+                <div className="flex flex-1 flex-col items-center justify-center gap-3 text-center text-black">
+                  <ShoppingCart size={64} className="opacity-30" />
+                  <h3 className="text-lg font-semibold">
+                    Tu carrito está vacío
+                  </h3>
+                  <p className="text-sm text-gray-500">
+                    Agrega productos para comenzar a comprar.
                   </p>
+                  <button
+                    onClick={closeCart}
+                    className="mt-2 cursor-pointer rounded border border-blue-300 px-4 py-2 text-sm font-medium hover:bg-blue-100"
+                  >
+                    Seguir comprando
+                  </button>
                 </div>
               ) : (
                 <div className="flex h-full flex-col justify-between overflow-hidden p-1">

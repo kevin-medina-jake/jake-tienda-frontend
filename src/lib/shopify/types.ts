@@ -41,6 +41,7 @@ export type ProductVariant = {
   id: string;
   title: string;
   availableForSale: boolean;
+  quantityAvailable: number;
   selectedOptions: {
     name: string;
     value: string;
@@ -138,6 +139,7 @@ export type CartProduct = {
   handle: string;
   title: string;
   featuredImage: Image;
+  variants: Connection<ProductVariant>;
 };
 
 export type CartItem = {

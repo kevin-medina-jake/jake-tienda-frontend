@@ -23,17 +23,24 @@ export async function addItem(
     return "Error al añadir al carrito";
   }
 
+  const cart = await getCart(cartId);
+  if (!cart) {
+    return "Error al actualizar el carrito";
+  }
+
+  const isItemInCart = cart.lines.some(
+    (line) => line.merchandise.id === selectedVariantId,
+  );
+
   try {
-    await addToCart(cartId, [
-      { merchandiseId: selectedVariantId, quantity: 1 },
-    ]);
+    if (!isItemInCart) {
+      await addToCart(cartId, [
+        { merchandiseId: selectedVariantId, quantity: 1 },
+      ]);
+    }
 
     revalidateTag(TAGS.cart);
   } catch (error) {
-    console.log(
-      "****************************************************************************",
-    );
-    console.log("Error al añadir al carrito", error);
     return "Error al añadir al carrito";
   }
 }
@@ -137,5 +144,4 @@ export async function createCartAndSetCookie() {
   const cookieStore = await cookies();
   const cart = await createCart();
   cookieStore.set("cartId", cart.id!);
-  console.log(cart.id);
 }

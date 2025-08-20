@@ -6,7 +6,7 @@ import { useCart } from "./cart-context";
 import clsx from "clsx";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { addItem } from "./actions";
-import { ShoppingCart } from "lucide-react";
+import { CheckCircle, ShoppingCart } from "lucide-react";
 import { useActionState, useEffect } from "react";
 import { useFormStatus } from "react-dom";
 import LoadingDots from "../loading-dots";
@@ -14,9 +14,11 @@ import LoadingDots from "../loading-dots";
 function SubmitButton({
   availableForSale,
   selectedVariantId,
+  isCart,
 }: {
   availableForSale: boolean;
   selectedVariantId: string | undefined;
+  isCart: boolean;
 }) {
   const buttonClasses =
     "relative flex w-full items-center justify-center gap-2 rounded-sm bg-blue-200 p-3 text-gray-900 tracking-wide cursor-pointer";
@@ -48,19 +50,21 @@ function SubmitButton({
   return (
     <button
       aria-label="Add to cart"
+      disabled={isCart}
       className={clsx(buttonClasses, {
-        "hover:bg-blue-300": true,
+        "hover:bg-blue-300": isCart === false,
+        "!cursor-not-allowed bg-green-300": isCart,
       })}
     >
-      <ShoppingCart size={20} />
-      Añadir al carrito
+      {isCart ? <CheckCircle size={20} /> : <ShoppingCart size={20} />}
+      {isCart ? "Ya esta en el carrito" : "Añadir al carrito"}
     </button>
   );
 }
 
 export function AddToCart({ product }: { product: Product }) {
   const { variants, availableForSale } = product;
-  const { addCartItem } = useCart();
+  const { addCartItem, cart } = useCart();
   const { state } = useProduct();
   const [message, formAction] = useActionState(addItem, null);
   const variant = variants.find((variant: ProductVariant) =>
@@ -76,17 +80,20 @@ export function AddToCart({ product }: { product: Product }) {
   )!;
 
   const handleSubmit = async () => {
-    // addCartItem(finalVariant, product);
+    addCartItem(finalVariant, product);
     actionWithVariant();
   };
 
-  const { pending } = useFormStatus();
+  const isCart =
+    cart?.lines.some((line) => line.merchandise.id === selectedVariantId) ||
+    false;
 
   return (
     <form className="w-full" action={handleSubmit}>
       <SubmitButton
         availableForSale={availableForSale}
         selectedVariantId={selectedVariantId}
+        isCart={isCart}
       />
       {message && (
         <p

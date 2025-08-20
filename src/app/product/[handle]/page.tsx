@@ -59,6 +59,7 @@ export default async function ProductPage({
 }) {
   const { handle } = await params;
   const product = await getProduct(handle);
+
   if (!product) return notFound();
   return (
     <ProductProvider>
