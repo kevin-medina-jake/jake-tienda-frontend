@@ -87,12 +87,13 @@ export const metadata: Metadata = {
   },
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const cartId = cookies().get("cartId")?.value;
+  const cookieStore = await cookies();
+  const cartId = cookieStore?.get("cartId")?.value;
   const cart = getCart(cartId);
 
   return (

@@ -7,7 +7,9 @@ import clsx from "clsx";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { addItem } from "./actions";
 import { ShoppingCart } from "lucide-react";
-import { useActionState } from "react";
+import { useActionState, useEffect } from "react";
+import { useFormStatus } from "react-dom";
+import LoadingDots from "../loading-dots";
 
 function SubmitButton({
   availableForSale,
@@ -74,9 +76,11 @@ export function AddToCart({ product }: { product: Product }) {
   )!;
 
   const handleSubmit = async () => {
-    addCartItem(finalVariant, product);
-    await actionWithVariant();
+    // addCartItem(finalVariant, product);
+    actionWithVariant();
   };
+
+  const { pending } = useFormStatus();
 
   return (
     <form className="w-full" action={handleSubmit}>
@@ -84,9 +88,15 @@ export function AddToCart({ product }: { product: Product }) {
         availableForSale={availableForSale}
         selectedVariantId={selectedVariantId}
       />
-      <p className="sr-only" role="status" aria-label="polite">
-        {message}
-      </p>
+      {message && (
+        <p
+          className="block w-full bg-red-500 p-2 text-white"
+          role="status"
+          aria-label="polite"
+        >
+          {message}
+        </p>
+      )}
     </form>
   );
 }

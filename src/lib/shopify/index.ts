@@ -487,6 +487,10 @@ export async function addToCart(
     cache: "no-cache",
   });
 
+  console.log("-_________________________________________________");
+  console.log("Res", JSON.stringify(res, null, 2));
+  console.log("-_________________________________________________");
+
   return reshapeCart(res.body.data.cartLinesAdd.cart);
 }
 
