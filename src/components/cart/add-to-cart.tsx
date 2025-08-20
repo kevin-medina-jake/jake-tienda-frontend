@@ -3,11 +3,11 @@
 import { Product, ProductVariant } from "@/lib/shopify/types";
 import { useProduct } from "../product/product-context";
 import { useCart } from "./cart-context";
-import { useFormState } from "react-dom";
 import clsx from "clsx";
 import { PlusIcon } from "@heroicons/react/24/outline";
 import { addItem } from "./actions";
 import { ShoppingCart } from "lucide-react";
+import { useActionState } from "react";
 
 function SubmitButton({
   availableForSale,
@@ -60,7 +60,7 @@ export function AddToCart({ product }: { product: Product }) {
   const { variants, availableForSale } = product;
   const { addCartItem } = useCart();
   const { state } = useProduct();
-  const [message, formAction] = useFormState(addItem, null);
+  const [message, formAction] = useActionState(addItem, null);
   const variant = variants.find((variant: ProductVariant) =>
     variant.selectedOptions.every(
       (option) => option.value === state[option.name.toLowerCase()],
@@ -72,14 +72,14 @@ export function AddToCart({ product }: { product: Product }) {
   const finalVariant = variants.find(
     (variant) => variant.id === selectedVariantId,
   )!;
+
+  const handleSubmit = async () => {
+    addCartItem(finalVariant, product);
+    await actionWithVariant();
+  };
+
   return (
-    <form
-      className="w-full"
-      action={async () => {
-        addCartItem(finalVariant, product);
-        await actionWithVariant();
-      }}
-    >
+    <form className="w-full" action={handleSubmit}>
       <SubmitButton
         availableForSale={availableForSale}
         selectedVariantId={selectedVariantId}

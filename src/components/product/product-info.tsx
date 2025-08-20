@@ -2,8 +2,8 @@
 
 import { useState } from "react";
 
-import { ShoppingCart, MessageCircle } from "lucide-react";
-import { Image, Product } from "@/lib/shopify/types";
+import { MessageCircle } from "lucide-react";
+import { Product } from "@/lib/shopify/types";
 import Price from "../price";
 import { AddToCart } from "../cart/add-to-cart";
 import VariantSelector from "./variant-selector";
@@ -15,29 +15,11 @@ const getWhatsAppUrl = (productName: string, method: string) => {
 };
 
 export const ProductInfo = ({ product }: { product: Product }) => {
-  // const [quantity, setQuantity] = useState(1);
   const [paymentMethod, setPaymentMethod] = useState("sin_credito");
-
-  // const increment = () => {
-  //   // setQuantity((prev) => (prev < stock ? prev + 1 : prev));
-  // };
-
-  // const decrement = () => {
-  //   setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
-  // };
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setPaymentMethod(e.target.value);
   };
-
-  // const handleAddToCart = () => {};
-
-  // const handleCheck = (e: React.MouseEvent<HTMLButtonElement>) => {
-  //   e.stopPropagation();
-  //   e.preventDefault();
-
-  //   alert("En el carrito");
-  // };
 
   return (
     <div className="flex w-full flex-col space-y-6">
@@ -49,28 +31,6 @@ export const ProductInfo = ({ product }: { product: Product }) => {
       />
 
       <VariantSelector options={product.options} variants={product.variants} />
-
-      {/* {stock > 1 && (
-        <div className="flex items-center space-x-3">
-          <span className="font-medium">Cantidad</span>
-          <div className="flex items-center rounded border">
-            <button
-              onClick={decrement}
-              className="bg-gray-100 px-3 py-1 hover:bg-gray-200"
-            >
-              -
-            </button>
-            <span className="px-4">{quantity}</span>
-            <button
-              onClick={increment}
-              className="bg-gray-100 px-3 py-1 hover:bg-gray-200"
-              disabled={quantity >= stock}
-            >
-              +
-            </button>
-          </div>
-        </div>
-      )} */}
 
       <label className="flex flex-col gap-1 text-sm font-medium">
         Método de pago

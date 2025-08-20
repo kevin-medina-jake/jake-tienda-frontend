@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Poppins } from "next/font/google";
 import "@/styles/globals.css";
-import { Navbar } from "@/components/common/navbar";
+import { Navbar } from "@/components/layout/navbar/navbar";
 import Footer from "@/components/common/footer";
 import { CartProvider } from "@/components/cart/cart-context";
 import { cookies } from "next/headers";
