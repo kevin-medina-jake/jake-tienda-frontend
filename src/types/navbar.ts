@@ -1,8 +1,6 @@
 export interface IDropDownMenu {
-  id: string;
-  name: string;
-  slug: string;
-  url_product: string;
+  title: string;
+  path: string;
 }
 
 export interface IBrandWithImage {

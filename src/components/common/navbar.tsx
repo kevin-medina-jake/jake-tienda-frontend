@@ -4,40 +4,21 @@ import Image from "next/image";
 import Logo from "@/assets/logo/image.png";
 import { ChevronDown } from "lucide-react";
 
-import { brandDropdown } from "@/service/api/brand";
 import { IDropDownMenu } from "@/types/navbar";
-import { categoryDropdown } from "@/service/api/category";
-import { MobileMenu } from "./movil-menu-drawer";
-import { ShoppingCartDrawer } from "./shopping-cart-drawer";
-import { SearchProductsWrapper } from "./search-products-wrapper";
 
-export interface IRoutes {
-  name: string;
-  href: string;
-  dropdown?: IDropDownMenu[];
-}
+import { MobileMenu } from "./movil-menu-drawer";
+import CartModal from "../cart/modal";
+import { getMenu } from "@/lib/shopify";
+import { Suspense } from "react";
+import { SearchProducts } from "../layout/navbar/search-products";
 
 export const Navbar = async () => {
-  const [categories, brands] = await Promise.allSettled([
-    categoryDropdown(),
-    brandDropdown(),
-  ]);
+  const menuResponse = await getMenu("main-menu");
 
-  const routes: IRoutes[] = [
-    { name: "Inicio", href: "/" },
-    { name: "Productos", href: "/products" },
-    {
-      name: "Categorías",
-      href: "/categories?category=",
-      dropdown: categories.status === "fulfilled" ? categories.value : [],
-    },
-    {
-      name: "Marcas",
-      href: "/brands?brand=",
-      dropdown: brands.status === "fulfilled" ? brands.value : [],
-    },
-    { name: "Crédito", href: "/credit" },
-    { name: "Sobre Nosotros", href: "/about-us" },
+  const menu = [
+    ...menuResponse,
+    { title: "Crédito", path: "/credit" },
+    { title: "Sobre Nosotros", path: "/about-us" },
   ];
 
   return (
@@ -56,25 +37,26 @@ export const Navbar = async () => {
         </section>
 
         <section className="grid flex-1 gap-4 md:px-5 lg:px-10 xl:px-20">
-          <SearchProductsWrapper />
+          <Suspense fallback={<div className="h-[42px] w-full"></div>}>
+            <SearchProducts />
+          </Suspense>
 
           <ul className="flex h-full text-sm lg:text-base">
-            {routes.map((route) => {
-              if (route.dropdown) {
+            {menu.map((route) => {
+              if (route.children && route.children.length > 0) {
                 return (
                   <DropdownMenu
-                    name={route.name}
-                    drop={route.dropdown}
-                    url={route.href}
-                    key={route.name}
+                    name={route.title}
+                    drop={route.children}
+                    key={route.title}
                   />
                 );
               }
 
               return (
-                <li key={route.name} className="h-full pr-6">
-                  <Link href={route.href} className="h-full whitespace-nowrap">
-                    {route.name}
+                <li key={route.title} className="h-full pr-6">
+                  <Link href={route.path} className="h-full whitespace-nowrap">
+                    {route.title}
                   </Link>
                 </li>
               );
@@ -83,7 +65,8 @@ export const Navbar = async () => {
         </section>
 
         <section className="h-[44px] w-[48px]">
-          <ShoppingCartDrawer />
+          {/* <ShoppingCartDrawer /> */}
+          <CartModal />
         </section>
       </nav>
 
@@ -91,7 +74,7 @@ export const Navbar = async () => {
       <nav className="fixed top-0 left-1/2 z-50 flex w-full -translate-x-1/2 transform flex-col gap-4 border-b border-gray-400 bg-white p-2 py-2 sm:hidden">
         <section className="flex items-center justify-between">
           <div>
-            <MobileMenu routes={routes} />
+            <MobileMenu routes={menu} />
           </div>
 
           <Link href="/">
@@ -104,12 +87,13 @@ export const Navbar = async () => {
           </Link>
 
           <div className="h-[44px] w-[48px]">
-            <ShoppingCartDrawer />
+            {/* <ShoppingCartDrawer /> */}
+            <CartModal />
           </div>
         </section>
 
         <section className="px-2">
-          <SearchProductsWrapper />
+          <SearchProducts />
         </section>
       </nav>
     </>
@@ -119,10 +103,9 @@ export const Navbar = async () => {
 interface DropdownMenuProps {
   name: string;
   drop: IDropDownMenu[];
-  url: string;
 }
 
-const DropdownMenu = ({ name, drop, url }: DropdownMenuProps) => (
+const DropdownMenu = ({ name, drop }: DropdownMenuProps) => (
   <li className="group">
     <span className="flex cursor-default items-center gap-1 pr-6 group-hover:text-blue-800">
       {name} <ChevronDown size={14} />
@@ -134,12 +117,12 @@ const DropdownMenu = ({ name, drop, url }: DropdownMenuProps) => (
 
       <ul className="flex flex-wrap gap-4 px-10 py-4 md:px-20 lg:px-40">
         {drop.map((item) => (
-          <li key={item.id}>
+          <li key={item.title}>
             <Link
-              href={`${url}${item.name}`}
+              href={item.path + "?title=" + name + "&collection=" + item.title}
               className="block w-full px-5 py-2 hover:bg-blue-200"
             >
-              {item.name}
+              {item.title}
             </Link>
           </li>
         ))}

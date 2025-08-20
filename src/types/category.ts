@@ -1,7 +1,7 @@
 export interface ICategoryCart {
   id: string;
-  name: string;
-  slug: string;
-  image?: string;
-  isImportant?: boolean;
+  title: string;
+  path: string;
+  image?: string | null;
+  altText?: string | null;
 }

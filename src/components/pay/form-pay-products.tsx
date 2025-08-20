@@ -10,15 +10,13 @@ import {
 } from "@/store/shopping-cart";
 import { useStore } from "@/hooks/useStore";
 
-// ✅ Importa los datos desde src/data/colombia.ts
 import { DEPARTMENTS, getCitiesByDepartment } from "@/data/colombia";
 
-/* =========================
-   Tipos locales del archivo
-========================= */
 interface BuyerInfoFormProps {
   buyerInfo: IBuyerInfo;
-  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => void;
+  onChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => void;
   onDepartmentChange: (dept: string) => void;
 }
 
@@ -44,10 +42,13 @@ export interface IBuyerInfo {
   document: string;
 }
 
-/* =========================
-   UI helpers pequeños
-========================= */
-const Label = ({ htmlFor, children }: { htmlFor: string; children: React.ReactNode }) => (
+const Label = ({
+  htmlFor,
+  children,
+}: {
+  htmlFor: string;
+  children: React.ReactNode;
+}) => (
   <label htmlFor={htmlFor} className="text-sm font-medium text-gray-700">
     {children}
   </label>
@@ -58,8 +59,8 @@ const Input = (props: React.InputHTMLAttributes<HTMLInputElement>) => (
     {...props}
     className={[
       "w-full rounded-lg border border-gray-300 px-3 py-2 text-sm",
-      "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
-      props.className ?? ""
+      "focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none",
+      props.className ?? "",
     ].join(" ")}
   />
 );
@@ -68,29 +69,27 @@ const Select = (props: React.SelectHTMLAttributes<HTMLSelectElement>) => (
   <select
     {...props}
     className={[
-      "w-full rounded-lg border border-gray-300 px-3 py-2 text-sm bg-white",
-      "focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500",
-      props.className ?? ""
+      "w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm",
+      "focus:border-blue-500 focus:ring-2 focus:ring-blue-500 focus:outline-none",
+      props.className ?? "",
     ].join(" ")}
   />
 );
 
-/* =========================
-   BuyerInfoForm (actualizado)
-========================= */
 const BuyerInfoForm: React.FC<BuyerInfoFormProps> = ({
   buyerInfo,
   onChange,
   onDepartmentChange,
 }) => {
-  const cities = buyerInfo.department ? getCitiesByDepartment(buyerInfo.department) : [];
+  const cities = buyerInfo.department
+    ? getCitiesByDepartment(buyerInfo.department)
+    : [];
 
   return (
-    <div className="rounded-2xl border border-gray-200 bg-white/70 p-6 shadow-sm">
-      <h2 className="mb-4 text-xl font-semibold">Información del Comprador</h2>
+    <div className="">
+      <h2 className="mb-4 text-xl font-medium">Información del Comprador</h2>
 
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
-        {/* Correo */}
         <div className="col-span-1">
           <Label htmlFor="email">Correo electrónico</Label>
           <Input
@@ -100,12 +99,11 @@ const BuyerInfoForm: React.FC<BuyerInfoFormProps> = ({
             value={buyerInfo.email}
             onChange={onChange}
             autoComplete="email"
-            placeholder="tucorreo@dominio.com"
+            placeholder="tucorreo@gmail.com"
             required
           />
         </div>
 
-        {/* Documento */}
         <div className="col-span-1">
           <Label htmlFor="document">Cédula o DNI</Label>
           <Input
@@ -115,7 +113,10 @@ const BuyerInfoForm: React.FC<BuyerInfoFormProps> = ({
             pattern="[0-9]*"
             value={buyerInfo.document}
             onChange={(e) => {
-              e.currentTarget.value = e.currentTarget.value.replace(/[^\d]/g, "");
+              e.currentTarget.value = e.currentTarget.value.replace(
+                /[^\d]/g,
+                "",
+              );
               onChange(e);
             }}
             placeholder="1030********"
@@ -123,7 +124,6 @@ const BuyerInfoForm: React.FC<BuyerInfoFormProps> = ({
           />
         </div>
 
-        {/* Nombres */}
         <div className="col-span-1">
           <Label htmlFor="firstName">Primer Nombre</Label>
           <Input
@@ -132,6 +132,7 @@ const BuyerInfoForm: React.FC<BuyerInfoFormProps> = ({
             value={buyerInfo.firstName}
             onChange={onChange}
             autoComplete="given-name"
+            placeholder="Mig..."
             required
           />
         </div>
@@ -144,27 +145,23 @@ const BuyerInfoForm: React.FC<BuyerInfoFormProps> = ({
             value={buyerInfo.lastName}
             onChange={onChange}
             autoComplete="family-name"
+            placeholder="Alv..."
             required
           />
         </div>
 
-        {/* País (fijo) */}
-        <div className="col-span-1">
-          <Label htmlFor="country">País</Label>
-          <Select
+        <div className="col-span-1 text-gray-500">
+          <span className="text-sm">País</span>
+          <Input
             id="country"
-            name="country"
-            value={buyerInfo.country || "Colombia"}
-            onChange={onChange}
             disabled
             aria-disabled="true"
-            title="Por ahora solo enviamos en Colombia"
-          >
-            <option value="Colombia">Colombia</option>
-          </Select>
+            name="country"
+            value="Colombia"
+            required
+          />
         </div>
 
-        {/* Departamento */}
         <div className="col-span-1">
           <Label htmlFor="department">Departamento</Label>
           <Select
@@ -188,7 +185,6 @@ const BuyerInfoForm: React.FC<BuyerInfoFormProps> = ({
           </Select>
         </div>
 
-        {/* Municipio / Ciudad */}
         <div className="col-span-1">
           <Label htmlFor="city">Municipio / Ciudad</Label>
           <Select
@@ -218,7 +214,27 @@ const BuyerInfoForm: React.FC<BuyerInfoFormProps> = ({
           </Select>
         </div>
 
-        {/* Dirección */}
+        <div className="col-span-1">
+          <Label htmlFor="telephone">Teléfono</Label>
+          <Input
+            id="telephone"
+            name="telephone"
+            inputMode="tel"
+            pattern="[0-9]*"
+            value={buyerInfo.telephone}
+            onChange={(e) => {
+              e.currentTarget.value = e.currentTarget.value.replace(
+                /[^\d]/g,
+                "",
+              );
+              onChange(e);
+            }}
+            placeholder="3001234567"
+            autoComplete="tel"
+            required
+          />
+        </div>
+
         <div className="col-span-1 md:col-span-2">
           <Label htmlFor="address">Dirección</Label>
           <Input
@@ -231,34 +247,15 @@ const BuyerInfoForm: React.FC<BuyerInfoFormProps> = ({
             required
           />
         </div>
-
-        {/* Teléfono */}
-        <div className="col-span-1 md:col-span-2">
-          <Label htmlFor="telephone">Teléfono</Label>
-          <Input
-            id="telephone"
-            name="telephone"
-            inputMode="tel"
-            pattern="[0-9]*"
-            value={buyerInfo.telephone}
-            onChange={(e) => {
-              e.currentTarget.value = e.currentTarget.value.replace(/[^\d]/g, "");
-              onChange(e);
-            }}
-            placeholder="3001234567"
-            autoComplete="tel"
-            required
-          />
-        </div>
       </div>
     </div>
   );
 };
 
-/* =========================
-   Resumen del pedido (igual)
-========================= */
-const OrderSummary: React.FC<OrderSummaryProps> = ({ products, totalPrice }) => (
+const OrderSummary: React.FC<OrderSummaryProps> = ({
+  products,
+  totalPrice,
+}) => (
   <div>
     <h2 className="pb-4 text-xl font-medium">Resumen del pedido</h2>
     <ul>
@@ -306,9 +303,6 @@ const SubmitButton: React.FC<SubmitButtonProps> = ({ onClick, disabled }) => (
   </button>
 );
 
-/* =========================
-   Contenedor principal
-========================= */
 export const FormPayProducts = () => {
   const [buyerInfo, setBuyerInfo] = useState<IBuyerInfo>({
     email: "jmalvarez@unimayor.edu.co",
@@ -326,7 +320,7 @@ export const FormPayProducts = () => {
 
   // Acepta <input> y <select>
   const handleInputChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     setBuyerInfo({ ...buyerInfo, [e.target.name]: e.target.value });
   };
@@ -360,7 +354,8 @@ export const FormPayProducts = () => {
       const form = document.createElement("form");
       form.method = "POST";
       // form.action = "https://checkout.payulatam.com/ppp-web-gateway-payu/"; // Producción
-      form.action = "https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/"; // Sandbox
+      form.action =
+        "https://sandbox.checkout.payulatam.com/ppp-web-gateway-payu/"; // Sandbox
 
       Object.keys(payuData).forEach((key) => {
         const hiddenField = document.createElement("input");
@@ -389,7 +384,7 @@ export const FormPayProducts = () => {
 
   return (
     <div className="w-full p-4">
-      <div className="grid gap-8">
+      <div className="grid gap-8 pb-8">
         <BuyerInfoForm
           buyerInfo={buyerInfo}
           onChange={handleInputChange}

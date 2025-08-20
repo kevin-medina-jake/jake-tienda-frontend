@@ -1,10 +1,11 @@
 import Link from "next/link";
+import Image from "next/image";
 
-import { categoryCart } from "@/service/api/category";
 import { ICategoryCart } from "@/types/category";
+import { getCollectionCategoriesAndBrands } from "@/lib/shopify";
 
 export const Categories = async () => {
-  const categories = (await categoryCart()) as ICategoryCart[];
+  const { categories } = await getCollectionCategoriesAndBrands("main-menu");
 
   if (categories.length < 1) return null;
 
@@ -15,12 +16,9 @@ export const Categories = async () => {
       </div>
 
       <div className="grid grid-cols-2 gap-4 py-4 md:grid-cols-3 lg:grid-cols-5">
-        {categories
-          .filter((category) => category.isImportant)
-          .slice(0, 8)
-          .map((category: ICategoryCart) => (
-            <CardCategory key={category.id} category={category} />
-          ))}
+        {categories.slice(0, 8).map((category) => (
+          <CardCategory key={category.id} category={category} />
+        ))}
       </div>
     </section>
   );
@@ -29,19 +27,23 @@ export const Categories = async () => {
 const CardCategory = ({ category }: { category: ICategoryCart }) => {
   return (
     <Link
-      href={"/categories?category=" + category.name}
+      href={
+        category.path + "?title=Categoría" + "&collection=" + category.title
+      }
       className="overflow-hidden border border-gray-100 p-2 transition-all duration-100 ease-in-out hover:border-blue-300 hover:shadow-xs"
     >
       <article className="flex flex-col gap-4 overflow-hidden rounded-sm">
         <div className="aspect-square">
-          <img
-            src={category?.image}
-            alt="Slide 1"
+          <Image
+            src={category?.image ?? "/not-found.png"}
+            alt={category.altText ?? category.title}
             className="h-full w-full object-cover"
+            width={400}
+            height={400}
           />
         </div>
 
-        <h3 className="text-center text-lg font-semibold">{category.name}</h3>
+        <h3 className="text-center text-lg font-semibold">{category.title}</h3>
       </article>
     </Link>
   );
