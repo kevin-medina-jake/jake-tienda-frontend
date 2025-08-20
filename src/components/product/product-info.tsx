@@ -7,6 +7,7 @@ import { Image, Product } from "@/lib/shopify/types";
 import Price from "../price";
 import { AddToCart } from "../cart/add-to-cart";
 import VariantSelector from "./variant-selector";
+import Link from "next/link";
 
 const getWhatsAppUrl = (productName: string, method: string) => {
   const message = `Hola, estoy interesado en el producto ${productName} y quiero pagarlo con ${method}`;
@@ -14,29 +15,29 @@ const getWhatsAppUrl = (productName: string, method: string) => {
 };
 
 export const ProductInfo = ({ product }: { product: Product }) => {
-  const [quantity, setQuantity] = useState(1);
+  // const [quantity, setQuantity] = useState(1);
   const [paymentMethod, setPaymentMethod] = useState("sin_credito");
 
-  const increment = () => {
-    // setQuantity((prev) => (prev < stock ? prev + 1 : prev));
-  };
+  // const increment = () => {
+  //   // setQuantity((prev) => (prev < stock ? prev + 1 : prev));
+  // };
 
-  const decrement = () => {
-    setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
-  };
+  // const decrement = () => {
+  //   setQuantity((prev) => (prev > 1 ? prev - 1 : 1));
+  // };
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setPaymentMethod(e.target.value);
   };
 
-  const handleAddToCart = () => {};
+  // const handleAddToCart = () => {};
 
-  const handleCheck = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.stopPropagation();
-    e.preventDefault();
+  // const handleCheck = (e: React.MouseEvent<HTMLButtonElement>) => {
+  //   e.stopPropagation();
+  //   e.preventDefault();
 
-    alert("En el carrito");
-  };
+  //   alert("En el carrito");
+  // };
 
   return (
     <div className="flex w-full flex-col space-y-6">
@@ -93,7 +94,7 @@ export const ProductInfo = ({ product }: { product: Product }) => {
 
       <div className="flex w-full flex-col gap-4 sm:flex-row">
         {paymentMethod !== "sin_credito" ? (
-          <a
+          <Link
             href={getWhatsAppUrl(product.title, paymentMethod)}
             target="_blank"
             rel="noopener noreferrer"
@@ -101,10 +102,10 @@ export const ProductInfo = ({ product }: { product: Product }) => {
           >
             <MessageCircle size={20} />
             WhatsApp
-          </a>
-        ) : null}
-
-        <AddToCart product={product} />
+          </Link>
+        ) : (
+          <AddToCart product={product} />
+        )}
       </div>
     </div>
   );
