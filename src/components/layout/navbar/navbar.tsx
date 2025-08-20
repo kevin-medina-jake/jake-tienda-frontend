@@ -85,7 +85,9 @@ export const Navbar = async () => {
             />
           </Link>
 
-          <div className="h-[44px] w-[48px]">{/* <CartModal /> */}</div>
+          <div className="h-[44px] w-[48px]">
+            <CartModal />
+          </div>
         </section>
 
         <section className="px-2">
