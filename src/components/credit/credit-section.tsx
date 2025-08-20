@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState, type ReactElement } from "react";
 import CreditBlock from "./credit-block";
-import { User, Smartphone, XCircle, Clock, MapPin } from "lucide-react";
+import { User, Smartphone, XCircle, Clock, MapPin, HandCoins } from "lucide-react";
 import type { StaticImageData } from "next/image";
 
 // Imágenes
@@ -35,6 +35,7 @@ export default function CreditSection() {
         { icon: <Smartphone size={28} />, text: "Celular activo y correo personal" },
         { icon: <XCircle size={28} />, text: "Sin reportes en centrales de riesgo" },
         { icon: <Clock size={28} />, text: "Financiación de 12 a 72 cuotas" },
+        { icon: <HandCoins size={28} />, text: "Tener el valor total del financiamiento" },
       ],
       addi: [
         { icon: <User size={28} />, text: "Ser mayor de edad" },
@@ -93,7 +94,7 @@ export default function CreditSection() {
         title: "Brilla",
         image: brillaImg,
         description:
-          "Financia tus compras con tu cupo Brilla... acércate con tu recibo del gas.",
+          "Financia tus compras con tu cupo Brilla... acércate con tu recibo de la energia.",
         buttonText: "Escríbenos por WhatsApp",
         buttonLink:
           "https://wa.me/573502397570?text=Hola%2C%20quiero%20información%20sobre%20financiación%20con%20Brilla",

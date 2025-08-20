@@ -101,7 +101,7 @@ export const SearchProducts = () => {
   key={searchParams?.get("q")}
   type="text"
   name="q"                 // ✅ en vez de "search"
-  placeholder="Search for products..."
+  placeholder="Buscar productos..."
   autoComplete="off"
   defaultValue={searchParams?.get("q") || ""}
   onChange={handleChange}
