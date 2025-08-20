@@ -1,7 +1,7 @@
 import { getBestProductPoster, getNewProducts } from "@/lib/shopify";
 import BestProductPoster from "./best-product-poster";
 
-import Fondo from "@/assets/images/fondo.png";
+import Fondo from "@/assets/images/fondo1.png";
 import { Suspense } from "react";
 import { CarouselProducts } from "./carousel-products";
 
