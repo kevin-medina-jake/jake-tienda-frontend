@@ -1,8 +1,6 @@
 "use client";
 
-import Markdown from "react-markdown";
-import rehypeRaw from "rehype-raw";
-import remarkGfm from "remark-gfm";
+import ViewMarkdown from "../ViewMarkdown";
 
 interface Props {
   description: string;
@@ -14,9 +12,7 @@ export function ProductDescription({ description }: Props) {
       <h2 className="mb-4 text-2xl font-bold">Descripción del producto</h2>
 
       <article className="prose prose-sm max-w-none">
-        <Markdown rehypePlugins={[rehypeRaw]} remarkPlugins={[remarkGfm]}>
-          {description}
-        </Markdown>
+        <ViewMarkdown text={description} />
       </article>
     </div>
   );

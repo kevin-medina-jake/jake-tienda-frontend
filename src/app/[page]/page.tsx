@@ -1,4 +1,4 @@
-import { ProductDescription } from "@/components/product/product-description";
+import ViewMarkdown from "@/components/ViewMarkdown";
 import { getPage } from "@/lib/shopify";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -32,10 +32,10 @@ export default async function Page({ params }: { params: { page: string } }) {
     <>
       <h1 className="mb-8 text-5xl font-bold">{page.title}</h1>
 
-      <ProductDescription description={page.body} />
+      <ViewMarkdown text={page.body as string} />
 
       <p className="text-sm italic">
-        {`This document was last updated on ${new Intl.DateTimeFormat(
+        {`Este documento fue actualizado por última vez el ${new Intl.DateTimeFormat(
           undefined,
           {
             year: "numeric",
