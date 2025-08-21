@@ -98,11 +98,7 @@ export const SearchProducts = () => {
   };
 
   return (
-    <section
-      className="relative"
-      ref={wrapperRef}
-      onBlur={handleContainerBlur} // 👈 cierra al perder foco global
-    >
+    <section className="relative" ref={wrapperRef} onBlur={handleContainerBlur}>
       <div className="group">
         <form onSubmit={onSubmit} className="relative flex w-full items-center">
           <input
