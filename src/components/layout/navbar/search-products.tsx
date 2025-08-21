@@ -24,6 +24,7 @@ export const SearchProducts = () => {
 
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    (e.target as HTMLInputElement).blur();
 
     const form = e.currentTarget;
     const q = ((new FormData(form).get("q") as string) || "").trim();

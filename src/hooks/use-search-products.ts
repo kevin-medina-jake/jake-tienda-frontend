@@ -40,34 +40,6 @@ export const useSearchProducts = () => {
     setSearch("");
   }, [pathname]);
 
-  // useEffect(() => {
-  //   const searchProducts = async () => {
-  //     if (debouncedSearch.trim().length < 1) {
-  //       setProductsSearch([]);
-  //       setSearchAttempted(false);
-  //       return;
-  //     }
-
-  //     setLoading(true);
-  //     setSearchAttempted(true);
-
-  //     try {
-  //       const res = await fetch(
-  //         `/api/shopify/search?q=${encodeURIComponent(debouncedSearch)}`,
-  //       );
-
-  //       const data = await res.json();
-  //       setProductsSearch(data);
-  //     } catch (err) {
-  //       setProductsSearch([]);
-  //     } finally {
-  //       setLoading(false);
-  //     }
-  //   };
-
-  //   searchProducts();
-  // }, [debouncedSearch]);
-
   const searchProducts = useCallback(async () => {
     if (debouncedSearch.trim().length < 1) {
       setProductsSearch([]);
