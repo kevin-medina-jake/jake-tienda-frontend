@@ -613,7 +613,7 @@ export async function getPages(): Promise<Page[]> {
 export async function getPromoBanner() {
   const res = await shopifyFetch({
     query: getPromoBannerQuery,
-    tags: [TAGS.metaobjects],
+    tags: [TAGS.products],
   });
 
   const metaobject = res.body.data.metaobjects.edges[0]?.node;
@@ -639,7 +639,7 @@ export async function getPromoBanner() {
 export async function getHeroItems() {
   const res = await shopifyFetch({
     query: getHeroItemsQuery,
-    tags: [TAGS.metaobjects],
+    tags: [TAGS.products],
   });
 
   const edges = res.body.data.metaobjects.edges;
@@ -663,7 +663,7 @@ export async function getHeroItems() {
 export async function getBestProductPoster() {
   const res = await shopifyFetch({
     query: getBestProductPosterQuery,
-    tags: [TAGS.metaobjects],
+    tags: [TAGS.products],
   });
 
   const edges = res.body.data.metaobjects.edges;
