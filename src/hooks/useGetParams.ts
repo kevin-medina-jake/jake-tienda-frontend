@@ -10,7 +10,7 @@ export const useGetParams = ({ name }: { name: string }) => {
     setLoadingParams(true);
     setParams(searchParams?.get(name)?.trim() ?? "");
     setLoadingParams(false);
-  }, [searchParams]);
+  }, [searchParams, name, setParams]);
 
   return { params, loadingParams };
 };
