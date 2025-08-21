@@ -2,6 +2,7 @@ export const TAGS = {
   collections: "collections",
   products: "products",
   cart: "cart",
+  metaobjects: "metaobjects",
 };
 
 export type SortFilterItem = {

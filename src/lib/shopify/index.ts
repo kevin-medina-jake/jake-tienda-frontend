@@ -505,10 +505,18 @@ export async function revalidate(req: NextRequest): Promise<NextResponse> {
     "products/delete",
     "products/update",
   ];
+
+  const metaobjectWebhooks = [
+    "metaobjects/create",
+    "metaobjects/update",
+    "metaobjects/delete",
+  ];
+
   const topic = headers().get("x-shopify-topic") || "unknown";
   const secret = req.nextUrl.searchParams.get("secret");
   const isCollectionUpdate = collectionWebhooks.includes(topic);
   const isProductUpdate = productWebhooks.includes(topic);
+  const isMetaobjectUpdate = metaobjectWebhooks.includes(topic);
 
   if (!secret || secret !== process.env.SHOPIFY_REVALIDATION_SECRET) {
     console.error("Invalid revalidation secret.");
@@ -526,6 +534,10 @@ export async function revalidate(req: NextRequest): Promise<NextResponse> {
 
   if (isProductUpdate) {
     revalidateTag(TAGS.products);
+  }
+
+  if (isMetaobjectUpdate) {
+    revalidateTag(TAGS.metaobjects);
   }
 
   return NextResponse.json({ status: 200, revalidated: true, now: Date.now() });
@@ -555,7 +567,7 @@ export async function getPages(): Promise<Page[]> {
 export async function getPromoBanner() {
   const res = await shopifyFetch({
     query: getPromoBannerQuery,
-    tags: [TAGS.products],
+    tags: [TAGS.metaobjects],
   });
 
   const metaobject = res.body.data.metaobjects.edges[0]?.node;
@@ -581,7 +593,7 @@ export async function getPromoBanner() {
 export async function getHeroItems() {
   const res = await shopifyFetch({
     query: getHeroItemsQuery,
-    tags: [TAGS.products],
+    tags: [TAGS.metaobjects],
   });
 
   const edges = res.body.data.metaobjects.edges;
@@ -605,7 +617,7 @@ export async function getHeroItems() {
 export async function getBestProductPoster() {
   const res = await shopifyFetch({
     query: getBestProductPosterQuery,
-    tags: [TAGS.products],
+    tags: [TAGS.metaobjects],
   });
 
   const edges = res.body.data.metaobjects.edges;
