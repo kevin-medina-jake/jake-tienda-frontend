@@ -18,10 +18,11 @@ export const SearchProducts = () => {
     searchAttempted,
     pathname,
     setFocus,
-    search, // ← input controlado
+    search,
   } = useSearchProducts();
 
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     const onPointerDown = (e: PointerEvent) => {
@@ -43,6 +44,8 @@ export const SearchProducts = () => {
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setFocus(false);
+
+    inputRef.current?.blur();
 
     const form = e.currentTarget;
     const q = ((new FormData(form).get("q") as string) || "").trim();
@@ -102,6 +105,7 @@ export const SearchProducts = () => {
       <div className="group">
         <form onSubmit={onSubmit} className="relative flex w-full items-center">
           <input
+            ref={inputRef}
             type="text"
             name="q"
             placeholder="Buscar productos..."
