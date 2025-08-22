@@ -76,7 +76,7 @@ export default function CreditSection() {
           "Compra ahora y paga después con cuotas cómodas y aprobación rápida.",
         buttonText: "Escríbenos por WhatsApp",
         buttonLink:
-          "https://wa.me/573502397570?text=Hola%2C%20quiero%20información%20sobre%20financiación%20con%20Addi",
+          "https://wa.me/573103876150?text=Hola%2C%20quiero%20información%20sobre%20financiación%20con%20Addi",
         videoId: "ritY6TpjuD4", // 👈 reemplaza por el ID real
       },
       {
@@ -87,7 +87,7 @@ export default function CreditSection() {
           "Financiación flexible para clientes sin historial crediticio o reportados.",
         buttonText: "Escríbenos por WhatsApp",
         buttonLink:
-          "https://wa.me/573502397570?text=Hola%2C%20quiero%20información%20sobre%20financiación%20con%20Gora",
+          "https://wa.me/573103876150?text=Hola%2C%20quiero%20información%20sobre%20financiación%20con%20Gora",
       },
       {
         id: "brilla",
@@ -97,7 +97,7 @@ export default function CreditSection() {
           "Financia tus compras con tu cupo Brilla... acércate con tu recibo de la energia.",
         buttonText: "Escríbenos por WhatsApp",
         buttonLink:
-          "https://wa.me/573502397570?text=Hola%2C%20quiero%20información%20sobre%20financiación%20con%20Brilla",
+          "https://wa.me/573103876150?text=Hola%2C%20quiero%20información%20sobre%20financiación%20con%20Brilla",
       },
     ],
     []
