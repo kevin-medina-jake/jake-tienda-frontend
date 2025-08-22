@@ -59,7 +59,7 @@ export const Bonds = async () => {
   return (
     <div className="mx-auto grid w-full max-w-7xl gap-4 px-4">
       <div className="col-span-1 sm:col-span-2 lg:col-span-4">
-        <div className="flex flex-col gap-4 rounded-sm bg-blue-50 p-4 md:flex-row md:p-8">
+        <div className="flex flex-col gap-4 rounded-sm bg-gradient-to-br from-blue-800 to-blue-600 p-4 md:flex-row md:p-8">
           <section className="max-w-2xl">
             <Image
               src={banner?.product?.featuredImage?.url}
@@ -71,14 +71,14 @@ export const Bonds = async () => {
           </section>
 
           <section className="flex flex-col justify-center gap-3 text-center sm:text-left">
-            <h2 className="text-2xl font-semibold md:text-4xl">
+            <h2 className="text-4xl font-bold text-white md:text-6xl">
               {banner?.title}
             </h2>
-            <p className="text-gray-700">{banner?.description}</p>
+            <p className="text-white/90">{banner?.description}</p>
             <div>
               <Link
                 href={"/product/" + banner?.product?.handle}
-                className="block w-full rounded-sm bg-blue-500 px-12 py-3 font-medium text-white hover:bg-blue-600 sm:w-max"
+                className="mt-4 block w-full rounded-sm bg-white px-12 py-3 text-center font-medium text-black hover:bg-blue-100 md:w-full md:max-w-sm"
               >
                 Comprar Ahora
               </Link>
@@ -99,14 +99,14 @@ export const Bonds = async () => {
 const CardBond = ({ bond }: { bond: (typeof bonds)[number] }) => {
   const Icon = bond.Icon;
   return (
-    <div className="flex h-full flex-col gap-4 rounded-sm bg-blue-50 p-4">
+    <div className="flex h-full flex-col gap-4 rounded-sm bg-gradient-to-t from-blue-900 to-blue-700 p-4 text-white">
       <Icon size={24} />
 
       <h2 className="text-xl font-semibold">{bond.title}</h2>
-      <ul className="list-disc pl-4 text-gray-700">
+      <ul className="list-disc pl-4">
         {bond.list.map((item, index) => (
           <li key={index}>
-            <p className="text-gray-700">{item}</p>
+            <p className="">{item}</p>
           </li>
         ))}
       </ul>

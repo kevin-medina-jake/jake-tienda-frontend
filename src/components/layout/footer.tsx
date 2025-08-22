@@ -20,7 +20,7 @@ const TikTokIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 export default function Footer() {
   return (
-    <footer className="overflow-hidden bg-gradient-to-r from-blue-950 to-blue-900 px-6 py-12 text-white lg:px-20">
+    <footer className="overflow-hidden bg-gradient-to-b from-blue-800 via-blue-800 to-blue-700 px-6 py-12 text-white lg:px-20">
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 md:grid-cols-4 md:items-start">
         {/* Logo y descripción */}
         <div className="flex flex-col items-center space-y-3 md:items-start">
@@ -92,7 +92,7 @@ export default function Footer() {
       </div>
 
       {/* Línea inferior */}
-      <div className="mt-10 border-t border-blue-700 pt-6 text-center text-sm">
+      <div className="mt-10 border-t border-white pt-6 text-center text-sm">
         © {new Date().getFullYear()} Jake Tienda Electrónica. Todos los
         derechos reservados.
       </div>
