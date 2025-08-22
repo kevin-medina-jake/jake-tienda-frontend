@@ -1,10 +1,11 @@
 import { getHeroItems } from "@/lib/shopify";
 import {
   CreditCard,
-  Percent,
-  ShieldCheck,
   ShoppingBag,
-  Truck,
+  Landmark, 
+  BadgePercent,
+  PiggyBank,
+  Flame
 } from "lucide-react";
 import Link from "next/link";
 import { CarouselHero } from "./carousel-hero";
@@ -54,7 +55,7 @@ function InfoHero() {
           </Link>
           <Link
             href="/credit"
-            className="flex w-full items-center justify-center gap-2 rounded-xl border border-gray-300 px-4 py-2 text-gray-800 hover:bg-gray-50 sm:w-max"
+            className="flex w-full items-center justify-center gap-2 rounded-xl border bg-amber-400 border-gray-300 px-4 py-2 text-gray-800 hover:bg-amber-500 sm:w-max"
           >
             <CreditCard size={18} />
             Opciones de financiación
@@ -63,16 +64,20 @@ function InfoHero() {
 
         <ul className="mt-2 flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm text-gray-600">
           <li className="flex items-center gap-2">
-            <ShieldCheck size={18} className="text-blue-600" />
-            Garantía extendida
+            <Landmark size={18} className="text-blue-600" />
+            Banco de Bogotá
           </li>
           <li className="flex items-center gap-2">
-            <Truck size={18} className="text-blue-600" />
-            Envío Rápidos
+            <BadgePercent size={18} className="text-blue-600" />
+            Addi
           </li>
           <li className="flex items-center gap-2">
-            <Percent size={18} className="text-blue-600" />
-            Financiación 0%
+            <PiggyBank size={18} className="text-blue-600" />
+            Gora
+          </li>
+          <li className="flex items-center gap-2">
+            <Flame size={18} className="text-blue-600" />
+            Brilla
           </li>
         </ul>
       </section>

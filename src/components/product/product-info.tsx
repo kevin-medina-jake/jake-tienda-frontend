@@ -11,7 +11,7 @@ import VariantSelector from "./variant-selector";
 
 // 👉 Configura por env vars si quieres
 const WHATSAPP_NUMBER =
-  process.env.NEXT_PUBLIC_WA_NUMBER || "573502397570";
+  process.env.NEXT_PUBLIC_WA_NUMBER || "573103876150";
 const BANCO_BOGOTA_URL =
   process.env.NEXT_PUBLIC_BANCO_BOGOTA_URL ||
   "https://slm.bancodebogota.com/lwjqqbfe";
