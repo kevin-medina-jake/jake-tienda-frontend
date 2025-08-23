@@ -77,7 +77,7 @@ export const Bonds = async () => {
             <p className="text-white/90">{banner?.description}</p>
             <div>
               <Link
-                href={"/product/" + banner?.product?.handle}
+                href="/search"
                 className="mt-4 block w-full rounded-sm bg-white px-12 py-3 text-center font-medium text-black hover:bg-blue-100 md:w-full md:max-w-sm"
               >
                 Comprar Ahora
