@@ -57,10 +57,23 @@ export const ProductInfo = ({ product }: { product: Product }) => {
   );
   const currency = product.priceRange.maxVariantPrice.currencyCode;
 
-  const isFinanced = paymentMethod === "addi" || paymentMethod === "brilla";
-  const financedAmount = isFinanced
-    ? parseFloat((baseAmount * (1 + FINANCE_RATE)).toFixed(2))
-    : undefined;
+  // Métodos que muestran precio con recargo (+10.7%)
+  const isMarkupMethod = paymentMethod === "addi" || paymentMethod === "brilla";
+
+  // Precio mostrado según método
+  const displayAmountNumber = useMemo(
+    () =>
+      isMarkupMethod
+        ? +(baseAmount * (1 + FINANCE_RATE)).toFixed(2)
+        : baseAmount,
+    [isMarkupMethod, baseAmount],
+  );
+
+  // Precio financiado (para tachar cuando es pago en línea)
+  const financingTotalNumber = useMemo(
+    () => +(baseAmount * (1 + FINANCE_RATE)).toFixed(2),
+    [baseAmount],
+  );
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setPaymentMethod(e.target.value as Method);
@@ -85,7 +98,7 @@ export const ProductInfo = ({ product }: { product: Product }) => {
         method: paymentMethod,
         baseAmount,
         currency,
-        financedAmount: isFinanced ? financedAmount : undefined,
+        financedAmount: isMarkupMethod ? displayAmountNumber : undefined,
       }),
       label: "WhatsApp",
       icon: <MessageCircle size={20} />,
@@ -96,28 +109,32 @@ export const ProductInfo = ({ product }: { product: Product }) => {
     <div className="flex w-full flex-col space-y-6">
       <h1 className="text-3xl font-bold text-gray-900">{product.title}</h1>
 
-      <Price
-        className="text-2xl font-semibold text-gray-700"
-        amount={product.priceRange.maxVariantPrice.amount}
-        currencyCode={currency}
-      />
-
-      {isFinanced && financedAmount !== undefined && (
-        <div className="rounded-md border border-blue-200 bg-blue-50 p-3 text-sm">
-          <p className="font-medium text-blue-900">
-            Total estimado con financiación (10.7%):
-          </p>
+      {/* Precio principal */}
+      <div className="space-y-1">
+        {paymentMethod === "sin_credito" && (
           <Price
-            className="text-xl font-semibold text-blue-900"
-            amount={financedAmount.toFixed(2)}
+            className="text-sm text-gray-500 line-through"
+            amount={financingTotalNumber.toFixed(2)}
             currencyCode={currency}
           />
-          <p className="mt-1 text-xs text-blue-900/80">
-            * Valor informativo. El total definitivo puede variar según la
-            evaluación del aliado.
+        )}
+
+        <Price
+          className="text-2xl font-semibold text-gray-800"
+          amount={displayAmountNumber.toFixed(2)}
+          currencyCode={currency}
+        />
+
+        {paymentMethod === "sin_credito" ? (
+          <p className="text-xs font-medium text-emerald-700">
+            Descuento del 10.7% pagando en línea
           </p>
-        </div>
-      )}
+        ) : isMarkupMethod ? (
+          <p className="text-xs text-blue-700">
+            Total estimado con financiación 
+          </p>
+        ) : null}
+      </div>
 
       <VariantSelector options={product.options} variants={product.variants} />
 

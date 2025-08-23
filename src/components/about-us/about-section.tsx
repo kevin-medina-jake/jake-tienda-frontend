@@ -3,7 +3,7 @@
 import Image from "next/image";
 
 import bannerImg from "@/assets/images/fondo 4.jpg";
-import founderImg from "@/assets/images/github-sin.png";
+import founderImg from "@/assets/images/Kevin.jpeg";
 
 export default function AboutSection() {
   return (
