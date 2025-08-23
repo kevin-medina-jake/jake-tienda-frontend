@@ -9,22 +9,14 @@ import Price from "../price";
 import { AddToCart } from "../cart/add-to-cart";
 import VariantSelector from "./variant-selector";
 
-// 👉 Configura por env vars si quieres
-const WHATSAPP_NUMBER =
-  process.env.NEXT_PUBLIC_WA_NUMBER || "573103876150";
+const WHATSAPP_NUMBER = process.env.NEXT_PUBLIC_WA_NUMBER || "573103876150";
 const BANCO_BOGOTA_URL =
   process.env.NEXT_PUBLIC_BANCO_BOGOTA_URL ||
   "https://slm.bancodebogota.com/lwjqqbfe";
 
-// 👇 Porcentaje de financiación para Addi y Brilla
 const FINANCE_RATE = 0.107;
 
-type Method =
-  | "sin_credito"
-  | "addi"
-  | "brilla"
-  | "gora"
-  | "banco_bogota";
+type Method = "sin_credito" | "addi" | "brilla" | "gora" | "banco_bogota";
 
 const METHOD_LABELS: Record<Method, string> = {
   sin_credito: "Pago en línea (Tarjeta • PSE • Nequi)",
@@ -61,7 +53,7 @@ export const ProductInfo = ({ product }: { product: Product }) => {
 
   const baseAmount = useMemo(
     () => parseFloat(product.priceRange.maxVariantPrice.amount),
-    [product.priceRange.maxVariantPrice.amount]
+    [product.priceRange.maxVariantPrice.amount],
   );
   const currency = product.priceRange.maxVariantPrice.currencyCode;
 
@@ -74,7 +66,6 @@ export const ProductInfo = ({ product }: { product: Product }) => {
     setPaymentMethod(e.target.value as Method);
   };
 
-  // Decide la acción según el método seleccionado
   const action = (() => {
     if (paymentMethod === "sin_credito") {
       return { type: "cart" as const };
@@ -87,7 +78,6 @@ export const ProductInfo = ({ product }: { product: Product }) => {
         icon: <Landmark size={20} />,
       };
     }
-    // Addi / Brilla / Gora → WhatsApp (Addi/Brilla llevan total financiado)
     return {
       type: "whatsapp" as const,
       href: buildWhatsAppUrl({
@@ -106,14 +96,12 @@ export const ProductInfo = ({ product }: { product: Product }) => {
     <div className="flex w-full flex-col space-y-6">
       <h1 className="text-3xl font-bold text-gray-900">{product.title}</h1>
 
-      {/* Precio base */}
       <Price
         className="text-2xl font-semibold text-gray-700"
         amount={product.priceRange.maxVariantPrice.amount}
         currencyCode={currency}
       />
 
-      {/* Si el método es Addi o Brilla, mostramos el total estimado con financiación */}
       {isFinanced && financedAmount !== undefined && (
         <div className="rounded-md border border-blue-200 bg-blue-50 p-3 text-sm">
           <p className="font-medium text-blue-900">
@@ -125,7 +113,8 @@ export const ProductInfo = ({ product }: { product: Product }) => {
             currencyCode={currency}
           />
           <p className="mt-1 text-xs text-blue-900/80">
-            * Valor informativo. El total definitivo puede variar según la evaluación del aliado.
+            * Valor informativo. El total definitivo puede variar según la
+            evaluación del aliado.
           </p>
         </div>
       )}
@@ -161,12 +150,11 @@ export const ProductInfo = ({ product }: { product: Product }) => {
             href={action.href!}
             target="_blank"
             rel="noopener noreferrer"
-            className={`flex w-full items-center justify-center gap-2 rounded-sm p-3 text-center text-white transition
-              ${
-                action.type === "external"
-                  ? "bg-blue-600 hover:bg-blue-700"
-                  : "bg-green-600 hover:bg-green-700"
-              }`}
+            className={`flex w-full items-center justify-center gap-2 rounded-sm p-3 text-center text-white transition ${
+              action.type === "external"
+                ? "bg-blue-600 hover:bg-blue-700"
+                : "bg-green-600 hover:bg-green-700"
+            }`}
           >
             {action.icon}
             {action.label}

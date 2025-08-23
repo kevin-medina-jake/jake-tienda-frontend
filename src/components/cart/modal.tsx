@@ -220,6 +220,15 @@ export default function CartModal() {
                   <form action={redirectToCheckout}>
                     <CheckoutButton />
                   </form>
+
+                  <Link
+                    href="https://slm.bancodebogota.com/lwjqqbfe"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-4 flex w-full items-center justify-center gap-2 rounded-full bg-blue-400 p-3 text-center text-sm text-white transition hover:bg-blue-500"
+                  >
+                    Crédito en Banco de Bogotá
+                  </Link>
                 </div>
               )}
             </Dialog.Panel>
