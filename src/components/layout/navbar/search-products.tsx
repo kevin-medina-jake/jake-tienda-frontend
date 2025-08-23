@@ -65,7 +65,7 @@ export const SearchProducts = () => {
         <Link
           href={`/product/${product.handle}`}
           className="flex items-center gap-2 rounded-xs border border-gray-300 p-2"
-          onClick={() => setTimeout(() => setFocus(false), 50)}
+          // onClick={() =>  setFocus(false)}
         >
           <Image
             src={product?.featuredImage?.url ?? "/not-found.png"}
