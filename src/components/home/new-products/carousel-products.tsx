@@ -1,10 +1,11 @@
 "use client";
 
 import { Swiper, SwiperSlide } from "swiper/react";
-import { Pagination } from "swiper/modules";
+import { Pagination, Navigation } from "swiper/modules";
 
 import "swiper/css";
 import "swiper/css/pagination";
+import "swiper/css/navigation";
 import "@/styles/home/carrousel-products.css";
 
 import { Product } from "@/lib/shopify/types";
@@ -19,19 +20,20 @@ export const CarouselProducts = ({ products }: { products: Product[] }) => {
       pagination={{
         clickable: true,
       }}
+      navigation={true}
       breakpoints={{
         640: {
-          slidesPerView: 2,
+          slidesPerView: 1,
           spaceBetween: 4,
         },
         1008: {
-          slidesPerView: 3,
+          slidesPerView: 2,
           spaceBetween: 4,
         },
       }}
-      modules={[Pagination]}
+      modules={[Pagination, Navigation]}
       loop={true}
-      className="h-[500px] !pb-10 sm:h-full"
+      className="!h-[500px] !pb-10 sm:h-full"
     >
       {products.slice(0, 8).map((product) => (
         <SwiperSlide key={product.id}>
