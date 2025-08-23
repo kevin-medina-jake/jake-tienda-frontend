@@ -503,22 +503,22 @@ export async function revalidate(req: NextRequest): Promise<NextResponse> {
     "products/delete",
     "products/update",
   ];
-  const metaobjectWebhooks = [
-    "metaobjects/create",
-    "metaobjects/update",
-    "metaobjects/delete",
-  ];
+  // const metaobjectWebhooks = [
+  //   "metaobjects/create",
+  //   "metaobjects/update",
+  //   "metaobjects/delete",
+  // ];
 
   const isCollectionUpdate = collectionWebhooks.includes(topic);
   const isProductUpdate = productWebhooks.includes(topic);
-  const isMetaobjectUpdate = metaobjectWebhooks.includes(topic);
+  // const isMetaobjectUpdate = metaobjectWebhooks.includes(topic);
 
   if (!secret || secret !== process.env.SHOPIFY_REVALIDATION_SECRET) {
     console.error("Invalid revalidation secret.");
     return NextResponse.json({ status: 200 });
   }
 
-  if (!isCollectionUpdate && !isProductUpdate && !isMetaobjectUpdate) {
+  if (!isCollectionUpdate && !isProductUpdate) {
     return NextResponse.json({ status: 200 });
   }
 
@@ -530,9 +530,9 @@ export async function revalidate(req: NextRequest): Promise<NextResponse> {
     revalidateTag(TAGS.products);
     revalidatePath("/");
   }
-  if (isMetaobjectUpdate) {
-    revalidateTag(TAGS.metaobjects);
-  }
+  // if (isMetaobjectUpdate) {
+  //   revalidateTag(TAGS.metaobjects);
+  // }
 
   return NextResponse.json({ status: 200, revalidated: true, now: Date.now() });
 }
@@ -561,7 +561,7 @@ export async function getPages(): Promise<Page[]> {
 export async function getPromoBanner() {
   const res = await shopifyFetch({
     query: getPromoBannerQuery,
-    tags: [TAGS.metaobjects],
+    tags: [TAGS.collections, TAGS.products],
   });
 
   const metaobject = res.body.data.metaobjects.edges[0]?.node;
@@ -587,7 +587,7 @@ export async function getPromoBanner() {
 export async function getHeroItems() {
   const res = await shopifyFetch({
     query: getHeroItemsQuery,
-    tags: [TAGS.metaobjects],
+    tags: [TAGS.collections, TAGS.products],
   });
 
   const edges = res.body.data.metaobjects.edges;
@@ -611,7 +611,7 @@ export async function getHeroItems() {
 export async function getBestProductPoster() {
   const res = await shopifyFetch({
     query: getBestProductPosterQuery,
-    tags: [TAGS.metaobjects],
+    tags: [TAGS.products, TAGS.collections],
   });
 
   const edges = res.body.data.metaobjects.edges;
