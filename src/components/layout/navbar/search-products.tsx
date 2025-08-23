@@ -34,13 +34,6 @@ export const SearchProducts = () => {
     return () => window.removeEventListener("pointerdown", onPointerDown);
   }, [setFocus]);
 
-  const handleContainerBlur = (e: React.FocusEvent<HTMLDivElement>) => {
-    const next = e.relatedTarget as Node | null;
-    if (!e.currentTarget.contains(next)) {
-      setFocus(false);
-    }
-  };
-
   function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setFocus(false);
@@ -65,7 +58,6 @@ export const SearchProducts = () => {
         <Link
           href={`/product/${product.handle}`}
           className="flex items-center gap-2 rounded-xs border border-gray-300 p-2"
-          // onClick={() =>  setFocus(false)}
         >
           <Image
             src={product?.featuredImage?.url ?? "/not-found.png"}
@@ -101,7 +93,7 @@ export const SearchProducts = () => {
   };
 
   return (
-    <section className="relative" ref={wrapperRef} onBlur={handleContainerBlur}>
+    <section className="relative" ref={wrapperRef}>
       <div className="group">
         <form onSubmit={onSubmit} className="relative flex w-full items-center">
           <input
