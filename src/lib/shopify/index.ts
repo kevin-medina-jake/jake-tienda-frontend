@@ -50,7 +50,7 @@ import {
   ShopifyRemoveFromCartOperation,
   ShopifyUpdateCartOperation,
 } from "./types";
-import { revalidateTag } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { getPageQuery, getPagesQuery } from "./queries/page";
 import { getPromoBannerQuery } from "./queries/bond";
 import { getHeroItemsQuery } from "./queries/hero";
@@ -279,7 +279,7 @@ export async function getProducts({
 }): Promise<Product[]> {
   const res = await shopifyFetch<ShopifyProductsOperation>({
     query: getProductsQuery,
-    tags: [TAGS.products],
+    tags: [TAGS.collections, TAGS.products],
     variables: {
       query,
       reverse,
@@ -524,9 +524,11 @@ export async function revalidate(req: NextRequest): Promise<NextResponse> {
 
   if (isCollectionUpdate) {
     revalidateTag(TAGS.collections);
+    revalidatePath("/");
   }
   if (isProductUpdate) {
     revalidateTag(TAGS.products);
+    revalidatePath("/");
   }
   if (isMetaobjectUpdate) {
     revalidateTag(TAGS.metaobjects);
@@ -534,59 +536,6 @@ export async function revalidate(req: NextRequest): Promise<NextResponse> {
 
   return NextResponse.json({ status: 200, revalidated: true, now: Date.now() });
 }
-
-// // This is called from `app/api/revalidate.ts` so providers can control revalidation logic.
-// export async function revalidate(req: NextRequest): Promise<NextResponse> {
-//   // We always need to respond with a 200 status code to Shopify,
-//   // otherwise it will continue to retry the request.
-
-//   const collectionWebhooks = [
-//     "collections/create",
-//     "collections/delete",
-//     "collections/update",
-//   ];
-//   const productWebhooks = [
-//     "products/create",
-//     "products/delete",
-//     "products/update",
-//   ];
-
-//   const metaobjectWebhooks = [
-//     "metaobjects/create",
-//     "metaobjects/update",
-//     "metaobjects/delete",
-//   ];
-
-//   const topic = headers().get("x-shopify-topic") || "unknown";
-//   const secret = req.nextUrl.searchParams.get("secret");
-//   const isCollectionUpdate = collectionWebhooks.includes(topic);
-//   const isProductUpdate = productWebhooks.includes(topic);
-//   const isMetaobjectUpdate = metaobjectWebhooks.includes(topic);
-
-//   if (!secret || secret !== process.env.SHOPIFY_REVALIDATION_SECRET) {
-//     console.error("Invalid revalidation secret.");
-//     return NextResponse.json({ status: 200 });
-//   }
-
-//   if (!isCollectionUpdate && !isProductUpdate) {
-//     // We don't need to revalidate anything for any other topics.
-//     return NextResponse.json({ status: 200 });
-//   }
-
-//   if (isCollectionUpdate) {
-//     revalidateTag(TAGS.collections);
-//   }
-
-//   if (isProductUpdate) {
-//     revalidateTag(TAGS.products);
-//   }
-
-//   if (isMetaobjectUpdate) {
-//     revalidateTag(TAGS.metaobjects);
-//   }
-
-//   return NextResponse.json({ status: 200, revalidated: true, now: Date.now() });
-// }
 
 export async function getPage(handle: string): Promise<Page> {
   const res = await shopifyFetch<ShopifyPageOperation>({
