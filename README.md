@@ -1,36 +1,116 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Jake Tienda - Frontend
 
-## Getting Started
+![Logo de la tienda](public/favicon.svg)
 
-First, run the development server:
+Bienvenido al repositorio del frontend de Jake Tienda, una moderna tienda en línea desarrollada con Next.js 15, React 19 y TypeScript.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## 🚀 Características
+
+- **Tecnologías Modernas**: Next.js 15, React 19, TypeScript y Tailwind CSS
+- **Diseño Responsive**: Adaptable a todos los dispositivos
+- **Rendimiento Optimizado**: Carga rápida gracias a la generación estática
+- **Carrito de Compras**: Gestión de productos y precios en tiempo real
+- **Integración con Strapi**: Backend headless para la gestión de contenidos
+
+## 🛠️ Estructura del Proyecto
+
+```
+jake-tienda-frontend/
+├── public/           # Archivos estáticos (imágenes, íconos, etc.)
+├── src/
+│   ├── app/          # Rutas y páginas de Next.js
+│   ├── assets/       # Recursos como imágenes y fuentes
+│   ├── components/   # Componentes reutilizables
+│   ├── config/       # Configuraciones de la aplicación
+│   ├── data/         # Datos estáticos y mocks
+│   ├── lib/          # Utilidades y helpers
+│   ├── styles/       # Estilos globales y módulos CSS
+│   └── types/        # Definiciones de TypeScript
+├── scripts/          # Scripts de utilidad
+├── .eslintrc.js      # Configuración de ESLint
+├── next.config.js    # Configuración de Next.js
+├── package.json      # Dependencias y scripts
+└── tsconfig.json     # Configuración de TypeScript
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🚀 Empezando
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Requisitos Previos
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- Node.js 18.0 o superior
+- npm, yarn, pnpm o bun
+- Git
 
-## Learn More
+### Instalación
 
-To learn more about Next.js, take a look at the following resources:
+1. Clona el repositorio:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+   ```bash
+   git clone https://github.com/igrisdev/jake-tienda-frontend.git
+   cd jake-tienda-frontend
+   ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+2. Instala las dependencias:
 
-## Deploy on Vercel
+   ```bash
+   npm install
+   # o
+   yarn install
+   # o
+   pnpm install
+   # o
+   bun install
+   ```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+3. Configura las variables de entorno:
+   Crea un archivo `.env.local` en la raíz del proyecto con las siguientes variables:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+   ```
+   COMPANY_NAME='Shopify Store Name'
+   TWITTER_CREATOR='Social Handle'
+   TWITTER_SITE='Link'
+   SITE_NAME='Shopify Store Name'
+   SHOPIFY_REVALIDATION_SECRET='Random Secret'
+   SHOPIFY_STOREFRONT_ACCESS_TOKEN='shopify storefront access token'
+   SHOPIFY_STORE_DOMAIN='shopify admin store domain'
+   ```
+
+4. Inicia el servidor de desarrollo:
+
+   ```bash
+   npm run dev
+   # o
+   yarn dev
+   # o
+   pnpm dev
+   # o
+   bun dev
+   ```
+
+5. Abre [http://localhost:3000](http://localhost:3000) en tu navegador para ver la aplicación.
+
+## 🛠️ Comandos Útiles
+
+- `npm run dev` - Inicia el servidor de desarrollo
+- `npm run build` - Construye la aplicación para producción
+- `npm start` - Inicia la aplicación en producción
+
+## 📦 Dependencias Principales
+
+- **Next.js 15** - Framework de React para aplicaciones web
+- **React 19** - Biblioteca para construir interfaces de usuario
+- **TypeScript** - Tipado estático para JavaScript
+- **Tailwind CSS** - Framework CSS utilitario
+- **Framer Motion** - Animaciones fluidas
+- **Swiper** - Carrusel táctil
+- **Zod** - Validación de esquemas
+
+## 🌐 Despliegue
+
+La forma más fácil de desplegar tu aplicación Next.js es usar Vercel, la plataforma de los creadores de Next.js.
+
+## 📺 Vídeo Tutorial
+
+Gracias a este video tutorial, puedes terminar de construir una tienda online con Next.js, Shopify y TypeScript.
+
+[ Building Next.js Ecommerce Store with TypeScript, Tailwindcss, headlessui, and Shopify CMS. ](https://www.youtube.com/watch?v=fJxzVFXGT_E&t=19992s)
