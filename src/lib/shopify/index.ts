@@ -21,6 +21,7 @@ import {
 import { getMenuQuery } from "./queries/menu";
 import {
   getNewProductsQuery,
+  getProductCollectionsQuery,
   getProductQuery,
   getProductRecommendationsQuery,
   getProductsQuery,
@@ -649,18 +650,61 @@ export async function getNewProducts(): Promise<Product[]> {
   return reshapeProducts(removeEdgesAndNodes(res.body.data.products));
 }
 
+// export async function searchProducts({
+//   query,
+// }: {
+//   query?: string;
+// }): Promise<Product[]> {
+//   const res = await shopifyFetch<ShopifyProductsOperation>({
+//     query: getProductsQuery,
+//     tags: [TAGS.products],
+//     variables: {
+//       query,
+//     },
+//   });
+
+//   return reshapeProducts(removeEdgesAndNodes(res.body.data.products));
+// }
+
 export async function searchProducts({
   query,
 }: {
   query?: string;
 }): Promise<Product[]> {
-  const res = await shopifyFetch<ShopifyProductsOperation>({
-    query: getProductsQuery,
-    tags: [TAGS.products],
-    variables: {
-      query,
-    },
+  if (!query) return [];
+
+  const [productsResult, collectionProductsResult] = await Promise.all([
+    shopifyFetch<any>({
+      query: getProductsQuery,
+      variables: { query },
+    }),
+    shopifyFetch<any>({
+      query: getProductCollectionsQuery,
+      variables: {
+        handle: query.toLowerCase().replace(/\s+/g, "-"),
+      },
+    }),
+  ]);
+
+  const directProducts = reshapeProducts(
+    removeEdgesAndNodes(productsResult.body.data.products),
+  );
+
+  const productsFromCollection =
+    reshapeProducts(
+      removeEdgesAndNodes(
+        collectionProductsResult.body.data.collection?.products || [],
+      ),
+    ) || [];
+
+  const allProducts = [...directProducts, ...productsFromCollection];
+  const uniqueProductsMap = new Map<string, Product>();
+
+  allProducts.forEach((product) => {
+    if (!uniqueProductsMap.has(product.id)) {
+      uniqueProductsMap.set(product.id, product);
+    }
   });
 
-  return reshapeProducts(removeEdgesAndNodes(res.body.data.products));
+  return Array.from(uniqueProductsMap.values());
 }

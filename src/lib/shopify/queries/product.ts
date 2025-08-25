@@ -15,10 +15,25 @@ export const getProductsQuery = /* GraphQL */ `
     $reverse: Boolean
     $query: String
   ) {
-    products(sortKey: $sortKey, reverse: $reverse, query: $query, first: 100) {
+    products(sortKey: $sortKey, reverse: $reverse, query: $query, first: 20) {
       edges {
         node {
           ...product
+        }
+      }
+    }
+  }
+  ${productFragment}
+`;
+
+export const getProductCollectionsQuery = /* GraphQL */ `
+  query getCollectionProducts($handle: String!) {
+    collection(handle: $handle) {
+      products(first: 20) {
+        edges {
+          node {
+            ...product
+          }
         }
       }
     }
