@@ -122,7 +122,8 @@ export async function shopifyFetch<T>({
   }
 }
 
-function removeEdgesAndNodes<T>(array: Connection<T>): T[] {
+function removeEdgesAndNodes<T>(array: Connection<T> | null | undefined): T[] {
+  if (!array || !array.edges) return [];
   return array.edges.map((edge) => edge?.node);
 }
 
@@ -665,15 +666,18 @@ export async function searchProducts({
   ]);
 
   const directProducts = reshapeProducts(
-    removeEdgesAndNodes(productsResult.body.data.products),
+    productsResult.body.data?.products
+      ? removeEdgesAndNodes(productsResult.body.data.products)
+      : [],
   );
 
-  const productsFromCollection =
-    reshapeProducts(
-      removeEdgesAndNodes(
-        collectionProductsResult.body.data.collection?.products || [],
-      ),
-    ) || [];
+  const productsFromCollection = reshapeProducts(
+    collectionProductsResult.body.data?.collection?.products
+      ? removeEdgesAndNodes(
+          collectionProductsResult.body.data.collection.products,
+        )
+      : [],
+  );
 
   const allProducts = [...directProducts, ...productsFromCollection];
   const uniqueProductsMap = new Map<string, Product>();
@@ -712,15 +716,18 @@ export async function getProducts({
   ]);
 
   const directProducts = reshapeProducts(
-    removeEdgesAndNodes(productsResult.body.data.products),
+    productsResult.body.data?.products
+      ? removeEdgesAndNodes(productsResult.body.data.products)
+      : [],
   );
 
-  const productsFromCollection =
-    reshapeProducts(
-      removeEdgesAndNodes(
-        collectionProductsResult.body.data.collection?.products || [],
-      ),
-    ) || [];
+  const productsFromCollection = reshapeProducts(
+    collectionProductsResult.body.data?.collection?.products
+      ? removeEdgesAndNodes(
+          collectionProductsResult.body.data.collection.products,
+        )
+      : [],
+  );
 
   const allProducts = [...directProducts, ...productsFromCollection];
   const uniqueProductsMap = new Map<string, Product>();
@@ -732,16 +739,4 @@ export async function getProducts({
   });
 
   return Array.from(uniqueProductsMap.values());
-
-  // const res = await shopifyFetch<ShopifyProductsOperation>({
-  //   query: getProductsQuery,
-  //   tags: [TAGS.collections, TAGS.products],
-  //   variables: {
-  //     query,
-  //     reverse,
-  //     sortKey,
-  //   },
-  // });
-
-  // return reshapeProducts(removeEdgesAndNodes(res.body.data.products));
 }
