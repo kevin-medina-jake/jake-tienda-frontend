@@ -691,6 +691,54 @@ export async function searchProducts({
   return Array.from(uniqueProductsMap.values());
 }
 
+// export async function getProducts({
+//   query,
+//   reverse,
+//   sortKey,
+// }: {
+//   query?: string;
+//   reverse?: boolean;
+//   sortKey?: string;
+// }): Promise<Product[]> {
+//   const [productsResult, collectionProductsResult] = await Promise.all([
+//     shopifyFetch<any>({
+//       query: getProductsQuery,
+//       variables: { query, sortKey, reverse },
+//     }),
+//     shopifyFetch<any>({
+//       query: getProductCollectionsQuery,
+//       variables: {
+//         handle: query.toLowerCase().replace(/\s+/g, "-"),
+//       },
+//     }),
+//   ]);
+
+//   const directProducts = reshapeProducts(
+//     productsResult.body.data?.products
+//       ? removeEdgesAndNodes(productsResult.body.data.products)
+//       : [],
+//   );
+
+//   const productsFromCollection = reshapeProducts(
+//     collectionProductsResult.body.data?.collection?.products
+//       ? removeEdgesAndNodes(
+//           collectionProductsResult.body.data.collection.products,
+//         )
+//       : [],
+//   );
+
+//   const allProducts = [...directProducts, ...productsFromCollection];
+//   const uniqueProductsMap = new Map<string, Product>();
+
+//   allProducts.forEach((product) => {
+//     if (!uniqueProductsMap.has(product.id)) {
+//       uniqueProductsMap.set(product.id, product);
+//     }
+//   });
+
+//   return Array.from(uniqueProductsMap.values()) || [];
+// }
+
 export async function getProducts({
   query,
   reverse,
@@ -700,43 +748,15 @@ export async function getProducts({
   reverse?: boolean;
   sortKey?: string;
 }): Promise<Product[]> {
-  if (!query) return [];
-
-  const [productsResult, collectionProductsResult] = await Promise.all([
-    shopifyFetch<any>({
-      query: getProductsQuery,
-      variables: { query, sortKey, reverse },
-    }),
-    shopifyFetch<any>({
-      query: getProductCollectionsQuery,
-      variables: {
-        handle: query.toLowerCase().replace(/\s+/g, "-"),
-      },
-    }),
-  ]);
-
-  const directProducts = reshapeProducts(
-    productsResult.body.data?.products
-      ? removeEdgesAndNodes(productsResult.body.data.products)
-      : [],
-  );
-
-  const productsFromCollection = reshapeProducts(
-    collectionProductsResult.body.data?.collection?.products
-      ? removeEdgesAndNodes(
-          collectionProductsResult.body.data.collection.products,
-        )
-      : [],
-  );
-
-  const allProducts = [...directProducts, ...productsFromCollection];
-  const uniqueProductsMap = new Map<string, Product>();
-
-  allProducts.forEach((product) => {
-    if (!uniqueProductsMap.has(product.id)) {
-      uniqueProductsMap.set(product.id, product);
-    }
+  const res = await shopifyFetch<ShopifyProductsOperation>({
+    query: getProductsQuery,
+    tags: [TAGS.collections, TAGS.products],
+    variables: {
+      query,
+      reverse,
+      sortKey,
+    },
   });
 
-  return Array.from(uniqueProductsMap.values());
+  return reshapeProducts(removeEdgesAndNodes(res.body.data.products));
 }
