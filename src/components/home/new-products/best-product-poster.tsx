@@ -5,9 +5,8 @@ import Link from "next/link";
 
 type Props = {
   data: any;
-  bg?: string | StaticImageData; // <- acepta string o import estático
+  bg?: string | StaticImageData;
   cta?: string;
-  /** Texto inferior del póster */
   tagline?: string;
   className?: string;
 };
@@ -28,11 +27,11 @@ export default function BestProductPoster({
   return (
     <Link
       href={`/product/${data.product.handle}`}
-      className={`group block w-full ${className}`}
+      className={`group block h-full w-full ${className}`}
       aria-label={`Ver ${brand ? `${brand} ` : ""}${data.product.title}`}
     >
       <article
-        className="relative flex min-h-[520px] w-full flex-col overflow-hidden rounded-2xl shadow-xl ring-1 ring-black/10 sm:min-h-[540px] lg:min-h-[560px]"
+        className="relative flex h-full w-full flex-col overflow-hidden rounded-2xl shadow-xl ring-1 ring-black/10"
         style={
           bgUrl
             ? {
@@ -43,10 +42,8 @@ export default function BestProductPoster({
             : undefined
         }
       >
-        {/* ligero degradado para legibilidad en fondos claros */}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-black/5" />
 
-        {/* Encabezado: Marca + Nombre */}
         <header className="px-6 pt-6 sm:px-6 sm:pt-8">
           {brand ? (
             <p className="text-center text-sm font-semibold tracking-wide text-black/80 uppercase italic">
@@ -58,7 +55,6 @@ export default function BestProductPoster({
           </h3>
         </header>
 
-        {/* Imagen del producto */}
         <div className="relative mx-auto mt-2 aspect-[5/4] w-[92%] flex-1 sm:aspect-[4/3] lg:aspect-[16/9]">
           <Image
             src={data.product.image?.url}
@@ -70,7 +66,6 @@ export default function BestProductPoster({
           />
         </div>
 
-        {/* Texto inferior (responsive) */}
         <footer className="px-6 pt-3 pb-6 sm:px-3 sm:pb-7">
           <p className="text-center text-sm leading-snug font-semibold text-black">
             {tagline}

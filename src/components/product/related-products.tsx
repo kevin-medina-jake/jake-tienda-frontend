@@ -2,39 +2,20 @@ import Link from "next/link";
 
 import { getProductRecommendations } from "@/lib/shopify";
 import { GridTileImage } from "../grid/tile";
+import { ProductCard } from "../layout/product-grid-items";
 
 export const RelatedProducts = async ({ id }: { id: string }) => {
   const relatedProducts = await getProductRecommendations(id);
 
   if (!relatedProducts) return null;
+  if (relatedProducts.length === 0) return null;
 
   return (
     <div className="py-8">
       <h2 className="mb-4 text-2xl font-bold">Productos Relacionados</h2>
-      <ul className="flex w-full gap-4 overflow-x-auto pt-1">
+      <ul className="grid grid-cols-1 gap-4 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         {relatedProducts.map((product) => (
-          <li
-            key={product.handle}
-            className="aspect-square w-full flex-none min-[475px]:w-1/2 sm:w-1/3 md:w-1/4 lg:w-1/5"
-          >
-            <Link
-              className="relative h-full w-full"
-              href={`/product/${product.handle}`}
-              prefetch={true}
-            >
-              <GridTileImage
-                alt={product.title}
-                label={{
-                  title: product.title,
-                  amount: product.priceRange.maxVariantPrice.amount,
-                  currencyCode: product.priceRange.maxVariantPrice.currencyCode,
-                }}
-                src={product.featuredImage?.url}
-                fill
-                sizes="(min-width: 1024px) 20vw, (min-width: 768px) 25vw, (min-width: 640px) 33vw, (min-width: 475px) 50vw, 100vw"
-              />
-            </Link>
-          </li>
+          <ProductCard key={product.id} product={product} />
         ))}
       </ul>
     </div>

@@ -17,8 +17,8 @@ export const NewProducts = async () => {
         <h2 className="text-center text-3xl font-bold">¡Productos Nuevos!</h2>
       </div>
 
-      <div className="grid w-full grid-cols-1 place-items-center gap-4 md:grid-cols-4">
-        <section className="w-full overflow-hidden sm:col-span-1">
+      <div className="grid w-full grid-cols-1 place-items-center gap-y-4 md:grid-cols-4 md:gap-4">
+        <section className="h-full w-full overflow-hidden sm:col-span-1">
           <BestProductPoster data={bestProductInfo} bg={Fondo} />
         </section>
 
