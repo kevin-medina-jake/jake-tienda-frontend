@@ -1,4 +1,3 @@
-
 import { mkdir, writeFile } from "node:fs/promises";
 import { dirname, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
@@ -15,7 +14,6 @@ const OUT_FILE = resolve(OUT_DIR, "colombia.json");
 
 await mkdir(OUT_DIR, { recursive: true });
 
-console.log("Descargando departamentos/municipios de Colombia…");
 const res = await fetch(RAW_URL);
 if (!res.ok) {
   throw new Error(`Error al descargar: ${res.status} ${res.statusText}`);
@@ -23,4 +21,3 @@ if (!res.ok) {
 
 const buf = Buffer.from(await res.arrayBuffer());
 await writeFile(OUT_FILE, buf);
-console.log(`OK -> ${OUT_FILE}`);

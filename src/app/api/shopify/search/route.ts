@@ -6,7 +6,7 @@ export async function GET(request: Request) {
   const query = searchParams.get("q") || "";
 
   try {
-    const products = await searchProducts({ query });
+    const products = await searchProducts({ query, first: 20 });
 
     return NextResponse.json(products);
   } catch (error) {

@@ -14,8 +14,26 @@ export const getProductsQuery = /* GraphQL */ `
     $sortKey: ProductSortKeys
     $reverse: Boolean
     $query: String
+    $first: Int
+    $after: String
+    $before: String
+    $last: Int
   ) {
-    products(sortKey: $sortKey, reverse: $reverse, query: $query, first: 20) {
+    products(
+      sortKey: $sortKey
+      reverse: $reverse
+      query: $query
+      first: $first
+      after: $after
+      before: $before
+      last: $last
+    ) {
+      pageInfo {
+        hasNextPage
+        hasPreviousPage
+        startCursor
+        endCursor
+      }
       edges {
         node {
           ...product

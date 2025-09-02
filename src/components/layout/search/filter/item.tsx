@@ -15,6 +15,10 @@ function PathFilterItem({ item }: { item: PathFilterItem }) {
   const DynamicTag = active ? "p" : Link;
 
   newParams.delete("q");
+  newParams.delete("sort");
+  newParams.delete("before");
+  newParams.delete("after");
+  newParams.delete("page");
 
   return (
     <li className="mt-2 flex text-black" key={item.title}>
