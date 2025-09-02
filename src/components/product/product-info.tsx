@@ -19,11 +19,11 @@ const FINANCE_RATE = 0.107;
 type Method = "sin_credito" | "addi" | "brilla" | "gora" | "banco_bogota";
 
 const METHOD_LABELS: Record<Method, string> = {
+  banco_bogota: "Banco de Bogotá",
   sin_credito: "Pago en línea (Tarjeta • PSE • Nequi)",
   addi: "Addi",
   brilla: "Brilla",
   gora: "Gora",
-  banco_bogota: "Banco de Bogotá",
 };
 
 function buildWhatsAppUrl(opts: {
@@ -49,7 +49,7 @@ function buildWhatsAppUrl(opts: {
 }
 
 export const ProductInfo = ({ product }: { product: Product }) => {
-  const [paymentMethod, setPaymentMethod] = useState<Method>("sin_credito");
+  const [paymentMethod, setPaymentMethod] = useState<Method>("banco_bogota");
 
   const baseAmount = useMemo(
     () => parseFloat(product.priceRange.maxVariantPrice.amount),
@@ -131,7 +131,7 @@ export const ProductInfo = ({ product }: { product: Product }) => {
           </p>
         ) : isMarkupMethod ? (
           <p className="text-xs text-blue-700">
-            Total estimado con financiación 
+            Total estimado con financiación
           </p>
         ) : null}
       </div>
@@ -167,11 +167,10 @@ export const ProductInfo = ({ product }: { product: Product }) => {
             href={action.href!}
             target="_blank"
             rel="noopener noreferrer"
-            className={`flex w-full items-center justify-center gap-2 rounded-sm p-3 text-center text-white transition ${
-              action.type === "external"
-                ? "bg-blue-600 hover:bg-blue-700"
-                : "bg-green-600 hover:bg-green-700"
-            }`}
+            className={`flex w-full items-center justify-center gap-2 rounded-sm p-3 text-center text-white transition ${action.type === "external"
+              ? "bg-blue-600 hover:bg-blue-700"
+              : "bg-green-600 hover:bg-green-700"
+              }`}
           >
             {action.icon}
             {action.label}
