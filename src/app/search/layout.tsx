@@ -1,6 +1,46 @@
+// app/search/layout.tsx
+import type { Metadata } from "next";
 import Collections from "@/components/layout/search/collections";
 import FilterList from "@/components/layout/search/filter";
 import { sorting } from "@/lib/constants";
+
+export const metadata: Metadata = {
+  title: "Buscar productos | Jake Tienda Electrónica",
+  description:
+    "Encuentra parlantes, controladoras DJ, consolas, subwoofers y tecnología de sonido profesional. Filtra y ordena productos con envío a toda Colombia.",
+  alternates: {
+    canonical: "/search",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: { index: true, follow: true },
+  },
+  openGraph: {
+    title: "Buscar productos | Jake Tienda Electrónica",
+    description:
+      "Explora y filtra productos de audio profesional, DJ y tecnología. Envíos y financiación en Colombia.",
+    type: "website",
+    url: "/search",
+    siteName: "Jake Tienda Electrónica",
+    locale: "es_CO",
+    images: [
+      {
+        url: "/favicong.svg", 
+        width: 1200,
+        height: 630,
+        alt: "Jake Tienda Electrónica",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Buscar productos | Jake Tienda Electrónica",
+    description:
+      "Encuentra y filtra productos de sonido profesional, DJ y tecnología.",
+    images: ["/favicong.svg"],
+  },
+};
 
 export default function SearchLayout({
   children,
