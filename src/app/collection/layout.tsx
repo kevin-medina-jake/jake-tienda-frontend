@@ -20,7 +20,6 @@ export async function generateMetadata({
   const pageTitle = `${titleFromSlug} | Jake Tienda Electrónica`;
   const description = `Compra ${titleFromSlug} en Jake Tienda Electrónica: parlantes, consolas, controladoras DJ, subwoofers y más. Envío nacional y opciones de financiación.`;
 
-
   const ogImage = "/favicong.svg";
 
   return {
@@ -50,7 +49,14 @@ export async function generateMetadata({
       url: `/collection/${params.collection}`,
       siteName: "Jake Tienda Electrónica",
       locale: "es_CO",
-      images: [{ url: ogImage, width: 1200, height: 630, alt: "Jake Tienda Electrónica" }],
+      images: [
+        {
+          url: ogImage,
+          width: 1200,
+          height: 630,
+          alt: "Jake Tienda Electrónica",
+        },
+      ],
     },
     twitter: {
       card: "summary_large_image",
@@ -61,7 +67,11 @@ export async function generateMetadata({
   };
 }
 
-export default function SearchLayout({ children }: { children: React.ReactNode }) {
+export default function SearchLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   return (
     <>
       <Header />

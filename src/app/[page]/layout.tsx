@@ -1,10 +1,8 @@
-
 import type { Metadata, Viewport } from "next";
-
 
 export const metadata: Metadata = {
   metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL ?? "https://jaketiendaelectronica.com"
+    process.env.NEXT_PUBLIC_SITE_URL ?? "https://jaketiendaelectronica.com",
   ),
   title: {
     default: "Jake Tienda Electrónica | Audio profesional en Colombia",
@@ -24,7 +22,7 @@ export const metadata: Metadata = {
     "Pioneer DJ",
   ],
   alternates: {
-    canonical: "/",             
+    canonical: "/",
     languages: { "es-CO": "/" },
   },
   openGraph: {
@@ -37,7 +35,7 @@ export const metadata: Metadata = {
     url: "/",
     images: [
       {
-        url: "/favicon.svg",    
+        url: "/favicon.svg",
         width: 1200,
         height: 630,
         alt: "Jake Tienda Electrónica",
@@ -60,7 +58,6 @@ export const metadata: Metadata = {
     icon: "/favicon.svg",
     apple: "/favicon.svg",
   },
-  
 };
 
 export const viewport: Viewport = {

@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     locale: "es_CO",
     images: [
       {
-        url: "/favicong.svg", 
+        url: "/favicong.svg",
         width: 1200,
         height: 630,
         alt: "Jake Tienda Electrónica",
