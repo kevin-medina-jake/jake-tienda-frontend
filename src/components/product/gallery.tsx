@@ -32,6 +32,7 @@ export default function Gallery({
             src={images[imageIndex]?.src}
             alt={images[imageIndex]?.altText || "Product image"}
             // priority={imageIndex === 0}
+            unoptimized
           />
         )}
 
@@ -84,7 +85,7 @@ export default function Gallery({
                     active={isActive}
                     width={80}
                     height={80}
-                    style={{ height: "auto" }} // ✅ Mantiene la proporción
+                    style={{ height: "auto" }}
                   />
                 </button>
               </li>
