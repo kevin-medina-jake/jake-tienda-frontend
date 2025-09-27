@@ -33,10 +33,10 @@ export const ProductCard = ({ product }: { product: Product }) => {
           <Image
             src={product.featuredImage.url ?? "/not-found.png"}
             alt={product.featuredImage.altText || product.title}
-            fill
-            sizes="(min-width: 768px) 25vw, 50vw"
+            width={300}
+            height={300}
             className="object-contain"
-            priority={false}
+            priority
           />
         </header>
         <main>

@@ -6,7 +6,6 @@ import { getCollectionProducts } from "@/lib/shopify";
 
 import type { Metadata } from "next";
 
-// Helper: "controladoras-dj" -> "Controladoras Dj"
 function slugToTitle(slug: string) {
   return slug
     .split("-")
@@ -14,12 +13,12 @@ function slugToTitle(slug: string) {
     .join(" ");
 }
 
-export async function generateMetadata({
-  params,
-}: {
-  params: { collection: string };
+export async function generateMetadata(props: {
+  params: Promise<{ collection: string }>;
 }): Promise<Metadata> {
-  const titleFromSlug = slugToTitle(params.collection);
+  const { collection } = await props.params; // 👈 await aquí
+
+  const titleFromSlug = slugToTitle(collection);
 
   const pageTitle = `${titleFromSlug} | Jake Tienda Electrónica`;
   const description = `Compra ${titleFromSlug} en Jake Tienda Electrónica: parlantes, consolas, controladoras DJ, subwoofers y más. Envío nacional y opciones de financiación.`;
@@ -39,7 +38,7 @@ export async function generateMetadata({
       "jake tienda electrónica",
     ],
     alternates: {
-      canonical: `/collection/${params.collection}`,
+      canonical: `/collection/${collection}`,
     },
     robots: {
       index: true,
@@ -50,7 +49,7 @@ export async function generateMetadata({
       title: pageTitle,
       description,
       type: "website",
-      url: `/collection/${params.collection}`,
+      url: `/collection/${collection}`,
       siteName: "Jake Tienda Electrónica",
       locale: "es_CO",
       images: [
@@ -71,14 +70,14 @@ export async function generateMetadata({
   };
 }
 
-export default async function CategoryPage({
-  params,
-  searchParams,
-}: {
-  params: { collection: string };
-  searchParams?: { [key: string]: string | string[] | undefined };
+export default async function CategoryPage(props: {
+  params: Promise<{ collection: string }>;
+  searchParams?: Promise<{ [key: string]: string | string[] | undefined }>;
 }) {
-  const { sort, after, before, page, title, collection } = searchParams as {
+  const { collection } = await props.params; // 👈 await aquí
+  const searchParams = await props.searchParams; // 👈 await aquí
+
+  const { sort, after, before, page, title } = (searchParams || {}) as {
     [key: string]: string;
   };
 
@@ -88,7 +87,7 @@ export default async function CategoryPage({
   const currentPage = parseInt(page || "1", 10);
 
   const { products, pageInfo } = await getCollectionProducts({
-    collection: params.collection,
+    collection,
     sortKey,
     reverse,
     first: before ? undefined : 18,
@@ -110,7 +109,7 @@ export default async function CategoryPage({
           <Pagination
             pageInfo={pageInfo}
             currentPage={currentPage}
-            searchValue={params.collection}
+            searchValue={collection}
             sort={sort ?? ""}
             collection={{
               title,

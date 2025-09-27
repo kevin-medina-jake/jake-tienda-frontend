@@ -32,6 +32,7 @@ export const Navbar = async () => {
               alt="logo"
               width={100}
               height={50}
+              priority
             />
           </Link>
         </section>
@@ -82,6 +83,7 @@ export const Navbar = async () => {
               alt="logo"
               width={70}
               height={40}
+              priority
             />
           </Link>
 

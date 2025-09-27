@@ -12,17 +12,16 @@ export const metadata = {
 export default async function SearchPage({
   searchParams,
 }: {
-  searchParams?: { [key: string]: string | string[] | undefined };
+  searchParams?: Promise<Record<string, string | string[] | undefined>>;
 }) {
-  const {
-    sort,
-    q: searchValue,
-    after,
-    before,
-    page,
-  } = searchParams as {
-    [key: string]: string;
-  };
+  const sp = await searchParams;
+
+  const sort = (sp?.sort as string) ?? "";
+  const searchValue = (sp?.q as string) ?? "";
+  const after = sp?.after as string | undefined;
+  const before = sp?.before as string | undefined;
+  const page: number = sp?.page ? Number(sp.page) : 1;
+
   const { sortKey, reverse } =
     sorting.find((item) => item.slug === sort) || defaultSort;
 
@@ -37,7 +36,7 @@ export default async function SearchPage({
   });
 
   const resultsText = products.length > 1 ? "resultados" : "resultado";
-  const currentPage = parseInt(page || "1", 10);
+  const currentPage: number = parseInt(String(page || "1"), 10);
 
   return (
     <>
