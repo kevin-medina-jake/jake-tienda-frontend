@@ -17,6 +17,7 @@ const BANCO_BOGOTA_URL =
 const FINANCE_RATE = 0.107;
 
 type Method = "sin_credito" | "addi" | "brilla" | "gora" | "banco_bogota";
+type CreditMethod = Exclude<Method, "sin_credito">;
 
 const METHOD_LABELS: Record<Method, string> = {
   banco_bogota: "Banco de Bogotá",
@@ -28,7 +29,7 @@ const METHOD_LABELS: Record<Method, string> = {
 
 function buildWhatsAppUrl(opts: {
   productName: string;
-  method: Method;
+  method: CreditMethod;
   baseAmount: number;
   currency: string;
   financedAmount?: number;
@@ -49,7 +50,10 @@ function buildWhatsAppUrl(opts: {
 }
 
 export const ProductInfo = ({ product }: { product: Product }) => {
-  const [paymentMethod, setPaymentMethod] = useState<Method>("banco_bogota");
+  // ⬇️ Default ahora es PAGO EN LÍNEA
+  const [paymentMethod, setPaymentMethod] = useState<Method>("sin_credito");
+  // Select de crédito por defecto Banco de Bogotá (no afecta el default de arriba)
+  const [creditMethod, setCreditMethod] = useState<CreditMethod>("banco_bogota");
 
   const baseAmount = useMemo(
     () => parseFloat(product.priceRange.maxVariantPrice.amount),
@@ -57,10 +61,8 @@ export const ProductInfo = ({ product }: { product: Product }) => {
   );
   const currency = product.priceRange.maxVariantPrice.currencyCode;
 
-  // Métodos que muestran precio con recargo (+10.7%)
   const isMarkupMethod = paymentMethod === "addi" || paymentMethod === "brilla";
 
-  // Precio mostrado según método
   const displayAmountNumber = useMemo(
     () =>
       isMarkupMethod
@@ -69,47 +71,45 @@ export const ProductInfo = ({ product }: { product: Product }) => {
     [isMarkupMethod, baseAmount],
   );
 
-  // Precio financiado (para tachar cuando es pago en línea)
   const financingTotalNumber = useMemo(
     () => +(baseAmount * (1 + FINANCE_RATE)).toFixed(2),
     [baseAmount],
   );
 
-  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setPaymentMethod(e.target.value as Method);
-  };
-
-  const action = (() => {
-    if (paymentMethod === "sin_credito") {
-      return { type: "cart" as const };
-    }
-    if (paymentMethod === "banco_bogota") {
-      return {
-        type: "external" as const,
-        href: BANCO_BOGOTA_URL,
-        label: "Solicitar crédito en Banco de Bogotá",
-        icon: <Landmark size={20} />,
-      };
-    }
-    return {
-      type: "whatsapp" as const,
-      href: buildWhatsAppUrl({
-        productName: product.title,
-        method: paymentMethod,
-        baseAmount,
-        currency,
-        financedAmount: isMarkupMethod ? displayAmountNumber : undefined,
-      }),
-      label: "WhatsApp",
-      icon: <MessageCircle size={20} />,
-    };
-  })();
+  const creditAction =
+    creditMethod === "banco_bogota"
+      ? {
+          type: "external" as const,
+          href: BANCO_BOGOTA_URL,
+          label: "Solicitar crédito en Banco de Bogotá",
+          icon: <Landmark size={20} />,
+        }
+      : {
+          type: "whatsapp" as const,
+          href: buildWhatsAppUrl({
+            productName: product.title,
+            method: creditMethod,
+            baseAmount,
+            currency,
+            financedAmount:
+              creditMethod === "addi" || creditMethod === "brilla"
+                ? +(baseAmount * (1 + FINANCE_RATE)).toFixed(2)
+                : undefined,
+          }),
+          label:
+            creditMethod === "addi"
+              ? "Solicitar con Addi (WhatsApp)"
+              : creditMethod === "brilla"
+              ? "Solicitar con Brilla (WhatsApp)"
+              : "Solicitar con Gora (WhatsApp)",
+          icon: <MessageCircle size={20} />,
+        };
 
   return (
     <div className="flex w-full flex-col space-y-6">
       <h1 className="text-3xl font-bold text-gray-900">{product.title}</h1>
 
-      {/* Precio principal */}
+      {/* Precios superiores */}
       <div className="space-y-1">
         {paymentMethod === "sin_credito" && (
           <Price
@@ -130,52 +130,70 @@ export const ProductInfo = ({ product }: { product: Product }) => {
             Descuento del 10.7% pagando en línea
           </p>
         ) : isMarkupMethod ? (
-          <p className="text-xs text-blue-700">
-            Total estimado con financiación
-          </p>
+          <p className="text-xs text-blue-700">Total estimado con financiación</p>
         ) : null}
       </div>
 
       <VariantSelector options={product.options} variants={product.variants} />
 
-      <label className="flex flex-col gap-1 text-sm font-medium">
-        Método de pago
-        <select
-          name="paymentMethod"
-          className="rounded border border-gray-300 p-2"
-          onChange={handleChange}
-          value={paymentMethod}
-        >
-          <optgroup label="Pago sin crédito">
-            <option value="sin_credito">{METHOD_LABELS.sin_credito}</option>
-          </optgroup>
+      {/* === BLOQUE 1: Pago sin crédito + Carrito === */}
+      <div className="flex flex-col gap-3 rounded border border-gray-300 p-3">
+        <div className="flex items-center gap-2">
+          <input
+            type="radio"
+            name="paymentType"
+            value="sin_credito"
+            checked={paymentMethod === "sin_credito"}
+            onChange={() => setPaymentMethod("sin_credito")}
+            className="h-4 w-4"
+            aria-label="Seleccionar pago sin crédito"
+          />
+          <span className="text-sm font-medium">
+            {METHOD_LABELS.sin_credito}
+          </span>
+        </div>
 
-          <optgroup label="Pago con crédito">
-            <option value="addi">{METHOD_LABELS.addi}</option>
-            <option value="brilla">{METHOD_LABELS.brilla}</option>
-            <option value="gora">{METHOD_LABELS.gora}</option>
-            <option value="banco_bogota">{METHOD_LABELS.banco_bogota}</option>
-          </optgroup>
-        </select>
-      </label>
-
-      <div className="flex w-full flex-col gap-4 sm:flex-row">
-        {action.type === "cart" ? (
+        <div className="flex w-full">
           <AddToCart product={product} />
-        ) : (
+        </div>
+      </div>
+
+      {/* === BLOQUE 2: Pago con crédito (select + botón) === */}
+      <div className="flex flex-col gap-3 rounded border border-gray-300 p-3">
+        <label className="text-sm font-medium">Pago con crédito</label>
+
+        <select
+          name="financeMethod"
+          className="rounded border border-gray-300 p-2"
+          value={creditMethod}
+          onChange={(e) => {
+            const val = e.target.value as CreditMethod;
+            setCreditMethod(val);
+            // Refleja la selección en el precio superior
+            setPaymentMethod(val);
+          }}
+        >
+          <option value="banco_bogota">{METHOD_LABELS.banco_bogota}</option>
+          <option value="addi">{METHOD_LABELS.addi}</option>
+          <option value="brilla">{METHOD_LABELS.brilla}</option>
+          <option value="gora">{METHOD_LABELS.gora}</option>
+        </select>
+
+        <div className="flex w-full">
           <Link
-            href={action.href!}
+            href={creditAction.href}
             target="_blank"
             rel="noopener noreferrer"
-            className={`flex w-full items-center justify-center gap-2 rounded-sm p-3 text-center text-white transition ${action.type === "external"
-              ? "bg-blue-600 hover:bg-blue-700"
-              : "bg-green-600 hover:bg-green-700"
-              }`}
+            className={`flex w-full items-center justify-center gap-2 rounded-sm p-3 text-center text-white transition ${
+              creditAction.type === "external"
+                ? "bg-blue-600 hover:bg-blue-700"
+                : "bg-green-600 hover:bg-green-700"
+            }`}
           >
-            {action.icon}
-            {action.label}
+            {creditAction.icon}
+            {creditAction.label}
           </Link>
-        )}
+        </div>
       </div>
     </div>
   );
