@@ -36,6 +36,7 @@ export const CarouselBrands = ({ brands }: { brands: ICategoryCart[] }) => {
                 className="object-contain"
                 priority={idx < brands.length}
                 sizes="(max-width: 768px) 120px, (max-width: 1200px) 160px, 200px"
+                unoptimized
               />
             </Link>
           ))}

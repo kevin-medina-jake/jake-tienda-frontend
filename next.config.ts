@@ -5,12 +5,16 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: "https",
-        hostname: "res.cloudinary.com",
-      },
-      {
-        protocol: "https",
         hostname: "cdn.shopify.com",
       },
+      // {
+      //   protocol: "https",
+      //   hostname: "shopifycdn.net",
+      // },
+      // {
+      //   protocol: "https",
+      //   hostname: "www.jaketiendaelectronica.com",
+      // },
     ],
   },
 
