@@ -46,7 +46,8 @@ export const CarouselHero = ({ hero }: { hero: any[] }) => {
                   alt={p.id}
                   width={1000}
                   height={600}
-                  loading="eager"
+                  priority
+                  unoptimized
                 />
               </Link>
             </SwiperSlide>
