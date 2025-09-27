@@ -37,6 +37,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
             height={300}
             className="object-contain"
             priority
+            unoptimized
           />
         </header>
         <main>
