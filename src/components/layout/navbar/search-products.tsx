@@ -59,11 +59,17 @@ export const SearchProducts = () => {
           href={`/product/${product.handle}`}
           className="flex items-center gap-2 rounded-xs border border-gray-300 p-2"
         >
-          <Image
+          {/* <Image
             src={product?.featuredImage?.url ?? "/not-found.png"}
             alt="logo"
             width={50}
             height={50}
+            unoptimized
+          /> */}
+          <img
+            src={product?.featuredImage?.url ?? "/not-found.png"}
+            alt="Logo"
+            className="size-[50]"
           />
           <div className="text-sm">
             <p className="font-medium">{product.title}</p>
