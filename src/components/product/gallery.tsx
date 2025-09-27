@@ -26,16 +26,16 @@ export default function Gallery({
       <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden">
         {images[imageIndex] && (
           <Image
-            className="h-full w-full object-contain"
+            className="object-contain"
             fill
             sizes="(min-width: 1024px) 66vw, 100vw"
-            src={images[imageIndex]?.src as string}
-            alt={images[imageIndex]?.altText as string}
-            priority={true}
+            src={images[imageIndex]?.src}
+            alt={images[imageIndex]?.altText || "Product image"}
+            // priority={imageIndex === 0}
           />
         )}
 
-        {images.length > 1 ? (
+        {images.length > 1 && (
           <div className="absolute bottom-[15%] flex w-full justify-center">
             <div className="mx-auto flex h-11 items-center rounded-full border border-white bg-neutral-50/80 text-neutral-500 backdrop-blur">
               <button
@@ -61,9 +61,10 @@ export default function Gallery({
               </button>
             </div>
           </div>
-        ) : null}
+        )}
       </div>
-      {images.length > 1 ? (
+
+      {images.length > 1 && (
         <ul className="my-12 flex items-center justify-center gap-2 overflow-x-auto overflow-y-hidden py-1 lg:mb-0">
           {images.map((image, index) => {
             const isActive = index === imageIndex;
@@ -83,13 +84,14 @@ export default function Gallery({
                     active={isActive}
                     width={80}
                     height={80}
+                    style={{ height: "auto" }} // ✅ Mantiene la proporción
                   />
                 </button>
               </li>
             );
           })}
         </ul>
-      ) : null}
+      )}
     </form>
   );
 }

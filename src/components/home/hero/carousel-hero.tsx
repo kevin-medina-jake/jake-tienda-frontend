@@ -46,7 +46,6 @@ export const CarouselHero = ({ hero }: { hero: any[] }) => {
                   alt={p.id}
                   width={1000}
                   height={600}
-                  className="h-full w-full object-cover"
                   loading="eager"
                 />
               </Link>

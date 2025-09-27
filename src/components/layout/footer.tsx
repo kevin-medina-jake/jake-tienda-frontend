@@ -28,8 +28,6 @@ export default function Footer() {
             src={logoImg ?? "/not-found.png"}
             alt="Jake Tienda Electrónica"
             width={160}
-            height={60}
-            className="object-contain"
           />
           <p className="text-center text-sm md:text-left">
             Tu tienda de tecnología y sonido en Popayán. Productos de calidad,

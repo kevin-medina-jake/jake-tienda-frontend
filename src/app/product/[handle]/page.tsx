@@ -16,9 +16,8 @@ export async function generateMetadata({
   params,
 }: {
   params: Promise<{ handle: string }>;
-}): Promise<Metadata> {
+}) {
   const { handle } = await params;
-
   const product = await getProduct(handle);
 
   if (!product) return notFound();
@@ -42,9 +41,9 @@ export async function generateMetadata({
           images: [
             {
               url,
-              width,
-              height,
-              alt,
+              width: width ?? 1200,
+              height: height ?? 630,
+              alt: alt ?? product.title,
             },
           ],
         }
@@ -61,6 +60,7 @@ export default async function ProductPage({
   const product = await getProduct(handle);
 
   if (!product) return notFound();
+
   return (
     <ProductProvider>
       <div className="mx-auto max-w-screen-2xl px-4 pt-2 pb-4">

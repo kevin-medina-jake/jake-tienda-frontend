@@ -29,12 +29,14 @@ export const ProductCard = ({ product }: { product: Product }) => {
       className="group relative h-full w-full overflow-hidden rounded-sm border border-blue-400 p-6 transition hover:border-blue-700"
     >
       <article className="flex h-full flex-col justify-between gap-2 sm:gap-4">
-        <header className="grid aspect-square place-items-center">
+        <header className="relative aspect-square w-full">
           <Image
             src={product.featuredImage.url ?? "/not-found.png"}
-            alt="image"
-            width={300}
-            height={300}
+            alt={product.featuredImage.altText || product.title}
+            fill
+            sizes="(min-width: 768px) 25vw, 50vw"
+            className="object-contain"
+            priority={false}
           />
         </header>
         <main>

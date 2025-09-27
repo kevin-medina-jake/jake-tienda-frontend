@@ -33,7 +33,7 @@ export default function CreditBlock({
           alt={title}
           fill
           className="object-cover"
-          priority
+          // priority
         />
       </div>
 
@@ -48,18 +48,17 @@ export default function CreditBlock({
       </div>
 
       {videoId && (
-  <div className="mt-6 space-y-3">
-    <h4 className="text-lg font-semibold text-black">
-      Video: ¿Cómo funciona {title}?
-    </h4>
-    <LiteYouTube 
-      id={videoId} 
-      title={`Video ${title}`} 
-      aspect="16:9" // 👈 formato tipo short
-    />
-  </div>
-)}
-
+        <div className="mt-6 space-y-3">
+          <h4 className="text-lg font-semibold text-black">
+            Video: ¿Cómo funciona {title}?
+          </h4>
+          <LiteYouTube
+            id={videoId}
+            title={`Video ${title}`}
+            aspect="16:9" // 👈 formato tipo short
+          />
+        </div>
+      )}
 
       <div className="mt-4 flex justify-center">
         <Link

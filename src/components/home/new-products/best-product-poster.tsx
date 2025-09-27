@@ -60,7 +60,7 @@ export default function BestProductPoster({
             src={data.product.image?.url}
             alt={data.product.title}
             fill
-            priority
+            // priority
             sizes="(max-width: 740px) 92vw, (max-width: 1024px) 40vw, 25vw"
             className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.35)] transition-transform duration-300 group-hover:scale-[1.02]"
           />

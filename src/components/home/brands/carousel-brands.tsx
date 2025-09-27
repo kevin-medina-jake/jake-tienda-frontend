@@ -27,15 +27,15 @@ export const CarouselBrands = ({ brands }: { brands: ICategoryCart[] }) => {
             <Link
               key={idx}
               href={brand.path + "?title=Marca" + "&collection=" + brand.title}
-              className="flex h-24 w-48 flex-shrink-0 items-center justify-center transition-transform hover:scale-105"
+              className="relative h-24 w-48 flex-shrink-0 items-center justify-center transition-transform hover:scale-105"
             >
               <Image
                 src={brand.image ?? "/not-found.png"}
                 alt={brand.title}
-                width={160}
-                height={80}
+                fill
                 className="object-contain"
                 priority={idx < brands.length}
+                sizes="(max-width: 768px) 120px, (max-width: 1200px) 160px, 200px"
               />
             </Link>
           ))}
