@@ -35,7 +35,7 @@ export function GridTileImage({
               isInteractive,
           })}
           {...props}
-          unoptimized
+          // unoptimized
         />
       ) : null}
       {label ? (

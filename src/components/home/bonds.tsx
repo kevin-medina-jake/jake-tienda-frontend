@@ -67,7 +67,7 @@ export const Bonds = async () => {
               width={400}
               height={400}
               className="h-full w-full object-cover"
-              unoptimized
+              // unoptimized
             />
           </section>
 

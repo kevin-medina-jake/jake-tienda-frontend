@@ -32,7 +32,7 @@ export default function Gallery({
             src={images[imageIndex]?.src}
             alt={images[imageIndex]?.altText || "Product image"}
             // priority={imageIndex === 0}
-            unoptimized
+            // unoptimized
           />
         )}
 
