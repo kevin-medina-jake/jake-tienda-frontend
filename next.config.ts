@@ -12,6 +12,7 @@ const nextConfig: NextConfig = {
         hostname: "www.jaketiendaelectronica.com",
       },
     ],
+    unoptimized: true,
   },
 
   eslint: {
