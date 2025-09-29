@@ -2,21 +2,20 @@ export const TAGS = {
   collections: "collections",
   products: "products",
   cart: "cart",
-  // metaobjects: "metaobjects",
 };
 
 export type SortFilterItem = {
   title: string;
   slug: string | null;
-  sortKey: "RELEVANCE" | "BEST_SELLING" | "CREATED_AT" | "PRICE";
+  sortKey: "BEST_SELLING" | "CREATED_AT" | "PRICE";
   reverse: boolean;
 };
 
 export const defaultSort: SortFilterItem = {
-  title: "Relevance",
+  title: "Últimas Novedades",
   slug: null,
-  sortKey: "RELEVANCE",
-  reverse: false,
+  sortKey: "CREATED_AT",
+  reverse: true,
 };
 
 export const sorting: SortFilterItem[] = [
@@ -27,12 +26,6 @@ export const sorting: SortFilterItem[] = [
     sortKey: "BEST_SELLING",
     reverse: false,
   }, // asc
-  {
-    title: "Últimas Novedades",
-    slug: "latest-desc",
-    sortKey: "CREATED_AT",
-    reverse: true,
-  },
   {
     title: "Precio: De menor a mayor",
     slug: "price-asc",
