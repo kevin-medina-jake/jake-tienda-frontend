@@ -79,6 +79,8 @@ export async function shopifyFetch<T>({
   variables?: ExtractVariables<T>;
 }): Promise<{ status: number; body: T } | never> {
   try {
+    console.log("---------------------------------------------------------");
+    console.log("endpoint", endpoint);
     const result = await fetch(endpoint, {
       method: "POST",
       headers: {
@@ -794,91 +796,3 @@ export async function getProducts({
     pageInfo: mergedPageInfo,
   };
 }
-
-// export async function getProducts({
-//   query,
-//   reverse,
-//   sortKey,
-// }: {
-//   query?: string;
-//   reverse?: boolean;
-//   sortKey?: string;
-// }): Promise<Product[]> {
-//   if (!query) {
-//     const res = await shopifyFetch<ShopifyProductsOperation>({
-//       query: getProductsQuery,
-//       tags: [TAGS.collections, TAGS.products],
-//       variables: {
-//         query,
-//         reverse,
-//         sortKey,
-//       },
-//     });
-
-//     return reshapeProducts(removeEdgesAndNodes(res.body.data.products));
-//   }
-
-//   const [productsResult, collectionProductsResult] = await Promise.all([
-//     shopifyFetch<any>({
-//       query: getProductsQuery,
-//       tags: [TAGS.collections, TAGS.products],
-//       variables: { query, sortKey, reverse },
-//     }),
-//     shopifyFetch<any>({
-//       query: getCollectionProductsQuery,
-//       tags: [TAGS.collections, TAGS.products],
-//       variables: {
-//         handle: query.toLowerCase().replace(/\s+/g, "-"),
-//         reverse,
-//         sortKey: sortKey === "CREATED_AT" ? "CREATED" : sortKey,
-//       },
-//     }),
-//   ]);
-
-//   const directProducts = reshapeProducts(
-//     productsResult.body.data?.products
-//       ? removeEdgesAndNodes(productsResult.body.data.products)
-//       : [],
-//   );
-
-//   const productsFromCollection = reshapeProducts(
-//     collectionProductsResult.body.data?.collection?.products
-//       ? removeEdgesAndNodes(
-//           collectionProductsResult.body.data.collection.products,
-//         )
-//       : [],
-//   );
-
-//   const allProducts = [...directProducts, ...productsFromCollection];
-//   const uniqueProductsMap = new Map<string, Product>();
-
-//   allProducts.forEach((product) => {
-//     if (!uniqueProductsMap.has(product.id)) {
-//       uniqueProductsMap.set(product.id, product);
-//     }
-//   });
-
-//   return Array.from(uniqueProductsMap.values()) || [];
-// }
-
-// export async function getProducts({
-//   query,
-//   reverse,
-//   sortKey,
-// }: {
-//   query?: string;
-//   reverse?: boolean;
-//   sortKey?: string;
-// }): Promise<Product[]> {
-//   const res = await shopifyFetch<ShopifyProductsOperation>({
-//     query: getProductsQuery,
-//     tags: [TAGS.collections, TAGS.products],
-//     variables: {
-//       query,
-//       reverse,
-//       sortKey,
-//     },
-//   });
-
-//   return reshapeProducts(removeEdgesAndNodes(res.body.data.products));
-// }
