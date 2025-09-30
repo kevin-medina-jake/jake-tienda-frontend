@@ -66,9 +66,6 @@ jake-tienda-frontend/
    Crea un archivo `.env.local` en la raíz del proyecto con las siguientes variables:
 
    ```
-   COMPANY_NAME='Shopify Store Name'
-   TWITTER_CREATOR='Social Handle'
-   TWITTER_SITE='Link'
    SITE_NAME='Shopify Store Name'
    SHOPIFY_REVALIDATION_SECRET='Random Secret'
    SHOPIFY_STOREFRONT_ACCESS_TOKEN='shopify storefront access token'
