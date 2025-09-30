@@ -81,6 +81,8 @@ export async function shopifyFetch<T>({
   try {
     console.log("---------------------------------------------------------");
     console.log("endpoint", endpoint);
+    console.log("SHOPIFY_STORE_DOMAIN:", process.env.SHOPIFY_STORE_DOMAIN);
+
     const result = await fetch(endpoint, {
       method: "POST",
       headers: {
