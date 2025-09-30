@@ -79,9 +79,6 @@ export async function shopifyFetch<T>({
   variables?: ExtractVariables<T>;
 }): Promise<{ status: number; body: T } | never> {
   try {
-    console.log("---------------------------------------------------------");
-    console.log("SHOPIFY_STORE_DOMAIN:", process.env.SHOPIFY_STORE_DOMAIN);
-
     const result = await fetch(endpoint, {
       method: "POST",
       headers: {
