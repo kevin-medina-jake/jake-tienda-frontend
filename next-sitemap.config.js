@@ -1,6 +1,6 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
- // siteUrl: 'http://localhost:3000', // Cámbialo cuando tengas tu dominio final
+ siteUrl: 'https://www.jaketiendaelectronica.com/',
   generateRobotsTxt: true,
   changefreq: 'weekly',
   priority: 0.7,
