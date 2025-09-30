@@ -1,9 +1,17 @@
-  main = ".open-next/worker.js"
-  name = "jake-tienda"
-  compatibility_date = "2025-03-25"
-  compatibility_flags = ["nodejs_compat"]
-  [assets]
-  directory = ".open-next/assets"
-  binding = "ASSETS"
-  [observability.logs]
-  enabled = true
+main = ".open-next/worker.js"
+name = "jake-tienda"
+compatibility_date = "2025-03-25"
+compatibility_flags = ["nodejs_compat"]
+
+[assets]
+directory = ".open-next/assets"
+binding = "ASSETS"
+
+[observability.logs]
+enabled = true
+
+[vars]
+SHOPIFY_STORE_DOMAIN = "tjkn70-jp.myshopify.com"
+SHOPIFY_STOREFRONT_ACCESS_TOKEN = "f4c7dca9f13c5fc8b97a32fadf5f2da4"
+SHOPIFY_REVALIDATION_SECRET = "7dca9f13c5fc8b97a32fadf5f2da4"
+SITE_NAME = "Jake Tienda"
