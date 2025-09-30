@@ -5,13 +5,13 @@
   "scripts": {
     "dev": "next dev",
     "prepare:co-data": "bun ./scripts/fetch-colombia-data.ts",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts",
-    "build": "bunx open-next build",
-    "deploy": "wrangler deploy",
-    "preview": "wrangler dev",
-    "postbuild": "next-sitemap"
+    "postbuild": "next-sitemap",
+    "preview": "opennextjs-cloudflare build && opennextjs-cloudflare preview",
+    "deploy": "opennextjs-cloudflare build && opennextjs-cloudflare deploy",
+    "cf-typegen": "wrangler types --env-interface CloudflareEnv cloudflare-env.d.ts"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.7",
