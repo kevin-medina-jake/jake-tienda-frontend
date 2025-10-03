@@ -10,7 +10,7 @@ Bienvenido al repositorio del frontend de Jake Tienda, una moderna tienda en lí
 - **Diseño Responsive**: Adaptable a todos los dispositivos
 - **Rendimiento Optimizado**: Carga rápida gracias a la generación estática
 - **Carrito de Compras**: Gestión de productos y precios en tiempo real
-- **Integración con Strapi**: Backend headless para la gestión de contenidos
+
 
 ## 🛠️ Estructura del Proyecto
 

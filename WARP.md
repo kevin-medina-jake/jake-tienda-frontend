@@ -4,7 +4,7 @@ This file provides guidance to WARP (warp.dev) when working with code in this re
 
 ## Project Overview
 
-Jake Tienda Electrónica is a Next.js 15 e-commerce application for an electronic/audio equipment store in Colombia. The application features product browsing, filtering, shopping cart functionality, and payment integration with PayU. It uses Strapi CMS as the backend content management system.
+Jake Tienda Electrónica is a Next.js 15 e-commerce application for an electronic/audio equipment store in Colombia. The application features product browsing, filtering, shopping cart functionality, and payment integration with PayU.
 
 ## Development Commands
 
@@ -44,7 +44,7 @@ bun run prepare:co-data
 - **Frontend**: React 19, TypeScript
 - **Styling**: Tailwind CSS 4 with animations
 - **State Management**: Zustand with persistence
-- **Backend Integration**: Strapi CMS via @strapi/client
+
 - **Payment**: PayU integration
 - **Animations**: Framer Motion
 - **Content**: React Markdown with plugins
@@ -53,7 +53,7 @@ bun run prepare:co-data
 ```
 src/
 ├── app/                    # Next.js App Router pages
-│   ├── api/               # API routes (Strapi proxy, PayU)
+│   ├── api/               # API routes (PayU)
 │   ├── about-us/          # About page
 │   ├── brands/            # Brand listing page
 │   ├── categories/        # Category listing page
@@ -70,7 +70,7 @@ src/
 ├── store/                 # Zustand state management
 │   ├── products.ts        # Product filtering state
 │   └── shopping-cart.ts   # Shopping cart state
-├── service/api/           # API service layer for Strapi
+
 ├── types/                 # TypeScript type definitions
 ├── lib/                   # Utility functions and parsers
 └── config/                # Configuration constants
@@ -90,11 +90,11 @@ The application uses Zustand for state management with two main stores:
 - Calculate totals and product counts
 
 ### API Integration
-- **Strapi CMS**: Backend content management via `/src/service/api/strapi.ts`
+
 - **Internal APIs**: Next.js API routes in `/src/app/api/` for:
   - Product search and filtering
   - PayU payment integration
-  - Strapi data proxy endpoints
+
 
 ### Key Features
 - **Product Filtering**: Advanced filtering by categories, brands, price with real-time results
@@ -108,8 +108,7 @@ The application uses Zustand for state management with two main stores:
 
 ### Environment Variables
 Ensure these environment variables are configured:
-- `NEXT_PUBLIC_STRAPI_API_URL`: Strapi backend URL
-- `NEXT_PUBLIC_STRAPI_API_TOKEN`: Strapi API authentication token
+
 - PayU payment gateway credentials (for payment features)
 
 ### Component Organization
@@ -118,14 +117,13 @@ Ensure these environment variables are configured:
 - Each component directory contains related components for that feature
 
 ### API Routes Pattern
-- Internal API routes proxy Strapi requests
-- Located in `/src/app/api/strapi/` for CMS operations
+
 - PayU integration in `/src/app/api/payu/`
 
 ### Type Safety
 - Comprehensive TypeScript types in `/src/types/`
 - Product types include filtering, cart, and display variants
-- API response types match Strapi schema
+
 
 ### State Management Pattern
 - Use Zustand hooks for global state
