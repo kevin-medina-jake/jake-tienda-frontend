@@ -7,14 +7,13 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "cdn.shopify.com",
       },
-      {
-        protocol: "https",
-        hostname: "www.jaketiendaelectronica.com",
-      },
+      // {
+      // protocol: "https",
+      // hostname: "www.jaketiendaelectronica.com",
+      // },
     ],
-    unoptimized: true,
+    // unoptimized: true,
   },
-
   eslint: {
     ignoreDuringBuilds: true,
   },
