@@ -33,6 +33,7 @@ const CardCategory = ({ category }: { category: ICategoryCart }) => {
       className="overflow-hidden border border-gray-100 p-2 transition-all duration-100 ease-in-out hover:border-blue-300 hover:shadow-xs"
     >
       <article className="flex flex-col gap-4 overflow-hidden rounded-sm">
+        {/*
         <div className="aspect-square">
           <Image
             src={category?.image ?? "/not-found.png"}
@@ -40,6 +41,17 @@ const CardCategory = ({ category }: { category: ICategoryCart }) => {
             className="h-full w-full object-cover"
             width={400}
             height={400}
+          />
+        </div>
+        */}
+        <div className="aspect-square">
+          <img
+            src={category?.image ?? "/not-found.png"}
+            alt={category.altText ?? category.title}
+            className="h-full w-full object-cover"
+            width={400}
+            height={400}
+            loading="lazy"
           />
         </div>
 

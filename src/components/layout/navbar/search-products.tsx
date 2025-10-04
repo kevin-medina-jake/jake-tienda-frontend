@@ -66,10 +66,11 @@ export const SearchProducts = () => {
             height={50}
             unoptimized
           /> */}
+
           <img
             src={product?.featuredImage?.url ?? "/not-found.png"}
             alt="Logo"
-            className="size-[50]"
+            className="size-16"
           />
           <div className="text-sm">
             <p className="font-medium">{product.title}</p>

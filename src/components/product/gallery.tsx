@@ -24,6 +24,7 @@ export default function Gallery({
   return (
     <form>
       <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden">
+        {/*
         {images[imageIndex] && (
           <Image
             className="object-contain"
@@ -33,6 +34,18 @@ export default function Gallery({
             alt={images[imageIndex]?.altText || "Product image"}
             // priority={imageIndex === 0}
             // unoptimized
+          />
+        )}
+        */}
+        {images[imageIndex] && (
+          <img
+            className="h-full w-full object-contain"
+            src={images[imageIndex]?.src}
+            alt={images[imageIndex]?.altText || "Product image"}
+            width={550}
+            height={550}
+            loading="lazy"
+            style={{ objectFit: "contain" }}
           />
         )}
 

@@ -28,6 +28,7 @@ export function GridTileImage({
         },
       )}
     >
+      {/*
       {props.src ? (
         <Image
           className={clsx("relative h-full w-full object-contain", {
@@ -36,6 +37,21 @@ export function GridTileImage({
           })}
           {...props}
           // unoptimized
+        />
+      ) : null}
+      */}
+      {props.src ? (
+        <img
+          className={clsx("relative h-full w-full object-contain", {
+            "transition duration-300 ease-in-out group-hover:scale-105":
+              isInteractive,
+          })}
+          src={typeof props.src === "string" ? props.src : undefined}
+          alt={props.alt ?? "Image"}
+          width={props.width ?? 400}
+          height={props.height ?? 400}
+          loading="lazy"
+          style={{ objectFit: "contain" }}
         />
       ) : null}
       {label ? (
