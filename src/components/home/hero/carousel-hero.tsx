@@ -47,8 +47,16 @@ export const CarouselHero = ({ hero }: { hero: any[] }) => {
                   width={1000}
                   height={600}
                   priority
-                  // unoptimized
                 />
+
+                {/* <img
+                  src={p?.image?.image?.url ?? "not-found.png"}
+                  alt={p.id}
+                  width={1000}
+                  height={600}
+                  loading="lazy"
+                  style={{ objectFit: "cover" }}
+                /> */}
               </Link>
             </SwiperSlide>
           ))}

@@ -4,7 +4,6 @@ import { Dialog, Transition } from "@headlessui/react";
 import { Fragment, useEffect, useRef, useState } from "react";
 import { useCart } from "./cart-context";
 import { createUrl } from "@/lib/utils";
-import Image from "next/image";
 import Link from "next/link";
 import Price from "../price";
 import OpenCart from "./open-cart";
@@ -135,7 +134,7 @@ export default function CartModal() {
                             </div>
                             <div className="flex flex-row">
                               <div className="relative h-16 w-16 overflow-hidden rounded-md border border-neutral-300 bg-neutral-300">
-                                <Image
+                                <img
                                   className="h-full w-full object-cover"
                                   width={64}
                                   height={64}
@@ -146,6 +145,8 @@ export default function CartModal() {
                                   src={
                                     item.merchandise.product.featuredImage.url
                                   }
+                                  loading="lazy"
+                                  style={{ objectFit: "cover" }}
                                 />
                               </div>
                               <Link

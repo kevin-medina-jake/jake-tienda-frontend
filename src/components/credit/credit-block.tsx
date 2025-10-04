@@ -1,7 +1,7 @@
 "use client";
 
 import { ReactElement } from "react";
-import Image, { StaticImageData } from "next/image";
+import { StaticImageData } from "next/image";
 import Link from "next/link";
 import CreditCard from "./credit-card";
 import LiteYouTube from "@/components/common/lite-youtube";
@@ -28,12 +28,11 @@ export default function CreditBlock({
   return (
     <section className="space-y-6">
       <div className="relative h-64 w-full overflow-hidden rounded-xl shadow-lg">
-        <Image
-          src={image ?? "/not-found.png"}
+        <img
+          src={typeof image.src === "string" ? image.src : "/not-found.png"}
           alt={title}
-          fill
-          className="object-cover"
-          // priority
+          className="h-full w-full object-cover"
+          style={{ objectFit: "cover" }}
         />
       </div>
 
@@ -52,11 +51,7 @@ export default function CreditBlock({
           <h4 className="text-lg font-semibold text-black">
             Video: ¿Cómo funciona {title}?
           </h4>
-          <LiteYouTube
-            id={videoId}
-            title={`Video ${title}`}
-            aspect="16:9" // 👈 formato tipo short
-          />
+          <LiteYouTube id={videoId} title={`Video ${title}`} aspect="16:9" />
         </div>
       )}
 
