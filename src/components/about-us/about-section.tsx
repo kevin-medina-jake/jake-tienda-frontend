@@ -12,8 +12,7 @@ export default function AboutSection() {
             typeof bannerImg.src === "string" ? bannerImg.src : "/not-found.png"
           }
           alt="Jake Tienda Electrónica - Banner principal"
-          className="h-auto w-full object-cover"
-          style={{ objectFit: "cover" }}
+          className="h-full w-full object-cover object-center"
         />
       </div>
 

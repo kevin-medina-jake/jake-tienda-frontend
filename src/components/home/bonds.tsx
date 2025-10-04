@@ -42,7 +42,7 @@ const bonds = [
     id: "4",
     title: "Cursos Online de DJ (100% Gratis)",
     list: [
-      "Curso DJ Principiante",
+      "Curso DJ Principiante.",
       "Curso de Virtual DJ & Traktor.",
       "Curso DJ Básico.",
     ],
