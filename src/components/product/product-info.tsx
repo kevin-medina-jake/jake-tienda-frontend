@@ -16,13 +16,12 @@ const BANCO_BOGOTA_URL =
 
 const FINANCE_RATE = 0.107;
 
-type Method = "sin_credito" | "addi" | "brilla" | "gora" | "banco_bogota";
+type Method = "sin_credito" | "brilla" | "gora" | "banco_bogota";
 type CreditMethod = Exclude<Method, "sin_credito">;
 
 const METHOD_LABELS: Record<Method, string> = {
   banco_bogota: "Banco de Bogotá",
-  sin_credito: "Pago en línea (Tarjeta • PSE • Nequi)",
-  addi: "Addi",
+  sin_credito: "Paga con ( ADDI • Tarjeta • PSE • Nequi )",
   brilla: "Brilla",
   gora: "Gora",
 };
@@ -40,20 +39,19 @@ function buildWhatsAppUrl(opts: {
   let body =
     `Hola, estoy interesado en el producto "${productName}" ` +
     `y quiero pagarlo con ${methodLabel}. ` +
-    `Precio de lista: ${baseAmount.toLocaleString("es-CO", { style: "currency", currency })}.`;
+    `Precio de lista: ${baseAmount.toLocaleString("es-CO", { style: "currency", currency })}`;
 
   if (financedAmount) {
-    body += ` Total estimado con financiación (10.7%): ${financedAmount.toLocaleString("es-CO", { style: "currency", currency })}.`;
+    body += ` Total estimado con financiación (10.7%): ${financedAmount.toLocaleString("es-CO", { style: "currency", currency })}`;
   }
 
   return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(body)}`;
 }
 
 export const ProductInfo = ({ product }: { product: Product }) => {
-  // ⬇️ Default ahora es PAGO EN LÍNEA
   const [paymentMethod, setPaymentMethod] = useState<Method>("sin_credito");
-  // Select de crédito por defecto Banco de Bogotá (no afecta el default de arriba)
-  const [creditMethod, setCreditMethod] = useState<CreditMethod>("banco_bogota");
+  const [creditMethod, setCreditMethod] =
+    useState<CreditMethod>("banco_bogota");
 
   const baseAmount = useMemo(
     () => parseFloat(product.priceRange.maxVariantPrice.amount),
@@ -61,7 +59,7 @@ export const ProductInfo = ({ product }: { product: Product }) => {
   );
   const currency = product.priceRange.maxVariantPrice.currencyCode;
 
-  const isMarkupMethod = paymentMethod === "addi" || paymentMethod === "brilla";
+  const isMarkupMethod = paymentMethod === "brilla";
 
   const displayAmountNumber = useMemo(
     () =>
@@ -92,14 +90,12 @@ export const ProductInfo = ({ product }: { product: Product }) => {
             baseAmount,
             currency,
             financedAmount:
-              creditMethod === "addi" || creditMethod === "brilla"
+              creditMethod === "brilla"
                 ? +(baseAmount * (1 + FINANCE_RATE)).toFixed(2)
                 : undefined,
           }),
           label:
-            creditMethod === "addi"
-              ? "Solicitar con Addi (WhatsApp)"
-              : creditMethod === "brilla"
+            creditMethod === "brilla"
               ? "Solicitar con Brilla (WhatsApp)"
               : "Solicitar con Gora (WhatsApp)",
           icon: <MessageCircle size={20} />,
@@ -130,7 +126,9 @@ export const ProductInfo = ({ product }: { product: Product }) => {
             Descuento del 10.7% pagando en línea
           </p>
         ) : isMarkupMethod ? (
-          <p className="text-xs text-blue-700">Total estimado con financiación</p>
+          <p className="text-xs text-blue-700">
+            Total estimado con financiación
+          </p>
         ) : null}
       </div>
 
@@ -169,12 +167,10 @@ export const ProductInfo = ({ product }: { product: Product }) => {
           onChange={(e) => {
             const val = e.target.value as CreditMethod;
             setCreditMethod(val);
-            // Refleja la selección en el precio superior
             setPaymentMethod(val);
           }}
         >
           <option value="banco_bogota">{METHOD_LABELS.banco_bogota}</option>
-          <option value="addi">{METHOD_LABELS.addi}</option>
           <option value="brilla">{METHOD_LABELS.brilla}</option>
           <option value="gora">{METHOD_LABELS.gora}</option>
         </select>
