@@ -24,19 +24,6 @@ export default function Gallery({
   return (
     <form>
       <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden">
-        {/*
-        {images[imageIndex] && (
-          <Image
-            className="object-contain"
-            fill
-            sizes="(min-width: 1024px) 66vw, 100vw"
-            src={images[imageIndex]?.src}
-            alt={images[imageIndex]?.altText || "Product image"}
-            // priority={imageIndex === 0}
-            // unoptimized
-          />
-        )}
-        */}
         {images[imageIndex] && (
           <img
             className="h-full w-full object-contain"

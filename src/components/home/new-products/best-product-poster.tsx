@@ -56,14 +56,6 @@ export default function BestProductPoster({
         </header>
 
         <div className="relative mx-auto mt-2 aspect-[5/4] w-[92%] flex-1 sm:aspect-[4/3] lg:aspect-[16/9]">
-          {/* <Image
-            src={data.product.image?.url}
-            alt={data.product.title}
-            fill
-            // priority
-            sizes="(max-width: 740px) 92vw, (max-width: 1024px) 40vw, 25vw"
-            className="object-contain drop-shadow-[0_20px_40px_rgba(0,0,0,0.35)] transition-transform duration-300 group-hover:scale-[1.02]"
-          /> */}
           <img
             src={data.product.image?.url}
             alt={data.product.title}

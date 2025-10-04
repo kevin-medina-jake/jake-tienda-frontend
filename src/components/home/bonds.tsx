@@ -1,5 +1,4 @@
 import Link from "next/link";
-import Image from "next/image";
 
 import { BookText, Clapperboard, Laptop, Music } from "lucide-react";
 
@@ -61,16 +60,6 @@ export const Bonds = async () => {
       <div className="col-span-1 sm:col-span-2 lg:col-span-4">
         <div className="flex flex-col gap-4 rounded-sm bg-gradient-to-br from-blue-800 to-blue-600 p-4 md:flex-row md:p-8">
           <section className="max-w-2xl">
-            {/*
-            <Image
-              src={banner?.product?.featuredImage?.url}
-              alt={banner?.title}
-              width={400}
-              height={400}
-              className="h-full w-full object-cover"
-              // unoptimized
-            />
-            */}
             <img
               src={banner?.product?.featuredImage?.url}
               alt={banner?.title}

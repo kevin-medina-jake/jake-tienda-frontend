@@ -30,17 +30,6 @@ export const ProductCard = ({ product }: { product: Product }) => {
     >
       <article className="flex h-full flex-col justify-between gap-2 sm:gap-4">
         <header className="relative aspect-square w-full">
-          {/*
-          <Image
-            src={product.featuredImage.url ?? "/not-found.png"}
-            alt={product.featuredImage.altText || product.title}
-            width={300}
-            height={300}
-            className="object-contain"
-            priority
-            // unoptimized
-          />
-          */}
           <img
             src={product.featuredImage.url ?? "/not-found.png"}
             alt={product.featuredImage.altText || product.title}
