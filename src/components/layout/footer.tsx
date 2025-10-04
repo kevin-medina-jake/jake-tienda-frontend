@@ -1,7 +1,5 @@
 "use client";
 
-import Image from "next/image";
-
 import logoImg from "@/assets/images/logo.png";
 
 import { MapPin, Phone, Mail, Facebook, Instagram } from "lucide-react";
@@ -24,12 +22,13 @@ export default function Footer() {
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 md:grid-cols-4 md:items-start">
         {/* Logo y descripción */}
         <div className="flex flex-col items-center space-y-3 md:items-start">
-          <Image
-            src={logoImg ?? "/not-found.png"}
+          <img
+            src={logoImg.src ?? "/not-found.png"}
             alt="Jake Tienda Electrónica"
             width={160}
             height={60}
-            priority
+            loading="lazy"
+            style={{ objectFit: "contain" }}
           />
           <p className="text-center text-sm md:text-left">
             Tu tienda de tecnología y sonido en Popayán. Productos de calidad,
