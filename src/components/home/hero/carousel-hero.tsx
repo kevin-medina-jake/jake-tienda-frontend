@@ -41,22 +41,22 @@ export const CarouselHero = ({ hero }: { hero: any[] }) => {
                 href={`/product/${p.handle}`}
                 className="block h-full w-full"
               >
-                <Image
+                {/* <Image
                   src={p?.image?.image?.url ?? "not-found.png"}
                   alt={p.id}
                   width={1000}
                   height={600}
                   priority
-                />
+                /> */}
 
-                {/* <img
+                <img
                   src={p?.image?.image?.url ?? "not-found.png"}
                   alt={p.id}
                   width={1000}
                   height={600}
-                  loading="lazy"
+                  loading="eager"
                   style={{ objectFit: "cover" }}
-                /> */}
+                />
               </Link>
             </SwiperSlide>
           ))}
