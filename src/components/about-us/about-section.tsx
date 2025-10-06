@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+// import Image from "next/image";
 
 import bannerImg from "@/assets/images/fondo 4.jpg";
 import founderImg from "@/assets/images/Kevin.jpeg";
@@ -9,11 +9,16 @@ export default function AboutSection() {
   return (
     <div className="flex flex-col space-y-16 pt-10 sm:pt-0">
       <div className="relative hidden h-64 w-full overflow-hidden md:block md:h-96">
-        <Image
+        {/* <Image
           src={bannerImg ?? "/not-found.png"}
           alt="Jake Tienda Electrónica - Banner principal"
           fill
           className="h-auto object-cover"
+        /> */}
+        <img
+          src={bannerImg.src ?? "/not-found.png"}
+          alt="Jake Tienda Electrónica - Banner principal"
+          className="h-full w-full object-cover"
         />
       </div>
 
@@ -47,12 +52,17 @@ export default function AboutSection() {
               animation: "pulseFadeIn 1.5s ease-out forwards",
             }}
           >
-            <Image
+            {/* <Image
               src={founderImg ?? "/not-found.png"}
               alt="Fundador de Jake Tienda Electrónica"
               fill
               sizes="(max-width: 1024px) 100vw, 50vw"
               className="h-auto scale-105 object-cover"
+            /> */}
+            <img
+              src={founderImg.src ?? "/not-found.png"}
+              alt="Fundador de Jake Tienda Electrónica"
+              className="h-full w-full scale-105 object-cover"
             />
             <style jsx>{`
               @keyframes pulseFadeIn {

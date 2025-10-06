@@ -1,11 +1,13 @@
 import clsx from "clsx";
-import Image from "next/image";
+// import Image from "next/image";
 import Label from "../label";
 
 export function GridTileImage({
   isInteractive = true,
   active,
   label,
+  src,
+  alt,
   ...props
 }: {
   isInteractive?: boolean;
@@ -16,7 +18,12 @@ export function GridTileImage({
     currencyCode: string;
     position?: "bottom" | "center";
   };
-} & React.ComponentProps<typeof Image>) {
+  src?: string;
+  alt?: string;
+  width?: number;
+  height?: number;
+  style?: React.CSSProperties;
+}) {
   return (
     <div
       className={clsx(
@@ -28,14 +35,22 @@ export function GridTileImage({
         },
       )}
     >
-      {props.src ? (
-        <Image
+      {src ? (
+        // <Image
+        //   className={clsx("relative h-full w-full object-contain", {
+        //     "transition duration-300 ease-in-out group-hover:scale-105":
+        //       isInteractive,
+        //   })}
+        //   {...props}
+        //   // unoptimized
+        // />
+        <img
+          src={src}
+          alt={alt}
           className={clsx("relative h-full w-full object-contain", {
             "transition duration-300 ease-in-out group-hover:scale-105":
               isInteractive,
           })}
-          {...props}
-          // unoptimized
         />
       ) : null}
       {label ? (

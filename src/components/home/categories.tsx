@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+// import Image from "next/image";
 
 import { ICategoryCart } from "@/types/category";
 import { getCollectionCategoriesAndBrands } from "@/lib/shopify";
@@ -34,12 +34,17 @@ const CardCategory = ({ category }: { category: ICategoryCart }) => {
     >
       <article className="flex flex-col gap-4 overflow-hidden rounded-sm">
         <div className="aspect-square">
-          <Image
+          {/* <Image
             src={category?.image ?? "/not-found.png"}
             alt={category.altText ?? category.title}
             className="h-full w-full object-cover"
             width={400}
             height={400}
+          /> */}
+          <img
+            src={category?.image ?? "/not-found.png"}
+            alt={category.altText ?? category.title}
+            className="h-full w-full object-cover"
           />
         </div>
 

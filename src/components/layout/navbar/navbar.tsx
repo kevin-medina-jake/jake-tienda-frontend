@@ -1,5 +1,5 @@
 import Link from "next/link";
-import Image from "next/image";
+// import Image from "next/image";
 
 import Logo from "@/assets/logo/image.png";
 import { ChevronDown } from "lucide-react";
@@ -27,12 +27,17 @@ export const Navbar = async () => {
       <nav className="max-w-8xl fixed top-0 left-1/2 z-50 hidden h-[100px] w-full -translate-x-1/2 transform gap-4 border-b border-transparent bg-transparent px-4 pt-2 backdrop-blur-sm transition-all duration-300 ease-in-out hover:border-gray-300 hover:bg-white/95 sm:flex">
         <section className="flex items-center">
           <Link href="/">
-            <Image
+            {/* <Image
               src={Logo ?? "/not-found.png"}
               alt="logo"
               width={100}
               height={50}
               priority
+            /> */}
+            <img
+              src={Logo.src ?? "/not-found.png"}
+              alt="logo"
+              className="h-[50px] w-[100px]"
             />
           </Link>
         </section>
@@ -78,12 +83,17 @@ export const Navbar = async () => {
           </div>
 
           <Link href="/">
-            <Image
+            {/* <Image
               src={Logo ?? "/not-found.png"}
               alt="logo"
               width={70}
               height={40}
               priority
+            /> */}
+            <img
+              src={Logo.src ?? "/not-found.png"}
+              alt="logo"
+              className="h-[40px] w-[70px]"
             />
           </Link>
 

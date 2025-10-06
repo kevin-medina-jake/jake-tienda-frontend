@@ -2,7 +2,7 @@ import Link from "next/link";
 import Grid from "../grid";
 import { Product } from "@/lib/shopify/types";
 import { GridTileImage } from "../grid/tile";
-import Image from "next/image";
+// import Image from "next/image";
 import Price from "../price";
 
 export default function ProductGridItems({
@@ -30,7 +30,7 @@ export const ProductCard = ({ product }: { product: Product }) => {
     >
       <article className="flex h-full flex-col justify-between gap-2 sm:gap-4">
         <header className="relative aspect-square w-full">
-          <Image
+          {/* <Image
             src={product.featuredImage.url ?? "/not-found.png"}
             alt={product.featuredImage.altText || product.title}
             width={300}
@@ -38,6 +38,11 @@ export const ProductCard = ({ product }: { product: Product }) => {
             className="object-contain"
             priority
             // unoptimized
+          /> */}
+          <img
+            src={product.featuredImage.url ?? "/not-found.png"}
+            alt={product.featuredImage.altText || product.title}
+            className="h-[300px] w-[300px] object-contain"
           />
         </header>
         <main>

@@ -1,6 +1,6 @@
 "use client";
 
-import Image from "next/image";
+// import Image from "next/image";
 
 import logoImg from "@/assets/images/logo.png";
 
@@ -24,12 +24,17 @@ export default function Footer() {
       <div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 md:grid-cols-4 md:items-start">
         {/* Logo y descripción */}
         <div className="flex flex-col items-center space-y-3 md:items-start">
-          <Image
+          {/* <Image
             src={logoImg ?? "/not-found.png"}
             alt="Jake Tienda Electrónica"
             width={160}
             height={60}
             priority
+          /> */}
+          <img
+            src={logoImg.src ?? "/not-found.png"}
+            alt="Jake Tienda Electrónica"
+            className="h-[60px] w-[160px]"
           />
           <p className="text-center text-sm md:text-left">
             Tu tienda de tecnología y sonido en Popayán. Productos de calidad,

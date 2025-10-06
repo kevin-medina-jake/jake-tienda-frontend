@@ -1,7 +1,7 @@
 "use client";
 
 import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/outline";
-import Image from "next/image";
+// import Image from "next/image";
 import { GridTileImage } from "../grid/tile";
 import { useProduct, useUpdateURL } from "./product-context";
 
@@ -25,14 +25,19 @@ export default function Gallery({
     <form>
       <div className="relative aspect-square h-full max-h-[550px] w-full overflow-hidden">
         {images[imageIndex] && (
-          <Image
-            className="object-contain"
-            fill
-            sizes="(min-width: 1024px) 66vw, 100vw"
+          // <Image
+          //   className="object-contain"
+          //   fill
+          //   sizes="(min-width: 1024px) 66vw, 100vw"
+          //   src={images[imageIndex]?.src}
+          //   alt={images[imageIndex]?.altText || "Product image"}
+          //   // priority={imageIndex === 0}
+          //   // unoptimized
+          // />
+          <img
             src={images[imageIndex]?.src}
             alt={images[imageIndex]?.altText || "Product image"}
-            // priority={imageIndex === 0}
-            // unoptimized
+            className="h-full w-full object-contain"
           />
         )}
 
