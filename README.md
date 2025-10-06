@@ -69,7 +69,7 @@ jake-tienda-frontend/
    COMPANY_NAME='Shopify Store Name'
    TWITTER_CREATOR='Social Handle'
    TWITTER_SITE='Link'
-   SITE_NAME='Shopify Store Name'
+   NAME_WEB='Shopify Store Name'
    SHOPIFY_REVALIDATION_SECRET='Random Secret'
    SHOPIFY_STOREFRONT_ACCESS_TOKEN='shopify storefront access token'
    SHOPIFY_STORE_DOMAIN='shopify admin store domain'
