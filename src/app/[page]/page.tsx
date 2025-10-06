@@ -1,4 +1,6 @@
-import ViewMarkdown from "@/components/ViewMarkdown";
+export const runtime = "edge";
+
+// import ViewMarkdown from "@/components/ViewMarkdown";
 import { getPage } from "@/lib/shopify";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -39,7 +41,7 @@ export default async function Page({
     <>
       <h1 className="mb-8 text-5xl font-bold">{page.title}</h1>
 
-      <ViewMarkdown text={page.body as string} />
+      {/* <ViewMarkdown text={page.body as string} /> */}
 
       <p className="text-sm italic">
         {`Este documento fue actualizado por última vez el ${new Intl.DateTimeFormat(

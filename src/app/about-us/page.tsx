@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 export const metadata = {
   title: "Sobre nosotros | Jake Tienda Electrónica",
   description:

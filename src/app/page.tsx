@@ -6,6 +6,8 @@ import { NewProducts } from "@/components/home/new-products/new-products";
 import { Categories } from "@/components/home/categories";
 import { Brands } from "@/components/home/brands/brands";
 
+export const runtime = "edge";
+
 export const metadata: Metadata = {
   title:
     "Jake Tienda Electrónica | Controladoras, Consolas, Parlantes, Subwoofers y Tecnología en Colombia",
