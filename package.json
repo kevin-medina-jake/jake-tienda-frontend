@@ -8,7 +8,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "postbuild": "next-sitemap"
+    "postbuild": "next-sitemap",
+    "pages:build": "npx @cloudflare/next-on-pages"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.7",
@@ -22,9 +23,6 @@
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-lite-youtube-embed": "^2.5.2",
-    "react-markdown": "^10.1.0",
-    "rehype-raw": "^7.0.0",
-    "remark-gfm": "^4.0.1",
     "swiper": "^11.2.10",
     "tailwindcss-animated": "^2.0.0",
     "use-debounce": "^10.0.5",
