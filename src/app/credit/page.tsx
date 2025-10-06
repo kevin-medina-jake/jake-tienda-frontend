@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 export const metadata = {
   title: "Compra a crédito | Jake Tienda Electrónica",
   description:

@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { searchProducts } from "@/lib/shopify";
 import { NextResponse } from "next/server";
 

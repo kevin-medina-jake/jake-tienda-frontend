@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { Pagination } from "@/components/common/pagination";
 import Grid from "@/components/grid";
 import ProductGridItems from "@/components/layout/product-grid-items";
